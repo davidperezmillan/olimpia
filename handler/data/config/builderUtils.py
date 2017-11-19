@@ -9,7 +9,7 @@ from handler.data.config.pluginsBuilder import Plugins
 from handler.data.config.configBuilder import Config
 
 from exception.AirtrapException import AirtrapException
-import conf.constantes as cons
+import utilities.constantes as cons
 
 
 def allConfig(logger=None):

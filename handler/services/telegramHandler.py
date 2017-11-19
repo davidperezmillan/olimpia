@@ -17,7 +17,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from beans.databeans import ChatIdEntry
-import conf.constantes as cons
+import utilities.constantes as cons
 
 
 basepathlog = cons.basepathlog

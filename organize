@@ -5,7 +5,7 @@ import fnmatch
 import logging
 from logging.handlers import RotatingFileHandler
 import argparse
-import conf.constantes as cons
+import utilities.constantes as cons
 
 from handler.organizeHandler import Organize
 

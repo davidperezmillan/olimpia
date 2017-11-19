@@ -23,7 +23,7 @@ from sqlalchemy import (
 )
 
 
-import conf.constantes as cons
+import utilities.constantes as cons
  
 basepathlog = cons.basepathlog
 loggername = 'airtrap'

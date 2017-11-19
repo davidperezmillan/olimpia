@@ -4,7 +4,7 @@ import sys, os, re, glob
 import fnmatch
 import logging
 from logging.handlers import RotatingFileHandler
-import conf.constantes as cons
+import utilities.constantes as cons
 
 reload(sys)  
 sys.setdefaultencoding('utf8')

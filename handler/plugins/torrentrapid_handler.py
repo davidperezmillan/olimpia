@@ -12,7 +12,7 @@ from beans.pluginsBeans import ResponsePlugin
 import utilities.utiles as utilesplugins
 
 
-import conf.constantes as cons
+import utilities.constantes as cons
 
 basepathlog = cons.basepathlogplugins
 loggername = 'torrentrapid_handler'

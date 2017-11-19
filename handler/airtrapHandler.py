@@ -17,7 +17,7 @@ from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBea
 # Custom Exception 
 from exception.AirtrapException import AirtrapException
 
-import conf.constantes as cons
+import utilities.constantes as cons
 from handler.organizeHandler import Organize
 
 

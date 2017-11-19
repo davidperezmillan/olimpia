@@ -5,7 +5,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 import utilities.utiles as utiles
-import conf.constantes as cons
+import utilities.constantes as cons
 
 basepathlog = cons.basepathlog
 loggername = 'pluginsBuilder'

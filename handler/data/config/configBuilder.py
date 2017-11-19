@@ -6,7 +6,7 @@ from logging.handlers import RotatingFileHandler
 
 import utilities.utiles as utiles
 from exception.AirtrapException import AirtrapException
-import conf.constantes as cons
+import utilities.constantes as cons
 
 basepathlog = cons.basepathlog
 loggername = 'configbuilder'
