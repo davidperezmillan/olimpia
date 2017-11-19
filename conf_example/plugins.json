@@ -1,0 +1,26 @@
+{
+    "pathtolib": "handler.plugins",
+    "plugins": {
+        "newpct1": {
+            "file": "newpct1_handler",
+            "clazz": "Newpct1HandlerClass"
+        },
+        "divxatope1": {
+            "file": "divxatope1_handler",
+            "clazz": "Divxatope1HandlerClass"
+        },
+        "series_torrents": {
+            "file": "series_torrents_handler",
+            "clazz": "Series_torrentsHandlerClass"
+        },
+        "mejortorrent": {
+            "file": "mejortorrent_handler",
+            "clazz": "MejorTorrentHandlerClass"
+        },
+        "torrentrapid": {
+            "file": "torrentrapid_handler",
+            "clazz": "TorrentRapidHandlerClass"
+        }
+    }
+
+}
