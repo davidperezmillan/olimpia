@@ -1,3 +1,0 @@
-2017-11-04 08:15:22,878 [INFO] - torrentrapid_handler - torrentrapid_handler.py:260 -  ---> Processando con el plugin .... title=This is us epstart=HDS02E00 epend=HDS99E99 -- True
-2017-11-04 08:15:22,881 [INFO] - torrentrapid_handler - torrentrapid_handler.py:112 - Buscamos {'q': '"This is us"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Descendente'}
-2017-11-04 08:15:27,957 [WARNING] - torrentrapid_handler - torrentrapid_handler.py:141 - No encontramos This is us/1469, no descargamos nada
