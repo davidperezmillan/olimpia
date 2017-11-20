@@ -5,15 +5,15 @@
             "file": "newpct1_handler",
             "clazz": "Newpct1HandlerClass"
         },
-        "divxatope1": {
+        "__divxatope1": {
             "file": "divxatope1_handler",
             "clazz": "Divxatope1HandlerClass"
         },
-        "series_torrents": {
+        "__series_torrents": {
             "file": "series_torrents_handler",
             "clazz": "Series_torrentsHandlerClass"
         },
-        "mejortorrent": {
+        "__mejortorrent": {
             "file": "mejortorrent_handler",
             "clazz": "MejorTorrentHandlerClass"
         },
