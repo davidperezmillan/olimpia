@@ -2,7 +2,7 @@
     "templates": {
         "torrent_server": {
             "torrent_active": true,
-            "requirements": { "space_disk": 50000000 },
+            "requirements": { "space_disk": 999999999 },
             "transmission": {
                 "host": "[[url]]",
                 "port": "[[port]]",
@@ -12,8 +12,8 @@
                     "paused": false
                 },
                 "custom_options": {
-                    "download_dir_path": "/media/alt_b/series",
-                    "download_dir_path_film": "/media/alt_a/videos/peliculas"
+                    "download_dir_path": "[[download_dir_path]]",
+                    "download_dir_path_film": "[[download_dir_path_film]]"
                 }
             }
         },
@@ -21,25 +21,21 @@
         "__plugins_active": ["torrentrapid"],
         "telegram_client": {
             "telegram_active": true,
-            "token": "135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y",
+            "token": "[[token]]",
             "recipients": {
-                "__fullnames": [
-                    ["David", "Perez Millan"],["Otro","usuario de telegram"]
-                    
-                ],
                 "fullnames": [
-                    ["David", "Perez Millan"]
+                    ["[[name]]", "[[surnames]]"]
                     
                 ],
-                "__globals": [
-                    "Down"
+                "__groups": [
+                    "[[groups]]"
                 ]
             }
         },
         "organize_service":{
             "organize_active": true,
-            "data_path":"/media/alt_b/series",
-            "mirror_path":"/media/alt_b/mirror/"
+            "data_path":"[[data_path]]",
+            "mirror_path":"[[mirror_path]]]"
         }
     }
 }
