@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sys, os, re, glob
+import sys, os
+import utilities.installer as installer
+installer.installImportNeed()
+
+import re, glob
 import fnmatch
 import logging
 from logging.handlers import RotatingFileHandler

@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import sys, os
+import utilities.installer as installer
+installer.installImportNeed()
+
+
 import time
 import importlib
 import logging
