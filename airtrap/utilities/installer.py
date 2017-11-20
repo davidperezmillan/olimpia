@@ -39,7 +39,7 @@ def installImportNeed():
         except ImportError as e:
             install(iNeeds)
 
-
+'''
 def isImportNeedInstall():
     for iNeeds in importNeeds:
         try:
@@ -51,7 +51,7 @@ def isImportNeedInstall():
     print __prettyPrintArray("Lista de paquetes necesarios, no instalados \n\r", "\n\rNecesitamos que sean instalados", responseImportNeeds)
     
     return responseImportNeeds
-
+'''
     
 
 
