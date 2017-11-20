@@ -5,12 +5,12 @@ import socket
 
 global basepath
 basepathswitch = {
-    "davidperezmillan-olimpia-5687265" : "/home/ubuntu/conf",
-    "alpha_server":"/home/david/script/conf/airtrap"
+    "davidperezmillan-olimpia-5687265" : "/home/ubuntu/conf/airtrap/",
+    "alpha_server":"/home/david/script/conf/airtrap/"
     }
 basepathlogswitch = {
-    "davidperezmillan-olimpia-5687265" : "/home/ubuntu/logs",
-    "alpha_server":"/home/david/script/logs/airtrap"
+    "davidperezmillan-olimpia-5687265" : "/home/ubuntu/logs/airtrap/",
+    "alpha_server":"/home/david/script/logs/airtrap/"
     }
 
 basepath=basepathswitch[socket.gethostname()]

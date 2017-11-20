@@ -16,7 +16,6 @@ def getMockData():
     
     
 def getdatabase(logger=None, skip=False):
-        # databaseName="handler/data/followingseries.sqlite3"
         database=DatabaseAirTrap(logger=logger)
         lobjData = database.select_noSkip()
         response = []
