@@ -5,9 +5,11 @@ import socket
 
 global basepath
 basepathswitch = {
+    "davidperezmillan-olimpia-5687265" : "/home/ubuntu/conf",
     "alpha_server":"/home/david/script/conf/airtrap"
     }
 basepathlogswitch = {
+    "davidperezmillan-olimpia-5687265" : "/home/ubuntu/logs",
     "alpha_server":"/home/david/script/logs/airtrap"
     }
 
