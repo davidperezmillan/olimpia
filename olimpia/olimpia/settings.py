@@ -13,15 +13,13 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os, sys
 # import constantes as cons
 # Importamos las constantes de airtrap
-sys.path.insert(0, '../../airtrap/utilities/constantes.py')
-import constantes as cons
-
-
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+print os.path.join(BASE_DIR, '../airtrap/utilities')
+sys.path.insert(0, os.path.join(BASE_DIR, '../airtrap/utilities'))
+import constantes as cons
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -124,7 +122,60 @@ USE_L10N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 STATIC_URL = '/static/'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    # 'handlers': {
+    #     'hermes_django': {
+    #         'level':'DEBUG',
+    #         'class':'logging.handlers.RotatingFileHandler',
+    #         'filename': 'logs/hermes_django.log',
+    #         'maxBytes': 1024*1024*5, # 5 MB
+    #         'backupCount': 5,
+    #         'formatter':'standard',
+    #     },  
+    #     'request_handler': {
+    #         'level':'DEBUG',
+    #         'class':'logging.handlers.RotatingFileHandler',
+    #         'filename': 'logs/django_request.log',
+    #         'maxBytes': 1024*1024*5, # 5 MB
+    #         'backupCount': 5,
+    #         'formatter':'standard',
+    #     },
+    #     'console': {
+    #         'level': 'DEBUG',
+    #         'class': 'logging.StreamHandler',
+    #         'formatter':'standard',
+    #     }
+    # },
+    # 'loggers': {
+    #     'airtrap': {
+    #         'handlers': ['console'],
+    #         'level': 'DEBUG',
+    #     },
+    #     'hermes_django': {
+    #         'handlers': ['console', 'hermes_django'],
+    #         'level': 'DEBUG',
+    #     },
+    #     'django.request': {
+    #         'handlers': ['console', 'request_handler'],
+    #         'propagate': False,
+    #         'level': 'DEBUG'
+    #     }
+    # }
+}
