@@ -1,0 +1,81 @@
+{% extends "base_generic.html" %} {% block content %}
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#latest_series_update').dataTable({
+            "order": [
+                [3, "desc"]
+
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            "pageLength": -1,
+            
+            "language": {
+                "url": "/static/mercurio/js/Spanish.json",
+                // "search": "Busqueda: ",
+                // "lengthMenu": "Mostrar _MENU_ registros por página",
+                // "zeroRecords": "No se encontró nada, lo siento",
+                // "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                // "infoEmpty": "No hay registros",
+                // "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                // "paginate":{
+                //     "first":"Primero",
+                //     "previous": "Previo",
+                //     "next": "Siguiente",
+                //     "last":"Ultimo",
+                // },
+            },
+            
+            "columnDefs": [{
+                "targets": 4,
+                "orderable": false
+            }]
+            
+            
+        });
+    });
+</script>
+
+{% if latest_series_update %}
+<table id="latest_series_update" class="table table-striped table-bordered" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Calidad</td>
+            <td>Descargado</td>
+            <td>Ultima modificacion</td>
+            <td>Ctrl</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for serie in latest_series_update %}
+        <tr>
+            <td><a href="{% url 'control_edit' serie.id %}">{{ serie.nombre }}</a></td>
+            <td>{{ serie.quality }}</td>
+            <td>{{ serie.ep_start }}</td>
+            <td>
+                <span style="display: none;">{{ serie.ultima|date:"Y-m-d" }}</span>
+                <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
+                {{ serie.ultima }}
+            </td>
+            <td> 
+                {% if perms.mercurio.change_series %}
+                        <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>
+                {% endif %} 
+                {% if perms.mercurio.delete_series %}
+                    {% if serie %}
+                        <a href="{% url 'control_delete' serie.id %}"><i class="glyphicon glyphicon-remove"></i></a>
+                    {% endif %}  
+                {% endif %} 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No series are available.</p>
+{% endif %} {% endblock %}
