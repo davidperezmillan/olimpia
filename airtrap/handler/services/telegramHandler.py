@@ -89,7 +89,7 @@ class TelegramNotifier(object):
     _databaseName = databaseDefaultName
 
 
-    def notify(self, title, message, config):
+    def notify(self,message, config):
         self._token = config.token
         self.logger.info('config=%s, message=%s',config, message)
         chat_ids = self._real_init(config)
@@ -98,6 +98,14 @@ class TelegramNotifier(object):
         self._send_msgs(message, chat_ids)
         ## de Propina
         self._get_bot_updates()
+        
+        
+    def update(self, config):
+        self._token = config.token
+        self.logger.info('config=%s',config)
+        chat_ids = self._real_init(config)
+        self._get_bot_updates()
+        
 
     def _parse_config(self, config):
         self._token = config.token
@@ -281,7 +289,7 @@ class TelegramNotifier(object):
         updates = []
         last_upd = 0
         while 1:
-            ups = self._bot.getUpdates(last_upd, limit=100)
+            ups = self._bot.getUpdates(last_upd, limit=1000)
             updates.extend(ups)
             if len(ups) < 100:
                 break
@@ -300,7 +308,8 @@ class TelegramNotifier(object):
                 chat = update.channel_post.chat
             else:
                 raise Exception('Unknown update type encountered: %s' % update)
-
+            
+            self.logger.info('Update : {0}'.format(chat))
             if chat.type == 'private':
                 usernames[chat.username] = chat
                 fullnames[(chat.first_name, chat.last_name)] = chat
@@ -308,7 +317,7 @@ class TelegramNotifier(object):
                 groups[chat.title] = chat
             else:
                 self.logger.warning('unknown chat type: %s}', type(chat))
-
+            
         return usernames, fullnames, groups
 
 

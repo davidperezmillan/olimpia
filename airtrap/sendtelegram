@@ -76,5 +76,6 @@ if __name__ == '__main__':
         config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', usernames = [args.receiver])
     elif (args.type==choices[2]):
         config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', groups = [args.receiver])
-    clazz.notify("Enviado desde sendtelegram", args.msg, config)
+    # clazz.notify(args.msg, config)
+    clazz.update(config)
     
