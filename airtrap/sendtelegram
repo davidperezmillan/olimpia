@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys, os
+import utilities.installer as installer
+installer.installImportNeed(verbose=False)
+
+import re, glob
+import fnmatch
+import logging
+from logging.handlers import RotatingFileHandler
+import argparse
+import utilities.constantes as cons
+
+from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBean
+
+
+basepathlog = cons.basepathlog
+loggername = 'sendTelegram'
+# defaulformatter = "%(asctime)s [%(levelname)s]%(filename)s[%(funcName)s]:%(lineno)d %(message)s"
+defaulformatter = "%(asctime)s [%(levelname)s] [%(funcName)s]:%(lineno)d %(message)s"
+
+loggerfilename = basepathlog+loggername+'.log'
+
+
+choices=['fullnames', 'usernames','groups']
+
+def proccesArgs():
+    parser = argparse.ArgumentParser(add_help=True)
+    parser.add_argument('--type', choices=choices, help='Indica el usuario al que enviar mensaje', default='fullnames')
+    parser.add_argument('receiver', help='Indica el usuario al que enviar mensaje')
+    parser.add_argument('msg', help='Indicamos el mensaje a enviar')
+    
+    parser.add_argument("-v", "--verbose", help="Mostrar información de depuración", action="store_true")
+    parser.add_argument("-t", "--test", help="No ser realizaran acciones [modo test]", action='store_true', default=False)
+    parser.add_argument("--loglevel", help="Definimos el nivel de logs", default="INFO", choices=['DEBUG','debug','INFO','info','WARN', 'warn','ERROR', 'error'])
+    parser.add_argument("--logfile", help="Definimos archivo de log", default=loggerfilename)
+    
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+    args = parser.parse_args()
+    
+    return args
+
+def buildlogger(args):
+    global logger
+    logger = logging.getLogger(loggername)
+    logger.setLevel(logging.getLevelName(args.loglevel.upper()))
+    formatter = logging.Formatter(defaulformatter)
+    
+    # handler = logging.FileHandler(mcbconstants.basepathlog+"mycrylog.out")
+    handler = RotatingFileHandler(args.logfile, maxBytes=20000, backupCount=5)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    
+    ch = logging.StreamHandler()
+    ch.setFormatter(formatter)        
+    logger.addHandler(ch)
+    return logger
+
+def getAndBuildFullnames(destinatario):
+    firstname = destinatario.split(' ',1)[0]
+    surname = destinatario.split(' ',1)[1]
+    return firstname,surname
+
+
+if __name__ == '__main__':
+   
+    args=proccesArgs()
+    logger=buildlogger(args)
+    logger.info("Argumentos pasados %s",args)
+    
+    clazz = TelegramNotifier(logger=logger)
+    if (args.type==choices[0]):
+        config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [getAndBuildFullnames(args.receiver)])
+    elif (args.type==choices[1]):
+        config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', usernames = [args.receiver])
+    elif (args.type==choices[2]):
+        config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', groups = [args.receiver])
+    clazz.notify("Enviado desde sendtelegram", args.msg, config)
+    

@@ -4,23 +4,26 @@
 import pip #needed to use the pip functions
 import sys
 
-importNeeds = ['prettytable', 'sqlalchemy', 'transmissionrpc', 'bs4']
+importNeeds = ['prettytable', 'sqlalchemy', 'transmissionrpc','python-telegram-bot', 'bs4']
 responseImportNeeds = []
 
 
-def install(package):
-    # raw_input returns the empty string for "enter"
-    yes = {'yes','y', 'ye', ''}
-    no = {'no','n'}
+def __install(package, verbose):
     
-    choice = raw_input("vamos a instalar {0} .....(Y/N) ".format(package)).lower()
-    if choice in yes:
-       pip.main(['install', "--user", package])
-    elif choice in no:
-       sys.stdout.write("No se va a instalar {0}".format(package))
+    if verbose:
+        # raw_input returns the empty string for "enter"
+        yes = {'yes','y', 'ye', ''}
+        no = {'no','n'}
+        
+        choice = raw_input("vamos a instalar {0} .....(Y/N) ".format(package)).lower()
+        if choice in yes:
+           pip.main(['install', "--user", package])
+        elif choice in no:
+           sys.stdout.write("No se va a instalar {0}".format(package))
+        else:
+           sys.stdout.write("Please respond with 'yes' or 'no'")
     else:
-       sys.stdout.write("Please respond with 'yes' or 'no'")
-    
+        pip.main(['install', "--user", package])
     
 
 
@@ -31,27 +34,14 @@ def __prettyPrintArray(encabezado, pie, lst):
     sRequest = "{0}{1}{2}".format(encabezado,sItems, pie)
     return sRequest
 
-def installImportNeed():
+def installImportNeed(verbose=True):
     for iNeeds in importNeeds:
         print 'Comprobando {0}'.format(iNeeds)
         try:
             __import__(iNeeds)
         except ImportError as e:
-            install(iNeeds)
+            __install(iNeeds, verbose)
 
-'''
-def isImportNeedInstall():
-    for iNeeds in importNeeds:
-        try:
-            __import__(iNeeds)
-        except ImportError as e:
-            install(iNeeds)
-            responseImportNeeds.append(iNeeds);
-    
-    print __prettyPrintArray("Lista de paquetes necesarios, no instalados \n\r", "\n\rNecesitamos que sean instalados", responseImportNeeds)
-    
-    return responseImportNeeds
-'''
     
 
 
