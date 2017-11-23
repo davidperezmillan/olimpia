@@ -91,6 +91,7 @@ class TelegramNotifier(object):
 
     def notify(self, title, message, config):
         self._token = config.token
+        self.logger.info('config=%s, message=%s',config, message)
         chat_ids = self._real_init(config)
         if not chat_ids:
             return
