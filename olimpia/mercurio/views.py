@@ -28,7 +28,7 @@ def control(request):
         if form.is_valid():
             serie = form.save(commit=False)
             serie.save()
-            __sendTelegram(serie)
+            __sendTelegram("Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality))
             return redirect('portada')
     else:
         form = SeriesForm()
@@ -58,12 +58,12 @@ def control_delete(request, serie_id):
 
 
 
-def __sendTelegram(serie):
+def __sendTelegram(mensaje='Interaccion'):
     '''
     Y si anadimos un envio de Telegram cuando se anade una serie
     '''
     
-    gth = GenThread(args=(serie), kwargs={})
+    gth = GenThread(args=(mensaje), kwargs={})
     gth.start()
     
 
@@ -76,11 +76,10 @@ class GenThread(threading.Thread):
         self.args = args
         self.kwargs = kwargs
         return
+    
+    
+    
     def run(self):
-        
-        nombre=self.args.nombre #Existe siempre
-        quality=self.args.quality #Existe siempre
-        
         import sys, os
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         RUTA = os.path.join(BASE_DIR, '../airtrap')
@@ -89,7 +88,7 @@ class GenThread(threading.Thread):
         
         clazz = TelegramNotifier()
         config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")])
-        clazz.notify("Mercury Advises", "se ha anadido una nueva serie {0} [{1}]".format(nombre, quality), config)
+        clazz.notify("Mercury Advises", self.args, config)
         return
 
 
