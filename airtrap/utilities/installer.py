@@ -34,7 +34,7 @@ def __prettyPrintArray(encabezado, pie, lst):
     sRequest = "{0}{1}{2}".format(encabezado,sItems, pie)
     return sRequest
 
-def installImportNeed(verbose=True):
+def installImportNeed(verbose=False):
     for iNeeds in importNeeds:
         print 'Comprobando {0}'.format(iNeeds)
         try:

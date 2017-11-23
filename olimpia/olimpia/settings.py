@@ -30,7 +30,7 @@ SECRET_KEY = 'aa2mbm^ca*8a^lmr88p*k6dmusbod!s4t$fqa)p5nh5-tlg^k&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['davidperezmillan.zapto.org']
 
 
 # Application definition

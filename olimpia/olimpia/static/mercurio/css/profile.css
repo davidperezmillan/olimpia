@@ -5,20 +5,18 @@ Licensed under MIT
 ***/
 
 body {
-  background: transparent important;
+  background: #F1F3FA;
 }
 
 /* Profile container */
-
 .profile {
   margin: 20px 0;
 }
 
 /* Profile sidebar */
-
 .profile-sidebar {
   padding: 20px 0 10px 0;
-  background: transparent important;
+  background: #fff;
 }
 
 .profile-userpic img {
@@ -37,7 +35,7 @@ body {
 }
 
 .profile-usertitle-name {
-  color: white;
+  color: #5a7391;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 7px;
@@ -45,7 +43,7 @@ body {
 
 .profile-usertitle-job {
   text-transform: uppercase;
-  color: white;
+  color: #5b9bd1;
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 15px;
@@ -67,7 +65,7 @@ body {
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-
+    
 .profile-usermenu {
   margin-top: 30px;
 }
@@ -81,7 +79,7 @@ body {
 }
 
 .profile-usermenu ul li a {
-  color: white;
+  color: #93a3b5;
   font-size: 14px;
   font-weight: 400;
 }
@@ -93,7 +91,7 @@ body {
 
 .profile-usermenu ul li a:hover {
   background-color: #fafcfd;
-  color: white;
+  color: #5b9bd1;
 }
 
 .profile-usermenu ul li.active {
@@ -101,16 +99,15 @@ body {
 }
 
 .profile-usermenu ul li.active a {
-  color: white;
+  color: #5b9bd1;
   background-color: #f6f9fb;
   border-left: 2px solid #5b9bd1;
   margin-left: -2px;
 }
 
 /* Profile Content */
-
 .profile-content {
   padding: 20px;
-  background: transparent important;
+  background: #fff;
   min-height: 500px;
 }

@@ -1,11 +1,10 @@
 body {
     margin: 10% 10% 10% 10%;
-    background-image: url('../img/Satellite_View-171358.jpg');
-    background-color: #D6EDD6;
 }
 
 #header-banner {
     /* ALGO */
+    color: inherit;
 }
 
 #sidebar-nav {
