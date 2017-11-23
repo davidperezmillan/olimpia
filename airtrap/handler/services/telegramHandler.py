@@ -184,9 +184,12 @@ class TelegramNotifier(object):
                 self.logger.warning('no chat id found for fullnames: %s', fullnames)
             if groups:
                 self.logger.warning('no chat id found for groups: %s', groups)
+                
+            # Hemos encontrado el chat y lo grabamos    
             if has_new_chat_ids:
-                self.logger.info('chat id found for groups: %s', chat_ids)
-                self._update_db(chat_ids)
+                self.logger.info('chat id found: %s', chat_ids)
+            # Grabamos de todas formas
+            self._update_db(chat_ids)
 
         return chat_ids
     
