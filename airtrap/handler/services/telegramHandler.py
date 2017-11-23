@@ -347,4 +347,4 @@ class TelegramNotifier(object):
 if __name__ == '__main__':
     clazz = TelegramNotifier()
     config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")], groups = [("Down")])
-    clazz.notify("Titulo", "Mensaje de prueba", config)
+    clazz.notify("Mensaje de prueba", config)
