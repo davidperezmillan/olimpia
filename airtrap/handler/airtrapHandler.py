@@ -234,7 +234,7 @@ class AirTrapHandlerClass(object):
        
         clazzTelegram = TelegramNotifier(logger=self.logger)
         config = ConfigTelegramBean(token = token, fullnames = fullnames, usernames=usernames, groups = groups)
-        clazzTelegram.notify("'La Trampa de aire'", sRequest, config) 
+        clazzTelegram.notify(sRequest, config) 
     
     ## Constructor
     def __init__(self, logger= None):
