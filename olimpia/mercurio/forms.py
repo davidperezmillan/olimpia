@@ -9,7 +9,6 @@ class SeriesForm(forms.ModelForm):
     quality = forms.CharField(max_length=2, min_length=2,  initial="NR",widget=forms.TextInput(attrs={'class' : 'form-control'}))
     
     
-    
     class Meta:
         model = Series
         fields = ('nombre', 'quality','ep_start','ep_end','genero', 'paussed', 'skipped',  )
