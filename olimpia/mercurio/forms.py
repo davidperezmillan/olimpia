@@ -12,9 +12,10 @@ class SeriesForm(forms.ModelForm):
     
     class Meta:
         model = Series
-        fields = ('nombre', 'quality','ep_start','ep_end', 'paussed', 'skipped', )
+        fields = ('nombre', 'quality','ep_start','ep_end','genero', 'paussed', 'skipped',  )
         widgets = {
             'nombre': forms.TextInput(attrs={'class' : 'form-control'}),
+            'genero': forms.Select(attrs={'class' : 'form-control'}),
             # 'paussed': forms.Select(attrs={'class' : 'form-control'}),
             # 'skipped': forms.Select(attrs={'class' : 'form-control'}),
           

@@ -12,24 +12,41 @@ from django.db import models
 from django.utils import timezone
 
 
+class Genero(models.Model):
+    
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(db_column='NOMBRE', max_length=200,  unique=True)  # Field name made lowercase. This field type is a guess.
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = "genero"
+        managed = True
+        db_table = 'genero'
+        
+
+
+
 class Series(models.Model):
     
     id = models.AutoField(primary_key=True)  # AutoField?
-    nombre = models.CharField(db_column='NOMBRE', max_length=200)  # Field name made lowercase. This field type is a guess.
-    ep_start = models.CharField(db_column='EP_START', max_length=8, default='NRS00E00',blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    ep_end = models.CharField(db_column='EP_END',max_length=8, default='NRS99E99', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    quality = models.CharField(db_column='QUALITY',max_length=2, default='NR')  # Field name made lowercase. This field type is a guess.
-    ultima = models.DateTimeField(db_column='ULTIMA', blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
-    paussed = models.NullBooleanField(db_column='PAUSSED', default=False)  # Field name made lowercase.
-    skipped = models.NullBooleanField(db_column='SKIPPED', default=False)  # Field name made lowercase.
-
+    nombre = models.CharField(max_length=200)  # Field name made lowercase. This field type is a guess.
+    ep_start = models.CharField(max_length=8, default='NRS00E00',blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    ep_end = models.CharField(max_length=8, default='NRS99E99', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    quality = models.CharField(max_length=2, default='NR')  # Field name made lowercase. This field type is a guess.
+    ultima = models.DateTimeField(blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
+    paussed = models.NullBooleanField(default=False)  # Field name made lowercase.
+    skipped = models.NullBooleanField(default=False)  # Field name made lowercase.
+    genero  = models.ForeignKey(Genero, on_delete=models.CASCADE, default=0)
+    
     def __unicode__(self):
         return "{0}{1}{2}{3}".format(self.nombre, self.quality, self.ep_start, self.ep_end)
 
     class Meta:
         verbose_name_plural = "series"
         managed = True
-        db_table = 'SERIES'
+        db_table = 'series'
         unique_together = (('nombre', 'quality'))
 
 
