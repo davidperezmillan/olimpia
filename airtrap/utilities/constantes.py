@@ -26,6 +26,7 @@ try:
     basepath= Config.get('PATH','basepath')
     basepathlog=Config.get('PATH','basepathlog')
     basepathlogplugins = '{0}/plugins/'.format(basepathlog)
+    
 
 except Exception as e:
     sys.exit(e)
