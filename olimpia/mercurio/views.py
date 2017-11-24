@@ -88,7 +88,7 @@ class GenThread(threading.Thread):
         
         clazz = TelegramNotifier()
         config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")])
-        clazz.notify("Mercury Advises", self.args, config)
+        clazz.notify(self.args, config)
         return
 
 

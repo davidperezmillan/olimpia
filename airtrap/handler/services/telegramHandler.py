@@ -188,7 +188,6 @@ class TelegramNotifier(object):
             # Hemos encontrado el chat y lo grabamos    
             if has_new_chat_ids:
                 self.logger.info('chat id found: %s', chat_ids)
-                # Grabamos de todas formas
                 self._update_db(chat_ids)
 
         return chat_ids
