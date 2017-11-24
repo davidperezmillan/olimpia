@@ -35,14 +35,14 @@ Base = declarative_base()
 databaseDefaultName = "{0}/conf/data/followingseries.sqlite3".format(cons.basepath)
 
 class series(Base):
-    __tablename__='SERIES'
-    nombre = Column('NOMBRE',String, primary_key=True)
-    ep_start = Column('EP_START',String, default='NRS01E00')
-    ep_end = Column('EP_END',String, default='')
-    quality = Column('QUALITY',String, primary_key=True)
-    ultima = Column('ULTIMA',DateTime,  default=datetime.datetime.now)
-    paussed = Column('PAUSSED',Boolean,default=False)
-    skipped = Column('SKIPPED',Boolean,default=False)
+    __tablename__='series'
+    nombre = Column(String, primary_key=True)
+    ep_start = Column(String, default='NRS01E00')
+    ep_end = Column(String, default='')
+    quality = Column(String, primary_key=True)
+    ultima = Column(DateTime,  default=datetime.datetime.now)
+    paussed = Column(Boolean,default=False)
+    skipped = Column(Boolean,default=False)
 
 
 
@@ -163,7 +163,7 @@ class DatabaseAirTrap(object):
     def truncate(self):
         try:
             s=self.session()
-            statements = ["DELETE FROM SERIES;", "VACUUM;"]
+            statements = ["DELETE FROM series;", "VACUUM;"]
             for statement in statements:
                 s.execute(statement)
             s.commit()
@@ -184,16 +184,17 @@ class DatabaseAirTrap(object):
     
     def select_all(self,statement, display=False):
         try:    
-            print self.__display(series.metadata.tables['SERIES'], statement ) if display else "No hay representacion grafica" 
+            print self.__display(series.metadata.tables['series'], statement ) if display else "No hay representacion grafica" 
             return statement
         except Exception as error:
             self.logger.error("Error al selectAll la tabla [%s]",error)
 
     def select_noSkip(self, display=False):
+        self.logger.info("Select no Skip")
         try:    
             s= self.session()
             statement = s.query(series).filter(series.skipped==False).order_by(series.ultima)
-            print self.__display(series.metadata.tables['SERIES'], statement ) if display else "No hay representacion grafica" 
+            print self.__display(series.metadata.tables['series'], statement ) if display else "No hay representacion grafica" 
             return statement
         except Exception as error:
             self.logger.error("Error al selectAll la tabla [%s]",error)

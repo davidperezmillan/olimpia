@@ -19,7 +19,7 @@ from sqlalchemy import (
 Base = declarative_base() 
 
 class series(Base):
-    __tablename__='SERIES'
+    __tablename__='series'
     nombre = Column('NOMBRE',String, primary_key=True)
     ep = Column('EP',String, default='NRS01E00')
     quality = Column('QUALITY',String, primary_key=True)
