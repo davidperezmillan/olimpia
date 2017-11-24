@@ -2,6 +2,9 @@ from django import forms
 
 from .models import Series
 
+
+CHOICES = (( False,'No',), ( True,'Si',))
+
 class SeriesForm(forms.ModelForm):
     
     ep_start = forms.CharField(max_length=8, min_length=8,  initial="NRS00E00",widget=forms.TextInput(attrs={'class' : 'form-control'}))
@@ -15,8 +18,8 @@ class SeriesForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class' : 'form-control'}),
             'genero': forms.Select(attrs={'class' : 'form-control'}),
-            # 'paussed': forms.Select(attrs={'class' : 'form-control'}),
-            # 'skipped': forms.Select(attrs={'class' : 'form-control'}),
+            'paussed': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
+            'skipped': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
           
       }
         
