@@ -48,6 +48,7 @@
             <td>Calidad</td>
             <td>Descargado</td>
             <td>Ultima modificacion</td>
+	    <td>Genero</td>
             <td>Ctrl</td>
         </tr>
     </thead>
@@ -62,6 +63,7 @@
                 <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
                 {{ serie.ultima }}
             </td>
+	    <td> {{ serie.genero }} </td>
             <td> 
                 {% if perms.mercurio.change_series %}
                         <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>
