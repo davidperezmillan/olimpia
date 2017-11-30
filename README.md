@@ -5,22 +5,22 @@
     por lo tanto tenemos que aplazarlo hasta que tenemos tiempo
     Incluso teniendo tiempo necesitamos actualizarnos rapidamente para seguir los nuevos capitulos de las series.
     
-    ## Aviso
+### Aviso
     Esta aplicacion no enlaza, ni directamente, ni indirectamente con contenido no legal, eso queda en vuestras manos.
     Simplemente nos da una herramienta para el seguimiento y descarga de contenido (sea legal o no, eso no es decision nuestra)
     
 ## Requisitos
     
     Tenemos que tener instalados las siguientes librerias de python.
-    * prettytable
-    * sqlalchemy
-    * transmissionrpc
-    * bs4
+* prettytable
+* sqlalchemy
+* transmissionrpc
+* bs4
     Esto lo conseguiremos con los siguientes comandos: (aunque la aplicacion lo informa en caso de no ser correcto)
-    * sudo pip install prettytable
-    * sudo pip install sqlalchemy
-    * sudo pip install transmissionrpc
-    * sudo pip install bs4
+* sudo pip install prettytable
+* sudo pip install sqlalchemy
+* sudo pip install transmissionrpc
+* sudo pip install bs4
     
     En el caso que queramos tener activa la emision de mensajes por telegram debemos instalar
     *python-telegram-bot
@@ -30,10 +30,10 @@
 ## Configruacion y logs
     
     Tenemos varios archivos de configuracion y logs, que ubicaremos donde nos interese y para esto lo definiremos en el fichero **airtrapConfig.ini**
-    ```
-    [PATH]
-    basepath=/path/to/conf/
-    basepathlog =/path/to/log
-    ```
+`
+[PATH]
+basepath=/path/to/conf/
+basepathlog =/path/to/log
+`
     
         
