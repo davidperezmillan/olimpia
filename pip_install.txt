@@ -1,5 +1,0 @@
-   66  sudo pip install prettytable
-   68  sudo pip install sqlalchemy
-   70  sudo pip install transmissionrpc
-  100  sudo pip install bs4
-  102  history | grep "pip install" > pip_install.txt

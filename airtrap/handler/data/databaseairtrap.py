@@ -32,7 +32,7 @@ loggerfilename = basepathlog+loggername+'.log'
 
 
 Base = declarative_base()  
-databaseDefaultName = "{0}/conf/data/followingseries.sqlite3".format(cons.basepath)
+databaseDefaultName = "{0}/data/followingseries.sqlite3".format(cons.basepath)
 
 class series(Base):
     __tablename__='SERIES'

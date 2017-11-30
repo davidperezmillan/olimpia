@@ -15,13 +15,13 @@ import utilities.constantes as cons
 def allConfig(logger=None):
     try:
         # Gestion de configuracion
-        config = Config("{0}/conf/config.json".format(cons.basepath), logger)
+        config = Config("{0}/config.json".format(cons.basepath), logger)
         logger.debug("Config (method): %s", filter(lambda aname: not aname.startswith('_'), dir(config)))
         
     
         #  Gestion de plugins
         # plugins = Plugins("conf/plugins.json", logger) 
-        plugins = Plugins("{0}/conf/plugins.json".format(cons.basepath),logger=logger) # tendiamos que probar
+        plugins = Plugins("{0}/plugins.json".format(cons.basepath),logger=logger) # tendiamos que probar
         logger.debug("Plugins (method): %s",  filter(lambda aname: not aname.startswith('_'), dir(plugins)))
     
         

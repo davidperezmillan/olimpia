@@ -13,7 +13,7 @@ loggername = 'configbuilder'
 defaulformatter = "%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s"
 loggerfilename = basepathlog+loggername+'.log'
 
-url = "{0}/conf/config.json".format(cons.basepath)
+url = "{0}/config.json".format(cons.basepath)
 
 class Config(object):
 

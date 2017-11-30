@@ -96,7 +96,7 @@ if __name__ == '__main__':
     logger.debug("Argumentos pasados %s",args)
     
     if args.basedatos:
-        pattern_database="conf/data/{0}.sqlite3".format(args.basedatos)
+        pattern_database="data/{0}.sqlite3".format(args.basedatos)
         handler = DatabaseAirTrap(pattern_database,logger=logger)
     else:
         handler = DatabaseAirTrap(logger=logger)
