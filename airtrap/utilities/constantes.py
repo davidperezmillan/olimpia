@@ -17,7 +17,7 @@ import ConfigParser
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    files = [os.path.join(BASE_DIR, 'airtrap_config.ini')]
+    files = [os.path.join(BASE_DIR, 'utilities/airtrap_config.ini')]
     Config = ConfigParser.ConfigParser()
     dataset = Config.read(files)
     if len(dataset) != len(files):
