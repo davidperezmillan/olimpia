@@ -42,6 +42,20 @@ basepathlog=/path/to/log/
 ## Instalacion.
 
 1. Clonamos el projecto
+2. Creamos las rutas de configuracion y log
+3. Apuntamos las constantes a las rutas determinadas
+4. 
+### airtrap
+
+
+### airdata
+
+
+### organize
+
+
+
+
 
 
  
