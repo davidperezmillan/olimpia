@@ -30,12 +30,19 @@ Por otra parte, para empezar la descaga necesitamos tener instalado en este equi
 
 ## Configruacion y logs
     
-Tenemos varios archivos de configuracion y logs, que ubicaremos donde nos interese y para esto lo definiremos en el fichero **airtrapConfig.ini**
+Tenemos varios archivos de configuracion y logs, que ubicaremos donde nos interese y para esto lo definiremos en el fichero **airtrapConfig.ini**, 
+debemos tener en cuenta las barras al final
 
 ```
 [PATH]
 basepath=/path/to/conf/
-basepathlog =/path/to/log
+basepathlog=/path/to/log/
 ```
     
-        
+## Instalacion.
+
+1. Clonamos el projecto
+
+
+ 
+
