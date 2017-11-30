@@ -109,5 +109,5 @@ if __name__ == '__main__':
         config.write(configfile)
 
 
-
+    # Renombramos el archivo, como terminado
     os.rename(os.path.basename(__file__),  os.path.join(os.path.basename(__file__),"_OK"))
