@@ -67,7 +67,11 @@
                 <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
                 {{ serie.ultima | date:"D, d N Y [H:i:s]" }}
             </td>
-	    <td> {{ serie.genero }} </td>
+	    <td> 
+	    {% for gen in serie.genero.all %}
+	        {{ gen }}
+	    {% endfor %} 
+	    </td>
             <td> 
                 {% if perms.mercurio.change_series %}
                         <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>
