@@ -1,0 +1,14 @@
+{
+    "pathtolib": "handler.plugins",
+    "plugins": {
+        "newpct1": {
+            "file": "newpct1_handler",
+            "clazz": "Newpct1HandlerClass"
+        },
+        "torrentrapid": {
+            "file": "torrentrapid_handler",
+            "clazz": "TorrentRapidHandlerClass"
+        }
+    }
+
+}
