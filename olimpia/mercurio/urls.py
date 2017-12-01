@@ -1,14 +1,13 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from . import views
-from .viewsets import SeriesViewSet, GeneroViewSet
+from .viewsets import SeriesViewSet
 from rest_framework.routers import DefaultRouter
 admin.autodiscover()
 
 
 router = DefaultRouter()
 router.register(r'series', SeriesViewSet)
-router.register(r'genero', GeneroViewSet)
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),

@@ -48,8 +48,7 @@
             <td>Calidad</td>
             <td>Descargado</td>
             <td>Ultima modificacion</td>
-	        <td>Genero</td>
-            <td>Ctrl</td>
+	        <td>Ctrl</td>
         </tr>
     </thead>
     <tbody>
@@ -67,11 +66,6 @@
                 <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
                 {{ serie.ultima | date:"D, d N Y [H:i:s]" }}
             </td>
-	    <td> 
-	    {% for gen in serie.genero.all %}
-	        {{ gen }}
-	    {% endfor %} 
-	    </td>
             <td> 
                 {% if perms.mercurio.change_series %}
                         <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>

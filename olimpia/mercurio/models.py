@@ -12,22 +12,6 @@ from django.db import models
 from django.utils import timezone
 
 
-class Genero(models.Model):
-    
-    id = models.AutoField(primary_key=True)
-    nombre = models.CharField(db_column='NOMBRE', max_length=200,  unique=True)  # Field name made lowercase. This field type is a guess.
-
-    def __unicode__(self):
-        return "{0}".format(self.nombre)
-
-    class Meta:
-        verbose_name_plural = "genero"
-        managed = True
-        db_table = 'genero'
-        
-
-
-
 class Series(models.Model):
     
     id = models.AutoField(primary_key=True)  # AutoField?
@@ -38,8 +22,6 @@ class Series(models.Model):
     ultima = models.DateTimeField(blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
     paussed = models.NullBooleanField(default=False)  # Field name made lowercase.
     skipped = models.NullBooleanField(default=False)  # Field name made lowercase.
-    # genero  = models.ForeignKey(Genero, on_delete=models.CASCADE, default=0)
-    genero  = models.ManyToManyField(Genero)
     
     def __unicode__(self):
         return "{0}{1}{2}{3}".format(self.nombre, self.quality, self.ep_start, self.ep_end)
