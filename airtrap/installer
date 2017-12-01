@@ -111,4 +111,4 @@ if __name__ == '__main__':
 
 
     # Renombramos el archivo, como terminado
-    os.rename(os.path.basename(__file__),  os.path.join(os.path.basename(__file__)+"_OK"))
+    # os.rename(os.path.basename(__file__),  os.path.join(os.path.basename(__file__)+"_OK"))
