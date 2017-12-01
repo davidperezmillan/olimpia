@@ -1,0 +1,114 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys, os
+import shutil
+import logging
+from logging.handlers import RotatingFileHandler
+import argparse
+
+import ConfigParser
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+
+basepathlog = "./"
+loggername = 'installer'
+defaulformatter = "%(asctime)s [%(levelname)s] [%(funcName)s]:%(lineno)d %(message)s"
+loggerfilename = basepathlog+loggername+'.reg'
+
+
+
+def proccesArgs():
+    parser = argparse.ArgumentParser(add_help=True)
+    parser.add_argument('url', help='Indica la url base, tanto de logs, como de cong')
+
+    parser.add_argument("-v", "--verbose", help="Mostrar información de depuración", action="store_true")
+    parser.add_argument("-t", "--test", help="No ser realizaran acciones [modo test]", action='store_true', default=False)
+    parser.add_argument("--loglevel", help="Definimos el nivel de logs", default="INFO", choices=['DEBUG','debug','INFO','info','WARN', 'warn','ERROR', 'error'])
+    parser.add_argument("--logfile", help="Definimos archivo de log", default=loggerfilename)
+    
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+    args = parser.parse_args()
+    
+    return args
+
+def buildlogger(args):
+    global logger
+    logger = logging.getLogger(loggername)
+    logger.setLevel(logging.getLevelName(args.loglevel.upper()))
+    formatter = logging.Formatter(defaulformatter)
+    
+    handler = RotatingFileHandler(args.logfile, maxBytes=20000, backupCount=5)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    
+    ch = logging.StreamHandler()
+    ch.setFormatter(formatter)        
+    logger.addHandler(ch)
+    return logger
+
+
+if __name__ == '__main__':
+   
+    args=proccesArgs()
+    logger=buildlogger(args)
+    logger.debug("Argumentos pasados %s",args)
+    
+    
+    directory = args.url
+    logger.info("Empezamos la instalacion en {0}".format(directory))
+    
+    
+    
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    
+    # ahora vamos a añadir una ruta de conf
+    conf_path = os.path.join(directory,"conf")
+    if not os.path.exists(conf_path):    
+        os.makedirs(conf_path)
+    
+    data_conf_path = os.path.join(conf_path,"data")
+    if not os.path.exists(data_conf_path):    
+        os.makedirs(data_conf_path)
+    
+    #   Copiamos los ficheros de configuracion
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    src=os.path.join(BASE_DIR,'conf_ori')
+    src_files = os.listdir(src)
+    for file_name in src_files:
+        full_file_name = os.path.join(src, file_name)
+        if (os.path.isfile(full_file_name)):
+            shutil.copy(full_file_name, conf_path)
+    
+    src=os.path.join(BASE_DIR,'conf_ori/data')
+    src_files = os.listdir(src)
+    for file_name in src_files:
+        full_file_name = os.path.join(src, file_name)
+        if (os.path.isfile(full_file_name)):
+            shutil.copy(full_file_name, data_conf_path)
+    
+    
+    # ahora vamos a añadir una ruta de logs
+    conf_logs = os.path.join(directory,"logs")
+    if not os.path.exists(conf_logs):    
+        os.makedirs(conf_logs)
+    
+    plugins_conf_path = os.path.join(conf_logs,"plugins")
+    if not os.path.exists(plugins_conf_path):    
+        os.makedirs(plugins_conf_path)
+        
+        
+        
+    # Tenemos que añadir al airtrap_config.ini de 
+    config = ConfigParser.RawConfigParser()
+    config.add_section('PATH')
+    config.set('PATH','basepath',conf_path )
+    config.set('PATH', 'basepathlog', conf_logs)
+    with open('utilities/airtrap_config.ini', 'wb') as configfile:
+        config.write(configfile)
+
+
+    # Renombramos el archivo, como terminado
+    # os.rename(os.path.basename(__file__),  os.path.join(os.path.basename(__file__)+"_OK"))

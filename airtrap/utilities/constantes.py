@@ -14,7 +14,7 @@
 
 import os, sys
 import ConfigParser
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 try:
     files = [os.path.join(BASE_DIR, 'utilities/airtrap_config.ini')]
