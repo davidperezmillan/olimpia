@@ -95,7 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        'NAME': '{0}/conf/data/followingseries.sqlite3'.format(cons.basepath),
+        'NAME': '{0}/data/followingseries.sqlite3'.format(cons.basepath),
     }
 }
 
