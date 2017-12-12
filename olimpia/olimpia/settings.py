@@ -29,8 +29,10 @@ SECRET_KEY = 'aa2mbm^ca*8a^lmr88p*k6dmusbod!s4t$fqa)p5nh5-tlg^k&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'mercurio.apps.MercurioConfig',
+    # 'mercurio.apps.MercurioConfig',
+    'merc.apps.MercConfig'
 ]
 
 REST_FRAMEWORK = {
@@ -67,7 +70,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'olimpia.urls'
+ROOT_URLCONF = 'merc.urls'
 
 TEMPLATES = [
     {
@@ -148,47 +151,55 @@ LOGGING = {
     'disable_existing_loggers': True,
     'formatters': {
         'standard': {
-            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+            'format': '%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s'
         },
+        'standard_alt':{
+            'format' : '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        }
     },
-    # 'handlers': {
-    #     'hermes_django': {
-    #         'level':'DEBUG',
-    #         'class':'logging.handlers.RotatingFileHandler',
-    #         'filename': 'logs/hermes_django.log',
-    #         'maxBytes': 1024*1024*5, # 5 MB
-    #         'backupCount': 5,
-    #         'formatter':'standard',
-    #     },  
-    #     'request_handler': {
-    #         'level':'DEBUG',
-    #         'class':'logging.handlers.RotatingFileHandler',
-    #         'filename': 'logs/django_request.log',
-    #         'maxBytes': 1024*1024*5, # 5 MB
-    #         'backupCount': 5,
-    #         'formatter':'standard',
-    #     },
-    #     'console': {
-    #         'level': 'DEBUG',
-    #         'class': 'logging.StreamHandler',
-    #         'formatter':'standard',
-    #     }
-    # },
-    # 'loggers': {
-    #     'airtrap': {
-    #         'handlers': ['console'],
-    #         'level': 'DEBUG',
-    #     },
-    #     'hermes_django': {
-    #         'handlers': ['console', 'hermes_django'],
-    #         'level': 'DEBUG',
-    #     },
-    #     'django.request': {
-    #         'handlers': ['console', 'request_handler'],
-    #         'propagate': False,
-    #         'level': 'DEBUG'
-    #     }
-    # }
+    'handlers': {
+        # 'hermes_django': {
+        #     'level':'DEBUG',
+        #     'class':'logging.handlers.RotatingFileHandler',
+        #     'filename': 'logs/hermes_django.log',
+        #     'maxBytes': 1024*1024*5, # 5 MB
+        #     'backupCount': 5,
+        #     'formatter':'standard',
+        # },  
+        'plugins_files': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/merc/plugins.log',
+            'maxBytes': 1024*1024*2, # 2 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter':'standard',
+        }
+    },
+    'loggers': {
+        'merc': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'merc.at.plugins': {
+            'handlers': ['plugins_files'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        # 'hermes_django': {
+        #     'handlers': ['console', 'hermes_django'],
+        #     'level': 'DEBUG',
+        # },
+        # 'django.request': {
+        #     'handlers': ['console', 'request_handler'],
+        #     'propagate': False,
+        #     'level': 'DEBUG'
+        # }
+    }
 }
 
 
