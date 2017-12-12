@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-import utilities.installer as installer
+import utilities.installerlib as installer
 installer.installImportNeed()
 
 
