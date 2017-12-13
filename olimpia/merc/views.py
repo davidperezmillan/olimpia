@@ -174,31 +174,41 @@ def launch_all(request):
 def launch_extreme(request):
     
     form = SeriesFindForm(request.POST)
-    to_saved = False
     
     if request.method == "POST":
         if form.is_valid():
-           
             serie_extreme = form.save(commit=False)
             torrentservers = TorrentServers.objects.filter(author=request.user)
             try:
+                to_saved = form['to_saved'].value()
+                logger.info("Ordenamos {} grabar la serie {}:{}".format(to_saved,serie_extreme.nombre, serie_extreme.quality))
                 torrent_found = {}
                 launcher = AirTrapLauncher(torrentservers)
                 torrent_found, torrent_added, errors = launcher.execute([serie_extreme])
                 logger.debug("Torrent_found : {}".format(torrent_found))
                 logger.debug("torrent_added : {}".format(torrent_added))
-                context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
+                context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, "to_saved":to_saved,'errors_messages':errors, }
                 if to_saved:
+                    logger.info("Intentamos {} grabar la serie {}:{}".format(to_saved,serie_extreme.nombre, serie_extreme.quality))
                     serie_extreme.author = request.user
                     serie_extreme.save()
+                    context.update({"to_saved":to_saved,'serie':serie_extreme})
             except Exception, e:
+                logger.error(e)
                 return render(request, 'merc/torrent/list.html', {'errors_messages':e})
             return render(request, 'merc/torrent/list.html', context)
+
     else:
         form = SeriesFindForm()
     return render(request, 'merc/series/detail_extreme.html',{'form': form})
     
     
+
+
+
+
+
+
     
     
 

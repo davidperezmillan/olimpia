@@ -27,9 +27,7 @@ class SeriesForm(forms.ModelForm):
     
         
 class SeriesFindForm(SeriesForm):
-    
-    to_saved = forms.CharField(initial=False, widget=forms.Select(attrs={'class' : 'form-control'},choices=CHOICES))
-
+    to_saved = forms.BooleanField(initial=False, required=False)
     class Meta(SeriesForm.Meta):
         fields = SeriesForm.Meta.fields + ('to_saved',)
         

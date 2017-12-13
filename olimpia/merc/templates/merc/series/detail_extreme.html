@@ -73,7 +73,9 @@
                     <input type="text" class="form-control" name="episodio_start" id="episodio_start" />
                 </div>
                 
-                 <label>{{ form.ep_start.label_tag }} </label>{{ form.ep_start }}
+                <div class="form-group col-md-10">
+                     <label>{{ form.ep_start.label_tag }} </label>{{ form.ep_start }}
+                </div>
             </div>
             <div class="form-row">
                 
@@ -85,13 +87,18 @@
                     <label>Episodio </label>
                     <input type="text" class="form-control" name="episodio_end" id="episodio_end" />
                 </div>
-                <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}
+                <div class="form-group col-md-10">
+                    <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}
+                </div>
             </div>
-            <label>{{ form.to_saved.label_tag }} </label> {{ form.to_saved }}
-            
-
-                <button type="submit" class="save btn btn-default">Buscar</button> 
-                <button type="Cancel" class="cancel btn btn-default" onclick="window.location='{% url 'list' %}'">Cancel</button>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>{{ form.to_saved.label_tag }} </label> {{ form.to_saved }}
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="save btn btn-default">Buscar</button> 
+                    <button type="Cancel" class="cancel btn btn-default" onclick="window.location='{% url 'list' %}'">Cancel</button>
+                </div>
             </div>
 
         </div>
