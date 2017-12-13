@@ -206,8 +206,8 @@ def launch_extreme(request):
 def __sendTelegramListAdded(lrequest):
     
         if lrequest:
-            sRequest = "{1} 'La trampa del Aire - El Mercenario' ha puesto en cola {0} torrent para su descargas :   \n\r".format(len(lrequest), "[TEST]" if test else "")
-            sFinal = "\n\rEspero que lo disfruteis, Gracias por utilizar 'La Trampa del Aire'"
+            sRequest = "'La trampa del Aire - El Mercenario' ha puesto en cola {0} torrent para su descargas :   \n\r".format(len(lrequest))
+            sFinal = "\n\rEspero que lo disfruteis, Gracias por utilizar 'La Trampa del Aire - El Mercenario'"
             sitems = ""
             for item in lrequest:
                 sitems = "{0} -- {1} [{2}].  \n\r".format(sitems,item.title, item.episode) 
