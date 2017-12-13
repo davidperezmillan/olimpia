@@ -183,7 +183,7 @@ LOGGING = {
     'loggers': {
         'merc': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': 'DEBUG',
         },
         'merc.at.plugins': {
             'handlers': ['plugins_files'],

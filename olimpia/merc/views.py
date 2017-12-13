@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from .models import Series, TorrentServers, Plugins
-from .forms import SeriesForm, TorrentServersForm
+from .forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 # Get an instance of a logger
@@ -154,7 +154,7 @@ def launch_all(request):
     
     series_update = Series.objects.filter(author=request.user).filter(skipped=False)
     logger.debug('series_update: {}'.format(series_update))
-    torrentservers = TorrentServers.objects.filter(author=request.user).filter(torrent_active=True)
+    torrentservers = TorrentServers.objects.filter(author=request.user)
 
     try:
         torrent_found = {}
@@ -170,6 +170,37 @@ def launch_all(request):
     
 
 
+@login_required(login_url='/accounts/login/')
+def launch_extreme(request):
+    
+    form = SeriesFindForm(request.POST)
+    to_saved = False
+    
+    if request.method == "POST":
+        if form.is_valid():
+           
+            serie_extreme = form.save(commit=False)
+            torrentservers = TorrentServers.objects.filter(author=request.user)
+            try:
+                torrent_found = {}
+                launcher = AirTrapLauncher(torrentservers)
+                torrent_found, torrent_added, errors = launcher.execute([serie_extreme])
+                logger.debug("Torrent_found : {}".format(torrent_found))
+                logger.debug("torrent_added : {}".format(torrent_added))
+                context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
+                if to_saved:
+                    serie_extreme.author = request.user
+                    serie_extreme.save()
+            except Exception, e:
+                return render(request, 'merc/torrent/list.html', {'errors_messages':e})
+            return render(request, 'merc/torrent/list.html', context)
+    else:
+        form = SeriesFindForm()
+    return render(request, 'merc/series/detail_extreme.html',{'form': form})
+    
+    
+    
+    
 
 
 

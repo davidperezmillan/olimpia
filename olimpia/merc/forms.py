@@ -14,14 +14,24 @@ class SeriesForm(forms.ModelForm):
     quality = forms.CharField(max_length=2, min_length=2,  initial="NR",widget=forms.Select(attrs={'class' : 'form-control'},choices=CHOICES_QUALITY))
     
     
+    
     class Meta:
         model = Series
-        fields = ('nombre', 'quality','ep_start','ep_end','paussed', 'skipped',  )
+        fields = ('nombre', 'quality','ep_start','ep_end','paussed', 'skipped', )
         widgets = {
             'nombre': forms.TextInput(attrs={'class' : 'form-control'}),
             'paussed': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
             'skipped': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
         }
+        
+    
+        
+class SeriesFindForm(SeriesForm):
+    
+    to_saved = forms.CharField(initial=False, widget=forms.Select(attrs={'class' : 'form-control'},choices=CHOICES))
+
+    class Meta(SeriesForm.Meta):
+        fields = SeriesForm.Meta.fields + ('to_saved',)
         
 class TorrentServersForm(forms.ModelForm):
     

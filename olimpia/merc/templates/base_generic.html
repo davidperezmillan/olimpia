@@ -98,7 +98,13 @@
                             <tr>
                                 <td>
                                     {% if perms.merc.add_series %}
-                                    <a href="{% url 'launch_all' %}">Lanzar todo</a> {% endif %}
+                                        <a href="{% url 'launch_all' %}">Lanzar todo</a> 
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="{% url 'launch_extreme' %}">Buscar y Añadir</a> 
                                 </td>
                             </tr>
                             </table>
