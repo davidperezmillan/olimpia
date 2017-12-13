@@ -1,0 +1,98 @@
+{% extends "base_generic.html" %} {% block content %}
+<div class="container">
+
+    <title>
+        {% if serie %} {{ serie.nombre }} {% else %} Buscar serie {% endif %}
+    </title>
+
+    {% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $("#session_start").val(recuperarPattern($('#id_ep_start').val(), 3));
+            $("#episodio_start").val(recuperarPattern($('#id_ep_start').val(), 5));
+            $("#session_end").val(recuperarPattern($('#id_ep_end').val(), 3));
+            $("#episodio_end").val(recuperarPattern($('#id_ep_end').val(), 5));
+
+            $("#id_quality").on("change", function(event) {
+                $('#id_ep_start').val(rellenarPattern($("#id_quality"), $('#id_ep_start'), "NRS00E00"));
+                $('#id_ep_end').val(rellenarPattern($("#id_quality"), $('#id_ep_end'), "NRS99E99"));
+                rellenarPattern($("#id_quality"), $('#id_ep_start'))
+                rellenarPattern($("#id_quality"), $('#id_ep_end'))
+            });
+            $("#session_start").on("change", function(event) {
+                $('#id_ep_start').val($("#id_quality").val() + "S" + $('#session_start').val() + "E" + $('#episodio_start').val())
+            });
+            $("#episodio_start").on("change", function(event) {
+                $('#id_ep_start').val($("#id_quality").val() + "S" + $('#session_start').val() + "E" + $('#episodio_start').val())
+            });
+            $("#session_end").on("change", function(event) {
+                $('#id_ep_end').val($("#id_quality").val() + "S" + $('#session_end').val() + "E" + $('#episodio_end').val())
+            });
+            $("#episodio_end").on("change", function(event) {
+                $('#id_ep_end').val($("#id_quality").val() + "S" + $('#session_end').val() + "E" + $('#episodio_end').val())
+            });
+
+        });
+
+
+        function recuperarPattern(ep, indice) {
+            const regex = /(NR|HD|VO)(S)([0-9]{2})(E)([0-9]{2})/g;
+            let m;
+            valor = regex.exec(ep)[indice];
+            return valor;
+        }
+
+
+        function rellenarPattern(quality, ep, defecto) {
+            const regex = /(NR|HD|VO)(S)([0-9]{2})(E)([0-9]{2})/g;
+            var str = ep.val();
+            let m;
+            return ((m = regex.exec(str)) !== null) ? quality.val() + m[2] + m[3] + m[4] + m[5] : defecto;
+        }
+    </script>
+
+    <form method="POST" action>
+
+        <div class="form-group col-xs-5">
+            {% csrf_token %}
+
+            <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}
+            <label>{{ form.quality.label_tag }} </label> {{ form.quality }}
+
+            <div class="form-row">
+               
+                <div class="form-group col-md-6">
+                    <label>Session </label><input type="text" class="form-control" name="session_start" id="session_start" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Episodio </label>
+                    <input type="text" class="form-control" name="episodio_start" id="episodio_start" />
+                </div>
+                
+                 <label>{{ form.ep_start.label_tag }} </label>{{ form.ep_start }}
+            </div>
+            <div class="form-row">
+                
+                <div class="form-group col-md-6">
+                    <label>Session </label>
+                    <input type="text" class="form-control" name="session_end" id="session_end" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Episodio </label>
+                    <input type="text" class="form-control" name="episodio_end" id="episodio_end" />
+                </div>
+                <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}
+            </div>
+            <label>{{ form.to_saved.label_tag }} </label> {{ form.to_saved }}
+            
+
+                <button type="submit" class="save btn btn-default">Buscar</button> 
+                <button type="Cancel" class="cancel btn btn-default" onclick="window.location='{% url 'list' %}'">Cancel</button>
+            </div>
+
+        </div>
+        {% endblock %}
