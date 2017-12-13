@@ -206,10 +206,10 @@ class AirTrapHandlerClass(object):
             self.logger.debug("Vamos modificar la base de datos %s", request)
             resp = database.update(request.title, nextEp)
             if resp>0:
-                self.logger.info("%s Filas afectadas en [UPDATE] ",resp )
+                self.logger.info("{} Filas afectadas en [UPDATE] de {}:{}".format(resp, request.title, nextEp))
             else:
                 resp = database.insert(request.title, nextEp)
-                self.logger.info("%s Filas afectadas en [INSERT] ",resp )
+                self.logger.info("{} Filas afectadas en [INSERT] de {}:{}".format(resp, request.title, nextEp))
     
     
     def __getServiceTelegram(self, lrequest, config, test=False):

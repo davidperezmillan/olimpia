@@ -25,8 +25,8 @@ loggername = 'telegramHandler'
 defaulformatter = "%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s"
 loggerfilename = basepathlog+loggername+'.log'
 
-Base = declarative_base() 
-
+Base = declarative_base()
+databaseDefaultName = "{0}/data/followingseries.sqlite3".format(cons.basepath)
 
 
 class ConfigTelegramBean(object):
@@ -78,7 +78,6 @@ class ChatIdEntry(Base):
 
 '''
 
-databaseDefaultName = "{0}/conf/data/followingseries.sqlite3".format(cons.basepath)
 class TelegramNotifier(object):
 
     _token = None
