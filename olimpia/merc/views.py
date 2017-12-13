@@ -217,10 +217,7 @@ def __sendTelegramListAdded(lrequest):
         else:
             sRequest = 'Que pena no tenemos nada que enviar .....'
         
-        
-        
-        
-        # __sendTelegram(lrequest)
+        __sendTelegram(lrequest)
 
     
     
