@@ -1,0 +1,49 @@
+import logging
+import threading
+import merc.at.hilos.utiles
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
+# from merc.at.service.telegramHandler import TelegramNotifier, ConfigTelegramBean
+
+
+class GenTorrentThread(threading.Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs=None, verbose=None):
+        threading.Thread.__init__(self, group=group, target=target, name=name, verbose=verbose)
+        self.args = args
+        self.kwargs = kwargs
+        return
+    
+    def run(self):
+        logger.debug('kwargs: {}'.format(self.kwargs))    
+        logger.debug('series_update: {}'.format(self.kwargs['series_update']))
+        logger.debug('torrentservers: {}'.format(self.kwargs['torrentservers']))
+        
+        launcher = AirTrapLauncher(self.kwargs['torrentservers'])
+        torrent_found, torrent_added, errors = launcher.execute(self.kwargs['series_update'])
+        logger.debug("Torrent_found : {}".format(torrent_found))
+        logger.debug("torrent_added : {}".format(torrent_added))
+        context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
+        merc.at.hilos.utiles.sendTelegramListAdded([])
+        return
+    
+class GenTransmissionThread(threading.Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs=None, verbose=None):
+        threading.Thread.__init__(self, group=group, target=target, name=name, verbose=verbose)
+        self.args = args
+        self.kwargs = kwargs
+        return
+    
+    
+    
+    def run(self):
+        import sys, os
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        RUTA = os.path.join(BASE_DIR, '../../../airtrap')
+        sys.path.insert(0,RUTA)
+        from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBean
+        
+        clazz = TelegramNotifier()
+        config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")])
+        clazz.notify(self.args, config)
+        return   

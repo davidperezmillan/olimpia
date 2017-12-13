@@ -10,6 +10,8 @@ from .models import Series, TorrentServers, Plugins
 from .forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
+import merc.at.hilos.utiles
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -37,7 +39,7 @@ def control(request):
             serie = form.save(commit=False)
             serie.author = request.user
             serie.save()
-            __sendTelegram("Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality))
+            merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality))
             return redirect('list')
     else:
         form = SeriesForm()
@@ -87,7 +89,7 @@ def control_torrentservers(request):
             torrentserver = form.save(commit=False)
             torrentserver.author = request.user
             torrentserver.save()
-            __sendTelegram("Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port))
+            merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port))
             return redirect('listtorrentservers')
     else:
         form = TorrentServersForm()
@@ -132,14 +134,12 @@ def launch_unique(request, serie_id):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
-        __sendTelegramListAdded(torrent_added)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
         
     return render(request, 'merc/torrent/list.html', context)
     
-    # form = SeriesForm(instance=serie)
-    # return render(request, 'merc/detail.html',{'form': form, 'serie': serie})
 
 
 
@@ -149,20 +149,19 @@ def launch_all(request):
     series_update = Series.objects.filter(author=request.user).filter(skipped=False)
     logger.debug('series_update: {}'.format(series_update))
     torrentservers = TorrentServers.objects.filter(author=request.user)
+    logger.debug('torrentservers: {}'.format(torrentservers))
 
     try:
-        torrent_found = {}
-        launcher = AirTrapLauncher(torrentservers)
-        torrent_found, torrent_added, errors = launcher.execute(series_update)
-        logger.debug("Torrent_found : {}".format(torrent_found))
-        logger.debug("torrent_added : {}".format(torrent_added))
-        context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
-        __sendTelegramListAdded(torrent_added)
+         merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers)
     except Exception, e:
-        return render(request, 'merc/torrent/list.html', {'errors_messages':e})
+        strError = "Se ha produccido un error en el proceso del mercenario"
+        logger.error(e)
+        merc.at.hilos.utiles.sendTelegram(strError)
         
-    return render(request, 'merc/torrent/list.html', context)
-    
+    context = {}
+    return render(request, 'merc/portada.html', context)
+
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -188,7 +187,7 @@ def launch_extreme(request):
                     serie_extreme.author = request.user
                     serie_extreme.save()
                     context.update({"to_saved":to_saved,'serie':serie_extreme})
-                __sendTelegramListAdded(torrent_added)
+                merc.at.hilos.utiles.sendTelegramListAdded(torrent_added)
             except Exception, e:
                 logger.error(e)
                 return render(request, 'merc/torrent/list.html', {'errors_messages':e})
@@ -199,66 +198,3 @@ def launch_extreme(request):
     return render(request, 'merc/series/detail_extreme.html',{'form': form})
     
     
-
-
-
-
-def __sendTelegramListAdded(lrequest):
-    
-        logger.debug(lrequest)
-    
-        if lrequest:
-            sRequest = "'La trampa del Aire - El Mercenario' ha puesto en cola {0} torrent para su descargas :   \n\r".format(len(lrequest))
-            sFinal = "\n\rEspero que lo disfruteis, Gracias por utilizar 'La Trampa del Aire - El Mercenario'"
-            sitems = ""
-            for item in lrequest:
-                sitems = "{0} -- {1}.  \n\r".format(sitems,item.name.encode('utf-8').strip()) 
-            sRequest = "{0}{1}{2}".format(sRequest,sitems, sFinal)
-        else:
-            sRequest = 'Que pena no tenemos nada que enviar .....'
-        
-        __sendTelegram(lrequest)
-
-    
-    
-
-
-
-def __sendTelegram(mensaje='Interaccion'):
-    '''
-    Y si anadimos un envio de Telegram cuando se anade una serie
-    '''
-    
-    gth = GenThread(args=(mensaje), kwargs={})
-    gth.start()
-    
-
-
-
-import threading
-class GenThread(threading.Thread):
-    def __init__(self, group=None, target=None, name=None, args=(), kwargs=None, verbose=None):
-        threading.Thread.__init__(self, group=group, target=target, name=name, verbose=verbose)
-        self.args = args
-        self.kwargs = kwargs
-        return
-    
-    
-    
-    def run(self):
-        import sys, os
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        RUTA = os.path.join(BASE_DIR, '../airtrap')
-        sys.path.insert(0,RUTA)
-        from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBean
-        
-        clazz = TelegramNotifier()
-        config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")])
-        clazz.notify(self.args, config)
-        return
-
-
-# @login_required(login_url='/accounts/login/')
-# def detail(request, serie_id):
-#     serie = get_object_or_404(Series, pk=serie_id)
-#     return render(request, 'detail.html', {'serie': serie})
