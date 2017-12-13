@@ -131,14 +131,8 @@ def launch_unique(request, serie_id):
         torrent_found, torrent_added, errors = launcher.execute([serie])
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
-        
-        # from inspect import getmembers
-        # from pprint import pprint
-        # for ta in torrent_added:s
-        #     pprint("Objeto {}".format(getmembers(ta)))
-
-        
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
+        __sendTelegramListAdded(torrent_added)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
         
@@ -163,6 +157,7 @@ def launch_all(request):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
+        __sendTelegramListAdded(torrent_added)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'errors_messages':e})
         
@@ -193,6 +188,7 @@ def launch_extreme(request):
                     serie_extreme.author = request.user
                     serie_extreme.save()
                     context.update({"to_saved":to_saved,'serie':serie_extreme})
+                __sendTelegramListAdded(torrent_added)
             except Exception, e:
                 logger.error(e)
                 return render(request, 'merc/torrent/list.html', {'errors_messages':e})
@@ -207,7 +203,19 @@ def launch_extreme(request):
 
 
 
-
+def __sendTelegramListAdded(lrequest):
+    
+        if lrequest:
+            sRequest = "{1} 'La trampa del Aire - El Mercenario' ha puesto en cola {0} torrent para su descargas :   \n\r".format(len(lrequest), "[TEST]" if test else "")
+            sFinal = "\n\rEspero que lo disfruteis, Gracias por utilizar 'La Trampa del Aire'"
+            sitems = ""
+            for item in lrequest:
+                sitems = "{0} -- {1} [{2}].  \n\r".format(sitems,item.title, item.episode) 
+            sRequest = "{0}{1}{2}".format(sRequest,sitems, sFinal)
+        else:
+            sRequest = 'Que pena no tenemos nada que enviar .....'
+        
+        __sendTelegram(lrequest)
 
     
     
