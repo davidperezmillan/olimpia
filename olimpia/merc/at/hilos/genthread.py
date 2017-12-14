@@ -4,7 +4,8 @@ import merc.at.hilos.utiles
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-# from merc.at.service.telegramHandler import TelegramNotifier, ConfigTelegramBean
+from merc.at.airtrapLauncher import AirTrapLauncher
+from merc.at.service.telegramHandler import TelegramNotifier, ReceiverTelegram
 
 
 class GenTorrentThread(threading.Thread):
@@ -41,9 +42,9 @@ class GenTransmissionThread(threading.Thread):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         RUTA = os.path.join(BASE_DIR, '../../../airtrap')
         sys.path.insert(0,RUTA)
-        from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBean
+        # from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBean
         
-        clazz = TelegramNotifier()
-        config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")])
+        clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+        config = ReceiverTelegram(fullnames = [("David","Perez Millan")])
         clazz.notify(self.args, config)
         return   

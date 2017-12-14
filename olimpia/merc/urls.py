@@ -13,8 +13,6 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', views.portada, name='portada'),
     
-    
-    
     # // series
     url(r'^list$', views.list, name='list'),
     url(r'^control$', views.control, name='control'),
