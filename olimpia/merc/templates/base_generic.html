@@ -56,7 +56,14 @@
                                             {% if user.get_full_name %} {{user.get_full_name}} {% else %} {{user.get_username}} {% endif %}
                                         </div>
                                         <div class="profile-usertitle-job">
-                                             Usuario 
+                                            {% if request.user.is_superuser %}
+                                                SuperUser
+                                            {% else %}
+                                                Usuario
+                                            {% endif %}
+                                            {% if request.user.is_staff %}
+                                                - Staff
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </td>
@@ -70,7 +77,7 @@
                                         {% if user.is_authenticated %}
                                             <a class="btn btn-success btn-sm" href="{% url 'logout'%}?next={{request.path}}">Logout</a> 
                                         {% else %}
-                                                <form method="post" action="{% url 'login' %}">
+                                                <form method="post" action="{% url 'portada' %}">
                                                     {%csrf_token%} {% for error in form.non_field_errors %}
                                                     <div class="form-group has-errors text-danger small">
                                                         {{error}}

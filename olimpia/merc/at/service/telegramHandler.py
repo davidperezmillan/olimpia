@@ -4,7 +4,6 @@ import sys, os
 import time
 import logging
 
-
 try:
     import telegram
     from telegram.error import TelegramError
@@ -12,27 +11,13 @@ try:
 except ImportError:
     telegram = None
 
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-from beans.databeans import ChatIdEntry
-import utilities.constantes as cons
+from merc.models import TelegramChatIds
 
 
-basepathlog = cons.basepathlog
-loggername = 'telegramHandler'
-defaulformatter = "%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s"
-loggerfilename = basepathlog+loggername+'.log'
-
-Base = declarative_base()
-databaseDefaultName = "{0}/data/followingseries.sqlite3".format(cons.basepath)
-
-
-class ConfigTelegramBean(object):
+class ReceiverTelegram(object):
     
     def __str__(self):
-        x = ['token={0}'.format(self.token)]
+        x = []
         if self.usernames:
             x.append('usernames={0}'.format(self.usernames))
         if self.fullnames:
@@ -54,33 +39,30 @@ class TelegramNotifier(object):
     _fullnames = None
     _groups = None
     _bot = None
-    _databaseName = databaseDefaultName
+    _user = None
 
 
-    def notify(self,message, config):
-        self._token = config.token
-        self.logger.info('config=%s, message=%s',config, message)
-        chat_ids = self._real_init(config)
+    def notify(self,message, receivers):
+        self.logger.info('config=%s, message=%s',receivers, message)
+        chat_ids = self._real_init(receivers)
         if not chat_ids:
             return
         self._send_msgs(message, chat_ids)
-        ## de Propina
-        self._get_bot_updates()
+        # ## de Propina
+        # self._get_bot_updates()
         
         
-    def update(self, config):
-        self._token = config.token
-        self.logger.info('config=%s',config)
-        chat_ids = self._real_init(config)
+    def update(self, receivers):
+        self.logger.info('config=%s',receivers)
+        chat_ids = self._real_init(receivers)
         self._get_bot_updates()
         
 
-    def _parse_config(self, config):
-        self._token = config.token
+    def _parse_config(self, receivers):
         self._parse_mode = "markdown"
-        self._usernames = config.usernames or []
-        self._fullnames = config.fullnames or []
-        self._groups = config.groups or []
+        self._usernames = receivers.usernames or []
+        self._fullnames = receivers.fullnames or []
+        self._groups = receivers.groups or []
 
     def _real_init(self, client):
         self._enforce_telegram_plugin_ver()
@@ -180,14 +162,13 @@ class TelegramNotifier(object):
     #  BBDD RECUPERAR
     def _get_cached_chat_ids(self, usernames, fullnames, groups):
         self.logger.debug('Try get data Chats')
-        session= self.session()
         chat_ids = list()
         cached_usernames = dict((x.username, x)
-                                for x in session.query(ChatIdEntry).filter(ChatIdEntry.username != None).all())
+                                for x in TelegramChatIds.objects.filter(author=self._user).filter(username!=None))
         cached_fullnames = dict(((x.firstname, x.surname), x)
-                                for x in session.query(ChatIdEntry).filter(ChatIdEntry.firstname != None).all())
+                                for x in TelegramChatIds.objects.filter(author=self._user).filter(firstname!=None))
         cached_groups = dict((x.group, x)
-                             for x in session.query(ChatIdEntry).filter(ChatIdEntry.group != None).all())
+                             for x in TelegramChatIds.objects.filter(author=self._user).filter(group!=None))
 
         len_ = len(usernames)
         for i, username in enumerate(reversed(usernames)):
@@ -215,7 +196,6 @@ class TelegramNotifier(object):
     #  BBDD UPDATEAR
     def _update_db(self,chat_ids):
         self.logger.debug('saving updated chat_ids to db')
-        session= self.session()
         # avoid duplicate chat_ids. (this is possible if configuration specified both username & fullname
         chat_ids_d = dict((x.id, x) for x in chat_ids)
         session.add_all(iter(chat_ids_d.values()))
@@ -231,8 +211,11 @@ class TelegramNotifier(object):
         for i, username in enumerate(reversed(usernames)):
             chat = upd_usernames.get(username)
             if chat is not None:
-                entry = ChatIdEntry(id=chat.id, username=chat.username, firstname=chat.first_name,
+                # entry = ChatIdEntry(id=chat.id, username=chat.username, firstname=chat.first_name,
+                #                     surname=chat.last_name)
+                entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
+                
                 yield entry
                 usernames.pop(len_ - i - 1)
 
@@ -240,7 +223,9 @@ class TelegramNotifier(object):
         for i, fullname in enumerate(reversed(fullnames)):
             chat = upd_fullnames.get(fullname)
             if chat is not None:
-                entry = ChatIdEntry(id=chat.id, username=chat.username, firstname=chat.first_name,
+                # entry = ChatIdEntry(id=chat.id, username=chat.username, firstname=chat.first_name,
+                #                     surname=chat.last_name)
+                entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 yield entry
                 fullnames.pop(len_ - i - 1)
@@ -249,7 +234,8 @@ class TelegramNotifier(object):
         for i, grp in enumerate(reversed(groups)):
             chat = upd_groups.get(grp)
             if chat is not None:
-                entry = ChatIdEntry(id=chat.id, group=chat.title)
+                # entry = ChatIdEntry(id=chat.id, group=chat.title)
+                entry = TelegramChatIds(id=chat.id, group=chat.title)
                 yield entry
                 groups.pop(len_ - i - 1)
 
@@ -291,27 +277,18 @@ class TelegramNotifier(object):
         return usernames, fullnames, groups
 
 
-    def __init__(self, databaseName=databaseDefaultName, logger = None):
+    def __init__(self, token, user=None, logger = None):
     
         if (logger):
             self.logger = logger
         else:
-            self.logger = logging.getLogger(loggername)
-            self.logger.setLevel(logging.DEBUG)
-            self.formatter = logging.Formatter(defaulformatter)
-    
-    
-            self.ch = logging.StreamHandler()
-            self.ch.setFormatter(self.formatter)        
-            self.logger.addHandler(self.ch)
+            # Get an instance of a logger
+            self.logger = logging.getLogger(__name__)
         
-        self._databaseName = databaseName
-        self.engine = create_engine('sqlite:///{0}'.format(self._databaseName))
-        self.session = sessionmaker()
-        self.session.configure(bind=self.engine)
-        Base.metadata.create_all(self.engine)   
+        self._token = token
+        self._user = user
 
 if __name__ == '__main__':
-    clazz = TelegramNotifier()
-    config = ConfigTelegramBean(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', fullnames = [("David","Perez Millan")], groups = [("Down")])
-    clazz.notify("Mensaje de prueba", config)
+    clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+    receivers = ReceiverTelegram(fullnames = [("David","Perez Millan")], groups = [("Down")])
+    clazz.notify("Mensaje de prueba", receivers)
