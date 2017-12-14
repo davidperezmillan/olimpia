@@ -4,6 +4,7 @@ import logging
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 
 # Create your views here.
 from .models import Series, TorrentServers, Plugins, TelegramChatIds
@@ -183,14 +184,21 @@ def launch_extreme(request):
                 logger.debug("torrent_added : {}".format(torrent_added))
                 context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, "to_saved":to_saved,'errors_messages':errors, }
                 if to_saved:
-                    logger.info("Intentamos {} grabar la serie {}:{}".format(to_saved,serie_extreme.nombre, serie_extreme.quality))
-                    serie_extreme.author = request.user
-                    serie_extreme.save()
-                    context.update({"to_saved":to_saved,'serie':serie_extreme})
+                    try:
+                        logger.info("Intentamos {} grabar la serie {}:{}".format(to_saved,serie_extreme.nombre, serie_extreme.quality))
+                        serie_extreme.author = request.user
+                        serie_extreme.save()
+                        context.update({"to_saved":to_saved,'serie':serie_extreme})
+                    except IntegrityError, e:
+                        serie_no_update = Series.objects.filter(nombre=serie_extreme.nombre).filter(quality=serie_extreme.quality).filter(author=request.user)[0]
+                        logger.error(e.message)
+                        context.update({"to_saved":to_saved,'serie':serie_no_update})
+                        raise Exception("La serie {} : {} para {} puede que ya este en la base de datos".format(serie_no_update.nombre, serie_no_update.quality, serie_no_update.author))
+                        
                 merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, request.user)
             except Exception, e:
                 logger.error(e)
-                return render(request, 'merc/torrent/list.html', {'errors_messages':e})
+                context.update({'errors_messages':e})
             return render(request, 'merc/torrent/list.html', context)
 
     else:
