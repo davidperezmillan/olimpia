@@ -163,13 +163,19 @@ class TelegramNotifier(object):
     def _get_cached_chat_ids(self, usernames, fullnames, groups):
         self.logger.debug('Try get data Chats')
         chat_ids = list()
-        cached_usernames = dict((x.username, x)
-                                for x in TelegramChatIds.objects.filter(author=self._user).filter(username!=None))
-        cached_fullnames = dict(((x.firstname, x.surname), x)
-                                for x in TelegramChatIds.objects.filter(author=self._user).filter(firstname!=None))
-        cached_groups = dict((x.group, x)
-                             for x in TelegramChatIds.objects.filter(author=self._user).filter(group!=None))
+        
+        cached_usernames = {}
+        for x in TelegramChatIds.objects.filter(author=self._user).exclude(username=None):
+            cached_usernames.update({x.username: x})
 
+        cached_fullnames = {}
+        for x in TelegramChatIds.objects.filter(author=self._user).exclude(firstname=None):
+            cached_fullnames.update({(x.firstname, x.surname): x})
+
+        cached_groups = {}
+        for x in TelegramChatIds.objects.filter(author=self._user).exclude(group=None):
+            cached_groups.update({x.group: x})
+        
         len_ = len(usernames)
         for i, username in enumerate(reversed(usernames)):
             item = cached_usernames.get(username)

@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-from .models import Series, TorrentServers, Plugins
+from .models import Series, TorrentServers, Plugins, TelegramChatIds
 from .forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def portada(request):
+    logger.debug(TelegramChatIds.objects.filter(author=request.user).exclude(username=None))
     context = {}
     return render(request, 'merc/portada.html', context)
 
