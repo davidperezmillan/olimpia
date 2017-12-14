@@ -19,6 +19,7 @@ class GenTorrentThread(threading.Thread):
         logger.debug('kwargs: {}'.format(self.kwargs))    
         logger.debug('series_update: {}'.format(self.kwargs['series_update']))
         logger.debug('torrentservers: {}'.format(self.kwargs['torrentservers']))
+        logger.debug('user: {}'.format(self.kwargs['user']))
         
         launcher = AirTrapLauncher(self.kwargs['torrentservers'])
         torrent_found, torrent_added, errors = launcher.execute(self.kwargs['series_update'])
@@ -43,8 +44,9 @@ class GenTransmissionThread(threading.Thread):
         RUTA = os.path.join(BASE_DIR, '../../../airtrap')
         sys.path.insert(0,RUTA)
         # from handler.services.telegramHandler import TelegramNotifier, ConfigTelegramBean
+        logger.debug('user: {}'.format(self.kwargs['user']))
         
-        clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+        clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', user=self.kwargs['user'])
         config = ReceiverTelegram(fullnames = [("David","Perez Millan")])
         clazz.notify(self.args, config)
         return   

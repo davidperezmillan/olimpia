@@ -39,7 +39,7 @@ def control(request):
             serie = form.save(commit=False)
             serie.author = request.user
             serie.save()
-            merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality))
+            merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality),request.user)
             return redirect('list')
     else:
         form = SeriesForm()
@@ -89,7 +89,7 @@ def control_torrentservers(request):
             torrentserver = form.save(commit=False)
             torrentserver.author = request.user
             torrentserver.save()
-            merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port))
+            merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port),request.user)
             return redirect('listtorrentservers')
     else:
         form = TorrentServersForm()
@@ -134,7 +134,7 @@ def launch_unique(request, serie_id):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, request.user)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
         
@@ -152,11 +152,11 @@ def launch_all(request):
     logger.debug('torrentservers: {}'.format(torrentservers))
 
     try:
-         merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers)
+         merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, request.user)
     except Exception, e:
         strError = "Se ha produccido un error en el proceso del mercenario"
         logger.error(e)
-        merc.at.hilos.utiles.sendTelegram(strError)
+        merc.at.hilos.utiles.sendTelegram(strError, request.user)
         
     context = {}
     return render(request, 'merc/portada.html', context)
@@ -187,7 +187,7 @@ def launch_extreme(request):
                     serie_extreme.author = request.user
                     serie_extreme.save()
                     context.update({"to_saved":to_saved,'serie':serie_extreme})
-                merc.at.hilos.utiles.sendTelegramListAdded(torrent_added)
+                merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, request.user)
             except Exception, e:
                 logger.error(e)
                 return render(request, 'merc/torrent/list.html', {'errors_messages':e})
