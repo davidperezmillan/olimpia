@@ -18,9 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 def portada(request):
-    context = {}
-    return render(request, 'merc/portada.html', context)
-
+    return redirect('list')
 
 
 
