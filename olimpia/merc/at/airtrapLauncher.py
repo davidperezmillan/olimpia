@@ -51,8 +51,8 @@ class AirTrapLauncher(object):
                 request = RequestPlugin(title=serie.nombre, epstart=serie.ep_start, epend=serie.ep_end)
 
                 for instance in plugs:
-                    found_serie =instance.execute(request, filter=True) 
-                    found.extend(found_serie) # filtramos para tardar menos
+                    found_serie =instance.execute(request, filter=False) #  Podemos filtrar para tardar menos, pero tendremos menos registros
+                    found.extend(found_serie) 
                    
     
                 self.logger.info("Hemos encontrado [[ {} ]] elementos para descargar".format(len(found)))
