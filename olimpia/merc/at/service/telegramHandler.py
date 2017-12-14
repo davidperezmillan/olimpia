@@ -203,9 +203,12 @@ class TelegramNotifier(object):
     def _update_db(self,chat_ids):
         self.logger.debug('saving updated chat_ids to db')
         # avoid duplicate chat_ids. (this is possible if configuration specified both username & fullname
-        chat_ids_d = dict((x.id, x) for x in chat_ids)
-        session.add_all(iter(chat_ids_d.values()))
-        session.commit()
+        for chat_id in chat_ids:
+            chat_id.author = self._user
+            chat_id.save()
+        # chat_ids_d = dict((x.id, x) for x in chat_ids)
+        # session.add_all(iter(chat_ids_d.values()))
+        # session.commit()
     
     
     def _get_new_chat_ids(self, usernames, fullnames, groups):

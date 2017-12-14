@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 
 
 def portada(request):
-    logger.debug(TelegramChatIds.objects.filter(author=request.user).exclude(username=None))
     context = {}
     return render(request, 'merc/portada.html', context)
 
