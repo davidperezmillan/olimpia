@@ -118,6 +118,13 @@
                                     <a href="{% url 'launch_extreme' %}">Buscar y Añadir</a> 
                                 </td>
                             </tr>
+                            {% if request.user.is_superuser %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'organize' %}">Organizar</a>
+                                </td>
+                            </tr>
+                            {% endif %}
                             </table>
                             
                         </div>

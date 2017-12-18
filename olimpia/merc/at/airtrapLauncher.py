@@ -9,6 +9,7 @@ from merc.models import Series, TorrentServers, Plugins
 from merc.at.beans.pluginsBeans import RequestPlugin
 from merc.at.beans.pluginsBeans import ResponsePlugin
 from merc.at.service.torrentHandler import TorrentHandlerClass
+from merc.at.service.organizeHandler import Organize
 
 
 
@@ -31,6 +32,19 @@ class ClientTorrents():
         self.plugins = plugins
 
 class AirTrapLauncher(object):
+ 
+ 
+    def organize(self):
+        errors = []
+        organize = Organize()
+        for clnt in self.clients:
+            try:
+                organize.proccess(clnt.conf.download, "/media/maxtor/mirror", True)    
+            except Exception as e:
+                self.logger.error("Error al organizar")
+                errors.extend(["Error al organizar"]) 
+        
+        return errors
  
     def execute(self,series_update):
         

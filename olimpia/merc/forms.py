@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
-from .models import Series, TorrentServers
+from .models import Series, TorrentServers, Plugins
 
 
 CHOICES = (( False,'No',), ( True,'Si',))
@@ -33,6 +33,9 @@ class SeriesFindForm(SeriesForm):
         
 class TorrentServersForm(forms.ModelForm):
     
+    
+        plugins = forms.ModelMultipleChoiceField(queryset=Plugins.objects.all(),widget=forms.CheckboxSelectMultiple)
+    
         '''
         torrent_active = models.NullBooleanField(default=False)  # Field name made lowercase.
         space_disk = models.IntegerField()
@@ -44,17 +47,17 @@ class TorrentServersForm(forms.ModelForm):
         download = models.CharField(blank=True, null=True, max_length=200)
         '''
     
-    
+
         class Meta:
             model = TorrentServers
-            fields = ('torrent_active', 'space_disk','host','port','user', 'password', 'paused','download' )
+            fields = ('torrent_active', 'space_disk','host','port','user', 'password', 'paused','download','plugins' )
             widgets = {
                 'torrent_active': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
                 'space_disk':forms.NumberInput(attrs={'class' : 'form-control'}),
                 'host': forms.TextInput(attrs={'class' : 'form-control'}),
                 'port':forms.NumberInput(attrs={'class' : 'form-control'}),
                 'user': forms.TextInput(attrs={'class' : 'form-control'}),
-                'password':forms.PasswordInput(attrs={'class' : 'form-control'}),
+                'password':forms.PasswordInput(render_value = True,attrs={'class' : 'form-control'}),
                 'paused': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
                 'download': forms.TextInput(attrs={'class' : 'form-control'}),
             }

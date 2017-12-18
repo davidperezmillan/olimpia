@@ -43,7 +43,6 @@ def control(request):
     else:
         form = SeriesForm()
     return render(request, 'merc/series/detail.html',{'form': form})
-
     
 @login_required(login_url='/accounts/login/')
 def control_edit(request, serie_id):
@@ -58,7 +57,6 @@ def control_edit(request, serie_id):
     else:
         form = SeriesForm(instance=serie)
     return render(request, 'merc/series/detail.html',{'form': form, 'serie': serie})
-
 
 @login_required(login_url='/accounts/login/')
 def control_delete(request, serie_id):
@@ -78,14 +76,13 @@ def listtorrentservers(request):
     context = {'latest_torrentservers_update': latest_torrentservers_update}
     return render(request, 'merc/servers/list.html', context)
 
-
 @login_required(login_url='/accounts/login/')
 def control_torrentservers(request):
     
     form = TorrentServersForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
-            torrentserver = form.save(commit=False)
+            torrentserver = form.save(commit=True)
             torrentserver.author = request.user
             torrentserver.save()
             merc.at.hilos.utiles.sendTelegram("Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port),request.user)
@@ -93,7 +90,6 @@ def control_torrentservers(request):
     else:
         form = TorrentServersForm()
     return render(request, 'merc/servers/detail.html',{'form': form})
-
     
 @login_required(login_url='/accounts/login/')
 def control_edittorrent(request, torrentserver_id):
@@ -101,14 +97,13 @@ def control_edittorrent(request, torrentserver_id):
     if request.method == "POST":
         form = TorrentServersForm(request.POST, instance=torrentserver)
         if form.is_valid():
-            torrentserver = form.save(commit=False)
+            torrentserver = form.save(commit=True)
             # serie.author = request.user
             torrentserver.save()
             return redirect('listtorrentservers')
     else:
         form = TorrentServersForm(instance=torrentserver)
     return render(request, 'merc/servers/detail.html',{'form': form, 'torrentserver': torrentserver})
-
 
 @login_required(login_url='/accounts/login/')
 def control_deletetorrent(request, torrentserver_id):
@@ -120,7 +115,7 @@ def control_deletetorrent(request, torrentserver_id):
 
 
 
-
+# Lanzamos processos
 @login_required(login_url='/accounts/login/')
 def launch_unique(request, serie_id):
     serie = get_object_or_404(Series, pk=serie_id)
@@ -139,9 +134,6 @@ def launch_unique(request, serie_id):
         
     return render(request, 'merc/torrent/list.html', context)
     
-
-
-
 @login_required(login_url='/accounts/login/')
 def launch_all(request):
     
@@ -159,9 +151,6 @@ def launch_all(request):
         
     context = {}
     return render(request, 'merc/portada.html', context)
-
-
-
 
 @login_required(login_url='/accounts/login/')
 def launch_extreme(request):
@@ -204,3 +193,19 @@ def launch_extreme(request):
     return render(request, 'merc/series/detail_extreme.html',{'form': form})
     
     
+
+
+@login_required(login_url='/accounts/login/')
+def organize(request):
+    
+    torrentservers = TorrentServers.objects.filter(author=request.user)
+    context = {}
+    try:
+        launcher = AirTrapLauncher(torrentservers)
+        errors = launcher.organize()
+    except Exception, e:
+        logger.error(e)
+        context.update({'errors_messages':errors})
+    
+    # TODO
+    return redirect('list')

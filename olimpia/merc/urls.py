@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^launch/(?P<serie_id>[0-9]+)/$', views.launch_unique, name='launch_unique'),
     url(r'^launch/all/$', views.launch_all, name='launch_all'),
     url(r'^launch', views.launch_extreme, name='launch_extreme'),
+    url(r'^organize', views.organize, name='organize'),
     
     
     url(r'^rest/', include(router.urls)),
