@@ -16,7 +16,7 @@ class Command(BaseCommand):
  
     def add_arguments(self, parser):
         # Positional arguments
-        parser.add_argument('author', nargs='1', type=str)
+        parser.add_argument('author', nargs=1, type=str)
         
         # Named (optional) arguments
         parser.add_argument(
@@ -28,16 +28,17 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        logger.debug('Ejecutando comando organize por peticion de {} con options {}'.format('david', options['delete']))
+        for user in options['author']:
+            logger.debug('Ejecutando comando organize por peticion de {} con options {}'.format(user, options['delete']))
+            
+            author = User.objects.get(username=user)
+            torrentservers = TorrentServers.objects.filter(author=author)
+            try:
+                launcher = AirTrapLauncher(torrentservers)
+                errors = launcher.organize(options['delete'])
+            except Exception, e:
+                logger.error(e)
+            
+            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", author)
         
-        author = User.objects.get(username=options['david'])
-        torrentservers = TorrentServers.objects.filter(author=author)
-        try:
-            launcher = AirTrapLauncher(torrentservers)
-            errors = launcher.organize(options['delete'])
-        except Exception, e:
-            logger.error(e)
-        
-        merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", author)
-        
-        self.stdout.write('Successfully "{}"'.format('david'))
+            self.stdout.write('Successfully "{}"'.format(user))
