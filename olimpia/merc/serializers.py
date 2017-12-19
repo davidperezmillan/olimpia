@@ -18,7 +18,7 @@ class SeriesSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Series
-        fields = ('id', 'nombre', 'ep_start', 'ep_end', 'quality','ultima','paussed','skipped', 'url',)
+        fields = ('id','author', 'nombre', 'ep_start', 'ep_end', 'quality','ultima','paussed','skipped', 'url',)
 
 
 

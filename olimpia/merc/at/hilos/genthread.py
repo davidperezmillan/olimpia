@@ -16,13 +16,18 @@ class GenTorrentThread(threading.Thread):
         return
     
     def run(self):
+        
         logger.debug('kwargs: {}'.format(self.kwargs))    
         logger.debug('series_update: {}'.format(self.kwargs['series_update']))
         logger.debug('torrentservers: {}'.format(self.kwargs['torrentservers']))
         logger.debug('user: {}'.format(self.kwargs['user']))
         
-        launcher = AirTrapLauncher(self.kwargs['torrentservers'])
-        torrent_found, torrent_added, errors = launcher.execute(self.kwargs['series_update'])
+        torrentservers = self.kwargs['torrentservers']
+        series_update = self.kwargs['series_update']
+        filter_find = self.kwargs.get('filter_find',False)
+        
+        launcher = AirTrapLauncher(torrentservers)
+        torrent_found, torrent_added, errors = launcher.execute(series_update, filter_find)
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
