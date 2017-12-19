@@ -28,25 +28,20 @@ class Command(BaseCommand):
  
  
     def handle(self, *args, **options):
-        logger.debug('Ejecutando comando por peticion de {}'.format(options['author']))
-        
-        author = User.objects.get(username=options['author'][0])
-        logger.debug("Usuario : {}".format(author))
-        
-        
-        series_update = Series.objects.filter(author=author).filter(skipped=False)
-        logger.debug('series_update: {}'.format(series_update))
-        torrentservers = TorrentServers.objects.filter(author=author)
-        logger.debug('torrentservers: {}'.format(torrentservers))
+        for user in options['author']:
+            logger.debug('Ejecutando comando por peticion de {}'.format(user))
+            author = User.objects.get(username=user)
+            logger.debug("Usuario : {}".format(author))
+            
+            series_update = Series.objects.filter(author=author).filter(skipped=False)
+            logger.debug('series_update: {}'.format(series_update))
+            torrentservers = TorrentServers.objects.filter(author=author)
+            logger.debug('torrentservers: {}'.format(torrentservers))
+            try:
+                 merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, author)
+            except Exception, e:
+                strError = "Se ha produccido un error en el proceso del mercenario"
+                logger.error(e)
+                merc.at.hilos.utiles.sendTelegram(strError, author)
     
-    
-        '''
-        try:
-             merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, author)
-        except Exception, e:
-            strError = "Se ha produccido un error en el proceso del mercenario"
-            logger.error(e)
-            merc.at.hilos.utiles.sendTelegram(strError, author)
-        '''
-
-        self.stdout.write('Successfully "{}"'.format(author))
+            self.stdout.write('Successfully "{}"'.format(author))
