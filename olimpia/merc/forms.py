@@ -34,7 +34,7 @@ class SeriesFindForm(SeriesForm):
 class TorrentServersForm(forms.ModelForm):
     
     
-        plugins = forms.ModelMultipleChoiceField(queryset=Plugins.objects.all(),widget=forms.CheckboxSelectMultiple)
+        plugins = forms.ModelMultipleChoiceField(queryset=Plugins.objects.all(),widget=forms.CheckboxSelectMultiple,required=False,)
     
         '''
         torrent_active = models.NullBooleanField(default=False)  # Field name made lowercase.
