@@ -88,8 +88,9 @@ class AirTrapLauncher(object):
         lrequest.sort(key=lambda x: x.episode[2:], reverse=False)
         
         for request in lrequest:
-            
             nextEp = request.episode[:-2] + str(int(request.episode[-2:]) + 1).zfill(2)
+            self.logger.info("[UPDATE SERIES] {} a {} -- {}".format(serie.nombre, nextEp, datetime.now()))
+            serie.ultima = datetime.now()
             serie.ep_start = nextEp
             serie.save()
 
