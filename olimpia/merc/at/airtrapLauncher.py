@@ -3,6 +3,8 @@
 import logging
 import imp,sys
 import importlib
+from datetime import datetime
+
 
 from merc.models import Series, TorrentServers, Plugins
 
@@ -73,7 +75,7 @@ class AirTrapLauncher(object):
                    
     
                 self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar".format(len(found), serie.nombre))
-                if found:
+                if found_serie:
                     try:
                         added_serie = self.__launch_transmission(found_serie,clnt.client, clnt.conf)
                         added.extend(added_serie)
@@ -83,7 +85,7 @@ class AirTrapLauncher(object):
                     try:
                         self.__updateSeries(serie, found_serie)
                     except Exception as e:
-                        self.logger.error("No se ha updateado la serie", e)
+                        self.logger.exception("message")("No se ha updateado la serie")
                         errors.extend(["No se ha updateado la serie {}".format(serie.nombre)])   
                 
         
@@ -96,7 +98,7 @@ class AirTrapLauncher(object):
         
         for request in lrequest:
             nextEp = request.episode[:-2] + str(int(request.episode[-2:]) + 1).zfill(2)
-            self.logger.info("[UPDATE SERIES] {} a {} -- {}".format(serie.nombre, nextEp, str(datetime.now())))
+            self.logger.info("[UPDATE SERIES] {} a {} -- {}".format(serie.nombre, nextEp, datetime.now()))
             serie.ultima = datetime.now()
             serie.ep_start = nextEp
             serie.save()
