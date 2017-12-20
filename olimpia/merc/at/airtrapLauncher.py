@@ -53,7 +53,7 @@ class AirTrapLauncher(object):
         errors = []
         
         for clnt in self.clients:
-            self.logger.info('id_clnt: {0}'.format(clnt.id))
+            self.logger.info('conf_clnt: {0}'.format(clnt.conf))
             plugs = clnt.plugins 
             
             if plugs:
