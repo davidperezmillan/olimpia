@@ -48,8 +48,8 @@ class AirTrapLauncher(object):
  
     def execute(self,series_update, filter=False):
         
-        found = []
-        added = []
+        found = [] 
+        added = [] 
         errors = []
         
         for clnt in self.clients:
@@ -63,6 +63,8 @@ class AirTrapLauncher(object):
                 errors.extend(["No tenemos plugins"])
             
             for serie in series_update:
+                found_serie = [] # Inicializamos por serie
+                added_serie = [] # Inicializamos por serie
                 request = RequestPlugin(title=serie.nombre, epstart=serie.ep_start, epend=serie.ep_end)
 
                 for instance in plugs:
@@ -73,12 +75,16 @@ class AirTrapLauncher(object):
                 self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar".format(len(found), serie.nombre))
                 if found:
                     try:
-                        added.extend(self.__launch_transmission(found,clnt.client, clnt.conf))
-                        self.__updateSeries(serie, found_serie)
+                        added_serie = self.__launch_transmission(found,clnt.client, clnt.conf)
+                        added.extend(added_serie)
                     except Exception as e:
                         self.logger.error("No hay o no esta activado el cliente para torrent")
                         errors.extend(["No hay o no esta activado el cliente para torrent"])           
-            
+                    try:
+                        self.__updateSeries(serie, found_serie)
+                    except Exception as e:
+                        self.logger.error("No se ha updateado la serie", e)
+                        errors.extend(["No se ha updateado la serie {}".format(serie.nombre)])   
                 
         
         return found, added, errors
