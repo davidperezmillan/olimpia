@@ -75,7 +75,7 @@ class AirTrapLauncher(object):
                 self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar".format(len(found), serie.nombre))
                 if found:
                     try:
-                        added_serie = self.__launch_transmission(found,clnt.client, clnt.conf)
+                        added_serie = self.__launch_transmission(found_serie,clnt.client, clnt.conf)
                         added.extend(added_serie)
                     except Exception as e:
                         self.logger.error("No hay o no esta activado el cliente para torrent")
@@ -96,7 +96,7 @@ class AirTrapLauncher(object):
         
         for request in lrequest:
             nextEp = request.episode[:-2] + str(int(request.episode[-2:]) + 1).zfill(2)
-            self.logger.info("[UPDATE SERIES] {} a {} -- {}".format(serie.nombre, nextEp, datetime.now()))
+            self.logger.info("[UPDATE SERIES] {} a {} -- {}".format(serie.nombre, nextEp, str(datetime.now())))
             serie.ultima = datetime.now()
             serie.ep_start = nextEp
             serie.save()
