@@ -17,21 +17,20 @@ class GenTorrentThread(threading.Thread):
     
     def run(self):
         
-        logger.debug('kwargs: {}'.format(self.kwargs))    
-        logger.debug('series_update: {}'.format(self.kwargs['series_update']))
-        logger.debug('torrentservers: {}'.format(self.kwargs['torrentservers']))
-        logger.debug('user: {}'.format(self.kwargs['user']))
-        
         torrentservers = self.kwargs['torrentservers']
         series_update = self.kwargs['series_update']
+        user = self.kwargs['user']
         filter_find = self.kwargs.get('filter_find',False)
         
+        logger.debug('kwargs: {}'.format(self.kwargs))    
+        logger.debug('Vamos a lanzar una busqueda para {} en los servidores {} habilitados para el user {}: opcion de filtrado:{}'.format(len(series_update), torrentservers, user, filter_find))
+
         launcher = AirTrapLauncher(torrentservers)
         torrent_found, torrent_added, errors = launcher.execute(series_update, filter_find)
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=self.kwargs['user'])
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=user)
         return
     
 class GenTransmissionThread(threading.Thread):

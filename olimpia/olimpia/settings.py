@@ -179,6 +179,14 @@ LOGGING = {
             'backupCount': 5,
             'formatter':'standard',
         },
+        'cron_files': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/merc/olimpiacronjobs.log',
+            'maxBytes': 1024*1024*2, # 2 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -193,6 +201,11 @@ LOGGING = {
         'merc.at.plugins': {
             'handlers': ['plugins_files'],
             'level': 'INFO',
+            'propagate': False,
+        },
+        'merc.management.commands': {
+            'handlers': ['cron_files'],
+            'level': 'DEBUG',
             'propagate': False,
         },
         # 'hermes_django': {
