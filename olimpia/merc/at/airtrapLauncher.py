@@ -69,7 +69,7 @@ class AirTrapLauncher(object):
                     found.extend(found_serie) 
                    
     
-                self.logger.info("Hemos encontrado [[ {} ]] elementos para descargar".format(len(found)))
+                self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar".format(len(found), serie.nombre))
                 if found:
                     try:
                         added.extend(self.__launch_transmission(found,clnt.client, clnt.conf))
