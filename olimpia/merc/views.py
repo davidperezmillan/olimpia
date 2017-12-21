@@ -209,3 +209,13 @@ def organize(request):
     
     # TODO
     return redirect('list')
+
+
+
+
+
+@login_required(login_url='/accounts/login/')
+def telegramSend(request):
+    merc.at.hilos.utiles.sendTelegram("Se envia un mensaje desde el usuario {}".format(request.user),request.user)
+    # TODO
+    return redirect('portada')

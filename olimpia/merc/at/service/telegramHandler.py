@@ -215,13 +215,12 @@ class TelegramNotifier(object):
         self.logger.debug('Try get new Chats')
         upd_usernames, upd_fullnames, upd_groups = self._get_bot_updates()
 
+        self.logger.debug('upd_usernames {}, upd_fullnames {}, upd_groups {}'. format(upd_usernames, upd_fullnames, upd_groups))
 
         len_ = len(usernames)
         for i, username in enumerate(reversed(usernames)):
             chat = upd_usernames.get(username)
             if chat is not None:
-                # entry = ChatIdEntry(id=chat.id, username=chat.username, firstname=chat.first_name,
-                #                     surname=chat.last_name)
                 entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 
@@ -232,8 +231,6 @@ class TelegramNotifier(object):
         for i, fullname in enumerate(reversed(fullnames)):
             chat = upd_fullnames.get(fullname)
             if chat is not None:
-                # entry = ChatIdEntry(id=chat.id, username=chat.username, firstname=chat.first_name,
-                #                     surname=chat.last_name)
                 entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 yield entry
@@ -243,7 +240,6 @@ class TelegramNotifier(object):
         for i, grp in enumerate(reversed(groups)):
             chat = upd_groups.get(grp)
             if chat is not None:
-                # entry = ChatIdEntry(id=chat.id, group=chat.title)
                 entry = TelegramChatIds(id=chat.id, group=chat.title)
                 yield entry
                 groups.pop(len_ - i - 1)
@@ -297,7 +293,3 @@ class TelegramNotifier(object):
         self._token = token
         self._user = user
 
-if __name__ == '__main__':
-    clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-    receivers = ReceiverTelegram(fullnames = [("David","Perez Millan")], groups = [("Down")])
-    clazz.notify("Mensaje de prueba", receivers)

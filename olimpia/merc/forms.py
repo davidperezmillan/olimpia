@@ -61,3 +61,7 @@ class TorrentServersForm(forms.ModelForm):
                 'paused': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
                 'download': forms.TextInput(attrs={'class' : 'form-control'}),
             }
+
+class TelegramSendForm(forms.Form): #Note that it is not inheriting from forms.ModelForm
+    msg = forms.CharField(max_length=20)
+    #All my attributes here

@@ -21,11 +21,14 @@ def sendTelegramListAdded(lrequest, user=None):
 
 
 
-def sendTelegram(mensaje='Interaccion', user=None):
+def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
     '''
     Y si anadimos un envio de Telegram cuando se anade una serie
     '''
-    gtransmissionh = GenTransmissionThread(args=(mensaje), kwargs={'user':user})
+    from merc.at.service.telegramHandler import ReceiverTelegram
+    receivers = receivers if receivers else ReceiverTelegram(fullnames=[("David","Perez Millan")], groups=['down'])
+    
+    gtransmissionh = GenTransmissionThread(args=(mensaje), kwargs={'user':user, 'receivers':receivers})
     gtransmissionh.start()  
       
       

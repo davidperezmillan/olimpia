@@ -28,8 +28,8 @@ import constantes as cons
 SECRET_KEY = 'aa2mbm^ca*8a^lmr88p*k6dmusbod!s4t$fqa)p5nh5-tlg^k&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
@@ -149,76 +149,4 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 STATIC_URL = '/static/'
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s'
-        },
-        'standard_alt':{
-            'format' : '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
-        }
-    },
-    'handlers': {
-        # 'hermes_django': {
-        #     'level':'DEBUG',
-        #     'class':'logging.handlers.RotatingFileHandler',
-        #     'filename': 'logs/hermes_django.log',
-        #     'maxBytes': 1024*1024*5, # 5 MB
-        #     'backupCount': 5,
-        #     'formatter':'standard',
-        # },  
-        'plugins_files': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/merc/plugins.log',
-            'maxBytes': 1024*1024*2, # 2 MB
-            'backupCount': 5,
-            'formatter':'standard',
-        },
-        'cron_files': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/merc/olimpiacronjobs.log',
-            'maxBytes': 1024*1024*2, # 2 MB
-            'backupCount': 5,
-            'formatter':'standard',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter':'standard',
-        }
-    },
-    'loggers': {
-        'merc': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        'merc.at.plugins': {
-            'handlers': ['plugins_files'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'merc.management.commands': {
-            'handlers': ['cron_files'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        # 'hermes_django': {
-        #     'handlers': ['console', 'hermes_django'],
-        #     'level': 'DEBUG',
-        # },
-        # 'django.request': {
-        #     'handlers': ['console', 'request_handler'],
-        #     'propagate': False,
-        #     'level': 'DEBUG'
-        # }
-    }
-}
-
-
 

@@ -1,5 +1,8 @@
 from .base import *
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
