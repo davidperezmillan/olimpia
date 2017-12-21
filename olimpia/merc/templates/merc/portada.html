@@ -3,4 +3,21 @@
 {% block content %}
 <div class="container">Mercenario </div>
 
+<ul>
+    {% for rep in report %} 
+        <li>{{ rep }}</li>   
+    {% endfor %}
+    
+    
+</ul>
+
+
+<ul>
+{% for entry in feeds.entries %}
+
+    <li><a href="{{entry.link}}">{{ entry.tags.0.term }}</a></li>
+
+{% endfor %}
+</ul>
+
 {% endblock %}

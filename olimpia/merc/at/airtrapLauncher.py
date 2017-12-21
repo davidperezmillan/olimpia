@@ -79,14 +79,16 @@ class AirTrapLauncher(object):
                     try:
                         added_serie = self.__launch_transmission(found_serie,clnt.client, clnt.conf)
                         added.extend(added_serie)
+                        self.logger2.info("{} {}".format(serie,found_serie))
+                        self.__updateSeries(serie, found_serie)
                     except Exception as e:
                         self.logger.error("No hay o no esta activado el cliente para torrent")
                         errors.extend(["No hay o no esta activado el cliente para torrent"])           
-                    try:
-                        self.__updateSeries(serie, found_serie)
-                    except Exception as e:
-                        self.logger.exception("message")("No se ha updateado la serie")
-                        errors.extend(["No se ha updateado la serie {}".format(serie.nombre)])   
+                    # try:
+                    #   pass
+                    # except Exception as e:
+                    #     self.logger.exception("message")("No se ha updateado la serie")
+                    #     errors.extend(["No se ha updateado la serie {}".format(serie.nombre)])   
                 
         
         return found, added, errors
@@ -154,6 +156,8 @@ class AirTrapLauncher(object):
             self.logger = logger
         else:
            self.logger = logging.getLogger(__name__)
+           
+        self.logger2 = logging.getLogger('daily')
         
         self.clients = self.__getClientTorrents(torrentservers)
         self.logger.debug("Clientes torrent seleccionados : {0}".format(self.clients));

@@ -101,15 +101,20 @@
              <td><strong>Hemos grabado la serie</strong></td>
             {% endif %}
             
+            <td>
             {% if perms.merc.change_series %}
-                <td><a href="{% url 'control_edit' serie.id %}">{{ serie.nombre }}</a></td>
+                <a href="{% url 'control_edit' serie.id %}">{{ serie.nombre }}</a>
             {% endif %} 
-            {% if perms.merc.delete_series %}
-                <td>
+            </td>
+            <td>
+                {% if perms.merc.change_series %}
+                <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a> 
+                {% endif %} 
+                {% if perms.merc.delete_series %} 
                     <a href="{% url 'control_delete' serie.id %}"><i class="glyphicon glyphicon-remove"></i></a>
-                     {% if perms.merc.change_series %}<a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a> {% endif %} 
-                </td>
-            {% endif %} 
+                {% endif %}
+                <a href="{% url 'launch_unique' serie.id %}"><i class="glyphicon glyphicon-send"></i></a>
+            </td>
         {% endif %} 
     </tr>
 </table>
