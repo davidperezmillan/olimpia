@@ -217,7 +217,7 @@ class TelegramNotifier(object):
 
         self.logger.debug('upd_usernames {}, upd_fullnames {}, upd_groups {}'. format(upd_usernames, upd_fullnames, upd_groups))
 
-
+        '''
         for chat in upd_usernames:
             if chat is not None:
                 self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
@@ -268,8 +268,7 @@ class TelegramNotifier(object):
                 entry = TelegramChatIds(id=chat.id, group=chat.title)
                 yield entry
                 groups.pop(len_ - i - 1)
-        '''
-
+        
     def _get_bot_updates(self):
         self.logger.debug('Update BBDD')
         # highly unlikely, but if there are more than 100 msgs waiting for the bot, we should not miss one
