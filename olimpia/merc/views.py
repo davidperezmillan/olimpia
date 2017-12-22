@@ -220,6 +220,7 @@ def telegramSend(request):
     form = TelegramSendForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
+            logger.info("{form}".format(form=form))
             from merc.at.service.telegramHandler import ReceiverTelegram
             msg = form['msg'].value()
             username = form['receiver'].value()
