@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %} {% block content %}
+<div class="container">
+
+    <title>
+        Envio de mensajes
+    </title>
+
+    {% if error_message %}
+        <p>
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
+
+
+    <script type="text/javascript">
+
+    </script>
+
+    <form method="POST" action>
+
+        <div class="form-group col-xs-5">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <button type="submit" class="save btn btn-default">Enviar</button> 
+        </div>
+        {% endblock %}
