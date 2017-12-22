@@ -63,11 +63,11 @@ class TorrentServersForm(forms.ModelForm):
             }
 
 class TelegramSendForm(forms.Form): #Note that it is not inheriting from forms.ModelForm
-    msg = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class' : 'form-control'}),  label="Mensaje")
-    username = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Nombre Completo")
-    firstname = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Nombre")
-    lastname = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Apellidos")
-    group = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Grupo")
+    msg = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class' : 'form-control'}),  label="Mensaje", required=False,)
+    username = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Nombre Completo",required=False,)
+    firstname = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Nombre",required=False,)
+    lastname = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Apellidos",required=False,)
+    group = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Grupo",required=False,)
     #All my attributes here
     
     

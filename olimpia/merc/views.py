@@ -221,10 +221,10 @@ def telegramSend(request):
     if request.method == "POST":
         if form.is_valid():
             from merc.at.service.telegramHandler import ReceiverTelegram
-            msg = form.msg
-            username = form.username
-            fullname = (form.firstname,form.lastname)
-            group = form.group
+            msg = form['msg'].value()
+            username = form['username'].value()
+            fullname = (form['firstname'].value(),form['lastname'].value())
+            group = form['group'].value()
             receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
             merc.at.hilos.utiles.sendTelegram(mensaje=msg, user=request.user, receivers=receivers)
     else:
