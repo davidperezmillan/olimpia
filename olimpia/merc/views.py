@@ -225,6 +225,7 @@ def telegramSend(request):
             username = form['receiver'].value()
             fullname = merc.at.hilos.utiles.getAndBuildFullnames(form['receiver'].value())
             group = form['receiver'].value()
+            logger.info("{fullnames}{groups}{usernames}".format(fullnames=[fullname], groups=[group], usernames=[username]))
             receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
             merc.at.hilos.utiles.sendTelegram(mensaje=msg, user=request.user, receivers=receivers)
     else:
