@@ -39,5 +39,8 @@ def findAndDestroy(series_update, torrentservers, filter_find=False, user=None):
     gtorrenth.start()
 
 
-
+def getAndBuildFullnames(destinatario):
+    firstname = destinatario.split(' ',1)[0]
+    surname = destinatario.split(' ',1)[1]
+    return firstname,surname
 

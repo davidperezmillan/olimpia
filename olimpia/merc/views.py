@@ -222,12 +222,13 @@ def telegramSend(request):
         if form.is_valid():
             from merc.at.service.telegramHandler import ReceiverTelegram
             msg = form['msg'].value()
-            username = form['username'].value()
-            fullname = (form['firstname'].value(),form['lastname'].value())
-            group = form['group'].value()
+            username = form['receiver'].value()
+            fullname = merc.at.hilos.utiles.getAndBuildFullnames(form['receiver'].value())
+            group = form['receiver'].value()
             receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
             merc.at.hilos.utiles.sendTelegram(mensaje=msg, user=request.user, receivers=receivers)
     else:
         form = TelegramSendForm()
     return render(request, 'merc/telegram/detail.html',{'form': form})
     
+

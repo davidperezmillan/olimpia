@@ -215,7 +215,7 @@ class TelegramNotifier(object):
         self.logger.debug('Try get new Chats')
         upd_usernames, upd_fullnames, upd_groups = self._get_bot_updates()
 
-        self.logger.debug('upd_usernames {}, upd_fullnames {}, upd_groups {}'. format(upd_usernames, upd_fullnames, upd_groups))
+        self.logger.info('upd_usernames {}, upd_fullnames {}, upd_groups {}'. format(upd_usernames, upd_fullnames, upd_groups))
 
         ''' 
         for chat in upd_usernames:
