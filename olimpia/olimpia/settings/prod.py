@@ -1,8 +1,8 @@
 from .base import *
 
 
-# SECURITY WARNING: don't run with INFO turned on in production!
-INFO = False
+# SECURITY WARNING: don't run with DEBUG turned on in production!
+DEBUG = False
 
 LOGGING = {
     'version': 1,
