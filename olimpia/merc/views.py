@@ -8,7 +8,7 @@ from django.db import IntegrityError
 
 # Create your views here.
 from .models import Series, TorrentServers, Plugins, TelegramChatIds
-from .forms import SeriesForm, TorrentServersForm, SeriesFindForm
+from .forms import SeriesForm, TorrentServersForm, SeriesFindForm, TelegramSendForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
@@ -216,6 +216,18 @@ def organize(request):
 
 @login_required(login_url='/accounts/login/')
 def telegramSend(request):
-    merc.at.hilos.utiles.sendTelegram("Se envia un mensaje desde el usuario {}".format(request.user),request.user)
-    # TODO
-    return redirect('portada')
+    
+    form = TelegramSendForm(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            from merc.at.service.telegramHandler import ReceiverTelegram
+            msg = form.msg
+            username = form.username
+            fullname = (form.firstname,form.lastname)
+            group = form.group
+            receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
+            merc.at.hilos.utiles.sendTelegram(mensaje=msg, user=request.user, receivers=receivers)
+    else:
+        form = TelegramSendForm()
+    return render(request, 'merc/telegram/detail.html',{'form': form})
+    

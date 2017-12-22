@@ -217,24 +217,24 @@ class TelegramNotifier(object):
 
         self.logger.debug('upd_usernames {}, upd_fullnames {}, upd_groups {}'. format(upd_usernames, upd_fullnames, upd_groups))
 
-        
+        ''' 
         for chat in upd_usernames:
             if chat is not None:
-                self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
+                self.logger.debug('chat : {}'.format(chat))
                 entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 yield entry
         
         for chat in upd_fullnames:
             if chat is not None:
-                self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
+                self.logger.debug('chat : {}'.format(chat))
                 entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 yield entry        
                 
         for chat in upd_groups:
             if chat is not None:
-                self.logger.debug('id {}, group {} '. format(chat.id,chat.title))
+                self.logger.debug('chat : {}'.format(chat))
                 entry = TelegramChatIds(id=chat.id, group=chat.title)
                 yield entry
                 
@@ -268,7 +268,6 @@ class TelegramNotifier(object):
                 entry = TelegramChatIds(id=chat.id, group=chat.title)
                 yield entry
                 groups.pop(len_ - i - 1)
-        '''
         
     def _get_bot_updates(self):
         self.logger.debug('Update BBDD')
