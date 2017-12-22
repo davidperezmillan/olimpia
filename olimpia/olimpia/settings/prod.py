@@ -1,8 +1,8 @@
 from .base import *
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# SECURITY WARNING: don't run with INFO turned on in production!
+INFO = False
 
 LOGGING = {
     'version': 1,
@@ -21,7 +21,7 @@ LOGGING = {
     },
     'handlers': {
         # 'hermes_django': {
-        #     'level':'DEBUG',
+        #     'level':'INFO',
         #     'class':'logging.handlers.RotatingFileHandler',
         #     'filename': 'logs/hermes_django.log',
         #     'maxBytes': 1024*1024*5, # 5 MB
@@ -29,7 +29,7 @@ LOGGING = {
         #     'formatter':'standard',
         # },  
         'plugins_files': {
-            'level':'DEBUG',
+            'level':'INFO',
             'class':'logging.handlers.RotatingFileHandler',
             'filename': 'logs/merc/plugins.log',
             'maxBytes': 1024*1024*2, # 2 MB
@@ -46,7 +46,7 @@ LOGGING = {
             'formatter':'report_daily',
         },
         'cron_files': {
-            'level':'DEBUG',
+            'level':'INFO',
             'class':'logging.handlers.RotatingFileHandler',
             'filename': 'logs/merc/olimpiacronjobs.log',
             'maxBytes': 1024*1024*2, # 2 MB
@@ -54,7 +54,7 @@ LOGGING = {
             'formatter':'standard',
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter':'standard',
         }
@@ -62,11 +62,11 @@ LOGGING = {
     'loggers': {
         'merc': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
         'daily': {
             'handlers': ['daily_files'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
         'merc.at.plugins': {
             'handlers': ['plugins_files'],
@@ -75,17 +75,17 @@ LOGGING = {
         },
         'merc.management.commands': {
             'handlers': ['cron_files'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': False,
         },
         # 'hermes_django': {
         #     'handlers': ['console', 'hermes_django'],
-        #     'level': 'DEBUG',
+        #     'level': 'INFO',
         # },
         # 'django.request': {
         #     'handlers': ['console', 'request_handler'],
         #     'propagate': False,
-        #     'level': 'DEBUG'
+        #     'level': 'INFO'
         # }
     }
 }
