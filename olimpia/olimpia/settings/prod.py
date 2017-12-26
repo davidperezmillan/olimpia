@@ -2,7 +2,7 @@ from .base import *
 
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
-DEBUG = False
+DEBUG = True
 
 LOGGING = {
     'version': 1,

@@ -29,7 +29,7 @@ class Command(BaseCommand):
  
     def handle(self, *args, **options):
         for user in options['author']:
-            logger.debug('Ejecutando comando por peticion de {}'.format(user))
+            logger.debug('Ejecutando comando Busqueda por peticion de {}'.format(user))
             author = User.objects.get(username=user)
             logger.debug("Usuario : {}".format(author))
             
