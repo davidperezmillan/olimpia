@@ -28,7 +28,6 @@ LOGGING = {
         #     'formatter':'standard',
         # },  
         'plugins_files': {
-            'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
             'filename': 'logs/merc/plugins.log',
             'maxBytes': 1024*1024*2, # 2 MB
@@ -36,7 +35,6 @@ LOGGING = {
             'formatter':'standard',
         },
         'daily_files': {
-            # 'level':'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': 'logs/merc/daily.log',
             'when': 'D', # this specifies the interval
@@ -45,7 +43,6 @@ LOGGING = {
             'formatter':'report_daily',
         },
         'cron_files': {
-            'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
             'filename': 'logs/merc/olimpiacronjobs.log',
             'maxBytes': 1024*1024*2, # 2 MB
@@ -53,7 +50,6 @@ LOGGING = {
             'formatter':'standard',
         },
         'console': {
-            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter':'standard',
         }
@@ -77,14 +73,5 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
-        # 'hermes_django': {
-        #     'handlers': ['console', 'hermes_django'],
-        #     'level': 'DEBUG',
-        # },
-        # 'django.request': {
-        #     'handlers': ['console', 'request_handler'],
-        #     'propagate': False,
-        #     'level': 'DEBUG'
-        # }
     }
 }

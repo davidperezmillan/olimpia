@@ -111,7 +111,7 @@ class AirTrapLauncher(object):
             return cli.allAddTorrent(urls,conf)
         except Exception as e:
             self.logger.error(e)
-            raise e;
+            # raise e;
 
 
 
