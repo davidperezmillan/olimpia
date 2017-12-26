@@ -39,6 +39,6 @@ class Command(BaseCommand):
             except Exception, e:
                 logger.error(e)
             
-            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", author)
+            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=None)
         
             self.stdout.write('Successfully "{}"'.format(user))

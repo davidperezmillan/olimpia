@@ -30,7 +30,7 @@ class GenTorrentThread(threading.Thread):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=user)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=user, receivers=None)
         return
     
 class GenTransmissionThread(threading.Thread):

@@ -43,6 +43,6 @@ class Command(BaseCommand):
             except Exception, e:
                 strError = "Se ha produccido un error en el proceso del mercenario"
                 logger.error(e)
-                merc.at.hilos.utiles.sendTelegram(strError, author)
+                merc.at.hilos.utiles.sendTelegram(strError, author, receivers=None)
     
             self.stdout.write('Successfully "{}"'.format(author))
