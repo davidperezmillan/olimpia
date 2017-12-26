@@ -26,8 +26,7 @@ def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
     Y si anadimos un envio de Telegram cuando se anade una serie
     '''
     from merc.at.service.telegramHandler import ReceiverTelegram
-    # receivers = receivers if receivers else ReceiverTelegram(fullnames=[("David","Perez Millan")], groups=['Down'])
-    receivers = receivers if receivers else ReceiverTelegram(fullnames=[("David","Perez Millan")])
+    receivers = receivers if receivers else ReceiverTelegram(fullnames=[("David","Perez Millan")], groups=['Down'])
     
     gtransmissionh = GenTransmissionThread(args=(mensaje), kwargs={'user':user, 'receivers':receivers})
     gtransmissionh.start()  
@@ -36,7 +35,7 @@ def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
     
 def findAndDestroy(series_update, torrentservers, filter_find=False, user=None):
     
-    gtorrenth = GenTorrentThread(kwargs={'series_update':series_update, 'torrentservers':torrentservers, 'user':user,'filter_find':filter_find})
+    gtorrenth = GenTorrentThread( kwargs={'series_update':series_update, 'torrentservers':torrentservers, 'user':user,'filter_find':filter_find})
     gtorrenth.start()
 
 
