@@ -62,7 +62,7 @@ LOGGING = {
     'loggers': {
         'merc': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': 'DEBUG',
         },
         'daily': {
             'handlers': ['daily_files'],
