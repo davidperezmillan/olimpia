@@ -9,6 +9,10 @@ admin.autodiscover()
 router = DefaultRouter()
 router.register(r'series', SeriesViewSet)
 
+
+admin.site.site_header = 'Mercenario Administration'
+admin.site.site_title = 'Mercenario Administration'
+
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', views.portada, name='portada'),

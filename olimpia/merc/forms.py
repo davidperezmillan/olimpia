@@ -4,6 +4,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from .models import Series, TorrentServers, Plugins
 
 
+
 CHOICES = (( False,'No',), ( True,'Si',))
 CHOICES_QUALITY = (( 'NR','NR',),( 'HD','HD',),( 'VO','VO',),)
 
