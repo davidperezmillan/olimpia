@@ -20,14 +20,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        # 'hermes_django': {
-        #     'level':'INFO',
-        #     'class':'logging.handlers.RotatingFileHandler',
-        #     'filename': 'logs/hermes_django.log',
-        #     'maxBytes': 1024*1024*5, # 5 MB
-        #     'backupCount': 5,
-        #     'formatter':'standard',
-        # },  
         'plugins_files': {
             'class':'logging.handlers.RotatingFileHandler',
             'filename': 'logs/merc/plugins.log',
@@ -72,16 +64,6 @@ LOGGING = {
         'merc.management.commands': {
             'handlers': ['cron_files'],
             'level': 'INFO',
-            'propagate': False,
         },
-        # 'hermes_django': {
-        #     'handlers': ['console', 'hermes_django'],
-        #     'level': 'INFO',
-        # },
-        # 'django.request': {
-        #     'handlers': ['console', 'request_handler'],
-        #     'propagate': False,
-        #     'level': 'INFO'
-        # }
     }
 }
