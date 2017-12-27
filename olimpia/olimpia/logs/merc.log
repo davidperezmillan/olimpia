@@ -68,3 +68,17 @@
 2017-12-27 12:30:52,185 [DEBUG] - merc.at.service.torrentHandler - torrentHandler.py:110 - nombre del fichero New Girl - Temporada 6 [HDTV 720p][Cap.619][AC3 5.1 Español Castellano]/TorrentRapid.url
 2017-12-27 12:30:52,185 [INFO] - merc.at.service.torrentHandler - torrentHandler.py:112 - [EXCLUIDO] : New Girl - Temporada 6 [HDTV 720p][Cap.619][AC3 5.1 Español Castellano]/TorrentRapid.url
 2017-12-27 12:30:52,286 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:103 - [UPDATE SERIES] New Girl a HDS06E20 -- 2017-12-27 12:30:52.286209
+2017-12-27 14:09:32,549 [INFO] - merc.views - views.py:223 - <tr><th><label for="id_msg">Mensaje:</label></th><td><textarea class="form-control" cols="40" id="id_msg" maxlength="200" name="msg" rows="10">
+Ya he conseguido que esto funcione correctamente</textarea></td></tr>
+<tr><th><label for="id_receiver">Destinatario:</label></th><td><input class="form-control" id="id_receiver" maxlength="20" name="receiver" type="text" value="David Perez Millan" /></td></tr>
+2017-12-27 14:09:32,565 [INFO] - merc.views - views.py:229 - [(u'David', u'Perez Millan')][u'David Perez Millan'][u'David Perez Millan']
+2017-12-27 14:09:32,573 [DEBUG] - merc.at.hilos.genthread - genthread.py:48 - user: david:receivers usernames=[u'David Perez Millan'] fullnames=[(u'David', u'Perez Millan')] groups=[u'David Perez Millan']
+2017-12-27 14:09:32,607 [INFO] - merc.at.service.telegramHandler - telegramHandler.py:46 - config=usernames=[u'David Perez Millan'] fullnames=[(u'David', u'Perez Millan')] groups=[u'David Perez Millan'], message=Ya he conseguido que esto funcione correctamente
+2017-12-27 14:09:32,611 [INFO] - merc.at.service.telegramHandler - telegramHandler.py:71 - token=135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y, parse_mode=markdown, usernames=[u'David Perez Millan'], fullnames=[(u'David', u'Perez Millan')], groups=[u'David Perez Millan']
+2017-12-27 14:10:53,017 [ERROR] - merc.at.service.telegramHandler - telegramHandler.py:87 - Could not connect Telegram servers at this time, please try again later: urllib3 HTTPError HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y/getMe (Caused by NewConnectionError('<telegram.vendor.ptb_urllib3.urllib3.connection.VerifiedHTTPSConnection object at 0x7fd0e06fc050>: Failed to establish a new connection: [Errno 101] Network is unreachable',))
+2017-12-27 14:10:53,103 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:146 - loading cached chat ids
+2017-12-27 14:10:53,106 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:164 - Try get data Chats
+2017-12-27 14:10:53,454 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:148 - found 0 cached chat_ids: []
+2017-12-27 14:10:53,454 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:154 - loading new chat ids
+2017-12-27 14:10:53,454 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:215 - Try get new Chats
+2017-12-27 14:10:53,456 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:273 - Update BBDD

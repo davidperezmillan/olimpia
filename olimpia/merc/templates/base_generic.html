@@ -118,18 +118,6 @@
                                     <a href="{% url 'launch_extreme' %}">Buscar y Añadir</a> 
                                 </td>
                             </tr>
-                            {% if request.user.is_superuser %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'organize' %}">Organizar</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="{% url 'telegramSend' %}">MSG</a>
-                                </td>
-                            </tr>
-                            {% endif %}
                             </table>
                             
                         </div>
@@ -223,6 +211,39 @@
                         </div>
                     </div>
                 </div>
+                
+                {% if request.user.is_superuser %}
+                 <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-file">
+                            </span>Administracion</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'organize' %}">Organizar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'telegramSend' %}">MSG</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'admin:index' %}">Admin</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -259,6 +280,10 @@
                         </div>
                     </div>
                 </div>
+                
+
+   
+                           
             </div>
         </div>
         <div class="col-sm-9 col-md-9">
