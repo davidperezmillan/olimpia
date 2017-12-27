@@ -1,6 +1,8 @@
 from .base import *
 
-# SECURITY WARNING: don't run with debug turned on in production!
+LOGS_PATH=os.path.join(PROJECT_DIR, '../logs')
+
+# SECURITY WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
 LOGGING = {
@@ -19,53 +21,48 @@ LOGGING = {
         },
     },
     'handlers': {
-        # 'hermes_django': {
-        #     'level':'DEBUG',
-        #     'class':'logging.handlers.RotatingFileHandler',
-        #     'filename': 'logs/hermes_django.log',
-        #     'maxBytes': 1024*1024*5, # 5 MB
-        #     'backupCount': 5,
-        #     'formatter':'standard',
-        # },  
         'plugins_files': {
-            'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/merc/plugins.log',
+            'filename': os.path.join(LOGS_PATH,'plugins.log'),
             'maxBytes': 1024*1024*2, # 2 MB
             'backupCount': 5,
             'formatter':'standard',
         },
         'daily_files': {
-            # 'level':'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logs/merc/daily.log',
+            'filename': os.path.join(LOGS_PATH,'daily.log'),
             'when': 'D', # this specifies the interval
             'interval': 1, # defaults to 1, only necessary for other values 
             'backupCount': 10, # how many backup file to keep, 10 days
             'formatter':'report_daily',
         },
         'cron_files': {
-            'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/merc/olimpiacronjobs.log',
+            'filename':os.path.join(LOGS_PATH,'olimpiacronjobs.log'),
             'maxBytes': 1024*1024*2, # 2 MB
             'backupCount': 5,
             'formatter':'standard',
         },
         'console': {
-            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter':'standard',
-        }
+        },
+        'general': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_PATH,'merc.log'),
+            'maxBytes': 1024*1024*2, # 2 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
     },
     'loggers': {
         'merc': {
-            'handlers': ['console'],
+            'handlers': ['console','general'],
             'level': 'DEBUG',
         },
         'daily': {
             'handlers': ['daily_files'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
         'merc.at.plugins': {
             'handlers': ['plugins_files'],
@@ -74,17 +71,7 @@ LOGGING = {
         },
         'merc.management.commands': {
             'handlers': ['cron_files'],
-            'level': 'DEBUG',
-            'propagate': False,
+            'level': 'INFO',
         },
-        # 'hermes_django': {
-        #     'handlers': ['console', 'hermes_django'],
-        #     'level': 'DEBUG',
-        # },
-        # 'django.request': {
-        #     'handlers': ['console', 'request_handler'],
-        #     'propagate': False,
-        #     'level': 'DEBUG'
-        # }
     }
 }

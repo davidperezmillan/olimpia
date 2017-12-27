@@ -1,0 +1,197 @@
+2017-12-27 12:30:17,257 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Killjoys epstart=NRS03E11 epend=NRS99E99 -- True
+2017-12-27 12:30:17,257 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Killjoys"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:18,100 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/killjoys/2235
+2017-12-27 12:30:18,803 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E10 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,804 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E09 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,804 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E08 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,804 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E07 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,804 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E06 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,804 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E05 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,804 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E04 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E03 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E02 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Killjoys) cap: NRS03E01 para NRS03E11 de  NRS99E99 
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 3 : 0 -- False
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Taken epstart=NRS01E09 epend=NRS99E99 -- True
+2017-12-27 12:30:18,805 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Taken"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:19,629 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/taken/3161
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Taken) cap: NRS01E08 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Taken) cap: NRS01E03 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Taken) cap: NRS01E01 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 0 : 0 -- False
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Marvels Agents of S.H.I.E.L.D epstart=NRS04E23 epend=NRS99E99 -- True
+2017-12-27 12:30:20,276 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Marvels Agents of S.H.I.E.L.D"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:21,313 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/marvels-agents-of-s-h-i-e-l-d/1695
+2017-12-27 12:30:22,045 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E22 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,046 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E21 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,046 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E20 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,046 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E19 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,046 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E18 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,046 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E17 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,046 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E16 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E15 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E14 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Marvels Agents of S.H.I.E.L.D) cap: NRS04E13 para NRS04E23 de  NRS99E99 
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 9 : 0 -- False
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=El Ministerio del Tiempo epstart=HDS03E14 epend=NRS99E99 -- True
+2017-12-27 12:30:22,047 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"El Ministerio del Tiempo"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:22,790 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/el-ministerio-del-tiempo/2431
+2017-12-27 12:30:23,948 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E13 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,949 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E12 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,949 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E11 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,949 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E10 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,949 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E09 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,949 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E08 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E07 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E06 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E05 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Ministerio del Tiempo) cap: HDS03E04 para HDS03E14 de  NRS99E99 
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 3 : 0 -- False
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=El Tirador epstart=NRS02E09 epend=NRS99E99 -- True
+2017-12-27 12:30:23,950 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"El Tirador"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:25,159 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/el-tirador--shooter-/2859
+2017-12-27 12:30:26,279 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E08 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,279 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E07 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,279 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E06 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,280 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E05 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,280 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E04 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,280 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E03 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,280 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E02 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,280 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS02E01 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,280 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS01E10 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,281 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (El Tirador) cap: NRS01E09 para NRS02E09 de  NRS99E99 
+2017-12-27 12:30:26,281 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 2 : 0 -- False
+2017-12-27 12:30:26,281 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:26,281 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=The Defenders epstart=HDS01E09 epend=HDS99E99 -- True
+2017-12-27 12:30:26,281 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"The Defenders"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:27,320 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/the-defenders/3336
+2017-12-27 12:30:28,372 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (The Defenders) cap: HDS01E06 para HDS01E09 de  HDS99E99 
+2017-12-27 12:30:28,372 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (The Defenders) cap: HDS01E03 para HDS01E09 de  HDS99E99 
+2017-12-27 12:30:28,373 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (The Defenders) cap: HDS01E02 para HDS01E09 de  HDS99E99 
+2017-12-27 12:30:28,373 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (The Defenders) cap: HDS01E01 para HDS01E09 de  HDS99E99 
+2017-12-27 12:30:28,373 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 0 : 0 -- False
+2017-12-27 12:30:28,373 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:28,373 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Halt and Catch Fire epstart=HDS04E11 epend=HDS99E99 -- True
+2017-12-27 12:30:28,373 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Halt and Catch Fire"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:29,402 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/halt-and-catch-fire/1885
+2017-12-27 12:30:30,568 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E10 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,568 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E09 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,569 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E08 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,569 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E07 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,569 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E06 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,569 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E05 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,569 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E04 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,569 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E03 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,570 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E02 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,570 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Halt and Catch Fire) cap: HDS04E01 para HDS04E11 de  HDS99E99 
+2017-12-27 12:30:30,570 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 4 : 0 -- False
+2017-12-27 12:30:30,570 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:30,570 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=La Vida en Piezas epstart=HDS02E19 epend=HDS99E99 -- True
+2017-12-27 12:30:30,570 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"La Vida en Piezas"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:31,636 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/la-vida-en-piezas/2439
+2017-12-27 12:30:32,794 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:222 - [Aceptado] (La Vida en Piezas) cap: HDS02E20 para HDS02E19 de HDS99E99
+2017-12-27 12:30:32,795 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:222 - [Aceptado] (La Vida en Piezas) cap: HDS02E19 para HDS02E19 de HDS99E99
+2017-12-27 12:30:32,795 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E18 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,795 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E17 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,795 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E16 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,795 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E15 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,796 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E14 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,796 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E13 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,796 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E12 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,796 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (La Vida en Piezas) cap: HDS02E11 para HDS02E19 de  HDS99E99 
+2017-12-27 12:30:32,796 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 5 : 2 -- False
+2017-12-27 12:30:32,796 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 2 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:36,683 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Firefly epstart=NRS02E00 epend=NRS99E99 -- True
+2017-12-27 12:30:36,683 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Firefly"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:37,856 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/firefly/2467
+2017-12-27 12:30:38,954 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E14 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,955 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E13 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,955 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E12 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,955 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E11 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,955 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E10 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,956 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E09 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,956 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E08 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,956 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E07 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,956 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E06 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,956 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Firefly) cap: NRS01E05 para NRS02E00 de  NRS99E99 
+2017-12-27 12:30:38,956 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 2 : 0 -- False
+2017-12-27 12:30:38,957 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:38,957 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Inhumans epstart=NRS01E09 epend=NRS99E99 -- True
+2017-12-27 12:30:38,957 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Inhumans"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:40,124 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/inhumans/3425
+2017-12-27 12:30:41,183 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E08 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,184 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E07 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,184 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E06 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,184 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E05 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,185 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E04 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,185 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E03 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,185 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E02 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,185 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Inhumans) cap: NRS01E01 para NRS01E09 de  NRS99E99 
+2017-12-27 12:30:41,185 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 0 : 0 -- False
+2017-12-27 12:30:41,186 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:41,186 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Star Trek Discovery epstart=NRS01E10 epend=NRS99E99 -- True
+2017-12-27 12:30:41,186 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Star Trek Discovery"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2017-12-27 12:30:42,636 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series/star-trek-discovery/3412
+2017-12-27 12:30:44,072 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E09 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,072 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E08 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,073 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E07 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,073 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E06 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,073 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E05 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,073 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E04 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,073 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E03 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,073 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E02 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,074 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Star Trek Discovery) cap: NRS01E01 para NRS01E10 de  NRS99E99 
+2017-12-27 12:30:44,074 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 0 : 0 -- False
+2017-12-27 12:30:44,074 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:44,074 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Code Black epstart=HDS02E17 epend=HDS99E99 -- True
+2017-12-27 12:30:44,074 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Code Black"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:45,115 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/code-black/2913
+2017-12-27 12:30:46,213 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E16 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,213 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E15 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E14 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E13 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E12 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E11 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E10 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E09 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,214 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E08 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,215 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Code Black) cap: HDS02E07 para HDS02E17 de  HDS99E99 
+2017-12-27 12:30:46,215 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 4 : 0 -- False
+2017-12-27 12:30:46,215 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:46,215 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Transparent epstart=HDS04E11 epend=NRS99E99 -- True
+2017-12-27 12:30:46,215 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Transparent"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:47,346 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/transparent/2339
+2017-12-27 12:30:48,455 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E10 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,456 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E09 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,456 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E08 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,456 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E07 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,456 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E06 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,456 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E05 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E04 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E03 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS04E01 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (Transparent) cap: HDS03E10 para HDS04E11 de  NRS99E99 
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 3 : 0 -- False
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 0 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:48,457 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=New Girl epstart=HDS06E19 epend=NRS99E99 -- True
+2017-12-27 12:30:48,458 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"New Girl"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:49,503 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/new-girl/2651
+2017-12-27 12:30:50,615 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:222 - [Aceptado] (New Girl) cap: HDS06E19 para HDS06E19 de NRS99E99
+2017-12-27 12:30:50,616 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E18 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,616 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E17 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,616 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E16 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,616 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E15 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E14 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E13 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E12 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E11 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:225 - [Rechazado] (New Girl) cap: HDS06E10 para HDS06E19 de  NRS99E99 
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:265 - links recuperados/filtrados en la pagina 1 de 5 : 1 -- False
+2017-12-27 12:30:50,617 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:280 - Recuperando 1 torrent, esto puede tardar un poco, tenga paciencia
+2017-12-27 12:30:52,297 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=The Big Bang Theory epstart=HDS11E10 epend=NRS99E99 -- True
+2017-12-27 12:30:52,297 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"The Big Bang Theory"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
+2017-12-27 12:30:53,368 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/the-big-bang-theory/1869
