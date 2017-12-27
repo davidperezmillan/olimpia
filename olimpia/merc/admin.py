@@ -35,10 +35,18 @@ admin.site.register(Plugins,PluginsAdmin)
 
 
 
+def setSkipped(self, request,queryset):
+    rows_updated = queryset.update(skipped=True)
+    message_bit = "{} elementos".format(rows_updated)
+    self.message_user(request, "%s marcador como skipped." % message_bit)
+
+setSkipped.short_description = "Parar la descarga" 
+
+
 def change_owner(self, request, queryset):
     rows_updated = queryset.update(author=request.POST['author'])
-    message_bit = "{} elementos cambiados".format(rows_updated)
-    self.message_user(request, "%s successfully marked as published." % message_bit)
+    message_bit = "{} elementos".format(rows_updated)
+    self.message_user(request, "%s cambiados de author." % message_bit)
 
 change_owner.short_description = "Cambia propietario"
 
@@ -61,7 +69,7 @@ class SeriesAdmin(admin.ModelAdmin):
     list_filter = ['author','skipped','paussed','quality',]
     search_fields = ['nombre']
     action_form = ChangeUserForm
-    actions = [change_owner]
+    actions = [change_owner, setSkipped]
     
 
 admin.site.register(Series, SeriesAdmin)
