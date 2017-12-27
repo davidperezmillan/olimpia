@@ -39,7 +39,7 @@ class Command(BaseCommand):
             logger.debug('torrentservers: {}'.format(torrentservers))
             try:
                 #  merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=True, user=author)
-                 merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=True)
+                 merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=False)
             except Exception, e:
                 strError = "Se ha produccido un error en el proceso del mercenario"
                 logger.error(e)
