@@ -37,8 +37,8 @@ admin.site.register(Plugins,PluginsAdmin)
 
 def change_owner(self, request, queryset):
     rows_updated = queryset.update(author=request.POST['author'])
-    message_bit = "{} elementos ".format(rows_updated)
-    self.message_user(request, "%s cambio realizado." % message_bit)
+    message_bit = "{} elementos cambiados".format(rows_updated)
+    self.message_user(request, "%s successfully marked as published." % message_bit)
 
 change_owner.short_description = "Cambia propietario"
 
