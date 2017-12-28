@@ -217,33 +217,11 @@ class TelegramNotifier(object):
 
         self.logger.debug('upd_usernames {}, upd_fullnames {}, upd_groups {}'. format(upd_usernames, upd_fullnames, upd_groups))
 
-        '''
-        for chat in upd_usernames:
-            if chat is not None:
-                self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
-                entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
-                                    surname=chat.last_name)
-                yield entry
-        
-        for chat in upd_fullnames:
-            if chat is not None:
-                self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
-                entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
-                                    surname=chat.last_name)
-                yield entry        
-                
-        for chat in upd_groups:
-            if chat is not None:
-                self.logger.debug('id {}, group {} '. format(chat.id,chat.title))
-                entry = TelegramChatIds(id=chat.id, group=chat.title)
-                yield entry
-                
-        '''
         len_ = len(usernames)
         for i, username in enumerate(reversed(usernames)):
             chat = upd_usernames.get(username)
             if chat is not None:
-                self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
+                self.logger.debug('recuperando: id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
                 entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 
@@ -254,7 +232,7 @@ class TelegramNotifier(object):
         for i, fullname in enumerate(reversed(fullnames)):
             chat = upd_fullnames.get(fullname)
             if chat is not None:
-                self.logger.debug('id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
+                self.logger.debug('recuperando: id {}, username {} first_name {}, surname {} '. format(chat.id,chat.username,chat.first_name, chat.last_name))
                 entry = TelegramChatIds(id=chat.id, username=chat.username, firstname=chat.first_name,
                                     surname=chat.last_name)
                 yield entry
@@ -264,7 +242,7 @@ class TelegramNotifier(object):
         for i, grp in enumerate(reversed(groups)):
             chat = upd_groups.get(grp)
             if chat is not None:
-                self.logger.debug('id {}, group {} '. format(chat.id,chat.title))
+                self.logger.debug('recuperando: id {}, group {} '. format(chat.id,chat.title))
                 entry = TelegramChatIds(id=chat.id, group=chat.title)
                 yield entry
                 groups.pop(len_ - i - 1)
