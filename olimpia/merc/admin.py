@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # unregister your models here.
-from .models import Series, TelegramChatIds,TorrentServers, Plugins
+from .models import Series, TelegramChatIds,TorrentServers, Plugins, TransmissionReceivers
 from django.contrib.auth.models import User
 
 from django.contrib.admin.helpers import ActionForm
@@ -73,3 +73,6 @@ class SeriesAdmin(admin.ModelAdmin):
     
 
 admin.site.register(Series, SeriesAdmin)
+
+
+admin.site.register(TransmissionReceivers)

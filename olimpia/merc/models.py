@@ -136,3 +136,37 @@ class TorrentServers(models.Model):
     "clazz": "TorrentRapidHandlerClass"
 }
 '''
+
+
+
+class TransmissionReceivers(models.Model):
+    
+    id = models.AutoField(primary_key=True)  # AutoField?
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='transmissionreceivers_autor',
+        blank=True, null=True,
+    )
+    transmission_active = models.NullBooleanField(default=False)  # Field name made lowercase.
+    username = models.CharField(blank=True, null=True, max_length=200)
+    fullname = models.CharField(blank=True, null=True, max_length=200)
+    group = models.CharField(blank=True, null=True, max_length=200)
+    
+    
+    def __unicode__(self):
+        rep = ""
+        if self.username:
+            rep = "Username: {}".format(self.username)
+        elif self.fullname:
+            rep = "Fullname: {}".format(self.fullname)
+        elif self.group:
+            rep = "Group: {}".format(self.group)
+        
+        return rep
+    
+    
+    class Meta:
+        verbose_name_plural = "TransmissionReceivers"
+        managed = True
+        db_table = 'transmissionreceivers'
