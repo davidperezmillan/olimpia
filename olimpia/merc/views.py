@@ -132,7 +132,7 @@ def launch_unique(request, serie_id):
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
         receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, series=serie, request.user, receivers=receivers)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, series=serie, user=request.user, receivers=receivers)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
         
