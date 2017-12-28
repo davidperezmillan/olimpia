@@ -14,8 +14,17 @@ def utilgetreceivers(user):
     receivers = TransmissionReceivers.objects.filter(author=user).filter(transmission_active=True)
     for rec in receivers:
         usernames.append(rec.username)
-        fullnames.append(merc.at.hilos.utiles.getAndBuildFullnames(rec.fullname))
+        fullnames.append(getAndBuildFullnames(rec.fullname))
         groups.append(rec.group)
         
     logger.info("{fullnames}{groups}{usernames}".format(fullnames=fullnames, groups=groups, usernames=usernames))
     return ReceiverTelegram(fullnames=fullnames, groups=groups, usernames=usernames)
+    
+    
+def getAndBuildFullnames(destinatario):
+    if destinatario:
+        dest = destinatario.split(' ',1)
+        firstname = dest[0]
+        surname = dest[1] if len(dest)>1 else ""
+        return firstname,surname    
+    return None

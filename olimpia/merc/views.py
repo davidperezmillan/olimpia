@@ -230,7 +230,7 @@ def telegramSend(request):
             from merc.at.service.telegramHandler import ReceiverTelegram
             msg = form['msg'].value()
             username = form['receiver'].value()
-            fullname = merc.at.hilos.utiles.getAndBuildFullnames(form['receiver'].value())
+            fullname = merc.management.commands.commands_utils.getAndBuildFullnames(form['receiver'].value())
             group = form['receiver'].value()
             logger.info("{fullnames}{groups}{usernames}".format(fullnames=[fullname], groups=[group], usernames=[username]))
             receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
