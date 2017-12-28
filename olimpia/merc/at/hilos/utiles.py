@@ -4,7 +4,7 @@ from merc.at.hilos.genthread import GenTransmissionThread, GenTorrentThread
 logger = logging.getLogger(__name__)
 
 
-def sendTelegramListAdded(lrequest, user=None,receivers=None):
+def sendTelegramListAdded(lrequest,serie=None, user=None,receivers=None):
     logger.debug(lrequest)
     if lrequest:
         sRequest = "'La trampa del Aire - El Mercenario' ha puesto en cola {0} torrent para su descargas [{1}]:   \n\r".format(len(lrequest), user if user else "")
@@ -14,11 +14,8 @@ def sendTelegramListAdded(lrequest, user=None,receivers=None):
             sitems = "{0} -- {1}.  \n\r".format(sitems,item.name.encode('utf-8').strip()) 
         sRequest = "{0}{1}{2}".format(sRequest,sitems, sFinal)
     else:
-        sRequest = 'Que pena el mercenario no ha encontrado nada que enviar [{}].....'.format( user if user else "")
+        sRequest = 'Que pena el mercenario no ha encontrado nada de {} que enviar [{}].....'.format(serie if serie else "'varios titulos'", user if user else "")
     sendTelegram(sRequest, user, receivers)
-
-
-
 
 
 def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
@@ -32,6 +29,9 @@ def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
     gtransmissionh = GenTransmissionThread(args=(mensaje), kwargs={'user':user, 'receivers':receivers})
     gtransmissionh.start()  
       
+
+
+
       
     
 def findAndDestroy(series_update, torrentservers, filter_find=False, user=None, receivers=None):
