@@ -20,6 +20,7 @@ class GenTorrentThread(threading.Thread):
         torrentservers = self.kwargs['torrentservers']
         series_update = self.kwargs['series_update']
         user = self.kwargs['user']
+        receivers = self.kwargs.get('receivers',None)
         filter_find = self.kwargs.get('filter_find',False)
         
         logger.debug('kwargs: {}'.format(self.kwargs))    
@@ -30,7 +31,7 @@ class GenTorrentThread(threading.Thread):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=user, receivers=None)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=user, receivers=receivers)
         return
     
 class GenTransmissionThread(threading.Thread):

@@ -34,9 +34,9 @@ def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
       
       
     
-def findAndDestroy(series_update, torrentservers, filter_find=False, user=None):
+def findAndDestroy(series_update, torrentservers, filter_find=False, user=None, receivers=None):
     
-    gtorrenth = GenTorrentThread( kwargs={'series_update':series_update, 'torrentservers':torrentservers, 'user':user,'filter_find':filter_find})
+    gtorrenth = GenTorrentThread( kwargs={'series_update':series_update, 'torrentservers':torrentservers, 'user':user,'filter_find':filter_find, 'receivers':receivers})
     gtorrenth.start()
 
 

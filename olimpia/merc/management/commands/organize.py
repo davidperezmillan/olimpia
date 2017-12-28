@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand, CommandError
-import logging
 
 from django.contrib.auth.models import User
 from merc.models import Series, TorrentServers, Plugins, TelegramChatIds
@@ -7,7 +6,9 @@ from merc.forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
+import merc.management.commands.commands_utils
 
+import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
  
@@ -33,12 +34,13 @@ class Command(BaseCommand):
             
             author = User.objects.get(username=user)
             torrentservers = TorrentServers.objects.filter(author=author)
+            receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
             try:
                 launcher = AirTrapLauncher(torrentservers)
                 errors = launcher.organize(options['delete'])
             except Exception, e:
                 logger.error(e)
             
-            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=None)
+            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
         
             self.stdout.write('Successfully "{}"'.format(user))

@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand, CommandError
-import logging
 
 from django.contrib.auth.models import User
 from merc.models import Series, TorrentServers, Plugins, TelegramChatIds
@@ -7,7 +6,10 @@ from merc.forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
+import merc.management.commands.commands_utils
 
+
+import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
  
@@ -37,12 +39,14 @@ class Command(BaseCommand):
             logger.debug('series_update: {}'.format(series_update))
             torrentservers = TorrentServers.objects.filter(author=author)
             logger.debug('torrentservers: {}'.format(torrentservers))
+            receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+            
             try:
                 #  merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=True, user=author)
-                 merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=False, user=author)
+                 merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=False, user=author, receivers=receivers)
             except Exception, e:
                 strError = "Se ha produccido un error en el proceso del mercenario"
                 logger.error(e)
-                merc.at.hilos.utiles.sendTelegram(strError, author, receivers=None)
+                merc.at.hilos.utiles.sendTelegram(strError, author, receivers=receivers)
     
             self.stdout.write('Successfully "{}"'.format(author))

@@ -7,11 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 
 # Create your views here.
-from .models import Series, TorrentServers, Plugins, TelegramChatIds
+from .models import Series, TorrentServers, Plugins, TelegramChatIds,TransmissionReceivers
 from .forms import SeriesForm, TorrentServersForm, SeriesFindForm, TelegramSendForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
+import merc.management.commands.commands_utils
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -38,7 +39,8 @@ def control(request):
             serie = form.save(commit=False)
             serie.author = request.user
             serie.save()
-            merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality),user=request.user, receivers=None)
+            receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+            merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality),user=request.user, receivers=receivers)
             return redirect('list')
     else:
         form = SeriesForm()
@@ -85,7 +87,8 @@ def control_torrentservers(request):
             torrentserver = form.save(commit=True)
             torrentserver.author = request.user
             torrentserver.save()
-            merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port),user=request.user, receivers=None)
+            receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+            merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port),user=request.user, receivers=receivers)
             return redirect('listtorrentservers')
     else:
         form = TorrentServersForm()
@@ -128,7 +131,8 @@ def launch_unique(request, serie_id):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, request.user, receivers=None)
+        receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, request.user, receivers=receivers)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
         
@@ -141,13 +145,14 @@ def launch_all(request):
     logger.debug('series_update: {}'.format(series_update))
     torrentservers = TorrentServers.objects.filter(author=request.user)
     logger.debug('torrentservers: {}'.format(torrentservers))
-
+    
+    receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
     try:
-         merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, request.user)
+        merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, user=request.user, receivers=receivers)
     except Exception, e:
         strError = "Se ha produccido un error en el proceso del mercenario"
         logger.error(e)
-        merc.at.hilos.utiles.sendTelegram(mensaje=strError, user=request.user, receivers=None )
+        merc.at.hilos.utiles.sendTelegram(mensaje=strError, user=request.user, receivers=receivers )
         
     context = {}
     return render(request, 'merc/portada.html', context)
@@ -181,8 +186,9 @@ def launch_extreme(request):
                         logger.error(e.message)
                         context.update({"to_saved":to_saved,'serie':serie_no_update})
                         raise Exception("La serie {} : {} para {} puede que ya este en la base de datos".format(serie_no_update.nombre, serie_no_update.quality, serie_no_update.author))
-                        
-                merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=request.user, receivers=None)
+                
+                receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user) 
+                merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, user=request.user, receivers=receivers)
             except Exception, e:
                 logger.error(e)
                 context.update({'errors_messages':e})
@@ -233,4 +239,7 @@ def telegramSend(request):
         form = TelegramSendForm()
     return render(request, 'merc/telegram/detail.html',{'form': form})
     
+
+
+
 

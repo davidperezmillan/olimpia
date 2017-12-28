@@ -75,4 +75,11 @@ class SeriesAdmin(admin.ModelAdmin):
 admin.site.register(Series, SeriesAdmin)
 
 
-admin.site.register(TransmissionReceivers)
+
+class TransmissionReceiversAdmin(admin.ModelAdmin):
+    # ...
+    list_display = ('id','__unicode__','author','transmission_active')
+    list_filter = ['author','transmission_active',]
+    # search_fields = ['user']
+
+admin.site.register(TransmissionReceivers, TransmissionReceiversAdmin)
