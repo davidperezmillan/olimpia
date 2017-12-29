@@ -220,25 +220,42 @@ def organize(request):
 
 
 
+
 @login_required(login_url='/accounts/login/')
 def telegramSend(request):
     
     form = TelegramSendForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
-            logger.info("{form}".format(form=form))
+            username=None
+            fullname=None
+            group=None
             from merc.at.service.telegramHandler import ReceiverTelegram
+            logger.info("receiver : {form}".format(form=form['receiver'].value()))
             msg = form['msg'].value()
-            username = form['receiver'].value()
-            fullname = merc.management.commands.commands_utils.getAndBuildFullnames(form['receiver'].value())
-            group = form['receiver'].value()
-            logger.info("{fullnames}{groups}{usernames}".format(fullnames=[fullname], groups=[group], usernames=[username]))
+            rec=None
+            if bool(form['receiver'].value()):
+                rec = TelegramChatIds.objects.filter(id=form['receiver'].value())[0]
+                if rec.username:
+                    username=rec.username
+                if rec.firstname:   
+                    fullname=(rec.firstname,rec.surname)
+                if rec.group:
+                    group=rec.group
+
+            else:
+                rec = form['receiverUnique'].value()
+                username = rec
+                fullname = merc.management.commands.commands_utils.getAndBuildFullnames(rec)
+                group = rec
+                
+            logger.info("Destinatario unico {fullnames}{groups}{usernames}".format(fullnames=[fullname], groups=[group], usernames=[username]))
             receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
             merc.at.hilos.utiles.sendTelegram(mensaje=msg, user=request.user, receivers=receivers)
+
     else:
         form = TelegramSendForm()
     return render(request, 'merc/telegram/detail.html',{'form': form})
-    
 
 
 

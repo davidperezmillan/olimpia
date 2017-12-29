@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
-from .models import Series, TorrentServers, Plugins
+from .models import Series, TorrentServers, Plugins,TelegramChatIds
 
 
 
@@ -65,7 +65,8 @@ class TorrentServersForm(forms.ModelForm):
 
 class TelegramSendForm(forms.Form): #Note that it is not inheriting from forms.ModelForm
     msg = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'class' : 'form-control',}),  label="Mensaje", required=False,)
-    receiver =  forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Destinatario",required=False,)
+    receiver = forms.ModelChoiceField(queryset=TelegramChatIds.objects.all(),widget=forms.Select(attrs={'class' : 'form-control'}),label="Destinatarios", required=False)
+    receiverUnique =  forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Destinatario",required=False,)
     
     # username = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Nombre Completo",required=False,)
     # firstname = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Nombre",required=False,)
