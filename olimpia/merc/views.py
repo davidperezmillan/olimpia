@@ -227,30 +227,41 @@ def telegramSend(request):
     form = TelegramSendForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
-            username=None
-            fullname=None
-            group=None
+            usernames=[]
+            fullnames=[]
+            groups=[]
             from merc.at.service.telegramHandler import ReceiverTelegram
             logger.info("receiver : {form}".format(form=form['receiver'].value()))
             msg = form['msg'].value()
             rec=None
             if bool(form['receiver'].value()):
-                rec = TelegramChatIds.objects.filter(id=form['receiver'].value())[0]
-                if rec.username:
-                    username=rec.username
-                if rec.firstname:   
-                    fullname=(rec.firstname,rec.surname)
-                if rec.group:
-                    group=rec.group
+                
+                if form['receiver'].value()=='ALL':
+                    recs = TelegramChatIds.objects.all()
+                    for rec in recs:
+                        if rec.username:
+                            usernames.append(rec.username)
+                        if rec.firstname:   
+                            fullnames.append((rec.firstname,rec.surname))
+                        if rec.group:
+                            groups.append(rec.group)
+                else:
+                    rec = TelegramChatIds.objects.filter(id=form['receiver'].value())[0]
+                    if rec.username:
+                        usernames.append(rec.username)
+                    if rec.firstname:   
+                        fullnames.append((rec.firstname,rec.surname))
+                    if rec.group:
+                        groups.append(rec.group)
 
             else:
                 rec = form['receiverUnique'].value()
-                username = rec
-                fullname = merc.management.commands.commands_utils.getAndBuildFullnames(rec)
-                group = rec
+                usernames.append(rec)
+                fullnames.append(merc.management.commands.commands_utils.getAndBuildFullnames(rec))
+                groups.append(rec)
                 
-            logger.info("Destinatario unico {fullnames}{groups}{usernames}".format(fullnames=[fullname], groups=[group], usernames=[username]))
-            receivers = ReceiverTelegram(fullnames=[fullname], groups=[group], usernames=[username])
+            logger.info("Destinatario unico {fullnames}{groups}{usernames}".format(fullnames=fullnames, groups=groups, usernames=usernames))
+            receivers = ReceiverTelegram(fullnames=fullnames, groups=groups, usernames=usernames)
             merc.at.hilos.utiles.sendTelegram(mensaje=msg, user=request.user, receivers=receivers)
 
     else:
