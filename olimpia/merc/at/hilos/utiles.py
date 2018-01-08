@@ -14,7 +14,7 @@ def sendTelegramListAdded(lrequest,serie=None, user=None,receivers=None):
             sitems = "{0} -- {1}.  \n\r".format(sitems,item.name.encode('utf-8').strip()) 
         sRequest = "{0}{1}{2}".format(sRequest,sitems, sFinal)
     else:
-        sRequest = 'Que pena el mercenario no ha encontrado nada de {} que enviar [{}].....'.format(serie if serie else "'varios titulos'", user if user else "")
+        sRequest = 'Que pena el mercenario no ha encontrado nada de {} que enviar [{}].....'.format(serie.nombre if serie else "'varios titulos'", user if user else "")
     sendTelegram(sRequest, user, receivers)
 
 
