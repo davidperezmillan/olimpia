@@ -54,11 +54,22 @@ LOGGING = {
             'backupCount': 5,
             'formatter':'standard',
         },
+        'general_error': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_PATH,'merc_error.log'),
+            'maxBytes': 1024*1024*2, # 2 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
     },
     'loggers': {
         'merc': {
             'handlers': ['console','general'],
             'level': 'DEBUG',
+        },
+        'merc': {
+            'handlers': ['general_error'],
+            'level': 'WARN',
         },
         'daily': {
             'handlers': ['daily_files'],
