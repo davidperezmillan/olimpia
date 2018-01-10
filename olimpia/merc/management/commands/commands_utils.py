@@ -31,4 +31,4 @@ def getAndBuildFullnames(destinatario):
         firstname = dest[0]
         surname = dest[1] if len(dest)>1 else ""
         return firstname,surname    
-    return None
+    return None,None
