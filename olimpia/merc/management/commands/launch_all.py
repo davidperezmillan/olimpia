@@ -40,6 +40,7 @@ class Command(BaseCommand):
             torrentservers = TorrentServers.objects.filter(author=author)
             logger.debug('torrentservers: {}'.format(torrentservers))
             receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+            logger.debug('receivers: {}'.format(receivers))
             
             try:
                 #  merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, filter_find=True, user=author)
