@@ -63,31 +63,32 @@
     </thead>
     <tbody>
         {% for serie in latest_series_update %}
-        <tr>
-            {% if serie.skipped %}
-                <td><a href="{% url 'control_edit' serie.id %}" style="color: grey;">{{ serie.nombre }}</a></td>
-            {% else %}
-                <td><a href="{% url 'control_edit' serie.id %}">{{ serie.nombre }}</a></td>
-            {% endif %}
-            <td>{{ serie.quality }}</td>
-            <td>{{ serie.ep_start }}</td>
-            <td>
-                <span style="display: none;">{{ serie.ultima|date:"Y-m-d" }}</span>
-                <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
-                {{ serie.ultima | date:"D, d N Y [H:i:s]" }}
-            </td>
-            <td> 
-                {% if perms.merc.change_series %}
-                        <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>
-                {% endif %} 
-                {% if perms.merc.delete_series %}
-                    {% if serie %}
-                        <a href="{% url 'control_delete' serie.id %}"><i class="glyphicon glyphicon-remove"></i></a>
-                    {% endif %}  
-                {% endif %} 
-                <a href="{% url 'launch_unique' serie.id %}"><i class="glyphicon glyphicon-send"></i></a>
-            </td>
-        </tr>
+            {% if serie.author == request.user %} <tr> {% else %} <tr style="color: red;"> {% endif %}
+                
+                {% if serie.skipped %}
+                    <td><a href="{% url 'control_edit' serie.id %}" style="color: grey;">{{ serie.nombre }}</a></td>
+                {% else %}
+                    <td><a href="{% url 'control_edit' serie.id %}">{{ serie.nombre }}</a></td>
+                {% endif %}
+                <td>{{ serie.quality }}</td>
+                <td>{{ serie.ep_start }}</td>
+                <td>
+                    <span style="display: none;">{{ serie.ultima|date:"Y-m-d" }}</span>
+                    <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
+                    {{ serie.ultima | date:"D, d N Y [H:i:s]" }}
+                </td>
+                <td> 
+                    {% if perms.merc.change_series %}
+                            <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>
+                    {% endif %} 
+                    {% if perms.merc.delete_series %}
+                        {% if serie %}
+                            <a href="{% url 'control_delete' serie.id %}"><i class="glyphicon glyphicon-remove"></i></a>
+                        {% endif %}  
+                    {% endif %} 
+                    <a href="{% url 'launch_unique' serie.id %}"><i class="glyphicon glyphicon-send"></i></a>
+                </td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

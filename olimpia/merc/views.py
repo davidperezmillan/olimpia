@@ -26,7 +26,10 @@ def portada(request):
 # ## Control, formulario Series
 @login_required(login_url='/accounts/login/')
 def list(request):
-    latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
+    if request.user.is_superuser:
+        latest_series_update = Series.objects.order_by('-ultima')
+    else:
+        latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
     context = {'latest_series_update': latest_series_update}
     return render(request, 'merc/series/list.html', context)
 
