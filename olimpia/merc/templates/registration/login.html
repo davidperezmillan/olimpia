@@ -26,7 +26,7 @@
             </div>
             {% endfor %}
             <button class="btn btn-primary" style="width:100%">Login</button>
-            <input type="hidden" name="next" value="{% url 'login' %}" />
+            <input type="hidden" name="next" value="{{ next }}" />
                 
         </form>
     </div>
