@@ -34,12 +34,12 @@ class Series(models.Model):
 
 class TelegramChatIds(models.Model):
     id = models.IntegerField(primary_key=True)  # AutoField?
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='telegram_chat_ids_autor',
-        blank=True, null=True,
-    )
+    # author = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL,
+    #     on_delete=models.CASCADE,
+    #     related_name='telegram_chat_ids_autor',
+    #     blank=True, null=True,
+    # )
     username = models.CharField(blank=True, null=True, max_length=200) # This field type is a guess.
     firstname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
     surname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.

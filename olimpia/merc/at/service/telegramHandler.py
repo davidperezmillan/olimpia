@@ -163,15 +163,15 @@ class TelegramNotifier(object):
         chat_ids = list()
         
         cached_usernames = {}
-        for x in TelegramChatIds.objects.filter(author=self._user).exclude(username=None):
+        for x in TelegramChatIds.objects.exclude(username=None):
             cached_usernames.update({x.username: x})
 
         cached_fullnames = {}
-        for x in TelegramChatIds.objects.filter(author=self._user).exclude(firstname=None):
+        for x in TelegramChatIds.objects.exclude(firstname=None):
             cached_fullnames.update({(x.firstname, x.surname): x})
 
         cached_groups = {}
-        for x in TelegramChatIds.objects.filter(author=self._user).exclude(group=None):
+        for x in TelegramChatIds.objects.exclude(group=None):
             cached_groups.update({x.group: x})
         
         len_ = len(usernames)
@@ -202,7 +202,6 @@ class TelegramNotifier(object):
         self.logger.debug('saving updated chat_ids to db')
         # avoid duplicate chat_ids. (this is possible if configuration specified both username & fullname
         for chat_id in chat_ids:
-            chat_id.author = self._user
             chat_id.save()
         # chat_ids_d = dict((x.id, x) for x in chat_ids)
         # session.add_all(iter(chat_ids_d.values()))
