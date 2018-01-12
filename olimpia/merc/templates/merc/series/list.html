@@ -58,12 +58,14 @@
             <td>Calidad</td>
             <td>Descargado</td>
             <td>Ultima modificacion</td>
+            <td>Author</td>
 	        <td>Ctrl</td>
+	        
         </tr>
     </thead>
     <tbody>
         {% for serie in latest_series_update %}
-            {% if serie.author == request.user %} <tr> {% else %} <tr style="color: red;"> {% endif %}
+            {% if serie.author == request.user %} <tr> {% else %} <tr style="background: #cfebfd;"> {% endif %}
                 
                 {% if serie.skipped %}
                     <td><a href="{% url 'control_edit' serie.id %}" style="color: grey;">{{ serie.nombre }}</a></td>
@@ -77,6 +79,7 @@
                     <!-- {{ serie.ultima|date:"l, F jS, Y" }} -->
                     {{ serie.ultima | date:"D, d N Y [H:i:s]" }}
                 </td>
+                <td>{{ serie.author }}</td>
                 <td> 
                     {% if perms.merc.change_series %}
                             <a href="{% url 'control_edit' serie.id %}"><i class="glyphicon glyphicon-edit"></i></a>
