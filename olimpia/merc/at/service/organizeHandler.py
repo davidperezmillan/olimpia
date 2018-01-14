@@ -71,7 +71,7 @@ class Organize(object):
                         # self.__copyDirectory(dirSession,dirpathmirror)
                         serieName = dirpathmirror.split("/")[-2]
                         filename = self.buildName(filename, serieName)
-                        self.logger.info("{0} - {1}".format(file, os.path.join(dirpathmirror,filename)))
+                        self.logger.info("De {0} A {1}".format(file, os.path.join(dirpathmirror,filename)))
                         os.symlink(file, os.path.join(dirpathmirror,filename))
                         # os.symlink(file, os.path.join(dirpathmirror,filename))
                 except Exception, e:
@@ -102,6 +102,7 @@ class Organize(object):
         ext = fileName.split(".")[-1]
     
         if re.search(r"(_\d{3,4}_)",fileName):
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado guiones'))
             matches = re.search(r"(_\d{3,4}_)",fileName)
             if matches:
                 formatEpisode = matches.group(0)[1:-1]
@@ -112,6 +113,7 @@ class Organize(object):
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
         elif re.search(r"(\d{1,2}x\d\d)",fileName):
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado "x"'))
             matches = re.search(r"(\d{1,2}x\d\d)",fileName)
             if matches:
                 formatEpisode = matches.group(0)
@@ -124,6 +126,7 @@ class Organize(object):
                     
         elif re.search(r"(\d{3,4})((720p|1024p))",fileName):         
             # Procesamiento de episodios especiales (recien llegados, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades'))
             matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
             if matches:
                 formatEpisode - matches.group(0)
