@@ -101,37 +101,38 @@ class Organize(object):
         session, episode = None, None
         ext = fileName.split(".")[-1]
     
-        matches = re.search(r"(_\d{3,4}_)",fileName)
-        if matches:
-            formatEpisode = matches.group(0)[1:-1]
-            if len(formatEpisode)==3:
-                session=formatEpisode[:1].zfill(2)
-                episode=formatEpisode[-2:].zfill(2)
-            else:
-                session=formatEpisode[:2].zfill(2)
-                episode=formatEpisode[-2:].zfill(2)
-        
-        matches = re.search(r"(\d{1,2}x\d\d)",fileName)
-        if matches:
-            formatEpisode = matches.group(0)
-            if len(formatEpisode)==4:
-                session=matches.group(0)[:1].zfill(2)
-                episode=matches.group(0)[-2:].zfill(2)
-            else:
-                session=matches.group(0)[:2].zfill(2)
-                episode=matches.group(0)[-2:].zfill(2)
-                
-                
-        # Procesamiento de episodios especiales (recien llegados, etc)
-        matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
-        if matches:
-            formatEpisode - matches.group(0)
-            if len(formatEpisode)==4:
-               session=matches.group(0)[:1].zfill(2)
-               episode=matches.group(0)[-2:].zfill(2)
-            else:
-                session=matches.group(0)[:2].zfill(2)
-                episode=matches.group(0)[-2:].zfill(2)
+        if re.search(r"(_\d{3,4}_)",fileName):
+            matches = re.search(r"(_\d{3,4}_)",fileName)
+            if matches:
+                formatEpisode = matches.group(0)[1:-1]
+                if len(formatEpisode)==3:
+                    session=formatEpisode[:1].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
+        elif re.search(r"(\d{1,2}x\d\d)",fileName):
+            matches = re.search(r"(\d{1,2}x\d\d)",fileName)
+            if matches:
+                formatEpisode = matches.group(0)
+                if len(formatEpisode)==4:
+                    session=matches.group(0)[:1].zfill(2)
+                    episode=matches.group(0)[-2:].zfill(2)
+                else:
+                    session=matches.group(0)[:2].zfill(2)
+                    episode=matches.group(0)[-2:].zfill(2)
+                    
+        elif re.search(r"(\d{3,4})((720p|1024p))",fileName):         
+            # Procesamiento de episodios especiales (recien llegados, etc)
+            matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
+            if matches:
+                formatEpisode - matches.group(0)
+                if len(formatEpisode)==4:
+                   session=matches.group(0)[:1].zfill(2)
+                   episode=matches.group(0)[-2:].zfill(2)
+                else:
+                    session=matches.group(0)[:2].zfill(2)
+                    episode=matches.group(0)[-2:].zfill(2)
                 
     
         if session and episode:
