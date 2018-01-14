@@ -3,7 +3,7 @@ from .base import *
 LOGS_PATH=os.path.join(PROJECT_DIR, '../logs')
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
-DEBUG = True
+DEBUG = False
 
 LOGGING = {
     'version': 1,

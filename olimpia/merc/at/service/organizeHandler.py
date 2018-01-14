@@ -120,6 +120,19 @@ class Organize(object):
             else:
                 session=matches.group(0)[:2].zfill(2)
                 episode=matches.group(0)[-2:].zfill(2)
+                
+                
+        # Procesamiento de episodios especiales (recien llegados, etc)
+        matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
+        if matches:
+            formatEpisode - matches.group(0)
+            if len(formatEpisode)==4:
+               session=matches.group(0)[:1].zfill(2)
+               episode=matches.group(0)[-2:].zfill(2)
+            else:
+                session=matches.group(0)[:2].zfill(2)
+                episode=matches.group(0)[-2:].zfill(2)
+                
     
         if session and episode:
             fullEpisode = patternResponse.format(session=session,episode=episode)
