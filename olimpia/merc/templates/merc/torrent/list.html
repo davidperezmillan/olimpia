@@ -134,7 +134,11 @@
             <td>{{ torrent.title }}</td>
             <td>{{ torrent.episode }}</td>
             <td> 
-                {{ torrent.link }}
+            {% if request.user.is_superuser %}
+                <a href=" {{ torrent.link }}"> {{ torrent.link }}</a>
+            {% else %}
+                Enlace oculto por asuntos legales
+            {% endif %}
             </td>
         </tr>
         {% endfor %}

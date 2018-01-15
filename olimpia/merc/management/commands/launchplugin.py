@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand, CommandError
 # import merc.at.hilos.utiles
 # import merc.management.commands.commands_utils
 
-from merc.at.plugins.divxtotal_handler import DivxtotalHandler, RequestPlugin
+from merc.at.plugins.divxtotal_handler import DivxtotalHandlerClass, RequestPlugin
 
 import logging
 # Get an instance of a logger
@@ -37,6 +37,6 @@ class Command(BaseCommand):
         
         self.stdout.write('launchplugin {}'.format(''))
         
-        dthandler = DivxtotalHandler(logger)
-        request = RequestPlugin(title='The BlackList', epstart='HDS05E00', epend='HDS99E99')
-        dthandler.execute(request,filter=False)
+        dthandler = DivxtotalHandlerClass(logger)
+        request = RequestPlugin(title='The Big Bang Theory', epstart='HDS10E00', epend='HDS99E99')
+        self.stdout.write("Respuesta : {} ".format(dthandler.execute(request,filter=False)))

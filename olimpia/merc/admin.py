@@ -26,7 +26,7 @@ admin.site.register(TorrentServers, TorrentServersAdmin)
 
 class PluginsAdmin(admin.ModelAdmin):
     # ...
-    list_display = ('id','name','active', )
+    list_display = ('id','name','file','clazz','active', )
     list_filter = ['active',]
     search_fields = ['name']
 
