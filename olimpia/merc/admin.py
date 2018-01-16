@@ -16,9 +16,14 @@ admin.site.register(TelegramChatIds)
 
 class TorrentServersAdmin(admin.ModelAdmin):
     # ...
-    list_display = ('id','user','author', 'torrent_active')
+    list_display = ('id','user','author', 'torrent_active', 'get_plugins')
     list_filter = ['author','torrent_active',]
     search_fields = ['user']
+    
+    def get_plugins(self, obj):
+        return ",\n".join([p.name for p in obj.plugins.all()])
+    
+    get_plugins.short_description = "Plugins"
 
 
 admin.site.register(TorrentServers, TorrentServersAdmin)
