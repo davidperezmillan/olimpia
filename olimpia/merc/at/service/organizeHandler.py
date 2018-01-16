@@ -129,14 +129,14 @@ class Organize(object):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades'))
             matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
             if matches:
-                self.logger.info("converterEpisodie: matches : {}".format(matches))
-                formatEpisode = matches.group(0)
-                if len(formatEpisode)==4:
-                   session=matches.group(0)[:1].zfill(2)
-                   episode=matches.group(0)[-2:].zfill(2)
+                formatEpisode = matches.group(1)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
                 else:
-                    session=matches.group(0)[:2].zfill(2)
-                    episode=matches.group(0)[-2:].zfill(2)
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
                 
     
         if session and episode:
