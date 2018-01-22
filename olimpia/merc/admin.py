@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+import re
+
 # unregister your models here.
 from .models import Series, TelegramChatIds,TorrentServers, Plugins, TransmissionReceivers
 from django.contrib.auth.models import User
@@ -70,12 +72,22 @@ class SeriesAdmin(admin.ModelAdmin):
     
     upper_case_name.short_description = 'Nombre Completo'
     # ...
-    list_display = ('id','upper_case_name','nombre', 'quality', 'author','skipped')
+    list_display = ('id','upper_case_name','nombre', 'quality', 'author','skipped', 'get_complete')
     list_filter = ['author','skipped','paussed','quality',]
     search_fields = ['nombre']
     action_form = ChangeUserForm
     actions = [change_owner, setSkipped]
     
+    def get_complete(self, obj):
+        valor= obj.ep_end
+        pattern = "S99E99"
+        if re.search(pattern,obj.ep_end):
+            return True
+        else:
+            return False
+            
+    get_complete.boolean = True
+    get_complete.short_description = "Full"
 
 admin.site.register(Series, SeriesAdmin)
 
