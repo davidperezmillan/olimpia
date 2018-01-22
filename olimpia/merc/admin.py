@@ -79,15 +79,16 @@ class SeriesAdmin(admin.ModelAdmin):
     actions = [change_owner, setSkipped]
     
     def get_complete(self, obj):
-        valor= obj.ep_end
-        pattern = "S99E99"
-        if re.search(pattern,obj.ep_end):
-            return True
-        else:
-            return False
+        return True if re.search("S99E99",obj.ep_end) else False
             
     get_complete.boolean = True
     get_complete.short_description = "Full"
+
+    def get_skipped(self, obj):
+        return False if obj.skipped else True
+    
+    get_skipped.boolean = True
+    get_skipped.short_description = "Pausado"
 
 admin.site.register(Series, SeriesAdmin)
 
