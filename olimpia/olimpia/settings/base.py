@@ -38,8 +38,10 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    #'suit',
-    #'grappelli',
+    # 'jet.dashboard',
+    # 'jet',
+    # 'bootstrap_admin', # always before django.contrib.admin
+    'flat_responsive',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +52,9 @@ INSTALLED_APPS = [
     # 'mercurio.apps.MercurioConfig',
     'merc.apps.MercConfig'
 ]
+
+
+# BOOTSTRAP_ADMIN_SIDEBAR_MENU = False
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
