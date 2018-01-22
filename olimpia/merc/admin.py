@@ -72,7 +72,7 @@ class SeriesAdmin(admin.ModelAdmin):
     
     upper_case_name.short_description = 'Nombre Completo'
     # ...
-    list_display = ('id','upper_case_name','nombre', 'quality', 'author','skipped', 'get_complete')
+    list_display = ('id','upper_case_name','nombre', 'quality', 'author','get_skipped', 'get_complete')
     list_filter = ['author','skipped','paussed','quality',]
     search_fields = ['nombre']
     action_form = ChangeUserForm
