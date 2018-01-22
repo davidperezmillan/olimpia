@@ -5,6 +5,9 @@ LOGS_PATH=os.path.join(PROJECT_DIR, '../logs')
 # SECURITY WARNING: don't run with DEBUG turned on in production!
 DEBUG = False
 
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
