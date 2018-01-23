@@ -209,10 +209,12 @@ def launch_extreme(request):
 def organize(request):
     
     torrentservers = TorrentServers.objects.filter(author=request.user)
+    receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
     context = {}
     try:
         launcher = AirTrapLauncher(torrentservers)
         errors = launcher.organize()
+        merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=request.user, receivers=receivers)
     except Exception, e:
         logger.error(e)
         context.update({'errors_messages':errors})
