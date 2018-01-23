@@ -1,292 +1,161 @@
 {% load staticfiles %}
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="{% static 'merc/css/profile.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'merc/css/style.css' %}" />
+
+<head>
+	<title>Alpha by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="{% static 'merc/assets/js/ie/html5shiv.js'%}"></script><![endif]-->
+	<link rel="stylesheet" href="{% static 'merc/assets/css/main.css' %}" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="{% static 'merc/assets/css/ie8.css'%}" /><![endif]-->
+	
+	<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js"></script>
+	
+</head>
+
+<body class="landing">
+	<div id="page-wrapper">
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<h1><a href="{% url 'portada' %}">Mercenario</a></h1>
+			<nav id="nav">
+				<ul>
+					<li><a href="{% url 'portada' %}">Inicio</a></li>
+					<li>
+						<a href="#" class="icon fa-angle-down">Menus</a>
+						<ul>
+							<li><a href="{% url 'portada' %}">Inicio</a></li>
+							<li><a href="{% url 'launch_extreme' %}">Buscar y Añadir</a></li>
+							{% if perms.merc.add_series %}
+							<li><a href="{% url 'launch_all' %}">Lanzar todo</a></li>
+							{% endif %}
+							<li>
+								<a href="#">Series</a>
+								<ul>
+									<li><a href="{% url 'list' %}">Listado Series</a></li>
+									{% if perms.merc.add_series %}
+									<li><a href="{% url 'control' %}">Añadir Series</a></li>
+									{% endif %}
+								</ul>
+							</li>
+							
+							<li>
+								<a href="#">Servidores</a>
+								<ul>
+									<li><a href="{% url 'listtorrentservers' %}">Listado de servidores</a></li>
+									{% if perms.merc.add_torrentservers %}
+									    	<li><a href="{% url 'control_torrentservers' %}">Añadir Sevidor</a> </li>
+									{% endif %}
+								</ul>
+							</li>
+							{% if request.user.is_superuser %}
+							<li>
+								<a href="#">Admin</a>
+								<ul>
+									<li> <a href="{% url 'organize' %}">Organizar</a></li>
+									<li><a href="{% url 'telegramSend' %}">MSG</a></li>
+									<li><a href="{% url 'admin:index' %}">Admin</a></li>
+								</ul>
+							</li>
+							{% endif %}
+						</ul>
+					</li>
+					{% if user.is_authenticated %}
+					<li><a class="button special" href="{% url 'logout'%}?next={{request.path}}">Logout</a> </li>
+					{% else %}
+					<li><a class="button special" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</header>
 
 
+		<!-- Banner -->
+		<section id="banner">
+			<h2>Mercenario</h2>
+			{% if user.is_authenticated %}
+			<p>
+				{% if user.get_full_name %} 
+					{{user.get_full_name}} 
+				{% else %} 
+					{{user.get_username}} 
+				{% endif %}
+				<!--{% if request.user.is_superuser %} SuperUser {% else %} Usuario {% endif %}-->
+				<!--{% if request.user.is_staff %} - Staff {% endif %}-->
+			{% endif %} 
+			
+			{% if user.is_authenticated %}
+				<ul class="actions">
+					<li><a class="button special" href="{% url 'logout'%}?next={{request.path}}">Logout</a> </li>
+				</ul>
+			{% else %}
+				<ul class="actions">
+					<li><a class="button special" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+				</ul>
+			</p>
+			{% endif %}
+		</section>
 
-<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
+		<!-- Main -->
+		<section id="main" class="container">
+			<section class="box">
+				{% block content %} {% endblock %}
+			</section>
+		</section>
 
-<script type="text/javascript">
+		<!-- CTA -->
+		<!--<section id="cta">-->
 
-</script>
+		<!--	<h2>Sign up for beta access</h2>-->
+		<!--	<p>Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc.</p>-->
 
-<style type="text/css">
-    body{margin-top:50px;}
-    .glyphicon { margin-right:10px; }
-    .panel-body { padding:0px; }
-    .panel-body table tr td { padding-left: 15px }
-    .panel-body .table {margin-bottom: 0px; }
-</style>
+		<!--	<form>-->
+		<!--		<div class="row uniform 50%">-->
+		<!--			<div class="8u 12u(mobilep)">-->
+		<!--				<input type="email" name="email" id="email" placeholder="Email Address" />-->
+		<!--			</div>-->
+		<!--			<div class="4u 12u(mobilep)">-->
+		<!--				<input type="submit" value="Sign Up" class="fit" />-->
+		<!--			</div>-->
+		<!--		</div>-->
+		<!--	</form>-->
 
+		<!--</section>-->
+
+		<!-- Footer -->
+		<!--<footer id="footer">-->
+		<!--	<ul class="icons">-->
+		<!--		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>-->
+		<!--		<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>-->
+		<!--		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>-->
+		<!--		<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>-->
+		<!--		<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>-->
+		<!--		<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>-->
+		<!--	</ul>-->
+		<!--	<ul class="copyright">-->
+		<!--		<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>-->
+		<!--	</ul>-->
+		<!--</footer>-->
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="{% static 'merc/assets/js/jquery.min.js' %}"></script>
+	<script src="{% static 'merc/assets/js/jquery.dropotron.min.js' %}"></script>
+	<script src="{% static 'merc/assets/js/jquery.scrollgress.min.js' %}"></script>
+	<script src="{% static 'merc/assets/js/skel.min.js' %}"></script>
+	<script src="{% static 'merc/assets/js/util.js' %}"></script>
+	<!--[if lte IE 8]><script src="{% static 'merc/assets/js/ie/respond.min.js' %}"></script><![endif]-->
+	<script src="{% static 'merc/assets/js/main.js' %}"></script>
+
+</body>
 
 </html>
-
-<body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3 col-md-3">
-            <!--<div class="panel-group" id="accordion">-->
-            <div class="panel-group" >
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                            </span>Perfil</a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'portada' %}">Portada</a>
-                                    </td>
-                                </tr>
-                            
-                            {% if user.is_authenticated %}
-                            <tr>
-                                <td>
-                                    <div class="profile-usertitle">
-                                        <div class="profile-usertitle-name">
-                                            {% if user.get_full_name %} {{user.get_full_name}} {% else %} {{user.get_username}} {% endif %}
-                                        </div>
-                                        <div class="profile-usertitle-job">
-                                            {% if request.user.is_superuser %}
-                                                SuperUser
-                                            {% else %}
-                                                Usuario
-                                            {% endif %}
-                                            {% if request.user.is_staff %}
-                                                - Staff
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endif %}
-                            <tr>
-                                <td>
-                                    <!-- END SIDEBAR USER TITLE -->
-                                    <!-- SIDEBAR BUTTONS -->
-                                    <div class="profile-userbuttons">
-                                        {% if user.is_authenticated %}
-                                            <a class="btn btn-success btn-sm" href="{% url 'logout'%}?next={{request.path}}">Logout</a> 
-                                        {% else %}
-                                                <form method="post" action="{% url 'login' %}">
-                                                    {%csrf_token%} {% for error in form.non_field_errors %}
-                                                    <div class="form-group has-errors text-danger small">
-                                                        {{error}}
-                                                    </div>
-                                                    {% endfor %} {% for field in form %}
-                                                    <div class="form-group has-errors text-danger small">
-                                                        {{field.errors}}
-                                                    </div>
-                                                    <div class="form-group has-errors text-danger small">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        {{field}}
-                                                    </div>
-                                                    {% endfor %}
-                                                    <button class="btn btn-primary" style="width:100%">Login</button>
-                                                     <input type="hidden" name="next" value="{% url 'login' %}" />
-
-                                                </form>
-                                            <!-- <a class="btn btn-danger btn-sm" href="{% url 'login'%}?next={{request.path}}">Login</a> -->
-                                        {% endif %}
-                                        <!--<button type="button" class="btn btn-success btn-sm">Follow</button>-->
-                                        <!--<button type="button" class="btn btn-danger btn-sm">Message</button>-->
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    {% if perms.merc.add_series %}
-                                        <a href="{% url 'launch_all' %}">Lanzar todo</a> 
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="{% url 'launch_extreme' %}">Buscar y Añadir</a> 
-                                </td>
-                            </tr>
-                            </table>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th">
-                            </span>Series</a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'list' %}">Listado Series</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {% if perms.merc.add_series %}
-                                            <a href="{% url 'control' %}">Añadir Series</a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <!--
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Shipments</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Tex</a>
-                                    </td>
-                                </tr>
-                                -->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-user">
-                            </span>Servidores Torrent</a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'listtorrentservers' %}">Listado de servidores</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {% if perms.merc.add_torrentservers %}
-                                            <a href="{% url 'control_torrentservers' %}">Añadir Sevidor</a> 
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                
-                                <!--
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Change Password</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Notifications</a> <span class="label label-info">5</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Import/Export</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-trash text-danger"></span><a href="http://www.jquery2dotnet.com" class="text-danger">
-                                            Delete Account</a>
-                                    </td>
-                                </tr>
-                                -->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-                {% if request.user.is_superuser %}
-                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-file">
-                            </span>Administracion</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'organize' %}">Organizar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'telegramSend' %}">MSG</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'admin:index' %}">Admin</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
-                            </span>Plugins (En construccion)</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <!--
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-usd"></span><a href="http://www.jquery2dotnet.com">Sales</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-user"></span><a href="http://www.jquery2dotnet.com">Customers</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-tasks"></span><a href="http://www.jquery2dotnet.com">Products</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-shopping-cart"></span><a href="http://www.jquery2dotnet.com">Shopping Cart</a>
-                                    </td>
-                                </tr>
-                                -->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-
-   
-                           
-            </div>
-        </div>
-        <div class="col-sm-9 col-md-9">
-            <div class="well">
-                {% block content %} {% endblock %}
-            </div>
-        </div>
-    </div>
-</div>

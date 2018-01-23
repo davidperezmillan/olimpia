@@ -10,9 +10,9 @@ CHOICES_QUALITY = (( 'NR','NR',),( 'HD','HD',),( 'VO','VO',),)
 
 class SeriesForm(forms.ModelForm):
     
-    ep_start = forms.CharField(max_length=8, min_length=8,  initial="NRS00E00",widget=forms.TextInput(attrs={'class' : 'form-control','readonly':'readonly'}))
-    ep_end = forms.CharField(max_length=8, min_length=8,  initial="NRS99E99",widget=forms.TextInput(attrs={'class' : 'form-control','readonly':'readonly'}))
-    quality = forms.CharField(max_length=2, min_length=2,  initial="NR",widget=forms.Select(attrs={'class' : 'form-control'},choices=CHOICES_QUALITY))
+    ep_start = forms.CharField(max_length=8, min_length=8,  initial="NRS00E00",widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    ep_end = forms.CharField(max_length=8, min_length=8,  initial="NRS99E99",widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    quality = forms.CharField(max_length=2, min_length=2,  initial="NR",widget=forms.Select(attrs={},choices=CHOICES_QUALITY))
     
     
     
@@ -20,9 +20,9 @@ class SeriesForm(forms.ModelForm):
         model = Series
         fields = ('nombre', 'quality','ep_start','ep_end','paussed', 'skipped', )
         widgets = {
-            'nombre': forms.TextInput(attrs={'class' : 'form-control'}),
-            'paussed': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
-            'skipped': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
+            'nombre': forms.TextInput(attrs={}),
+            'paussed': forms.Select(attrs={},choices=CHOICES),
+            'skipped': forms.Select(attrs={},choices=CHOICES),
         }
         
     
@@ -53,20 +53,20 @@ class TorrentServersForm(forms.ModelForm):
             model = TorrentServers
             fields = ('torrent_active', 'space_disk','host','port','user', 'password', 'paused','download','plugins' )
             widgets = {
-                'torrent_active': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
-                'space_disk':forms.NumberInput(attrs={'class' : 'form-control'}),
-                'host': forms.TextInput(attrs={'class' : 'form-control'}),
-                'port':forms.NumberInput(attrs={'class' : 'form-control'}),
-                'user': forms.TextInput(attrs={'class' : 'form-control'}),
-                'password':forms.PasswordInput(render_value = True,attrs={'class' : 'form-control'}),
-                'paused': forms.Select(attrs={'class' : 'form-control'},choices=CHOICES),
-                'download': forms.TextInput(attrs={'class' : 'form-control'}),
+                'torrent_active': forms.Select(attrs={},choices=CHOICES),
+                'space_disk':forms.NumberInput(attrs={}),
+                'host': forms.TextInput(attrs={}),
+                'port':forms.NumberInput(attrs={}),
+                'user': forms.TextInput(attrs={}),
+                'password':forms.PasswordInput(render_value = True,attrs={}),
+                'paused': forms.Select(attrs={},choices=CHOICES),
+                'download': forms.TextInput(attrs={}),
             }
 
 class TelegramSendForm(forms.Form): #Note that it is not inheriting from forms.ModelForm
-    msg = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'class' : 'form-control',}),  label="Mensaje", required=False,)
+    msg = forms.CharField(max_length=200, widget=forms.Textarea(attrs={}),  label="Mensaje", required=False,)
     receiver = forms.ChoiceField(choices=(), widget=forms.Select(attrs={'class':'form-control'}),label="Destinatarios", required=False)
-    receiverUnique =  forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control'}), label="Destinatario",required=False,)
+    receiverUnique =  forms.CharField(max_length=20, widget=forms.TextInput(attrs={}), label="Destinatario",required=False,)
 
 
     def __init__(self, *args, **kwargs):

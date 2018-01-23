@@ -2,64 +2,18 @@
 
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
-        $('#latest_torrentservers_update').dataTable({
-            "order": [
-                [2, "desc"]
-
-            ],
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            "pageLength": 10,
-            
-            "language": {
-                "url": "/static/merc/js/Spanish.json",
-                // "search": "Busqueda: ",
-                // "lengthMenu": "Mostrar _MENU_ registros por página",
-                // "zeroRecords": "No se encontró nada, lo siento",
-                // "info": "Mostrando pagina _PAGE_ de _PAGES_",
-                // "infoEmpty": "No hay registros",
-                // "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                // "paginate":{
-                //     "first":"Primero",
-                //     "previous": "Previo",
-                //     "next": "Siguiente",
-                //     "last":"Ultimo",
-                // },
-            },
-            
-            "columnDefs": [{
-                "targets": 4,
-                "orderable": false
-            }]
-            
-            
-        });
-    });
-</script>
-
-<!-- <div class="container"> -->
-
-
 {% if error_message %}
-<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
 
 
 {% if latest_torrentservers_update %}
-<table id="latest_torrentservers_update" class="table table-striped table-bordered" width="100%" cellspacing="0">
+<table class="table-wrapper">
     <thead>
         <tr>
             <td>Host</td>
             <td>Port</td>
             <td>User</td>
-	        <td>Ctrl</td>
         </tr>
     </thead>
     <tbody>
@@ -68,20 +22,16 @@
             {% if torrentserver.torrent_active %}
                 <td><a href="{% url 'control_edittorrentserver' torrentserver.id %}">{{ torrentserver.host }}</a></td>
             {% else %}
-                <td><a href="{% url 'control_edittorrentserver' torrentserver.id %}" style="color: grey;">{{ torrentserver.host }}</a></td>
+                <td>
+                    <a href="{% url 'control_edittorrentserver' torrentserver.id %}" style="color: grey;">{{ torrentserver.host }}</a>
+                    <br>
+                    {% if perms.merc.change_torrentservers %}
+                        <a href="{% url 'control_edittorrentserver' torrentserver.id %}" class="button special icon fa-search small"/>
+                    {% endif %} 
+                </td>
             {% endif %}
             <td>{{ torrentserver.port }}</td>
             <td>{{ torrentserver.user }}</td>
-            <td> 
-                {% if perms.merc.change_torrentservers %}
-                        <a href="{% url 'control_edittorrentserver' torrentserver.id %}"><i class="glyphicon glyphicon-edit"></i></a>
-                {% endif %} 
-                {% if perms.merc.delete_torrentservers %}
-                    {% if torrentserver %}
-                        <a href="{% url 'control_deletetorrentserver' torrentserver.id %}"><i class="glyphicon glyphicon-remove"></i></a>
-                    {% endif %}  
-                {% endif %} 
-            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,5 +1,5 @@
 {% extends "base_generic.html" %} {% block content %}
-<div class="container">
+<!--<div class="container">-->
 
     <title>
         {% if serie %} {{ serie.nombre }} {% else %} Buscar serie {% endif %}
@@ -55,51 +55,132 @@
         }
     </script>
 
+    <!--<form method="POST" action>-->
+
+    <!--    <div class="form-group col-xs-5">-->
+    <!--        {% csrf_token %}-->
+
+    <!--        <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}-->
+    <!--        <label>{{ form.quality.label_tag }} </label> {{ form.quality }}-->
+
+    <!--        <div class="form-row">-->
+               
+    <!--            <div class="form-group col-md-6">-->
+    <!--                <label>Session </label><input type="text" class="form-control" name="session_start" id="session_start" />-->
+    <!--            </div>-->
+    <!--            <div class="form-group col-md-6">-->
+    <!--                <label>Episodio </label>-->
+    <!--                <input type="text" class="form-control" name="episodio_start" id="episodio_start" />-->
+    <!--            </div>-->
+                
+    <!--            <div class="form-group col-md-10">-->
+    <!--                 <label>{{ form.ep_start.label_tag }} </label>{{ form.ep_start }}-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="form-row">-->
+                
+    <!--            <div class="form-group col-md-6">-->
+    <!--                <label>Session </label>-->
+    <!--                <input type="text" class="form-control" name="session_end" id="session_end" />-->
+    <!--            </div>-->
+    <!--            <div class="form-group col-md-6">-->
+    <!--                <label>Episodio </label>-->
+    <!--                <input type="text" class="form-control" name="episodio_end" id="episodio_end" />-->
+    <!--            </div>-->
+    <!--            <div class="form-group col-md-10">-->
+    <!--                <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="form-row">-->
+    <!--            <div class="form-group col-md-6">-->
+    <!--                <label>{{ form.to_saved.label_tag }} </label> {{ form.to_saved }}-->
+    <!--            </div>-->
+    <!--            <div class="form-group col-md-6">-->
+    <!--                <button type="submit" class="save btn btn-default">Buscar</button> -->
+    <!--                <button type="Cancel" class="cancel btn btn-default" onclick="window.location='{% url 'list' %}'">Cancel</button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+    <!--    </div>-->
+    <!--</form>-->
+    
     <form method="POST" action>
 
-        <div class="form-group col-xs-5">
+        <div class="row uniform ">
             {% csrf_token %}
 
-            <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}
-            <label>{{ form.quality.label_tag }} </label> {{ form.quality }}
-
-            <div class="form-row">
-               
-                <div class="form-group col-md-6">
-                    <label>Session </label><input type="text" class="form-control" name="session_start" id="session_start" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Episodio </label>
-                    <input type="text" class="form-control" name="episodio_start" id="episodio_start" />
-                </div>
-                
-                <div class="form-group col-md-10">
-                     <label>{{ form.ep_start.label_tag }} </label>{{ form.ep_start }}
-                </div>
+            <div class="10u 12u(mobilep)">
+                <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}
             </div>
-            <div class="form-row">
-                
-                <div class="form-group col-md-6">
-                    <label>Session </label>
-                    <input type="text" class="form-control" name="session_end" id="session_end" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Episodio </label>
-                    <input type="text" class="form-control" name="episodio_end" id="episodio_end" />
-                </div>
-                <div class="form-group col-md-10">
-                    <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}
-                </div>
+            <div class="2u 12u(mobilep)">
+                <label>{{ form.quality.label_tag }} </label> {{ form.quality }}
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>{{ form.to_saved.label_tag }} </label> {{ form.to_saved }}
-                </div>
-                <div class="form-group col-md-6">
-                    <button type="submit" class="save btn btn-default">Buscar</button> 
-                    <button type="Cancel" class="cancel btn btn-default" onclick="window.location='{% url 'list' %}'">Cancel</button>
-                </div>
-            </div>
-
         </div>
-        {% endblock %}
+        <div class="row uniform ">
+
+            <div class="2u 12u(mobilep)">
+                <label>Session </label>
+                <input type="text" name="session_start" id="session_start" />
+            </div>
+            <div class="2u 12u(mobilep)">
+                <label>Episodio </label>
+                <input type="text" name="episodio_start" id="episodio_start" />
+            </div>
+            <div class="2u 12u(mobilep)">
+                <label>{{ form.ep_start.label_tag }} </label> {{ form.ep_start }}
+            </div>
+            
+            <div class="2u 12u(mobilep)">
+                <label>Session </label>
+                <input type="text" name="session_end" id="session_end" />
+            </div>
+            <div class="2u 12u(mobilep)">
+                <label>Episodio </label>
+                <input type="text" name="episodio_end" id="episodio_end" />
+            </div>
+            <div class="2u 12u(mobilep)">
+                <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}
+            </div>
+        </div>
+        <div class="row uniform ">
+            
+            <div class="2u 12u(mobilep)">
+                <label>{{ form.paussed.label_tag }} </label>
+                <div class="select-wrapper">
+                     {{ form.paussed }}
+                </div>
+            </div>
+
+            <div class="2u 12u(mobilep)">
+                <label>{{ form.skipped.label_tag }} </label> 
+                <div class="select-wrapper">
+                    {{ form.skipped }}
+                </div>
+            </div>
+            <div class="6u 12u(mobilep)">
+                <label>{{ form.to_saved.label_tag }} </label>
+                <input id="id_to_saved" name="to_saved" checked="" type="checkbox">
+                <label for="to_saved">Grabar Serie</label>
+            </div>
+        </div>
+
+        <div class="row uniform">
+            <div class="12u">
+                <ul class="actions">
+                    {% if perms.merc.change_series %}
+                    <li><input type="submit" value="Grabar"/></li>
+                    {% endif %} 
+                    {% if perms.merc.delete_series %} 
+                        {% if serie %} 
+                            <li><input type="button" onclick="window.location='{% url 'control_delete' serie.id %}'" value="Borrar" /></li>
+                             <button type="button" class="send btn btn-default" onclick="window.location='{% url 'launch_unique' serie.id %}'">Lanzar</button> 
+                        {% endif %} 
+                    {% endif %}
+                    <li><input type="reset" value="Reset" class="alt" /></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+
+<!--</div>-->
+{% endblock %}

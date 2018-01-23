@@ -18,9 +18,18 @@
 
     <form method="POST" action>
 
-        <div class="form-group col-xs-5">
+        <div class="row uniform ">
             {% csrf_token %}
-            {{ form.as_table }}
-            <button type="submit" class="save btn btn-default">Enviar</button> 
+            <div class="10u 12u(mobilep)">
+                {{ form.as_p }}
+            </div>
         </div>
-        {% endblock %}
+        <div class="row uniform">
+            <div class="12u">
+                <ul class="actions">
+                    <li><input type="submit" value="Grabar"/></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+    {% endblock %}

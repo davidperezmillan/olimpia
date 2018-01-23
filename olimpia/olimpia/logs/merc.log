@@ -82,3 +82,88 @@ Ya he conseguido que esto funcione correctamente</textarea></td></tr>
 2017-12-27 14:10:53,454 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:154 - loading new chat ids
 2017-12-27 14:10:53,454 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:215 - Try get new Chats
 2017-12-27 14:10:53,456 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:273 - Update BBDD
+2018-01-22 22:56:42,875 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-22 22:56:43,203 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f449b756b48>]
+2018-01-22 22:56:43,203 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f449b756b48>]
+2018-01-22 22:56:43,205 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [davidperezmillan] davidperezmillan     85.53.90.10:1701
+2018-01-22 22:56:43,206 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 1
+2018-01-22 22:56:43,758 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:77 - Hemos encontrado [[ 4 ]] para [[ Shameless ]] elementos para descargar
+2018-01-22 22:56:43,758 [ERROR] - merc.at.airtrapLauncher - airtrapLauncher.py:85 - No hay o no esta activado el cliente para torrent
+2018-01-22 22:56:43,758 [DEBUG] - merc.views - views.py:134 - Torrent_found : [<merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f448bb31290>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f448bb31310>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f448bb313d0>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f448bb31410>]
+2018-01-22 22:56:43,758 [DEBUG] - merc.views - views.py:135 - torrent_added : []
+2018-01-22 22:56:43,761 [INFO] - merc.management.commands.commands_utils - commands_utils.py:24 - [][][]
+2018-01-22 22:56:43,762 [DEBUG] - merc.at.hilos.utiles - utiles.py:8 - []
+2018-01-22 22:56:43,762 [DEBUG] - merc.at.hilos.genthread - genthread.py:49 - user: davidperezmillan:receivers 
+2018-01-22 22:56:43,763 [INFO] - merc.at.service.telegramHandler - telegramHandler.py:46 - config=, message=Que pena 'El Mercenario' no ha encontrado nada de ShamelessHDHDS08E00HDS99E99 que enviar [davidperezmillan].....
+2018-01-22 22:56:43,763 [INFO] - merc.at.service.telegramHandler - telegramHandler.py:69 - token=135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y, parse_mode=markdown, usernames=[], fullnames=[], groups=[]
+2018-01-22 22:58:03,833 [ERROR] - merc.at.service.telegramHandler - telegramHandler.py:85 - Could not connect Telegram servers at this time, please try again later: urllib3 HTTPError HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y/getMe (Caused by NewConnectionError('<telegram.vendor.ptb_urllib3.urllib3.connection.VerifiedHTTPSConnection object at 0x7f448baf6290>: Failed to establish a new connection: [Errno 101] Network is unreachable',))
+2018-01-22 22:58:03,834 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:144 - loading cached chat ids
+2018-01-22 22:58:03,834 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:162 - Try get data Chats
+2018-01-22 22:58:03,837 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:146 - found 0 cached chat_ids: []
+2018-01-22 22:58:03,837 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:149 - all chat ids found in cache
+2018-01-22 22:58:03,837 [DEBUG] - merc.at.service.telegramHandler - telegramHandler.py:124 - chat_ids=[]
+2018-01-23 12:55:01,330 [INFO] - merc.views - views.py:174 - Ordenamos True grabar la serie 9JKL:NR
+2018-01-23 12:55:01,334 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 12:55:01,547 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f14231fd128>]
+2018-01-23 12:55:01,547 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f14231fd128>]
+2018-01-23 12:55:01,549 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [davidperezmillan] davidperezmillan     85.53.90.10:1701
+2018-01-23 12:55:01,549 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 1
+2018-01-23 12:55:01,861 [ERROR] - merc.views - views.py:196 - list index out of range
+2018-01-23 12:56:06,531 [INFO] - merc.views - views.py:174 - Ordenamos True grabar la serie Runaways:NR
+2018-01-23 12:56:06,533 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 12:56:06,534 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f14231fd680>]
+2018-01-23 12:56:06,534 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f14231fd680>]
+2018-01-23 12:56:06,535 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [davidperezmillan] davidperezmillan     85.53.90.10:1701
+2018-01-23 12:56:06,535 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 1
+2018-01-23 12:56:09,189 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:77 - Hemos encontrado [[ 10 ]] para [[ Runaways ]] elementos para descargar
+2018-01-23 12:56:09,190 [ERROR] - merc.at.airtrapLauncher - airtrapLauncher.py:85 - No hay o no esta activado el cliente para torrent
+2018-01-23 12:56:09,190 [DEBUG] - merc.views - views.py:178 - Torrent_found : [<merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb710>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb790>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb850>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb890>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb8d0>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb910>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb950>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb990>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efb9d0>, <merc.at.beans.pluginsBeans.ResponsePlugin object at 0x7f1420efba10>]
+2018-01-23 12:56:09,190 [DEBUG] - merc.views - views.py:179 - torrent_added : []
+2018-01-23 12:56:09,190 [INFO] - merc.views - views.py:183 - Intentamos True grabar la serie Runaways:NR
+2018-01-23 12:56:09,193 [ERROR] - merc.views - views.py:189 - UNIQUE constraint failed: series.nombre, series.quality, series.author_id
+2018-01-23 12:56:09,194 [ERROR] - merc.views - views.py:196 - La serie Runaways : NR para davidperezmillan puede que ya este en la base de datos
+2018-01-23 13:02:56,273 [INFO] - merc.views - views.py:174 - Ordenamos True grabar la serie Colony:NR
+2018-01-23 13:02:56,275 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.newpct1_handler:Newpct1HandlerClass 
+2018-01-23 13:02:56,278 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.torrentrapid_handler:TorrentRapidHandlerClass 
+2018-01-23 13:02:56,289 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 13:02:56,289 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f1420e867e8>]
+2018-01-23 13:02:56,289 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7f1420e867e8>]
+2018-01-23 13:02:56,291 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [laurasanchezramos] davidperezmillan     85.53.90.10:1701
+2018-01-23 13:02:56,291 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 3
+2018-01-23 13:03:00,977 [ERROR] - merc.views - views.py:196 - 'NoneType' object has no attribute 'find_all'
+2018-01-23 13:10:39,178 [INFO] - merc.views - views.py:175 - Ordenamos True grabar la serie Colony:NR
+2018-01-23 13:10:39,181 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.newpct1_handler:Newpct1HandlerClass 
+2018-01-23 13:10:39,259 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.torrentrapid_handler:TorrentRapidHandlerClass 
+2018-01-23 13:10:39,260 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 13:10:39,261 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd49a78e18>]
+2018-01-23 13:10:39,261 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd49a78e18>]
+2018-01-23 13:10:39,262 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [laurasanchezramos] davidperezmillan     85.53.90.10:1701
+2018-01-23 13:10:39,262 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 3
+2018-01-23 13:10:43,554 [ERROR] - merc.views - views.py:197 - 'NoneType' object has no attribute 'find_all'
+2018-01-23 13:32:05,034 [INFO] - merc.views - views.py:175 - Ordenamos True grabar la serie asdfadsfadsf:NR
+2018-01-23 13:32:05,036 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.newpct1_handler:Newpct1HandlerClass 
+2018-01-23 13:32:05,037 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.torrentrapid_handler:TorrentRapidHandlerClass 
+2018-01-23 13:32:05,037 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 13:32:05,037 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd491ecf38>]
+2018-01-23 13:32:05,037 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd491ecf38>]
+2018-01-23 13:32:05,038 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [laurasanchezramos] davidperezmillan     85.53.90.10:1701
+2018-01-23 13:32:05,038 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 3
+2018-01-23 13:32:14,304 [ERROR] - merc.views - views.py:197 - list index out of range
+2018-01-23 13:35:52,737 [INFO] - merc.views - views.py:175 - Ordenamos True grabar la serie asdfadsfadsf:NR
+2018-01-23 13:35:52,739 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.newpct1_handler:Newpct1HandlerClass 
+2018-01-23 13:35:52,739 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.torrentrapid_handler:TorrentRapidHandlerClass 
+2018-01-23 13:35:52,740 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 13:35:52,740 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd492be2d8>]
+2018-01-23 13:35:52,740 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd492be2d8>]
+2018-01-23 13:35:52,741 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [laurasanchezramos] davidperezmillan     85.53.90.10:1701
+2018-01-23 13:35:52,741 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 3
+2018-01-23 13:35:56,255 [ERROR] - merc.views - views.py:197 - list index out of range
+2018-01-23 13:36:45,502 [INFO] - merc.views - views.py:175 - Ordenamos True grabar la serie asdfadsfadsf:NR
+2018-01-23 13:36:45,504 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.newpct1_handler:Newpct1HandlerClass 
+2018-01-23 13:36:45,504 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.torrentrapid_handler:TorrentRapidHandlerClass 
+2018-01-23 13:36:45,504 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:124 - Plugin active:merc.at.plugins.divxtotal_handler:DivxtotalHandlerClass 
+2018-01-23 13:36:45,504 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:147 - [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd492ffab8>]
+2018-01-23 13:36:45,504 [DEBUG] - merc.at.airtrapLauncher - airtrapLauncher.py:163 - Clientes torrent seleccionados : [<merc.at.airtrapLauncher.ClientTorrents instance at 0x7fdd492ffab8>]
+2018-01-23 13:36:45,505 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:58 - conf_clnt: [laurasanchezramos] davidperezmillan     85.53.90.10:1701
+2018-01-23 13:36:45,506 [INFO] - merc.at.airtrapLauncher - airtrapLauncher.py:62 - plugins: 3
+2018-01-23 13:36:50,024 [ERROR] - merc.views - views.py:197 - list index out of range

@@ -195,3 +195,252 @@
 2017-12-27 12:30:52,297 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=The Big Bang Theory epstart=HDS11E10 epend=NRS99E99 -- True
 2017-12-27 12:30:52,297 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"The Big Bang Theory"', 'ordenar': 'Nombre', 'categoryIDR': '1469', 'inon': 'Ascendente'}
 2017-12-27 12:30:53,368 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:130 - Hemos encontrado la url http://newpct1.com/series-hd/the-big-bang-theory/1869
+2018-01-22 22:56:43,206 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=Shameless epstart=HDS08E00 epend=HDS99E99 -- False
+2018-01-22 22:56:43,546 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:51 - enlaces : http://www.divxtotal2.net/series/shameless/
+2018-01-22 22:56:43,737 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 8
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS08E04
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Shameless) cap: HDS08E04 para HDS08E00 de HDS99E99
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : HDS08E04 http://www.divxtotal2.net/wp-content/uploads/2017/12/Shameless_804_DivxTotaL.avi.torrent
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS08E03
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Shameless) cap: HDS08E03 para HDS08E00 de HDS99E99
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : HDS08E03 http://www.divxtotal2.net/wp-content/uploads/2017/12/Shameless_803_DivxTotaL.avi.torrent
+2018-01-22 22:56:43,738 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS08E02
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Shameless) cap: HDS08E02 para HDS08E00 de HDS99E99
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : HDS08E02 http://www.divxtotal2.net/wp-content/uploads/2017/11/Shameless.8x02.DivxTotaL.avi.torrent
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS08E01
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Shameless) cap: HDS08E01 para HDS08E00 de HDS99E99
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : HDS08E01 http://www.divxtotal2.net/wp-content/uploads/2017/11/Shameless_801_DivxTotaL.avi.torrent
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 7
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E12
+2018-01-22 22:56:43,739 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E12 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E11
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E11 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E10
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E10 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E09
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E09 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E08
+2018-01-22 22:56:43,740 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E08 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E07
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E06
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E05
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E04
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E03
+2018-01-22 22:56:43,741 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E02
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS07E01
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS07E01 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 6
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E12
+2018-01-22 22:56:43,742 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E12 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E11
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E11 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E10
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E10 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E09
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E09 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E08
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E08 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E07
+2018-01-22 22:56:43,743 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E06
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E05
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E04
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E03
+2018-01-22 22:56:43,744 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E02
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS06E01
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS06E01 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 5
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E12
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E12 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E11
+2018-01-22 22:56:43,745 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E11 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E10
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E10 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E09
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E09 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E08
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E08 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E07
+2018-01-22 22:56:43,746 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E06
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E05
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E04
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E03
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E02
+2018-01-22 22:56:43,747 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS05E01
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS05E01 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 4
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E12
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E12 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E11
+2018-01-22 22:56:43,748 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E11 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E10
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E10 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E09
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E09 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E08
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E08 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E07
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E06
+2018-01-22 22:56:43,749 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E05
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E04
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E03
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E02
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,750 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS04E01
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS04E01 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 3
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E12
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E12 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E11
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E11 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E10
+2018-01-22 22:56:43,751 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E10 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E09
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E09 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E08
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E08 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E07
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E06
+2018-01-22 22:56:43,752 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E05
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E04
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E03
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E02
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS03E01
+2018-01-22 22:56:43,753 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS03E01 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 2
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E10
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E10 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E09
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E09 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E08
+2018-01-22 22:56:43,754 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E08 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E07
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E06
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E05
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E04
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E03
+2018-01-22 22:56:43,755 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E02
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E01
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E01 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS02E00
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS02E00 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,756 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 1
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E07
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E07 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E06
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E06 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E05
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E05 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E04
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E04 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E03
+2018-01-22 22:56:43,757 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E03 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,758 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E02
+2018-01-22 22:56:43,758 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E02 para HDS08E00 de  HDS99E99 
+2018-01-22 22:56:43,758 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - HDS01E01
+2018-01-22 22:56:43,758 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:114 - [Rechazado] (Shameless) cap: HDS01E01 para HDS08E00 de  HDS99E99 
+2018-01-23 12:55:01,549 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=9JKL epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 12:56:06,535 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=Runaways epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 12:56:07,016 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:51 - enlaces : http://www.divxtotal2.net/series/runaways-temporada/
+2018-01-23 12:56:09,186 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:76 - Encontrada Temporada: Temporada 1
+2018-01-23 12:56:09,186 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E10
+2018-01-23 12:56:09,186 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E10 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E10 http://www.divxtotal2.net/wp-content/uploads/2017/12/Runaways_110_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E09
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E09 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E09 http://www.divxtotal2.net/wp-content/uploads/2017/12/Runaways_109_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E08
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E08 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E08 http://www.divxtotal2.net/wp-content/uploads/2017/12/Runaways1x08-DivxTotaL.avi.torrent
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E07
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E07 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,187 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E07 http://www.divxtotal2.net/wp-content/uploads/2017/12/Runaways_107_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E06
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E06 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E06 http://www.divxtotal2.net/wp-content/uploads/2017/12/Runaways_106_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E05
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E05 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E05 http://www.divxtotal2.net/wp-content/uploads/2017/12/Runaways_105_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E04
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E04 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,188 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E04 http://www.divxtotal2.net/wp-content/uploads/2017/11/Runaways_104_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E03
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E03 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E03 http://www.divxtotal2.net/wp-content/uploads/2017/11/Runaways_103_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E02
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E02 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E02 http://www.divxtotal2.net/wp-content/uploads/2017/11/Runaways_102_DivxTotaL.avi.torrent
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:129 - NRS01E01
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:111 - [Aceptado] (Runaways) cap: NRS01E01 para NRS00E00 de NRS99E99
+2018-01-23 12:56:09,189 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:84 - Encontrada capitulo : NRS01E01 http://www.divxtotal2.net/wp-content/uploads/2017/11/Runaways-1x01-DivxTotaL.avi.torrent
+2018-01-23 13:02:56,291 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Colony epstart=NRS00E00 epend=NRS02E00 -- False
+2018-01-23 13:02:56,291 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Colony"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2018-01-23 13:02:57,933 [WARNING] - merc.at.plugins.newpct1_handler - newpct1_handler.py:133 - No encontramos Colony/767, no descargamos nada
+2018-01-23 13:02:57,934 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:254 -  ---> Processando con el plugin .... title=Colony epstart=NRS00E00 epend=NRS02E00 -- False
+2018-01-23 13:02:57,934 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:106 - Buscamos {'q': '"Colony"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Descendente'}
+2018-01-23 13:03:00,504 [WARNING] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:135 - No encontramos "Colony"/767, no descargamos nada
+2018-01-23 13:03:00,504 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=Colony epstart=NRS00E00 epend=NRS02E00 -- False
+2018-01-23 13:03:00,849 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:51 - enlaces : http://www.divxtotal2.net/peliculas/grace-the-possession/
+2018-01-23 13:10:39,262 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=Colony epstart=NRS00E00 epend=NRS02E00 -- False
+2018-01-23 13:10:39,262 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"Colony"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2018-01-23 13:10:40,281 [WARNING] - merc.at.plugins.newpct1_handler - newpct1_handler.py:133 - No encontramos Colony/767, no descargamos nada
+2018-01-23 13:10:40,282 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:254 -  ---> Processando con el plugin .... title=Colony epstart=NRS00E00 epend=NRS02E00 -- False
+2018-01-23 13:10:40,282 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:106 - Buscamos {'q': '"Colony"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Descendente'}
+2018-01-23 13:10:42,927 [WARNING] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:135 - No encontramos "Colony"/767, no descargamos nada
+2018-01-23 13:10:42,927 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=Colony epstart=NRS00E00 epend=NRS02E00 -- False
+2018-01-23 13:10:43,254 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:51 - enlaces : http://www.divxtotal2.net/peliculas/grace-the-possession/
+2018-01-23 13:32:05,038 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:32:05,040 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"asdfadsfadsf"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2018-01-23 13:32:06,118 [WARNING] - merc.at.plugins.newpct1_handler - newpct1_handler.py:133 - No encontramos asdfadsfadsf/767, no descargamos nada
+2018-01-23 13:32:06,119 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:254 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:32:06,119 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:106 - Buscamos {'q': '"asdfadsfadsf"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Descendente'}
+2018-01-23 13:32:08,959 [WARNING] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:135 - No encontramos "asdfadsfadsf"/767, no descargamos nada
+2018-01-23 13:32:08,959 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:35:52,741 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:35:52,741 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"asdfadsfadsf"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2018-01-23 13:35:53,607 [WARNING] - merc.at.plugins.newpct1_handler - newpct1_handler.py:133 - No encontramos asdfadsfadsf/767, no descargamos nada
+2018-01-23 13:35:53,607 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:254 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:35:53,607 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:106 - Buscamos {'q': '"asdfadsfadsf"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Descendente'}
+2018-01-23 13:35:55,931 [WARNING] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:135 - No encontramos "asdfadsfadsf"/767, no descargamos nada
+2018-01-23 13:35:55,932 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:36:45,506 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:243 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:36:45,506 [INFO] - merc.at.plugins.newpct1_handler - newpct1_handler.py:105 - Buscamos {'q': u'"asdfadsfadsf"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Ascendente'}
+2018-01-23 13:36:46,517 [WARNING] - merc.at.plugins.newpct1_handler - newpct1_handler.py:133 - No encontramos asdfadsfadsf/767, no descargamos nada
+2018-01-23 13:36:46,517 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:254 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False
+2018-01-23 13:36:46,518 [INFO] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:106 - Buscamos {'q': '"asdfadsfadsf"', 'ordenar': 'Nombre', 'categoryIDR': '767', 'inon': 'Descendente'}
+2018-01-23 13:36:49,694 [WARNING] - merc.at.plugins.torrentrapid_handler - torrentrapid_handler.py:135 - No encontramos "asdfadsfadsf"/767, no descargamos nada
+2018-01-23 13:36:49,694 [INFO] - merc.at.plugins.divxtotal_handler - divxtotal_handler.py:28 -  ---> Processando con el plugin .... title=asdfadsfadsf epstart=NRS00E00 epend=NRS99E99 -- False

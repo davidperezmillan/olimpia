@@ -166,6 +166,7 @@ def launch_extreme(request):
     form = SeriesFindForm(request.POST)
     
     if request.method == "POST":
+        context = {}
         if form.is_valid():
             serie_extreme = form.save(commit=False)
             torrentservers = TorrentServers.objects.filter(author=request.user)

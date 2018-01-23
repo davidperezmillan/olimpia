@@ -2,14 +2,7 @@
 
 {% block content %}
 
-
-
-
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
-
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
     $(document).ready(function() {
         $('#torrent_found').dataTable({
@@ -83,7 +76,7 @@
             
         });
     });
-</script>
+</script> -->
 
 <!-- <div class="container"> -->
 
@@ -94,7 +87,8 @@
 {% endif %}
 
 
-<table class="table table-striped table-bordered" width="100%" cellspacing="0">
+
+<table class="table-wrapper">
     <tr>
         {% if serie %}
             {% if to_saved %}
@@ -120,7 +114,7 @@
 </table>
 
 {% if torrent_found %}
-<table id="torrent_found" class="table table-striped table-bordered" width="100%" cellspacing="0">
+<table class="table-wrapper">
     <thead>
         <tr>
             <td>Titulo</td>
@@ -150,7 +144,7 @@
 
 
 {% if torrent_added %}
-<table id="torrent_added" class="table table-striped table-bordered" width="100%" cellspacing="0">
+<table class="table-wrapper">
     <thead>
         <tr>
             <td>id</td>
