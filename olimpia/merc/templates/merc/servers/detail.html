@@ -1,38 +1,99 @@
-{% extends "base_generic.html" %} 
-{% block content %}
+{% extends "base_generic.html" %} {% block content %}
 
 <title>
-    {% if torrentserver %}
-        {{ torrentserver.host }}:{{ torrentserver.port }}
-    {% else %}
-        Server Nuevo
-    {% endif %}
+    {% if torrentserver %} {{ torrentserver.host }}:{{ torrentserver.port }} {% else %} Server Nuevo {% endif %}
 </title>
 
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form method="POST" class="form-horizontal" action >
-
+<form method="POST" action>
+    {% csrf_token %}
     <div class="row uniform ">
-        {% csrf_token %}
-        
-        {% for field in form %}
-            <div class="10u 12u(mobilep)">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-            </div>
-        {% endfor %}
-    </div>
-        
-    {% if perms.merc.change_torrentservers %}
-        <div class="row uniform">
-            <div class="12u">
-                <ul class="actions">
-                    <li><input type="submit" value="Grabar"/></li>
-                </ul>
+
+        <div class="2u 12u(mobilep)">
+            <label>{{ form.torrent_active.label_tag }} </label>
+            <div class="select-wrapper">
+                {{ form.torrent_active }}
+            </diV>
+        </div>
+        <div class="2u 12u(mobilep)">
+            <label>{{ form.paused.label_tag }} </label>
+            <div class="select-wrapper">
+                {{ form.paused }}
             </div>
         </div>
-    {% endif %} 
+
+        <div class="8u 12u(mobilep)">
+            <label>{{ form.space_disk.label_tag }} </label>
+            <!--{{ form.space_disk }}-->
+            <input type="text" name="space_disk" id="id_space_disk" value="{{ form.space_disk.value }}"/>
+        </div>
+    </div>
+
+    <div class="row uniform ">
+        <div class="8u 12u(mobilep)">
+            <label>{{ form.host.label_tag }} </label> {{ form.host }}
+        </div>
+        <div class="4u 12u(mobilep)">
+            <label>{{ form.port.label_tag }} </label>
+            <input type="text" name="port" id="id_port" value="{{ form.port.value }}"/>
+        </div>
+    </div>
+
+    <div class="row uniform ">
+        <div class="6u 12u(mobilep)">
+            <label>{{ form.user.label_tag }} </label> {{ form.user }}
+        </div>
+        <div class="6u 12u(mobilep)">
+            <label>{{ form.password.label_tag }} </label> {{ form.password }}
+        </div>
+    </div>
+    <div class="row uniform ">
+        <div class="12u 12u(mobilep)">
+            <label>{{ form.download.label_tag }} </label> {{ form.download }}
+        </div>
+    </div>
     
-{% endblock %}
+    <div class="row uniform ">
+            {% for choice in form.plugins.field.queryset %}
+              <div class="12u 12u(mobilep)">
+                <input type="checkbox" name="plugins" id="id_plugins_{{choice.id}}" value="{{choice.id}}"
+                  {%  if choice.id  in form.plugins.value %} 
+                     checked="checked"
+                  {% endif %}/>
+                <label for="id_plugins_{{choice.id}}">{{choice.name}}</label>
+              </div>
+            {% endfor %}
+    </div>
+
+
+
+    <!--<div class="row uniform ">-->
+    <!--    <ul id="id_plugins">-->
+    <!--        <li>-->
+    <!--            <label for="id_plugins_0">-->
+    <!--                <input id="id_plugins_0" name="plugins" value="1" type="checkbox"> newpct1</label>-->
+    <!--        </li>-->
+    <!--        <li>-->
+    <!--            <label for="id_plugins_1"><input id="id_plugins_1" name="plugins" value="2" type="checkbox"> torrentrapid</label>-->
+    <!--        </li>-->
+    <!--        <li>-->
+    <!--            <label for="id_plugins_2"><input id="id_plugins_2" name="plugins" value="3" type="checkbox"> divxtotal</label>-->
+    <!--        </li>-->
+    <!--    </ul>-->
+    <!--</div>-->
+
+
+    {% if perms.merc.change_torrentservers %}
+    <div class="row uniform">
+        <div class="12u">
+            <ul class="actions">
+                <li><input type="submit" value="Grabar" /></li>
+                <li><input type="reset" value="Reset" class="alt" /></li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+{% endif %} {% endblock %}
