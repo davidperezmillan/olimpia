@@ -8,7 +8,43 @@
 
 
 {% if latest_torrentservers_update %}
-<table class="table-wrapper">
+
+ <script>
+ 
+// Tip: Remove toUpperCase() if you want to perform a case-sensitive search.
+// Tip: Change tr[i].getElementsByTagName('td')[0] to [1] if you want to search for "Country" (index 1) instead of "Name" (index 0). 
+ 
+ 
+function search(input,table) {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+//   input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById(table);
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+
+
+
+
+<div class="table-wrapper" id="serverList">
+    <div class="6u 6u(mobilep)">
+        <input type="text" id="searchInput" onkeyup="search(this, 'serverList')" placeholder="Search for server.."/>
+    </div>
     <thead>
         <tr>
             <td>Host</td>
