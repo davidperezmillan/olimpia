@@ -21,6 +21,7 @@
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
+	input[type="number"],
 	select,
 	textarea {
 		position: relative;
@@ -180,6 +181,7 @@
 		input[type="text"],
 		input[type="password"],
 		input[type="email"],
+		input[type="number"],
 		select,
 		textarea {
 			background: _palette(accent2, bg);

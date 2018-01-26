@@ -262,6 +262,7 @@
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
+	input[type="number"],
 	select,
 	textarea {
 		@include vendor('appearance', 'none');
@@ -312,6 +313,7 @@
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
+	input[type="number"],
 	select {
 		height: _size(element-height);
 	}
@@ -1345,6 +1347,7 @@
 		input[type="text"],
 		input[type="password"],
 		input[type="email"],
+		input[type="number"],
 		select,
 		textarea {
 			color: _palette(accent2, fg-bold);

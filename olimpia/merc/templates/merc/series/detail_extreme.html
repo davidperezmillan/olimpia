@@ -24,23 +24,27 @@
                 rellenarPattern($("#id_quality"), $('#id_ep_end'))
             });
             $("#session_start").on("change", function(event) {
-                $('#id_ep_start').val($("#id_quality").val() + "S" + $('#session_start').val() + "E" + $('#episodio_start').val())
+                $('#id_ep_start').val($("#id_quality").val() + "S" + formatNumber($('#session_start').val()) + "E" + formatNumber($('#episodio_start').val()))
             });
             $("#episodio_start").on("change", function(event) {
-                $('#id_ep_start').val($("#id_quality").val() + "S" + $('#session_start').val() + "E" + $('#episodio_start').val())
+                $('#id_ep_start').val($("#id_quality").val() + "S" + formatNumber($('#session_start').val()) + "E" + formatNumber($('#episodio_start').val()))
             });
             $("#session_end").on("change", function(event) {
-                $('#id_ep_end').val($("#id_quality").val() + "S" + $('#session_end').val() + "E" + $('#episodio_end').val())
+                $('#id_ep_end').val($("#id_quality").val() + "S" + formatNumber($('#session_end').val()) + "E" + formatNumber($('#episodio_end').val()))
             });
             $("#episodio_end").on("change", function(event) {
-                $('#id_ep_end').val($("#id_quality").val() + "S" + $('#session_end').val() + "E" + $('#episodio_end').val())
+                $('#id_ep_end').val($("#id_quality").val() + "S" + formatNumber($('#session_end').val()) + "E" + formatNumber($('#episodio_end').val()))
             });
 
         });
 
+        function formatNumber(myNumber){
+            var formattedNumber = ("0" + myNumber).slice(-2);
+            return (formattedNumber);
+        }
 
         function recuperarPattern(ep, indice) {
-            const regex = /(NR|HD|VO)(S)([0-9]{2})(E)([0-9]{2})/g;
+            const regex = /(NR|HD|VO|AL)(S)([0-9]{2})(E)([0-9]{2})/g;
             let m;
             valor = regex.exec(ep)[indice];
             return valor;
@@ -48,7 +52,7 @@
 
 
         function rellenarPattern(quality, ep, defecto) {
-            const regex = /(NR|HD|VO)(S)([0-9]{2})(E)([0-9]{2})/g;
+            const regex = /(NR|HD|VO|AL)(S)([0-9]{2})(E)([0-9]{2})/g;
             var str = ep.val();
             let m;
             return ((m = regex.exec(str)) !== null) ? quality.val() + m[2] + m[3] + m[4] + m[5] : defecto;
@@ -120,11 +124,11 @@
 
             <div class="2u 12u(mobilep)">
                 <label>Session </label>
-                <input type="text" name="session_start" id="session_start" />
+                <input type="number" name="session_start" id="session_start"  min="0" max="99" />
             </div>
             <div class="2u 12u(mobilep)">
                 <label>Episodio </label>
-                <input type="text" name="episodio_start" id="episodio_start" />
+                <input type="number" name="episodio_start" id="episodio_start"  min="0" max="99" />
             </div>
             <div class="2u 12u(mobilep)">
                 <label>{{ form.ep_start.label_tag }} </label> {{ form.ep_start }}
@@ -132,11 +136,11 @@
             
             <div class="2u 12u(mobilep)">
                 <label>Session </label>
-                <input type="text" name="session_end" id="session_end" />
+                <input type="number" name="session_end" id="session_end"  min="0" max="99" />
             </div>
             <div class="2u 12u(mobilep)">
                 <label>Episodio </label>
-                <input type="text" name="episodio_end" id="episodio_end" />
+                <input type="number" name="episodio_end" id="episodio_end"  min="0" max="99" />
             </div>
             <div class="2u 12u(mobilep)">
                 <label>{{ form.ep_end.label_tag }} </label> {{ form.ep_end }}

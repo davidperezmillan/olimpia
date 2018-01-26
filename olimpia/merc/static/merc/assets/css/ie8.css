@@ -16,6 +16,7 @@
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
+	input[type="number"],
 	select,
 	textarea {
 		position: relative;
@@ -150,6 +151,7 @@
 	#cta input[type="text"],
 	#cta input[type="password"],
 	#cta input[type="email"],
+	#cta input[type="number"],
 	#cta select,
 	#cta textarea {
 		background: #e89980;
