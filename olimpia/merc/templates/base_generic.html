@@ -55,23 +55,30 @@
 									{% endif %}
 								</ul>
 							</li>
-							{% if request.user.is_superuser %}
-							<li>
-								<a href="{% url 'admin:index' %}" class="icon fa-angle-down">Admin</a>
-								<ul>
-									<li> <a href="{% url 'organize' %}">Organizar</a></li>
-									<li><a href="{% url 'telegramSend' %}">MSG</a></li>
-									<li><a href="{% url 'admin:index' %}">Admin</a></li>
-								</ul>
-							</li>
-							{% endif %}
 						</ul>
 					</li>
 					{% if user.is_authenticated %}
-					<li><a class="button special" href="{% url 'logout'%}?next={{request.path}}">Logout</a> </li>
+						<li>
+							<a href="#" class="icon fa-angle-down">
+								{% if user.get_full_name %} 
+									{{user.get_full_name}} 
+								{% else %} 
+									{{user.get_username}} 
+								{% endif %}	
+							</a>
+							<ul>
+								{% if request.user.is_superuser %}
+									<li><a href="{% url 'organize' %}">Organizar</a></li>
+									<li><a href="{% url 'telegramSend' %}">MSG</a></li>
+									<li><a href="{% url 'admin:index' %}">Admin</a></li>
+								{% endif %}
+								<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+							</ul>
+						</li>
 					{% else %}
-					<li><a class="button special" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+						<li><a class="button special" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
 					{% endif %}
+					</li>
 				</ul>
 			</nav>
 		</header>
@@ -91,16 +98,16 @@
 				<!--{% if request.user.is_staff %} - Staff {% endif %}-->
 			{% endif %} 
 			
-			{% if user.is_authenticated %}
-				<ul class="actions">
-					<li><a class="button special" href="{% url 'logout'%}?next={{request.path}}">Logout</a> </li>
-				</ul>
-			{% else %}
-				<ul class="actions">
-					<li><a class="button special" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-				</ul>
-			</p>
-			{% endif %}
+			<!--{% if user.is_authenticated %}-->
+			<!--	<ul class="actions">-->
+			<!--		<li><a class="button special" href="{% url 'logout'%}?next={{request.path}}">Logout</a> </li>-->
+			<!--	</ul>-->
+			<!--{% else %}-->
+			<!--	<ul class="actions">-->
+			<!--		<li><a class="button special" href="{% url 'login'%}?next={{request.path}}">Login</a></li>-->
+			<!--	</ul>-->
+			<!--</p>-->
+			<!--{% endif %}-->
 		</section>
 
 
