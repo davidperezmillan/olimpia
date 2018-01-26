@@ -6,7 +6,7 @@ from .models import Series, TorrentServers, Plugins,TelegramChatIds
 
 
 CHOICES = (( False,'No',), ( True,'Si',))
-CHOICES_QUALITY = (( 'NR','NR',),( 'HD','HD',),( 'VO','VO',),( 'AL','AL',),)
+CHOICES_QUALITY = (( 'NR','NR',),( 'HD','HD',),( 'VO','VO',),( 'AL','AL',), )
 
 class SeriesForm(forms.ModelForm):
     
