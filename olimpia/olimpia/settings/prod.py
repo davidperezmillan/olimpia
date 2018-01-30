@@ -13,7 +13,7 @@ DATABASES = {
 
 
 
-LOGS_PATH=os.path.join(BASE_DIR, 'logs/PROD')
+LOGS_PATH=os.path.join(BASE_DIR, '../../logs/PROD')
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
 DEBUG = False
