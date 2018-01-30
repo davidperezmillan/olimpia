@@ -19,7 +19,7 @@ class Series(models.Model):
     ep_end = models.CharField(max_length=8, default='NRS99E99', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     quality = models.CharField(max_length=2, default='NR')  # Field name made lowercase. This field type is a guess.
     ultima = models.DateTimeField(blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
-    vista = models.DateTimeField(blank=True, null=True, auto_now_add=False)  # Field name made lowercase.
+    vista = models.CharField(max_length=8, default='NRS00E00',blank=True, null=True)
     paussed = models.NullBooleanField(default=False)  # Field name made lowercase.
     skipped = models.NullBooleanField(default=False)  # Field name made lowercase.
     
