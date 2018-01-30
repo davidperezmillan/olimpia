@@ -60,9 +60,9 @@ change_owner.short_description = "Cambia propietario"
 
 
 
-class ChangeUserForm(ActionForm):
-    choices = [ ( p.id, '{0} {1}'.format( p.first_name, p.last_name ) if p.first_name else p.username,) for p in User.objects.all() ]
-    author = forms.IntegerField(widget=forms.Select(choices=choices))
+# class ChangeUserForm(ActionForm):
+#     choices = [ ( p.id, '{0} {1}'.format( p.first_name, p.last_name ) if p.first_name else p.username,) for p in User.objects.all() ]
+#     author = forms.IntegerField(widget=forms.Select(choices=choices))
  
 
 class SeriesAdmin(admin.ModelAdmin):
@@ -75,7 +75,7 @@ class SeriesAdmin(admin.ModelAdmin):
     list_display = ('id','upper_case_name','nombre', 'quality', 'author','get_skipped', 'get_complete')
     list_filter = ['author','skipped','paussed','quality',]
     search_fields = ['nombre']
-    action_form = ChangeUserForm
+    # action_form = ChangeUserForm
     actions = [change_owner, setSkipped]
     
     def get_complete(self, obj):
