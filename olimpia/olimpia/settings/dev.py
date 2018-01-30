@@ -9,11 +9,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        'NAME': '../../data/olimpia_dev.sqlite3',
+        'NAME': '/home/ubuntu/workspace/data/olimpia_dev.sqlite3',
     }
 }
-
-LOGS_PATH=os.path.join(BASE_DIR, '../../logs/DEV')
+LOGS_PATH=os.path.join(BASE_DIR, '/home/ubuntu/workspace/logs/DEV')
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
