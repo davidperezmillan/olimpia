@@ -27,7 +27,6 @@ class TorrentServersAdmin(admin.ModelAdmin):
     
     get_plugins.short_description = "Plugins"
 
-
 admin.site.register(TorrentServers, TorrentServersAdmin)
 
 
