@@ -1,12 +1,22 @@
 from .base import *
 
-LOGS_PATH=os.path.join(PROJECT_DIR, '../logs')
+# Database
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'../../data/olimpia/followingseries.sqlite3'),
+    }
+}
+LOGS_PATH=os.path.join(BASE_DIR, '../../logs/olimpia')
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['davidperezmillan.zapto.org','nonave.com']
 
 LOGGING = {
     'version': 1,

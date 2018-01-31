@@ -19,6 +19,7 @@ class Series(models.Model):
     ep_end = models.CharField(max_length=8, default='NRS99E99', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     quality = models.CharField(max_length=2, default='NR')  # Field name made lowercase. This field type is a guess.
     ultima = models.DateTimeField(blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
+    vista = models.CharField(max_length=8, default='NRS00E00',blank=True, null=True)
     paussed = models.NullBooleanField(default=False)  # Field name made lowercase.
     skipped = models.NullBooleanField(default=False)  # Field name made lowercase.
     
@@ -34,12 +35,6 @@ class Series(models.Model):
 
 class TelegramChatIds(models.Model):
     id = models.IntegerField(primary_key=True)  # AutoField?
-    # author = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL,
-    #     on_delete=models.CASCADE,
-    #     related_name='telegram_chat_ids_autor',
-    #     blank=True, null=True,
-    # )
     username = models.CharField(blank=True, null=True, max_length=200) # This field type is a guess.
     firstname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
     surname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
@@ -77,26 +72,6 @@ class Plugins(models.Model):
         db_table = 'plugins'
         
         
-'''
-  "torrent_server": {
-            "torrent_active": true,
-            "requirements": { "space_disk": [[999999999]] },
-            "transmission": {
-                "host": "[[url]]",
-                "port": "[[port]]",
-                "user": "[[user]]",
-                "password": "[[pass]]",
-                "options": {
-                    "paused": false
-                },
-                "custom_options": {
-                    "download_dir_path": "[[download_dir_path]]",
-                    "download_dir_path_film": "[[download_dir_path_film]]"
-                }
-            }
-        },
-'''
-
 class TorrentServers(models.Model):
     
     id = models.AutoField(primary_key=True)  # AutoField?
@@ -126,19 +101,6 @@ class TorrentServers(models.Model):
         db_table = 'torrentservers'
    
    
-'''
-"newpct1": {
-    "file": "newpct1_handler",
-    "clazz": "Newpct1HandlerClass"
-},
-"torrentrapid": {
-    "file": "torrentrapid_handler",
-    "clazz": "TorrentRapidHandlerClass"
-}
-'''
-
-
-
 class TransmissionReceivers(models.Model):
     
     id = models.AutoField(primary_key=True)  # AutoField?

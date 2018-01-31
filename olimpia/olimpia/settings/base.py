@@ -16,10 +16,7 @@ import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# print os.path.join(BASE_DIR, '../airtrap/utilities')
-sys.path.insert(0, os.path.join(BASE_DIR, '../../airtrap/utilities'))
-import constantes as cons
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -31,10 +28,7 @@ SECRET_KEY = 'aa2mbm^ca*8a^lmr88p*k6dmusbod!s4t$fqa)p5nh5-tlg^k&'
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jet.dashboard',
-    # 'jet',
-    # 'bootstrap_admin', # always before django.contrib.admin
-    'flat_responsive',
+    # 'flat_responsive',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,12 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'mercurio.apps.MercurioConfig',
     'merc.apps.MercConfig'
 ]
-
-
-# BOOTSTRAP_ADMIN_SIDEBAR_MENU = False
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -94,16 +84,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'olimpia.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+# # Database
+# # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        'NAME': '{0}/data/followingseries.sqlite3'.format(cons.basepath),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
+#         'NAME': '{0}/data/followingseries.sqlite3'.format(cons.basepath),
+#     }
+# }
 
 
 # Password validation
@@ -143,8 +133,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, '../static')
-
 STATIC_URL = '/static/'
 
