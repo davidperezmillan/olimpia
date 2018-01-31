@@ -4,7 +4,10 @@ from .base import *
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-print "BBDD : {0}".format(os.path.join(BASE_DIR,'../../data/olimpia/followingseries.sqlite3')),
+# print "BBDD : {0}".format(os.path.join(BASE_DIR,'../../data/olimpia/followingseries.sqlite3')),
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -14,17 +17,6 @@ DATABASES = {
 }
 LOGS_PATH=os.path.join(BASE_DIR, '../../logs/olimpia')
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        # 'NAME': '{0}/data/followingseries.sqlite3'.format(cons.basepath),
-        'NAME' : '/home/ubuntu/workspace/airconf/conf/data/followingseries.sqlite3',
-    }
-}
 
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
