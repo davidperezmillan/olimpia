@@ -1,5 +1,4 @@
 *.pyc
 *.log
-olimpia/olimpia/static
-olimpia/olimpia/olimpia/logs
-olimpia/olimpia/olimpia/data
+data/
+logs/
