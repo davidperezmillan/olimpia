@@ -158,7 +158,7 @@ def launch_all(request):
         merc.at.hilos.utiles.sendTelegram(mensaje=strError, user=request.user, receivers=receivers )
         
     context = {}
-    return render(request, 'merc/portada.html', context)
+    return redirect('list')
 
 @login_required(login_url='/accounts/login/')
 def launch_extreme(request):
