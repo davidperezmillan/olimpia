@@ -3,3 +3,4 @@
 data/
 logs/
 olimpia/olimpia/static/
+olimpia/olimpia/olimpia/settings/dev.py
