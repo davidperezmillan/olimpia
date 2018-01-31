@@ -4,7 +4,7 @@ from .base import *
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 
-print "BBDD : {0}".format(os.path.join(BASE_DIR,'../../data/olimpia/followingseries.sqlite3')),
+
 
 DATABASES = {
     'default': {
