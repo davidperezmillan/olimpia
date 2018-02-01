@@ -28,7 +28,7 @@ SECRET_KEY = 'aa2mbm^ca*8a^lmr88p*k6dmusbod!s4t$fqa)p5nh5-tlg^k&'
 # Application definition
 
 INSTALLED_APPS = [
-    # 'flat_responsive',
+    'flat_responsive',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'merc.apps.MercConfig'
+    'merc.apps.MercConfig',
+    'hod.apps.HodConfig',
 ]
 
 REST_FRAMEWORK = {
