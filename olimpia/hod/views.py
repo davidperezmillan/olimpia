@@ -14,6 +14,13 @@ from .models import Fichas, Capitulos, Vistos
 logger = logging.getLogger(__name__)
 
 
+@login_required(login_url='/accounts/login/')
+def index(request):
+    slope_series = Vistos.objects.filter(author=request.user).filter(visto=False)    
+    return render(request, 'hod/pendientes/list.html',{'slope_series': slope_series, })
+
+
+
 
 @login_required(login_url='/accounts/login/')
 def export(request):
@@ -35,9 +42,9 @@ def export(request):
         else:
             continue
             
+    slope_series = Vistos.objects.filter(author=request.user)    
         
-        
-    return
+    return render(request, 'hod/pendientes/list.html',{'slope_series': slope_series, })
 
 
 

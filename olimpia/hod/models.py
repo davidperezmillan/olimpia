@@ -10,6 +10,7 @@ class Fichas(models.Model):
     id = models.AutoField(primary_key=True)  # AutoField?
     nombre = models.CharField(max_length=200)  # Field name made lowercase. This field type is a guess.
     estado = models.CharField(max_length=2,choices=(('0', 'Pendiente nueva temporada'), ('1', 'Activa'), ('2', 'Cancelada'),), default="0")   # Field name made lowercase. This field type is a guess.
+    imagen = models.CharField(max_length=200, default="generico.jpg")
     
     def __unicode__(self):
         return self.nombre
@@ -53,4 +54,4 @@ class Vistos(models.Model):
     class Meta:
         verbose_name_plural = "Vistos"
         managed = True
-        unique_together = (('author','capitulo'))
+        unique_together = (('author','temporada','capitulo'))

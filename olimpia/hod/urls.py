@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     
     url(r'^export$', views.export, name='export'),
-    
+    url(r'^index', views.index, name='index'),
 
 ]
