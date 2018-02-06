@@ -6,7 +6,15 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     
-    url(r'^export$', views.export, name='export'),
+    
+    url(r'^$', views.index, name='index'),
     url(r'^index', views.index, name='index'),
+    
+    
+    url(r'^export$', views.export, name='export'),
+    
+    url(r'^visto/(?P<visto_id>[0-9]+)/$', views.visto, name='visto'),
+    # url(r'^visto/(?P<visto_id>[0-9]+)/$', views.visto_ajax, name='visto'),
+    
 
 ]

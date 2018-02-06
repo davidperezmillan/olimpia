@@ -1,28 +1,28 @@
-{% extends "base_generic.html" %} 
-{% load staticfiles %}
-{% block content %} 
-{% if error_message %}
+{% extends "base_generic.html" %} {% load staticfiles %} {% block content %} {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %} 
 {% if slope_series %}
 
 
 
+
 <section class="box">
     <div class="box alt">
         <div class="row no-collapse 50% uniform">
-            {% for pendientes in slope_series %}
-                <div class="4u">
-                    <span class="image fit">
-                        <img src="{% static 'hod/images/'|add:pendientes.temporada.ficha.imagen %}" alt=""/>
-                        {{ pendientes.temporada.ficha.nombre }} -  {{pendientes.temporada.temporada}} X {{ pendientes.capitulo }}
-                         <a href="#" class="button alt icon fa-check fit">Visto</a>
-                    </span>
-                    
-                </div>
-            {% endfor %}
+            {% for serie in slope_series %} {% for capitulo in serie %}
+            <div class="4u">
+                <span class="image fit">
+                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
+                            {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                            <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                        </span>
+            </div>
+            {% endfor %} {% endfor %}
         </div>
     </div>
+
+
+
 
 </section>
 
@@ -31,4 +31,37 @@
 {% else %}
 <p>No series are available.</p>
 {% endif %} 
+{% if slope_series_session %}
+
+
+
+<section class="box">
+    <div class="box alt">
+        <div class="row no-collapse 50% uniform">
+            {% for serie in slope_series_session %} 
+                {% for capitulo in serie %}
+            <div class="4u">
+                <span class="image fit">
+                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
+                            {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                            <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                        </span>
+            </div>
+                {% endfor %} 
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+</section>
+
+
+
+{% else %}
+<p>No series are available.</p>
+{% endif %} 
+
+
 {% endblock %}

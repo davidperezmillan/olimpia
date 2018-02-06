@@ -47,6 +47,5 @@ urlpatterns = [
     
     url(r'^admin/', include(admin.site.urls)), # admin site
     
-    
     url(r'^hod/', include('hod.urls')),
 ]
