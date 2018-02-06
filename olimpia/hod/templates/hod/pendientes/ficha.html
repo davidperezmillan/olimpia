@@ -1,0 +1,65 @@
+{% extends "base_hod_generic.html" %} {% load staticfiles %} {% block content %} {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %} 
+
+
+
+{% if ficha %}
+
+<section class="box">
+    <div class="box alt">
+
+
+        {{ ficha.nombre }}
+
+
+        <!--<div class="row no-collapse 50% uniform">-->
+        <!--    {% for serie in slope_series %} {% for capitulo in serie %}-->
+        <!--    <div class="4u">-->
+        <!--        <span class="image fit">-->
+        <!--                    <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>-->
+        <!--                    {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}-->
+        <!--                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>-->
+        <!--                </span>-->
+        <!--    </div>-->
+        <!--    {% endfor %} {% endfor %}-->
+        <!--</div>-->
+    </div>
+
+
+    {% if slope_series_ficha %}
+
+    <h2>Capitulos pendientes.</h2>
+
+    <div class="box alt">
+        <div class="row no-collapse 50% uniform">
+            {% for capitulo in slope_series_ficha %}
+            <div class="4u">
+                <span class="image fit">
+                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
+                            {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                            <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                        </span>
+            </div>
+            {% endfor %} 
+        </div>
+    </div>
+
+
+
+
+
+
+
+    {% else %}
+    <p>No existen capitulos pendientes.</p>
+    {% endif %}
+
+
+
+
+</section>
+
+
+
+{% else %}
+<p>No existe la ficha.</p>
+{% endif %} {% endblock %}

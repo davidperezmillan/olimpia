@@ -18,17 +18,25 @@ logger = logging.getLogger(__name__)
 @login_required(login_url='/accounts/login/')
 def index(request):
     logger.debug("Estamos en index")
+    logger.debug("user {}, groups {}".format(request.user, request.user.groups.all()))
     return render(request, 'hod/pendientes/list.html',
-        {'slope_series': get_series_slope(request.user), 
-        'slope_series_session': get_series_slope_session(request.user),})
+        {'slope_series': get_series_slope(request.user, 1), 
+        'slope_series_session': get_series_slope(request.user, 2),})
 
+@login_required(login_url='/accounts/login/')
+def ver_ficha(request, ficha_id):
+    logger.debug("Estamos en ver_ficha")
+    ficha = get_object_or_404(Fichas, pk=ficha_id)
+    slope_series_ficha = get_series_slope_ficha(ficha)
+    return render(request, 'hod/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha})
+    
 
 @login_required(login_url='/accounts/login/')
 def visto(request, visto_id):
     visto = get_object_or_404(Capitulos, pk=visto_id)
     visto.visto=True
     visto.save()
-    return redirect('index')
+    return redirect('ver_ficha',visto.ficha.id)
     
 
 
@@ -89,10 +97,10 @@ def export_ficha_by_author(serie, user):
 
 
     
-def get_series_slope(user):
+def get_series_slope(user, estado):
     slope_series = []
      ## Recuperamos todas las series del usuario
-    fichas = Fichas.objects.filter(author=user).filter(estado=1)
+    fichas = Fichas.objects.filter(author=user).filter(estado=estado)
     
     for ficha in fichas:
         logger.debug("ficha : {}".format(ficha))
@@ -105,17 +113,8 @@ def get_series_slope(user):
     return slope_series;
     
     
-def get_series_slope_session(user):
-    slope_series = []
-     ## Recuperamos todas las series del usuario
-    fichas = Fichas.objects.filter(author=user).filter(estado=2)
+def get_series_slope_ficha(ficha):
+    slope_series_ficha= Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')
+    logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
+    return slope_series_ficha;
     
-    for ficha in fichas:
-        logger.debug("ficha : {}".format(ficha))
-        obj = Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')[:1]
-        if obj:
-            logger.debug("captitulos pendientes : {}".format(obj[0].ficha.nombre))
-            slope_series.append(obj)
-    # slope_series = Vistos.objects.filter(temporada__ficha__author=request.user).filter(visto=False)  # No es broma, se puede seguir la tabla para arriba  """temporada__ficha__author"""
-    logger.debug("slope_series : {}".format(slope_series))
-    return slope_series;

@@ -4,8 +4,6 @@ from .base import *
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -81,6 +79,10 @@ LOGGING = {
     'loggers': {
         'merc': {
             'handlers': ['console','general'],
+            'level': 'DEBUG',
+        },
+        'hod': {
+            'handlers': ['console',],
             'level': 'DEBUG',
         },
         'merc': {

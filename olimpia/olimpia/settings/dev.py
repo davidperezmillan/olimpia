@@ -81,6 +81,10 @@ LOGGING = {
             'handlers': ['console','general'],
             'level': 'DEBUG',
         },
+        'hod': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+        },
         'daily': {
             'handlers': ['daily_files'],
             'level': 'INFO',
