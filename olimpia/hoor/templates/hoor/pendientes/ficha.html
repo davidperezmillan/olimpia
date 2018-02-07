@@ -1,0 +1,74 @@
+{% extends "base_hoor_generic.html" %} {% load staticfiles %} {% block container %} {% if error_message %}
+<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<section class="box">
+
+
+    {% if ficha %} 
+    <div class="box alt">
+       
+        <div class="table-wrapper">
+            <table>
+                <tr><h2>Ficha {{ ficha.nombre }}</h2><td><label>Calidad:</label></td><td>{{ficha.quality}}</p></td></tr>
+                <tr><td><label>Estado:</label></td><td>{{ficha.get_estado_display}}</p></td></tr>
+                <tr><td><label>Pendiente de descarga:</label></td><td>{{ficha.ep_start}}</p></td></tr>
+            </table>
+        </div>
+        
+        <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+        
+        
+        <!--<div class="row no-collapse 50% uniform">-->
+        <!--    {% for serie in slope_series %} {% for capitulo in serie %}-->
+        <!--    <div class="4u">-->
+        <!--        <span class="image fit">-->
+        <!--                    <img src="{% static 'hoor/images/'|add:capitulo.ficha.imagen %}" alt=""/>-->
+        <!--                    {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}-->
+        <!--                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>-->
+        <!--                </span>-->
+        <!--    </div>-->
+        <!--    {% endfor %} {% endfor %}-->
+        <!--</div>-->
+
+
+        
+
+            <h2>Capitulos pendientes.</h2>
+    
+        {% if slope_series_ficha %}
+            <div class="box alt">
+                <div class="row no-collapse 50% uniform">
+                    {% for capitulo in slope_series_ficha %}
+                    <div class="4u">
+                        <span class="image fit">
+                                <img src="{% static 'hoor/images/'|add:capitulo.ficha.imagen %}" alt=""/>
+                                {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                                <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                            </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="box alt">
+                <div class="row no-collapse 50% uniform">
+                    <p>No existen capitulos pendientes.</p>
+                </diV>
+            </div>
+        {% endif %} 
+    {% else %}
+        <div class="box alt">
+            <div class="row no-collapse 50% uniform">
+                <p>No existe la ficha.</p>
+            </diV>
+        </div>
+        
+    {% endif %}
+
+</section>
+
+{% endblock %}

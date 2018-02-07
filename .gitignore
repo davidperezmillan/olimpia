@@ -3,8 +3,10 @@
 
 data/
 logs/
+media/
 
 olimpia/olimpia/static/
+olimpia/static/
 
 olimpia/olimpia/olimpia/settings/dev.py
 
