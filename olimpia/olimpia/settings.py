@@ -53,7 +53,8 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'olimpia.urls'
+# ROOT_URLCONF = 'olimpia.urls'
+ROOT_URLCONF = 'hoor.urls'
 
 TEMPLATES = [
     {

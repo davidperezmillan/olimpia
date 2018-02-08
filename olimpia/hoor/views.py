@@ -51,9 +51,10 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-        	newdoc = Document(filename = request.POST['filename'],docfile = request.FILES['docfile'])
-        	newdoc.save(form)
-        	return render(request, 'hoor/upload_file/upload_file.html', {'form': UploadFileForm(),'uploaded_file_url': newdoc})
+        	doc = form.save(commit=True)
+        	doc.save()
+        	return render(request, 'hoor/upload_file/upload_file.html', {'form': form,'uploaded_file_url': doc})
+        return render(request, 'hoor/upload_file/upload_file.html', {'form': UploadFileForm(),'uploaded_file_url': doc})
     else:
         form = UploadFileForm()
     #tambien se puede utilizar render_to_response

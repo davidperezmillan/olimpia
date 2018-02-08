@@ -10,8 +10,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
-from .models_second import *
-# from models_second import Plugin
+from .models_down import Plugin
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
