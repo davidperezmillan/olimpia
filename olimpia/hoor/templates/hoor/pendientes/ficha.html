@@ -7,20 +7,27 @@
     {% if ficha %} 
     <div class="box alt">
        
-        <div class="table-wrapper">
-            <table>
-                <tr><h2>Ficha {{ ficha.nombre }}</h2><td><label>Calidad:</label></td><td>{{ficha.quality}}</p></td></tr>
-                <tr><td><label>Estado:</label></td><td>{{ficha.get_estado_display}}</p></td></tr>
-                <tr><td><label>Pendiente de descarga:</label></td><td>{{ficha.ep_start}}</p></td></tr>
-            </table>
-        </div>
-        
-        <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit">
-        </form>
-        
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <td><label>Ficha</label></td>
+            <td>{{ ficha.nombre }}</td>
+            <td><label>Estado:</label></td>
+            <td>{{ficha.get_estado_display}}</td>
+        </tr>
+        {% if down_series_ficha %}
+        <tr>
+            <td><label>Calidad:</label></td>
+            <td>{{down_series_ficha.quality}}</td>
+            <td><label>Pendiente de descarga:</label></td>
+            <td>{{down_series_ficha.ep_start}}</td>
+        </tr>
+        {% else %}
+            <tr><td>No hay Orden de descarga de descarga</td></tr>
+        {% endif %}        
+
+    </table>
+</div>
         
         <!--<div class="row no-collapse 50% uniform">-->
         <!--    {% for serie in slope_series %} {% for capitulo in serie %}-->

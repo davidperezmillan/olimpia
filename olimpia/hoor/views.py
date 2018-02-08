@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 
-from .models import Ficha, Capitulo, Document
+from .models import Ficha, Capitulo, Document, Descarga
 
 from .forms import UploadFileForm
 from django.core.files.storage import FileSystemStorage
@@ -34,12 +34,13 @@ def ver_ficha(request, ficha_id):
     logger.debug("Ficha {}".format(ficha.nombre))
     slope_series_ficha = get_series_slope_ficha(ficha)
     logger.debug("Ficha {}, Capitulos {}".format(ficha, slope_series_ficha))
-    return render(request, 'hoor/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha})
+    down_series_ficha = get_series_down_ficha(ficha)
+    return render(request, 'hoor/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha, 'down_series_ficha':down_series_ficha})
     
 
 @login_required(login_url='/accounts/login/')
 def visto(request, visto_id):
-    visto = get_object_or_404(Capitulos, pk=visto_id)
+    visto = get_object_or_404(Capitulo, pk=visto_id)
     visto.visto=True
     visto.save()
     return redirect('ver_ficha',visto.ficha.id)
@@ -82,6 +83,11 @@ def get_series_slope_ficha(ficha):
     slope_series_ficha= Capitulo.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')
     logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
     return slope_series_ficha;
+
+
+def get_series_down_ficha(ficha):
+    down_series_ficha=Descarga.objects.filter(ficha=ficha)
+    return down_series_ficha[0] if down_series_ficha else None
 
 
 def resultado(request, sResponse):
