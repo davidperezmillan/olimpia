@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['nonave.com','garfio.ddns.net']
 # Application definition
 
 INSTALLED_APPS = [
+    'flat_responsive', # Flag responsive to Admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
