@@ -29,10 +29,10 @@ class FichaAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('author', ('nombre', 'estado'), 'imagen')
         }),
-        ('Advanced options', {
-            'classes': ('collapse',),
-            'fields': (),
-        }),
+        # ('Advanced options', {
+        #     'classes': ('collapse',),
+        #     'fields': (),
+        # }),
     )
     
     
