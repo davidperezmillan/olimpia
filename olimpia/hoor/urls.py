@@ -6,9 +6,11 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     
+
+    url(r'^$', views.list, name='index'),
+    url(r'^index', views.list, name='index'),
+    url(r'^list', views.list, name='list'),
     
-    url(r'^$', views.index, name='index'),
-    url(r'^index', views.index, name='index'),
     
     url(r'^visto/(?P<visto_id>[0-9]+)/$', views.visto, name='visto'),
     url(r'^ficha/(?P<ficha_id>[0-9]+)/$', views.ver_ficha, name='ver_ficha'),

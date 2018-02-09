@@ -27,6 +27,28 @@ def index(request):
         {'slope_series': get_series_slope(request.user, 1), 
         'slope_series_session': get_series_slope(request.user, 2),})
 
+
+
+@login_required(login_url='/accounts/login/')
+def list(request):
+    logger.debug("Estamos en list")
+    if request.user.is_superuser:
+        latest_series_update = Ficha.objects.all()
+    else:
+        latest_series_update = Ficha.objects.filter(author=request.user).all()
+    
+    for ficha in latest_series_update:    
+        slope_series_ficha = get_series_slope_ficha(ficha)
+        logger.debug("Ficha {}, Capitulos {}".format(ficha, slope_series_ficha))
+        down_series_ficha = get_series_down_ficha(ficha)
+        ficha.slope = slope_series_ficha
+        ficha.down = down_series_ficha
+    
+    context = {'latest_series_update': latest_series_update}
+    return render(request, 'hoor/series/list.html', context)
+
+
+
 @login_required(login_url='/accounts/login/')
 def ver_ficha(request, ficha_id):
     logger.debug("Estamos en ver_ficha")
@@ -84,10 +106,10 @@ def get_series_slope_ficha(ficha):
     logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
     return slope_series_ficha;
 
-
 def get_series_down_ficha(ficha):
     down_series_ficha=Descarga.objects.filter(ficha=ficha)
     return down_series_ficha[0] if down_series_ficha else None
+
 
 
 def resultado(request, sResponse):

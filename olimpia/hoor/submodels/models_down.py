@@ -37,6 +37,7 @@ class Plugin(models.Model):
 
 class Descarga(models.Model):
     ## Descarga
+    id = models.AutoField(primary_key=True)  # AutoField?
     ficha = models.OneToOneField(Ficha)
     ep_start = models.CharField(max_length=8, default='NRS00E00',blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     ep_end = models.CharField(max_length=8, default='NRS99E99', blank=True, null=True)  # Field name made lowercase. This field type is a guess.

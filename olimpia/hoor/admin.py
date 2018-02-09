@@ -62,8 +62,8 @@ class FichaAdmin(admin.ModelAdmin):
     )
     
     
-    list_display = ('nombre','estado','get_actions_custom')
-    list_filter = ['author',]
+    list_display = ('nombre','author','estado','get_actions_custom')
+    list_filter = ['author','estado']
     search_fields = ['nombre']
     save_on_top = True
     
