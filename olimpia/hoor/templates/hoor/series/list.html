@@ -58,17 +58,18 @@
                 </thead>
                 <tbody>
                     {% for ficha in latest_series_update %} 
+                        
                         {% if ficha.author == request.user %}
                             <tr>
                         {% else %}
                             <tr style="background: #cfebfd;">
                         {% endif %}
-                                <a href="{% url 'ver_ficha' ficha.id %}">
-                                    <td>{{ ficha.nombre }}</td>
+                                    <td>
+                                        <a href="{% url 'ver_ficha' ficha.id %}">{{ ficha.nombre }}</a>
+                                        {% if ficha.down.estado_descarga %}<i class="fa fa-cloud-download">{% endif %}
+                                    </td>
                                     <td>{{ ficha.get_estado_display }}</td>
                                     <td>{% if ficha.author.get_full_name %} {{ ficha.author.get_full_name }} {% else %}  {{ ficha.author.username }} {% endif %}</td>
-                                    <td>{% if ficha.down.estado_descarga %}<img src="{% static 'hoor/images/download.png' %}" alt="" />{% endif %}</td>
-                                </a>
                             </tr>
                     {% endfor %}
                 </tbody>

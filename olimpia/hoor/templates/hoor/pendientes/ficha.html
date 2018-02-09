@@ -3,79 +3,43 @@
 
 <section class="box">
 
-
-    {% if ficha %} 
     <div class="box alt">
-       
-<div class="table-wrapper">
-    <table>
-        <tr>
-            <td><label>Ficha</label></td>
-            <td>{{ ficha.nombre }}</td>
-            <td><label>Estado:</label></td>
-            <td>{{ficha.get_estado_display}}</td>
-        </tr>
-        {% if down_series_ficha %}
-        <tr>
-            <td><label>Calidad:</label></td>
-            <td>{{down_series_ficha.quality}}</td>
-            <td><label>Pendiente de descarga:</label></td>
-            <td>{{down_series_ficha.ep_start}}</td>
-        </tr>
-        {% else %}
-            <tr><td>No hay Orden de descarga de descarga</td></tr>
-        {% endif %}        
-
-    </table>
-</div>
-        
-        <!--<div class="row no-collapse 50% uniform">-->
-        <!--    {% for serie in slope_series %} {% for capitulo in serie %}-->
-        <!--    <div class="4u">-->
-        <!--        <span class="image fit">-->
-        <!--                    <img src="{% static 'hoor/images/'|add:capitulo.ficha.imagen %}" alt=""/>-->
-        <!--                    {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}-->
-        <!--                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>-->
-        <!--                </span>-->
-        <!--    </div>-->
-        <!--    {% endfor %} {% endfor %}-->
-        <!--</div>-->
-
-
-        
-
-            <h2>Capitulos pendientes.</h2>
-    
-        {% if slope_series_ficha %}
-            <div class="box alt">
-                <div class="row no-collapse 50% uniform">
-                    {% for capitulo in slope_series_ficha %}
-                    <div class="4u">
-                        <span class="image fit">
-                                <img src="{% static 'hoor/images/'|add:capitulo.ficha.imagen %}" alt=""/>
-                                {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
-                                <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
-                            </span>
-                    </div>
-                    {% endfor %}
-                </div>
+        {% if ficha %} 
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <td><label>Ficha</label></td>
+                        <td>{{ ficha.nombre }}</td>
+                        <td><label>Estado:</label></td>
+                        <td>{{ficha.get_estado_display}}</td>
+                    </tr>
+                    {% if down_series_ficha %}
+                    <tr>
+                        <td><label>Calidad:</label></td>
+                        <td>{{down_series_ficha.quality}}</td>
+                        <td><label>Pendiente de descarga:</label></td>
+                        <td>{{down_series_ficha.ep_start}}</td>
+                    </tr>
+                    {% else %}
+                        <tr><td>No hay Orden de descarga de descarga</td></tr>
+                    {% endif %}        
+            
+                </table>
             </div>
-        {% else %}
-            <div class="box alt">
-                <div class="row no-collapse 50% uniform">
-                    <p>No existen capitulos pendientes.</p>
-                </diV>
-            </div>
-        {% endif %} 
+
+        <h2>Capitulos pendientes </h2>
+        {% include "hoor/generic/slope_series_ficha.html" with slope_series_ficha=slope_series_ficha %}
+
     {% else %}
-        <div class="box alt">
-            <div class="row no-collapse 50% uniform">
-                <p>No existe la ficha.</p>
-            </diV>
-        </div>
+        <div class="row no-collapse 50% uniform">
+            <p>No existe la ficha.</p>
+        </diV>
         
     {% endif %}
 
-</section>
+    </div>
+</section> 
 
 {% endblock %}
+
+ 

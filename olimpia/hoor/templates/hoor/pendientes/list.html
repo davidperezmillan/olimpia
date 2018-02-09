@@ -1,0 +1,42 @@
+{% extends "base_hoor_generic.html" %} {% load staticfiles %} {% block container %} {% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %} 
+
+
+
+<section class="box">
+    <div class="box alt">
+        <h2>Capitulos pendientes </h2>
+            {% include "hoor/generic/slope_series.html" with slope_series=slope_series %}
+    </div>
+</section>
+
+<section class="box">
+    <div class="box alt">
+        <h2>Series pendientes </h2>
+            {% if slope_series_session %}
+                <div class="row no-collapse 50% uniform">
+                    {% for serie in slope_series_session %} 
+                        {% for capitulo in serie %}
+                    <div class="4u">
+                        <span class="image fit">
+                                    <img src="{% static 'hoor/images/'|add:capitulo.ficha.imagen %}" alt=""/>
+                                    {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                                    {% if capitulo.descargado %}
+                                        <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                                    {% else %}
+                                        <a class="button alt icon fa-ban fit">No Descargado</a>
+                                    {% endif %}
+                                </span>
+                    </div>
+                        {% endfor %} 
+                    {% endfor %}
+                </div>
+            {% else %}
+            <p>No series are available.</p>
+            {% endif %} 
+
+    </div>
+</section>
+
+{% endblock %}
