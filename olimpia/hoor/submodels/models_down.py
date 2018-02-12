@@ -53,3 +53,23 @@ class Descarga(models.Model):
         verbose_name_plural = "Descargas"
         managed = True
 
+
+
+class TorrentServer(models.Model):
+    id = models.AutoField(primary_key=True)  # AutoField?
+    torrent_active = models.NullBooleanField(default=False)  # Field name made lowercase.
+    space_disk = models.IntegerField()
+    host = models.CharField(blank=True, null=True, max_length=200)
+    port = models.IntegerField()
+    user = models.CharField(blank=True, null=True, max_length=200)
+    password = models.CharField(blank=True, null=True, max_length=200)
+    paused = models.NullBooleanField(default=False)  # Field name made lowercase.
+    download = models.CharField(blank=True, null=True, max_length=200)
+    
+    def __unicode__(self):
+        return " {0}@{1}:{2}".format(self.user, self.host, self.port)
+    
+    
+    class Meta:
+        verbose_name_plural = "TorrentServers"
+        managed = True

@@ -39,6 +39,7 @@
 							</a>
 							<ul>
 								{% if request.user.is_superuser %}
+								<li><a href="{% url 'upload_file' %}">upload_file</a></li>
 									<li><a href="{% url 'admin:index' %}">Administracion</a></li>
 								{% endif %}
 								<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>

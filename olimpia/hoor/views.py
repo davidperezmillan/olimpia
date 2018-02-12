@@ -82,6 +82,29 @@ def upload_file(request):
     #tambien se puede utilizar render_to_response
     #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
     return render(request, 'hoor/upload_file/upload_file.html', {'form': form})
+
+
+
+# Lanzamos processos
+@login_required(login_url='/accounts/login/')
+def launch_unique(request, ficha_id):
+    ficha = get_object_or_404(Ficha, pk=ficha_id)
+    torrentservers = TorrentServers.objects.filter(author=request.user)
+
+    try:
+        torrent_found = {}
+        launcher = AirTrapLauncher(torrentservers)
+        torrent_found, torrent_added, errors = launcher.execute([serie])
+        logger.debug("Torrent_found : {}".format(torrent_found))
+        logger.debug("torrent_added : {}".format(torrent_added))
+        context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
+        receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, serie=serie, user=request.user, receivers=receivers)
+    except Exception, e:
+        return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
+        
+    return render(request, 'merc/torrent/list.html', context)
+
     
    
 # privado
