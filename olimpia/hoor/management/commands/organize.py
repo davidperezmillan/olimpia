@@ -1,0 +1,41 @@
+from django.core.management.base import BaseCommand, CommandError
+
+from django.contrib.auth.models import User
+
+
+import logging
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+ 
+class Command(BaseCommand):
+    help = "Vamos a buscar todos las series"
+ 
+    def add_arguments(self, parser):
+        # Positional arguments
+        parser.add_argument('author', nargs=1, type=str)
+        
+        # Named (optional) arguments
+        parser.add_argument(
+            '--delete',
+            action='store_true',
+            dest='delete',
+            help='Delete poll instead of closing it',
+        )
+
+
+    def handle(self, *args, **options):
+        for user in options['author']:
+            logger.debug('Ejecutando comando organize por peticion de {} con options {}'.format(user, options['delete']))
+            
+            author = User.objects.get(username=user)
+            torrentservers = TorrentServers.objects.filter(author=author)
+            receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+            try:
+                launcher = AirTrapLauncher(torrentservers)
+                errors = launcher.organize(options['delete'])
+            except Exception, e:
+                logger.error(e)
+            
+            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
+        
+            self.stdout.write('Successfully "{}"'.format(user))
