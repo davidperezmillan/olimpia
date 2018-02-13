@@ -58,7 +58,10 @@ def visto_all(request, ficha_id):
 def export(request):
     
     logger.debug("Estamos en export")
-    series = Series.objects.all()
+    if request.user.is_superuser:
+        series = Series.objects.filter(author=request.user)
+    else:
+        series = Series.objects.all()
     for serie in series:
         
         ## Actualizamos las fichas que tengamos
@@ -81,7 +84,7 @@ def export(request):
 
 
 
-def export_ficha(serie, user=None):
+def export_ficha(serie):
     
     '''
     choice_ficha_estado = (

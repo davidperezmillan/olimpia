@@ -8,15 +8,15 @@
 
 <section class="box">
     <div class="box alt">
-        <div class="row no-collapse 50% uniform">
+        <div class="row no-collapse 10% uniform">
             {% for serie in slope_series %} 
             {% for capitulo in serie %}
-            <div class="4u">
-                <span class="image fit">
-                            <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
-                            <label>{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
-                            <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
-                        </span>
+            <div class="4u 12u">
+                <span class="image  fit">
+                    <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
+                    <label  class="truncate_text_oneline">{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
+                    <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
+                </span>
             </div>
             {% endfor %} {% endfor %}
         </div>
@@ -44,8 +44,8 @@
             <div class="4u">
                 <span class="image fit">
                             <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
-                            <label>{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
-                            <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                             <label  class="truncate_text_oneline">{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
+                            <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
                         </span>
             </div>
                 {% endfor %} 
