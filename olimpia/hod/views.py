@@ -74,7 +74,7 @@ def export(request):
             session = int(float(serie.ep_start[3:5])) or 0
             episode = int(float(serie.ep_start[-2:])) or 0
             
-            for ep in range(episode,0,-1):
+            for ep in range(episode-1,0,-1):
                 temporada, created = Capitulos.objects.get_or_create(ficha=ficha, temporada=session, capitulo=ep, descargado=True)
         else:
             continue

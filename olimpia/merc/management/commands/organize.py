@@ -8,6 +8,8 @@ from merc.at.airtrapLauncher import AirTrapLauncher
 import merc.at.hilos.utiles
 import merc.management.commands.commands_utils
 
+import merc.views
+
 import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -33,14 +35,16 @@ class Command(BaseCommand):
             logger.debug('Ejecutando comando organize por peticion de {} con options {}'.format(user, options['delete']))
             
             author = User.objects.get(username=user)
-            torrentservers = TorrentServers.objects.filter(author=author)
-            receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
-            try:
-                launcher = AirTrapLauncher(torrentservers)
-                errors = launcher.organize(options['delete'])
-            except Exception, e:
-                logger.error(e)
+            merc.views.organizeProccess(author,args,options)
             
-            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
+            # torrentservers = TorrentServers.objects.filter(author=author)
+            # receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+            # try:
+            #     launcher = AirTrapLauncher(torrentservers)
+            #     errors = launcher.organize(options['delete'])
+            # except Exception, e:
+            #     logger.error(e)
+            
+            # merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
         
             self.stdout.write('Successfully "{}"'.format(user))

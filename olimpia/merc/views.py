@@ -208,16 +208,19 @@ def launch_extreme(request):
 @login_required(login_url='/accounts/login/')
 def organize(request):
     
-    torrentservers = TorrentServers.objects.filter(author=request.user)
-    receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
-    context = {}
-    try:
-        launcher = AirTrapLauncher(torrentservers)
-        errors = launcher.organize()
-        merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=request.user, receivers=receivers)
-    except Exception, e:
-        logger.error(e)
-        context.update({'errors_messages':errors})
+    # torrentservers = TorrentServers.objects.filter(author=request.user)
+    # receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+    # context = {}
+    # try:
+    #     launcher = AirTrapLauncher(torrentservers)
+    #     errors = launcher.organize()
+    #     merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=request.user, receivers=receivers)
+    # except Exception, e:
+    #     logger.error(e)
+    #     context.update({'errors_messages':errors})
+    
+    author = request.user
+    organizeProccess(author)
     
     # TODO
     return redirect('list')
@@ -277,3 +280,19 @@ def telegramSend(request):
 
 
 
+# public method
+def organizeProccess(author,*args, **options):
+    torrentservers = TorrentServers.objects.filter(author=author)
+    receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+    try:
+        launcher = AirTrapLauncher(torrentservers)
+        if options:
+            errors = launcher.organize(options['delete'])
+        else:
+            errors = launcher.organize()
+    except Exception, e:
+        logger.error(e)
+    
+    merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
+    
+    return 
