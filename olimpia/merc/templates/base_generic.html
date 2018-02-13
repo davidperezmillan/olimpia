@@ -68,6 +68,7 @@
 							</a>
 							<ul>
 								{% if request.user.is_superuser %}
+									<li><a href="{% url 'hod:export' %}">Exportar Vistos</a></li>
 									<li><a href="{% url 'organize' %}">Organizar</a></li>
 									<li><a href="{% url 'telegramSend' %}">MSG</a></li>
 									<li><a href="{% url 'admin:index' %}">Admin</a></li>

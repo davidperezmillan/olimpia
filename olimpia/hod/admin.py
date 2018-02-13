@@ -21,6 +21,7 @@ class CapitulosAdmin(admin.ModelAdmin):
     
     list_display = ('id','ficha','temporada','capitulo','get_actions_custom')
     # list_filter = ['visto','ficha__nombre',]
+    list_filter = ['visto', 'temporada']
     search_fields = ['ficha__nombre'] # Try using user__username, according to the lookup API "follow" notation. 
         # https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields
     

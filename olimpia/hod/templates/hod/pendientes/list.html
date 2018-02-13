@@ -9,11 +9,12 @@
 <section class="box">
     <div class="box alt">
         <div class="row no-collapse 50% uniform">
-            {% for serie in slope_series %} {% for capitulo in serie %}
+            {% for serie in slope_series %} 
+            {% for capitulo in serie %}
             <div class="4u">
                 <span class="image fit">
-                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
-                            {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                            <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
+                            <label>{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
                             <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
                         </span>
             </div>
@@ -42,8 +43,8 @@
                 {% for capitulo in serie %}
             <div class="4u">
                 <span class="image fit">
-                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
-                            {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                            <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
+                            <label>{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
                             <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
                         </span>
             </div>

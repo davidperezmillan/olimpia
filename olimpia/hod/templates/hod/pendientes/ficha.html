@@ -3,7 +3,7 @@
 
 
 {% if ficha %}
-<a href="{% url 'hod:index' %}" class="button alt icon fa-check fit">Vistos</a>
+<a href="{% url 'hod:index' %}" class="button alt icon fit">Volver</a>
 <section class="box">
     <div class="box alt">
 
@@ -25,6 +25,7 @@
     {% if slope_series_ficha %}
 
     <h2>Capitulos pendientes.</h2>
+    <a href="{% url 'hod:visto_all' ficha.id %}" class="button alt icon fa-check fit">Marcar todo visto</a>
 
     <div class="box alt">
         <div class="row no-collapse 50% uniform">
@@ -32,7 +33,7 @@
             <div class="4u">
                 <span class="image fit">
                             <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
-                            {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
+                            <label>{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
                             <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
                         </span>
             </div>

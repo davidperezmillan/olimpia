@@ -19,9 +19,15 @@ logger = logging.getLogger(__name__)
 def index(request):
     logger.debug("Estamos en index")
     logger.debug("user {}, groups {}".format(request.user, request.user.groups.all()))
-    return render(request, 'hod/pendientes/list.html',
-        {'slope_series': get_series_slope(request.user, 1), 
-        'slope_series_session': get_series_slope(request.user, 2),})
+    if request.user.is_superuser:
+        return render(request, 'hod/pendientes/list.html',
+            {'slope_series': get_series_slope(None, 1), 
+            'slope_series_session': get_series_slope(None, 2),})
+    else:
+        return render(request, 'hod/pendientes/list.html',
+            {'slope_series': get_series_slope(request.user, 1), 
+            'slope_series_session': get_series_slope(request.user, 2),})
+   
 
 @login_required(login_url='/accounts/login/')
 def ver_ficha(request, ficha_id):
@@ -39,6 +45,14 @@ def visto(request, visto_id):
     return redirect('hod:ver_ficha',visto.ficha.id)
     
 
+@login_required(login_url='/accounts/login/')
+def visto_all(request, ficha_id):
+    # en este metodo vamos a poner todos los capitulos como vistos
+    logger.debug("Ficha_id {}".format(ficha_id))
+    Capitulos.objects.filter(ficha=ficha_id).update(visto=True)
+    return redirect('hod:ver_ficha',ficha_id)
+
+
 
 @login_required(login_url='/accounts/login/')
 def export(request):
@@ -48,7 +62,8 @@ def export(request):
     for serie in series:
         
         ## Actualizamos las fichas que tengamos
-        ficha, ficha_create = export_ficha_by_author(serie, request.user)
+        ficha, ficha_create = export_ficha(serie)
+        # ficha, ficha_create = export_ficha_by_author(serie, request.user)
         
         
         ## Actualizamos los capitulos 
@@ -57,22 +72,16 @@ def export(request):
             episode = int(float(serie.ep_start[-2:])) or 0
             
             for ep in range(episode,0,-1):
-                temporada, created = Capitulos.objects.get_or_create(ficha=ficha, temporada=session, capitulo=ep)
+                temporada, created = Capitulos.objects.get_or_create(ficha=ficha, temporada=session, capitulo=ep, descargado=True)
         else:
             continue
       
-    return redirect('index')
+    return redirect('hod:index')
 
 
 
 
-def export_ficha(serie):
-    ## Actualizamos las fichas que tengamos
-    ficha, created = Fichas.objects.get_or_create(nombre=serie.nombre, author=serie.author, estado=1) 
-    return ficha, created
-    
-
-def export_ficha_by_author(serie, user):
+def export_ficha(serie, user=None):
     
     '''
     choice_ficha_estado = (
@@ -100,11 +109,14 @@ def export_ficha_by_author(serie, user):
 def get_series_slope(user, estado):
     slope_series = []
      ## Recuperamos todas las series del usuario
-    fichas = Fichas.objects.filter(author=user).filter(estado=estado)
+    if user:
+        fichas = Fichas.objects.filter(author=user).filter(estado=estado)
+    else:
+        fichas = Fichas.objects.filter(estado=estado)
     
     for ficha in fichas:
         logger.debug("ficha : {}".format(ficha))
-        obj = Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')[:1]
+        obj = Capitulos.objects.filter(ficha=ficha).filter(visto=False).filter(descargado=True).order_by('capitulo')[:1]
         if obj:
             logger.debug("captitulos pendientes : {}".format(obj[0].ficha.nombre))
             slope_series.append(obj)
