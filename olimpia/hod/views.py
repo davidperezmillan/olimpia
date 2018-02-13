@@ -36,7 +36,7 @@ def visto(request, visto_id):
     visto = get_object_or_404(Capitulos, pk=visto_id)
     visto.visto=True
     visto.save()
-    return redirect('ver_ficha',visto.ficha.id)
+    return redirect('hod:ver_ficha',visto.ficha.id)
     
 
 

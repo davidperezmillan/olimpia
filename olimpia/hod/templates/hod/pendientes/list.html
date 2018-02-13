@@ -14,7 +14,7 @@
                 <span class="image fit">
                             <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
                             {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}
-                            <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
+                            <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>
                         </span>
             </div>
             {% endfor %} {% endfor %}

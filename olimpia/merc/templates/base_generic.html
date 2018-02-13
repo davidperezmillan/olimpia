@@ -49,6 +49,12 @@
 									{% endif %}
 								</ul>
 							</li>
+							<li>
+								<a class="icon fa-angle-down">HOD</a>
+								<ul>
+									<li><a href="{% url 'hod:index' %}">Listado Vistos</a></li>
+								</ul>
+							</li>
 						</ul>
 					</li>
 					{% if user.is_authenticated %}
