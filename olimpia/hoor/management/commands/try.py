@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 from hoor.models import Descarga, Ficha, Profile, TorrentServer
 
 
-from hoor.jano.launch import SearchLaunch
+from hoor.jano.launch import SearchLaunch, DownObject
  
 class Command(BaseCommand):
     help = "Vamos a buscar todos las series"
@@ -33,7 +33,7 @@ class Command(BaseCommand):
         logger.debug('Ejecutando comando try :')
         
         #Pruebas 
-        ficha_id = 1
+        ficha_id = 34
         #pruebas
         
         fichas = Ficha.objects.filter(id=ficha_id)[:1]
@@ -65,7 +65,23 @@ class Command(BaseCommand):
             if profile.plugins.all():
                 logger.info("Profile -- Plugins () {plugins}".format(plugins=profile.plugins.all()))
             
-            SearchLaunch().execute(descarga, profile)
+            
+            
+            
+            # Create object SearchLaunch
+            downObject = DownObject()
+            downObject.nombre = ficha.nombre
+            downObject.quality = descarga.quality
+            downObject.ep_start = descarga.ep_start
+            downObject.ep_end = descarga.ep_end
+            if descarga.plugins.all():
+                downObject.plugins = descarga.plugins.all()
+            elif profile.plugins.all():
+                downObject.plugins = profile.plugins.all()
+            else:
+                downObject.plugins = []
+            
+            SearchLaunch().execute(downObject)
             
             
             
