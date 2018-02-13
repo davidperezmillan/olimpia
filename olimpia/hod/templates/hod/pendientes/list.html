@@ -1,6 +1,19 @@
 {% extends "base_generic.html" %} {% load staticfiles %} {% block content %} {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %} 
+
+
+<style type="text/css">
+
+
+    .truncate_text_oneline  {
+    	width: 100%;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+    }
+</style>
+
 {% if slope_series %}
 
 
@@ -14,7 +27,8 @@
             <div class="4u 12u">
                 <span class="image  fit">
                     <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
-                    <label class="truncate_text_oneline">{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
+                    <div class="truncate_text_oneline">{{ capitulo.ficha.nombre }}</div>
+                    <div style="display:inline;">{{ capitulo.temporada }} x {{ capitulo.capitulo }}</div>
                     <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
                 </span>
             </div>
@@ -44,7 +58,8 @@
             <div class="4u">
                 <span class="image fit">
                             <a href="{% url 'hod:ver_ficha' capitulo.ficha.id %}"><img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/></a>
-                             <label  class="truncate_text_oneline">{{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}</label>
+                             <div class="truncate_text_oneline">{{ capitulo.ficha.nombre }}</div>
+                    <div style="display:inline;">{{ capitulo.temporada }} x {{ capitulo.capitulo }}</div>
                             <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
                         </span>
             </div>
