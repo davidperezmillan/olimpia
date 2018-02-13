@@ -2,6 +2,15 @@
 
 
 
+<style type="text/css">
+    .truncate_text_oneline {
+    	width: 100%;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+    }
+</style>
+
 {% if ficha %}
 <a href="{% url 'hod:index' %}" class="button alt icon fit">Volver</a>
 <section class="box">
