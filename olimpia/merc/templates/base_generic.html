@@ -28,7 +28,7 @@
 							<li><a href="{% url 'portada' %}">Inicio</a></li>
 							<li><a href="{% url 'launch_extreme' %}">Buscar y Añadir</a></li>
 							{% if perms.merc.add_series %}
-							<li><a href="{% url 'launch_all' %}">Lanzar todo</a></li>
+							<li><a href="{% url 'launch_all' %}" onclick="return confirm('Esto puede tardar un rato?')">Lanzar todo</a></li>
 							{% endif %}
 							<li>
 								<a href="{% url 'list' %}" class="icon fa-angle-down">Series</a>
@@ -68,7 +68,7 @@
 							</a>
 							<ul>
 								{% if request.user.is_superuser %}
-									<li><a href="{% url 'hod:export' %}">Exportar Vistos</a></li>
+									<li><a href="{% url 'hod:export' %}" onclick="return confirm('Exportar los vistos puede tardar un rato?')">Exportar Vistos</a></li>
 									<li><a href="{% url 'organize' %}">Organizar</a></li>
 									<li><a href="{% url 'telegramSend' %}">MSG</a></li>
 									<li><a href="{% url 'admin:index' %}">Admin</a></li>

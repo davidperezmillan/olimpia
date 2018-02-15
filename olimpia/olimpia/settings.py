@@ -159,7 +159,7 @@ ALLOWED_HOSTS = ['davidperezmillan.zapto.org','nonave.com']
 
 LOGGING = {
     'version': 1,
-    # 'disable_existing_loggers': True,
+    'disable_existing_loggers': True,
     'formatters': {
         'standard': {
             'format': '%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s'
@@ -211,11 +211,16 @@ LOGGING = {
         'merc.at': {
             'handlers': ['plugins_files'],
             'level': 'INFO',
-            'propagate': False,
+            
         },
         'merc.management.commands': {
             'handlers': ['cron_files'],
             'level': 'INFO',
+        },
+        'hod.management.commands': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         },
     }
 }

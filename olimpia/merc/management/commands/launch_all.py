@@ -6,7 +6,7 @@ from merc.forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
-import merc.management.commands.commands_utils
+import merc.management.commands_utils
 
 
 import logging
@@ -39,7 +39,7 @@ class Command(BaseCommand):
             logger.debug('series_update: {}'.format(series_update))
             torrentservers = TorrentServers.objects.filter(author=author)
             logger.debug('torrentservers: {}'.format(torrentservers))
-            receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+            receivers = merc.management.commands_utils.utilgetreceivers(author)
             logger.debug('receivers: {}'.format(receivers))
             
             try:

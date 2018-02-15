@@ -6,7 +6,7 @@ from merc.forms import SeriesForm, TorrentServersForm, SeriesFindForm
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
-import merc.management.commands.commands_utils
+import merc.management.commands_utils
 
 import merc.views
 
@@ -38,7 +38,7 @@ class Command(BaseCommand):
             merc.views.organizeProccess(author,args,options)
             
             # torrentservers = TorrentServers.objects.filter(author=author)
-            # receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+            # receivers = merc.management.commands_utils.utilgetreceivers(author)
             # try:
             #     launcher = AirTrapLauncher(torrentservers)
             #     errors = launcher.organize(options['delete'])

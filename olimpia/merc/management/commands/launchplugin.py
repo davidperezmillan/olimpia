@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand, CommandError
 # from merc.at.airtrapLauncher import AirTrapLauncher
 
 # import merc.at.hilos.utiles
-# import merc.management.commands.commands_utils
+# import merc.management.commands_utils
 
 from merc.at.plugins.divxtotal_handler import DivxtotalHandlerClass, RequestPlugin
 

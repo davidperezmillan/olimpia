@@ -12,7 +12,7 @@ from .forms import SeriesForm, TorrentServersForm, SeriesFindForm, TelegramSendF
 from merc.at.airtrapLauncher import AirTrapLauncher
 
 import merc.at.hilos.utiles
-import merc.management.commands.commands_utils
+import merc.management.commands_utils
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ def control(request):
             serie = form.save(commit=False)
             serie.author = request.user
             serie.save()
-            receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+            receivers = merc.management.commands_utils.utilgetreceivers(request.user)
             merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality),user=request.user, receivers=receivers)
             return redirect('list')
     else:
@@ -90,7 +90,7 @@ def control_torrentservers(request):
             torrentserver = form.save(commit=True)
             torrentserver.author = request.user
             torrentserver.save()
-            receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+            receivers = merc.management.commands_utils.utilgetreceivers(request.user)
             merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva Servidor Torrent {0}:{1}".format(torrentserver.host, torrentserver.port),user=request.user, receivers=receivers)
             return redirect('listtorrentservers')
     else:
@@ -134,7 +134,7 @@ def launch_unique(request, serie_id):
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
-        receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+        receivers = merc.management.commands_utils.utilgetreceivers(request.user)
         merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, serie=serie, user=request.user, receivers=receivers)
     except Exception, e:
         return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
@@ -149,7 +149,7 @@ def launch_all(request):
     torrentservers = TorrentServers.objects.filter(author=request.user)
     logger.debug('torrentservers: {}'.format(torrentservers))
     
-    receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+    receivers = merc.management.commands_utils.utilgetreceivers(request.user)
     try:
         merc.at.hilos.utiles.findAndDestroy(series_update, torrentservers, user=request.user, receivers=receivers)
     except Exception, e:
@@ -191,7 +191,7 @@ def launch_extreme(request):
                         context.update({"to_saved":to_saved,'serie':serie_no_update})
                         raise Exception("La serie {} : {} para {} puede que ya este en la base de datos".format(serie_no_update.nombre, serie_no_update.quality, serie_no_update.author))
                 
-                receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user) 
+                receivers = merc.management.commands_utils.utilgetreceivers(request.user) 
                 merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, serie=serie_extreme, user=request.user, receivers=receivers)
             except Exception, e:
                 logger.error(e)
@@ -209,7 +209,7 @@ def launch_extreme(request):
 def organize(request):
     
     # torrentservers = TorrentServers.objects.filter(author=request.user)
-    # receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
+    # receivers = merc.management.commands_utils.utilgetreceivers(request.user)
     # context = {}
     # try:
     #     launcher = AirTrapLauncher(torrentservers)
@@ -266,7 +266,7 @@ def telegramSend(request):
             else:
                 rec = form['receiverUnique'].value()
                 usernames.append(rec)
-                fullnames.append(merc.management.commands.commands_utils.getAndBuildFullnames(rec))
+                fullnames.append(merc.management.commands_utils.getAndBuildFullnames(rec))
                 groups.append(rec)
                 
             logger.info("Destinatario unico {fullnames}{groups}{usernames}".format(fullnames=fullnames, groups=groups, usernames=usernames))
@@ -283,7 +283,7 @@ def telegramSend(request):
 # public method
 def organizeProccess(author,*args, **options):
     torrentservers = TorrentServers.objects.filter(author=author)
-    receivers = merc.management.commands.commands_utils.utilgetreceivers(author)
+    receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
         launcher = AirTrapLauncher(torrentservers)
         if options:
