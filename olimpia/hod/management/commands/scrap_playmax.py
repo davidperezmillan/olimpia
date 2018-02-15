@@ -44,6 +44,7 @@ class Command(BaseCommand):
             series = Fichas.objects.filter(id=options['id'])[:1]
         else:
             logger.info("No estamos preparados, que va")
+            return
         
         session = options['session']
         self.handle_alt(series, session)
