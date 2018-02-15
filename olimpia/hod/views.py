@@ -129,7 +129,7 @@ def get_series_slope(user, estado):
     
     
 def get_series_slope_ficha(ficha):
-    slope_series_ficha= Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')
+    slope_series_ficha= Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('temporada','capitulo')
     logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
     return slope_series_ficha;
     
