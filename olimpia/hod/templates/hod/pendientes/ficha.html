@@ -1,5 +1,57 @@
-{% extends "base_generic.html" %} {% load staticfiles %} {% block content %} {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %} 
+{% extends "base_generic.html" %} 
+{% load staticfiles %} 
+{% block content %} 
+{% if error_message %}
+ <p><strong>{{ error_message }}</strong></p>
+{% endif %} 
 
+<script>
+ 
+// Tip: Remove toUpperCase() if you want to perform a case-sensitive search.
+// Tip: Change tr[i].getElementsByTagName('td')[0] to [1] if you want to search for "Country" (index 1) instead of "Name" (index 0). 
+ 
+ 
+function search(input,table) {
+    // Declare variables
+    var input, filter, table, tr, td, i;
+    //   input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById(table);
+    tr = table.getElementsByTagName("tr");
+    
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            count++
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+    }
+}
+
+
+    $(document).ready(function () {
+        $("#btn_visto").click(function () {
+            alert($(this).val())
+            $.ajax({
+                url:"{% url 'hod:visto_ajax' %}",
+                data: {
+                    'visto_id': $(this).val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $(this).remove()
+                }
+            });
+        });
+    });
+
+
+</script>
 
 
 <style type="text/css">
@@ -12,62 +64,43 @@
 </style>
 
 {% if ficha %}
+
 <a href="{% url 'hod:index' %}" class="button alt icon fit">Volver</a>
-<section class="box">
-    <div class="box alt">
 
 
-        <!--<div class="row no-collapse 50% uniform">-->
-        <!--    {% for serie in slope_series %} {% for capitulo in serie %}-->
-        <!--    <div class="4u">-->
-        <!--        <span class="image fit">-->
-        <!--                    <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>-->
-        <!--                    {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}-->
-        <!--                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>-->
-        <!--                </span>-->
-        <!--    </div>-->
-        <!--    {% endfor %} {% endfor %}-->
-        <!--</div>-->
+<div class="table-wrapper" id="fichaList">
+    <div class="6u 6u(mobilep)">
+        <input type="text" id="searchInput" onkeyup="search(this, 'fichaList')" placeholder="Search for series.."/>
     </div>
-    <h2>{{ ficha.nombre }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Capitulo</td>
+                <td>Nombre</td>
+                <td>Visto</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for capitulo in slope_series_ficha %} 
+                <tr>
+                    <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
+                    <td>{{ capitulo.nombre }}</td>
+                    <!--<td>{{ capitulo.id }}</td>-->
+                    <td><a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a></td>
+                    <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
+                </tr>
+            {% endfor %}
+        </tbody>
+        <!--<tfoot>-->
+        <!--    <tr>-->
+        <!--        <td colspan="2"></td>-->
+        <!--        <td>100.00</td>-->
+        <!--    </tr>-->
+        <!--</tfoot>-->
+    </table>
+</div>
 
-    {% if slope_series_ficha %}
-
-    <h2>Capitulos pendientes.</h2>
-    <a href="{% url 'hod:visto_all' ficha.id %}" class="button alt icon fa-check fit">Marcar todo visto</a>
-
-    <div class="box alt">
-        <div class="row no-collapse 50% uniform">
-            {% for capitulo in slope_series_ficha %}
-            <div class="4u">
-                <span class="image fit">
-                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
-                            <div class="truncate_text_oneline">{{ capitulo.ficha.nombre }}</div>
-                            <div style="display:inline;">{{ capitulo.temporada }} x {{ capitulo.capitulo }}</div>
-                            <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
-                        </span>
-            </div>
-            {% endfor %} 
-        </div>
-    </div>
-
-
-
-
-
-
-
-    {% else %}
-    <p>No existen capitulos pendientes.</p>
-    {% endif %}
-
-
-
-
-</section>
-
-
-
+         
 {% else %}
-<p>No existe la ficha.</p>
+<p>No series are available.</p>
 {% endif %} {% endblock %}

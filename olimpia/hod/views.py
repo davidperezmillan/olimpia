@@ -43,7 +43,28 @@ def visto(request, visto_id):
     visto.visto=True
     visto.save()
     return redirect('hod:ver_ficha',visto.ficha.id)
+
+
+
+
+
+@login_required(login_url='/accounts/login/') 
+def visto_ajax(request):
     
+    from django.http import JsonResponse
+    
+    visto_id = request.GET.get('visto_id', None)
+    logger.info("capitulo a tratar {}".format(visto_id))
+    if visto_id:
+        visto = get_object_or_404(Capitulos, pk=visto_id)
+        visto.visto=True
+        visto.save()
+        ficha = get_object_or_404(Fichas, pk=visto.ficha.id)
+        slope_series_ficha = get_series_slope_ficha(ficha)
+        return render(request, 'hod/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha})
+    return 
+
+
 
 @login_required(login_url='/accounts/login/')
 def visto_all(request, ficha_id):

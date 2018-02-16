@@ -1,0 +1,74 @@
+{% extends "base_generic.html" %} {% load staticfiles %} {% block content %} {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %} 
+
+
+
+<style type="text/css">
+    .truncate_text_oneline {
+    	width: 100%;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+    }
+</style>
+
+{% if ficha %}
+<a href="{% url 'hod:index' %}" class="button alt icon fit">Volver</a>
+<section class="box">
+    <div class="box alt">
+
+
+        <!--<div class="row no-collapse 50% uniform">-->
+        <!--    {% for serie in slope_series %} {% for capitulo in serie %}-->
+        <!--    <div class="4u">-->
+        <!--        <span class="image fit">-->
+        <!--                    <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>-->
+        <!--                    {{ capitulo.ficha.nombre }} {{ capitulo.temporada }} x {{ capitulo.capitulo }}-->
+        <!--                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit">Visto</a>-->
+        <!--                </span>-->
+        <!--    </div>-->
+        <!--    {% endfor %} {% endfor %}-->
+        <!--</div>-->
+    </div>
+    <h2>{{ ficha.nombre }}</h2>
+
+    {% if slope_series_ficha %}
+
+    <h2>Capitulos pendientes.</h2>
+  
+
+    <div class="box alt">
+        <div class="row no-collapse 50% uniform">
+            <a href="{% url 'hod:visto_all' ficha.id %}" class="button alt icon fa-check fit">Marcar todo visto</a>
+            {% for capitulo in slope_series_ficha %}
+            <div class="4u">
+                <span class="image fit">
+                            <img src="{% static 'hod/images/'|add:capitulo.ficha.imagen %}" alt=""/>
+                            <div class="truncate_text_oneline">{{ capitulo.ficha.nombre }}</div>
+                            <div style="display:inline;">{{ capitulo.temporada }} x {{ capitulo.capitulo }}</div>
+                            <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
+                        </span>
+            </div>
+            {% endfor %} 
+        </div>
+    </div>
+
+
+
+
+
+
+
+    {% else %}
+    <p>No existen capitulos pendientes.</p>
+    {% endif %}
+
+
+
+
+</section>
+
+
+
+{% else %}
+<p>No existe la ficha.</p>
+{% endif %} {% endblock %}
