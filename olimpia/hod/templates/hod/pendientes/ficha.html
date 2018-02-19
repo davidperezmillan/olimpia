@@ -72,32 +72,42 @@ function search(input,table) {
     <div class="6u 6u(mobilep)">
         <input type="text" id="searchInput" onkeyup="search(this, 'fichaList')" placeholder="Search for series.."/>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <td>Capitulo</td>
-                <td>Nombre</td>
-                <td>Visto</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for capitulo in slope_series_ficha %} 
+    {% for temporada in slope_series_ficha %}
+        <h2> Temporada  {{ temporada.temporada.temporada }} </h2>
+        <a href="{% url 'hod:visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check fit">Marcar Temporada {{ temporada.temporada.temporada }} </a>
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
-                    <td>{{ capitulo.nombre }}</td>
-                    <!--<td>{{ capitulo.id }}</td>-->
-                    <td><a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a></td>
-                    <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
+                    <td>Capitulo</td>
+                    <td>Nombre</td>
+                    <td>Visto</td>
                 </tr>
-            {% endfor %}
-        </tbody>
-        <!--<tfoot>-->
-        <!--    <tr>-->
-        <!--        <td colspan="2"></td>-->
-        <!--        <td>100.00</td>-->
-        <!--    </tr>-->
-        <!--</tfoot>-->
-    </table>
+            </thead>
+            <tbody>
+    
+                {% for capitulo in temporada.capitulos %} 
+                    <tr>
+                        <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
+                        <td>{{ capitulo.nombre }}</td>
+                        <!--<td>{{ capitulo.id }}</td>-->
+                        <td>
+                            {% if capitulo.descargado %}
+                                <a href="{% url 'hod:visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
+                            {% endif %}
+                        </td>
+                        <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
+                    </tr>
+                {% endfor %}
+         
+            </tbody>
+            <!--<tfoot>-->
+            <!--    <tr>-->
+            <!--        <td colspan="2"></td>-->
+            <!--        <td>100.00</td>-->
+            <!--    </tr>-->
+            <!--</tfoot>-->
+        </table>    
+    {% endfor %}
 </div>
 
          

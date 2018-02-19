@@ -46,8 +46,6 @@ def visto(request, visto_id):
 
 
 
-
-
 @login_required(login_url='/accounts/login/') 
 def visto_ajax(request):
     
@@ -59,11 +57,7 @@ def visto_ajax(request):
         visto = get_object_or_404(Capitulos, pk=visto_id)
         visto.visto=True
         visto.save()
-        ficha = get_object_or_404(Fichas, pk=visto.ficha.id)
-        slope_series_ficha = get_series_slope_ficha(ficha)
-        return render(request, 'hod/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha})
     return 
-
 
 
 @login_required(login_url='/accounts/login/')
@@ -73,7 +67,12 @@ def visto_all(request, ficha_id):
     Capitulos.objects.filter(ficha=ficha_id).update(visto=True)
     return redirect('hod:ver_ficha',ficha_id)
 
-
+@login_required(login_url='/accounts/login/')
+def visto_all_session(request,ficha_id,session_id):
+    # en este metodo vamos a poner todos los capitulos como vistos
+    logger.debug("Ficha_id {}, Session_id : {}".format(ficha_id,session_id))
+    Capitulos.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=True)
+    return redirect('hod:ver_ficha',ficha_id)
 
 @login_required(login_url='/accounts/login/')
 def export(request):
@@ -150,7 +149,16 @@ def get_series_slope(user, estado):
     
     
 def get_series_slope_ficha(ficha):
-    slope_series_ficha= Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('temporada','capitulo')
-    logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
+    slope_series_ficha = []
+    temporadas =  Capitulos.objects.values('temporada').distinct().filter(ficha=ficha).filter(visto=False).order_by('temporada')
+    for temporada in temporadas:
+        my_dict = {'temporada':temporada, 'capitulos' : Capitulos.objects.filter(ficha=ficha).filter(visto=False).filter(temporada=temporada['temporada']).order_by('capitulo')}
+        slope_series_ficha.extend([my_dict])
+        
+    logger.debug("Temporadas pendientes : {}".format((slope_series_ficha)))
+    # slope_series_ficha= Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('temporada','capitulo')
+    # logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
     return slope_series_ficha;
+    
+    
     
