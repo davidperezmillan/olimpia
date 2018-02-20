@@ -26,6 +26,8 @@ urlpatterns = [
     
     # url(r'^visto/(?P<visto_id>[0-9]+)/$', views.visto_ajax, name='visto'),
     url(r'^ficha/(?P<ficha_id>[0-9]+)/$', views.ver_ficha, name='ver_ficha'),
+    url(r'^info/(?P<ficha_id>[0-9]+)/$', views.info_ficha, name='info_ficha'),
+    url(r'^info_session/(?P<ficha_id>[0-9]+)/(?P<session_id>[0-9]+)/$', views.info_ficha_session, name='info_ficha_session'),
     
 
 ]

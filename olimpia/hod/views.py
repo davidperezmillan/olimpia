@@ -10,6 +10,9 @@ from django.db import IntegrityError
 from merc.models import Series
 from .models import Fichas, Capitulos
 
+
+import hod.scrape.handler_scrap
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -36,6 +39,23 @@ def ver_ficha(request, ficha_id):
     slope_series_ficha = get_series_slope_ficha(ficha)
     return render(request, 'hod/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha})
     
+ 
+@login_required(login_url='/accounts/login/')
+def info_ficha(request, ficha_id):
+    logger.debug("Estamos en info_ficha")
+    ficha = get_object_or_404(Fichas, pk=ficha_id)
+    hod.scrape.handler_scrap.getInfoOlimpia([ficha], None) # No se envia session todos las sessiones
+    return redirect('hod:ver_ficha',ficha.id)
+
+
+@login_required(login_url='/accounts/login/')
+def info_ficha_session(request, ficha_id, session_id):
+    logger.debug("Estamos en info_ficha")
+    ficha = get_object_or_404(Fichas, pk=ficha_id)
+    hod.scrape.handler_scrap.getInfoOlimpia([ficha], session_id) # No se envia session todos las sessiones
+    return redirect('hod:ver_ficha',ficha.id)
+
+
 
 @login_required(login_url='/accounts/login/')
 def visto(request, visto_id):

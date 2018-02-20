@@ -21,7 +21,7 @@ function search(input,table) {
     
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+        td = tr[i].getElementsByTagName("td")[1];
         if (td) {
           if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
@@ -65,17 +65,44 @@ function search(input,table) {
 
 {% if ficha %}
 
-<a href="{% url 'hod:index' %}" class="button alt icon fit">Volver</a>
-
 
 <div class="table-wrapper" id="fichaList">
-    <div class="6u 6u(mobilep)">
-        <input type="text" id="searchInput" onkeyup="search(this, 'fichaList')" placeholder="Search for series.."/>
+    <div class="row">
+        <div class="8u 8u(mobilep)">
+            <input type="text" id="searchInput" onkeyup="search(this, 'fichaList')" placeholder="Search for series.."/>
+        </div>
+        <div class="4u 4u(mobilep)">
+            <ul class="actions">
+            	<li><a href="{% url 'hod:index' %}" class="button special">Volver</a></li>
+            	<li><a href="{% url 'hod:info_ficha' ficha.id %}" class="button alt">Info Serie</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="6u 6u(mobilep)">
+            <label><h2>Titulo: {{ ficha.nombre }}</h2></label>
+        </div>
+        <!--<div class="6u 6u(mobilep)">-->
+        <!--    <ul class="actions">-->
+        <!--    	<li><a href="{% url 'hod:index' %}" class="button special">Volver</a></li>-->
+        <!--    	<li><a href="{% url 'hod:info_ficha' ficha.id %}" class="button alt">Info Serie</a></li>-->
+        <!--    </ul>-->
+        <!--</div>-->
     </div>
     {% for temporada in slope_series_ficha %}
-        <h2> Temporada  {{ temporada.temporada.temporada }} </h2>
-        <a href="{% url 'hod:visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check fit">Marcar Temporada {{ temporada.temporada.temporada }} </a>
-        <table>
+         <div class="row">
+            <div class="8u 8u(mobilep)">
+                <h4> Temporada  {{ temporada.temporada.temporada }} </h4>
+            </div>
+            <div class="4u 4u(mobilep)">
+                <ul class="actions">
+                	<li><a href="{% url 'hod:visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar {{ temporada.temporada.temporada }} </a></li>
+                	<li><a href="{% url 'hod:info_ficha_session' ficha.id temporada.temporada.temporada %}" class="button alt small">Info Serie</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <table style="overflow:auto;">
             <thead>
                 <tr>
                     <td>Capitulo</td>
