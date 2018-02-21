@@ -3,13 +3,25 @@ import os, sys
 from settings import *
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
+#         'NAME': os.path.join(BASE_DIR,'../data/olimpia/c9.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'../data/olimpia/c9.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'followingseries',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
+
 
 
 
