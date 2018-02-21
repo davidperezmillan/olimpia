@@ -19,7 +19,8 @@ logger = logging.getLogger(__name__)
 
 
 def portada(request):
-    return redirect('list')
+    return redirect('hod:portada')
+    
 
 
 

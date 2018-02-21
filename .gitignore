@@ -8,4 +8,5 @@ olimpia/olimpia/static/
 
 olimpia/olimpia/olimpia/settings/dev.py
 
-olimpia/manager.py
+olimpia/manage.py
+
