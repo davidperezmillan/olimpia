@@ -23,6 +23,18 @@ class EpisodiesBeanClass(object):
 class DivxtotalHandlerClass(object):
    
    
+    # my code here
+    http_proxy  = "http://190.12.102.205:8080"
+    # https_proxy = "http://190.12.102.205:8080"
+    # ftp_proxy   = "http://190.12.102.205:8080"
+    
+    proxyDict = { 
+                  "http"  : http_proxy, 
+                #   "https" : https_proxy, 
+                #   "ftp"   : ftp_proxy
+                }
+   
+   
     # EJECUTOR   
     def execute(self,request, filter=False):
         self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
@@ -38,7 +50,7 @@ class DivxtotalHandlerClass(object):
         # Recuperamos la pagina de busqueda
         url = 'http://www.divxtotal2.net/?s="{nombreserie}"'.format(nombreserie=self.nombreserie)
         # page = urllib2.urlopen(url).read()
-        page = requests.get(url)
+        page = requests.get(url,proxies=self.proxyDict)
         self.logger.debug("page : {}".format(page))
         
         # # Parse pagina principal
@@ -59,7 +71,7 @@ class DivxtotalHandlerClass(object):
 
     def __getpagtitulo(self, urltitulo):
         enlaces=[] # Respuesta
-        pageTitulo = requests.get(urltitulo)
+        pageTitulo = requests.get(urltitulo,proxies=self.proxyDict)
         self.logger.debug("pagetitle : {}".format(pageTitulo))
         
         if pageTitulo.status_code == 200:
