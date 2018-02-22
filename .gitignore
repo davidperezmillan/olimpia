@@ -1,8 +1,6 @@
 *.pyc
 *.log
-data/
-logs/
-olimpia/olimpia/static/
-olimpia/manage.py
-olimpia/olimpia/
-
+**/data/
+**/logs/
+**/olimpia/olimpia/
+**/manage*
