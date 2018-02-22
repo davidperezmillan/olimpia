@@ -1,11 +1,6 @@
 *.pyc
 *.log
-
 data/
 logs/
-
-olimpia/olimpia/static/
-
-olimpia/olimpia/olimpia/settings/dev.py
-
-olimpia/
+olimpia/olimpia/
+olimpia/manage.py
