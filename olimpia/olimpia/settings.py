@@ -145,7 +145,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'../data/olimpia/followingseries.sqlite3'),
+        'NAME': os.path.join(BASE_DIR,'../data/olimpia/c9.sqlite3'),
     }
 }
 LOGS_PATH=os.path.join(BASE_DIR, '../logs/olimpia')

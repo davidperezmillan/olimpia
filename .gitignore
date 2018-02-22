@@ -2,5 +2,4 @@
 *.log
 **/data/
 **/logs/
-**/olimpia/olimpia/
-**/manage*
+
