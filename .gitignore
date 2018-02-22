@@ -2,5 +2,7 @@
 *.log
 data/
 logs/
-olimpia/olimpia/
+olimpia/olimpia/static/
 olimpia/manage.py
+olimpia/olimpia/
+
