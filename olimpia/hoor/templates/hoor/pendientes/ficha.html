@@ -2,34 +2,93 @@
 <p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <section class="box">
-
     <div class="box alt">
         {% if ficha %} 
-            <div class="table-wrapper">
-                <table>
-                    <tr>
-                        <td><label>Ficha</label></td>
-                        <td>{{ ficha.nombre }}</td>
-                        <td><label>Estado:</label></td>
-                        <td>{{ficha.get_estado_display}}</td>
-                    </tr>
+            <div class="row">
+                <div class="8u 8u(mobilep)">
+                    <label>Ficha: {{ ficha.nombre }}</label>
+                </div>
+                 <div class="4u 4u(mobilep)">
+                    <label>Estado:{{ficha.get_estado_display}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="8u 8u(mobilep)">
+                    
+                        <label>Numero de temporadas existentes : {{slope_series_ficha|length}} </label>
+                    
+                </div>
+                <div class="4u 4u(mobilep)">
+                    <ul class="actions">
+                        <li><a href="{% url 'index' %}" class="button special small">Volver</a></li>
+                        <li><a href="{% url 'info_ficha' ficha.id %}" class="button alt small">Info Serie</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="8u 8u(mobilep)">
                     {% if down_series_ficha %}
-                    <tr>
-                        <td><label>Calidad:</label></td>
-                        <td>{{down_series_ficha.quality}}</td>
-                        <td><label>Pendiente de descarga:</label></td>
-                        <td>{{down_series_ficha.ep_start}}</td>
-                    </tr>
+                       <label>Calidad:{{down_series_ficha.quality}}</label>
+                        <label>Pendiente de descarga:{{down_series_ficha.ep_start}}</label>
                     {% else %}
-                        <tr><td>No hay Orden de descarga de descarga</td></tr>
-                    {% endif %}        
-            
-                </table>
+                        No hay orden de descarga de descarga
+                    {% endif %} 
+                </div>
+                <div class="4u 4u(mobilep)">
+                   
+                </div>
             </div>
 
         <h2>Capitulos pendientes </h2>
-        {% include "hoor/generic/slope_series_ficha.html" with slope_series_ficha=slope_series_ficha %}
-
+        
+         {% for temporada in slope_series_ficha %}
+         <div class="row">
+            <div class="8u 8u(mobilep)">
+                <h4> Temporada  {{ temporada.temporada.temporada }} </h4>
+            </div>
+            <div class="4u 4u(mobilep)">
+                <ul class="actions">
+                	<li><a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar {{ temporada.temporada.temporada }} </a></li> 
+{#                	<li><a href="{% url 'hod:info_ficha_session' ficha.id temporada.temporada.temporada %}" class="button alt small">Info Serie</a></li> #}
+                </ul>
+            </div>
+        </div>
+        
+        <table style="overflow:auto;">
+            <thead>
+                <tr>
+                    <td>Capitulo</td>
+                    <td>Nombre</td>
+                    <td>Visto</td>
+                </tr>
+            </thead>
+            <tbody>
+    
+                {% for capitulo in temporada.capitulos %} 
+                    <tr>
+                        <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
+                        <td>{{ capitulo.nombre }}</td>
+                        <!--<td>{{ capitulo.id }}</td>-->
+                        <td>
+                            {% if capitulo.descargado %}
+                                <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
+                            {% endif %}
+                        </td>
+                        <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
+                    </tr>
+                {% endfor %}
+         
+            </tbody>
+            <!--<tfoot>-->
+            <!--    <tr>-->
+            <!--        <td colspan="2"></td>-->
+            <!--        <td>100.00</td>-->
+            <!--    </tr>-->
+            <!--</tfoot>-->
+        </table>    
+    {% endfor %}
+        
+    
     {% else %}
         <div class="row no-collapse 50% uniform">
             <p>No existe la ficha.</p>

@@ -11,6 +11,8 @@ from .models import Ficha, Capitulo, Document, Descarga
 from .forms import UploadFileForm
 from django.core.files.storage import FileSystemStorage
 
+import hoor.scrape.handler_scrap
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -56,6 +58,7 @@ def ver_ficha(request, ficha_id):
     slope_series_ficha = get_series_slope_ficha(ficha)
     logger.debug("Ficha {}, Capitulos {}".format(ficha, slope_series_ficha))
     down_series_ficha = get_series_down_ficha(ficha)
+    logger.debug("Ficha {}, Capitulos {}, Descargado: {}".format(ficha, slope_series_ficha, down_series_ficha))
     return render(request, 'hoor/pendientes/ficha.html',{'ficha': ficha, 'slope_series_ficha':slope_series_ficha, 'down_series_ficha':down_series_ficha})
     
 
@@ -66,6 +69,22 @@ def visto(request, visto_id):
     visto.save()
     return redirect('ver_ficha',visto.ficha.id)
     
+
+@login_required(login_url='/accounts/login/')
+def visto_all(request, ficha_id):
+    # en este metodo vamos a poner todos los capitulos como vistos
+    logger.debug("Ficha_id {}".format(ficha_id))
+    Capitulo.objects.filter(ficha=ficha_id).update(visto=True)
+    return redirect('ver_ficha',ficha_id)
+
+@login_required(login_url='/accounts/login/')
+def visto_all_session(request,ficha_id,session_id):
+    # en este metodo vamos a poner todos los capitulos como vistos
+    logger.debug("Ficha_id {}, Session_id : {}".format(ficha_id,session_id))
+    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=True)
+    return redirect('ver_ficha',ficha_id)
+
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -83,27 +102,14 @@ def upload_file(request):
     #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
     return render(request, 'hoor/upload_file/upload_file.html', {'form': form})
 
-
-
-# Lanzamos processos
 @login_required(login_url='/accounts/login/')
-def launch_unique(request, ficha_id):
+def info_ficha(request, ficha_id):
+    logger.debug("Estamos en info_ficha")
     ficha = get_object_or_404(Ficha, pk=ficha_id)
-    torrentservers = TorrentServers.objects.filter(author=request.user)
+    hoor.scrape.handler_scrap.getInfoOlimpia([ficha], None) # No se envia session todos las sessiones
+    return redirect('ver_ficha',ficha.id)
 
-    try:
-        torrent_found = {}
-        launcher = AirTrapLauncher(torrentservers)
-        torrent_found, torrent_added, errors = launcher.execute([serie])
-        logger.debug("Torrent_found : {}".format(torrent_found))
-        logger.debug("torrent_added : {}".format(torrent_added))
-        context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'serie':serie, 'errors_messages':errors}
-        receivers = merc.management.commands.commands_utils.utilgetreceivers(request.user)
-        merc.at.hilos.utiles.sendTelegramListAdded(torrent_added, serie=serie, user=request.user, receivers=receivers)
-    except Exception, e:
-        return render(request, 'merc/torrent/list.html', {'serie':serie,'errors_messages':e})
-        
-    return render(request, 'merc/torrent/list.html', context)
+
 
     
    
@@ -140,14 +146,30 @@ def get_session_slope(user, estado):
     return slope_series;
 
     
+# def get_series_slope_ficha_old(ficha):
+#     slope_series_ficha= Capitulo.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')
+#     logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
+#     return slope_series_ficha;
+
+
 def get_series_slope_ficha(ficha):
-    slope_series_ficha= Capitulo.objects.filter(ficha=ficha).filter(visto=False).order_by('capitulo')
-    logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
+    slope_series_ficha = []
+    temporadas =  Capitulo.objects.values('temporada').distinct().filter(ficha=ficha).filter(visto=False).order_by('temporada')
+    for temporada in temporadas:
+        my_dict = {'temporada':temporada, 'capitulos' : Capitulo.objects.filter(ficha=ficha).filter(visto=False).filter(temporada=temporada['temporada']).order_by('capitulo')}
+        slope_series_ficha.extend([my_dict])
+        
+    logger.debug("Temporadas pendientes : {}".format((slope_series_ficha)))
+    # slope_series_ficha= Capitulos.objects.filter(ficha=ficha).filter(visto=False).order_by('temporada','capitulo')
+    # logger.debug("captitulos pendientes : {}".format(slope_series_ficha))
     return slope_series_ficha;
 
 def get_series_down_ficha(ficha):
+    logger.debug("Estamos en get_series_down_ficha")
     down_series_ficha=Descarga.objects.filter(ficha=ficha)
+    logger.debug("get_series_down_ficha: {}".format(down_series_ficha))
     return down_series_ficha[0] if down_series_ficha else None
+
 
 
 
