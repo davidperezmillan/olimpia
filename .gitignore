@@ -3,9 +3,10 @@
 data/
 logs/
 media/
-olimpia/olimpia/
 olimpia/olimpia/static/
 olimpia/static/
-olimpia/manage.py
-olimpia/olimpia/manage.py
+
+# olimpia/olimpia/
+# olimpia/manage.py
+# olimpia/olimpia/manage.py
 
