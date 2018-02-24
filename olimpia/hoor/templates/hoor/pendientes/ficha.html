@@ -42,57 +42,54 @@
         <h2>Capitulos pendientes </h2>
         
          {% for temporada in slope_series_ficha %}
-         <div class="row">
-            <div class="8u 8u(mobilep)">
-                <h4> Temporada  {{ temporada.temporada.temporada }} </h4>
+             <div class="row">
+                <div class="8u 8u(mobilep)">
+                    <h4> Temporada  {{ temporada.temporada.temporada }} </h4>
+                </div>
+                <div class="4u 4u(mobilep)">
+                    <ul class="actions">
+                    	<li><a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar {{ temporada.temporada.temporada }} </a></li> 
+                    </ul>
+                </div>
             </div>
-            <div class="4u 4u(mobilep)">
-                <ul class="actions">
-                	<li><a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar {{ temporada.temporada.temporada }} </a></li> 
-{#                	<li><a href="{% url 'hod:info_ficha_session' ficha.id temporada.temporada.temporada %}" class="button alt small">Info Serie</a></li> #}
-                </ul>
-            </div>
-        </div>
-        
-        <table style="overflow:auto;">
-            <thead>
-                <tr>
-                    <td>Capitulo</td>
-                    <td>Nombre</td>
-                    <td>Visto</td>
-                </tr>
-            </thead>
-            <tbody>
-    
-                {% for capitulo in temporada.capitulos %} 
+            
+            <table style="overflow:auto;">
+                <thead>
                     <tr>
-                        <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
-                        <td>{{ capitulo.nombre }}</td>
-                        <!--<td>{{ capitulo.id }}</td>-->
-                        <td>
-                            {% if capitulo.descargado %}
-                                <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
-                            {% endif %}
-                        </td>
-                        <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
+                        <td>Capitulo</td>
+                        <td>Nombre</td>
+                        <td>Visto</td>
                     </tr>
-                {% endfor %}
-         
-            </tbody>
-            <!--<tfoot>-->
-            <!--    <tr>-->
-            <!--        <td colspan="2"></td>-->
-            <!--        <td>100.00</td>-->
-            <!--    </tr>-->
-            <!--</tfoot>-->
-        </table>    
-    {% endfor %}
+                </thead>
+                <tbody>
+        
+                    {% for capitulo in temporada.capitulos %} 
+                        <tr>
+                            <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
+                            <td>{{ capitulo.nombre }}</td>
+                            <!--<td>{{ capitulo.id }}</td>-->
+                            <td>
+                                {% if capitulo.descargado %}
+                                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
+                                {% endif %}
+                            </td>
+                            <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
+                        </tr>
+                    {% endfor %}
+             
+                </tbody>
+                <!--<tfoot>-->
+                <!--    <tr>-->
+                <!--        <td colspan="2"></td>-->
+                <!--        <td>100.00</td>-->
+                <!--    </tr>-->
+                <!--</tfoot>-->
+            </table>    
+        {% endfor %}
         
     
     {% else %}
-        <div class="row no-collapse 50% uniform">
-            <p>No existe la ficha.</p>
-        </diV>
+        <div class="row no-collapse 50% uniform"><p>No existe la ficha.</p></diV>
         
     {% endif %}
 

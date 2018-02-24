@@ -8,7 +8,7 @@ from django.db import IntegrityError
 
 from .models import Ficha, Capitulo, Document, Descarga
 
-from .forms import UploadFileForm
+from .forms import UploadFileForm, FichaModelForm
 from django.core.files.storage import FileSystemStorage
 
 import hoor.scrape.handler_scrap
@@ -29,7 +29,6 @@ def index(request):
         'slope_series_session': get_session_slope(request.user, 2),})
 
 
-
 @login_required(login_url='/accounts/login/')
 def list(request):
     logger.debug("Estamos en list")
@@ -47,7 +46,6 @@ def list(request):
     
     context = {'latest_series_update': latest_series_update}
     return render(request, 'hoor/series/list.html', context)
-
 
 
 @login_required(login_url='/accounts/login/')
@@ -85,6 +83,19 @@ def visto_all_session(request,ficha_id,session_id):
     return redirect('ver_ficha',ficha_id)
 
 
+@login_required(login_url='/accounts/login/')
+def add_ficha(request):
+    if request.method == 'POST':
+        form = FichaModelForm(request.POST)
+        if form.is_valid():
+        	ficha = form.save(commit=False)
+        	ficha.author=request.user
+        	ficha.save()
+        	return redirect('ver_ficha',ficha.id)
+        return render(request, 'hoor/pendientes/add_ficha.html', {'form': FichaModelForm()})
+    else:
+        form = FichaModelForm()
+        return render(request, 'hoor/pendientes/add_ficha.html', {'form': FichaModelForm()})
 
 
 @login_required(login_url='/accounts/login/')

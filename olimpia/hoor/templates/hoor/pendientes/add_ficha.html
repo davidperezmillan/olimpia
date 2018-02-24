@@ -1,0 +1,13 @@
+{% extends "base_hoor_generic.html" %} {% load staticfiles %} {% block container %} {% if error_message %}
+<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<section class="box">
+    <div class="box alt">
+        <h1>New post</h1>
+        <form method="POST" class="post-form">{% csrf_token %} {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

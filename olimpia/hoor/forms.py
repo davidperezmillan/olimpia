@@ -1,6 +1,18 @@
 from django import forms
 
-from .models import Document
+from .models import Document, Ficha
+
+
+class FichaModelForm(forms.ModelForm):
+
+
+
+    class Meta:
+        model = Ficha
+        fields = ('nombre','estado','imagen')
+        # widgets = { }
+
+
 
 
 class UploadFileForm(forms.ModelForm):

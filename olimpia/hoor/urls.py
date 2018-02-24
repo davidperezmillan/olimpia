@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^upload_file', views.upload_file, name='upload_file'),
     # url(r'^resultado', views.resultado, name='resultado'), # Creo que a esta no podemos ir directamente
     
-
+    url(r'^add_ficha', views.add_ficha, name='add_ficha'),
 ]

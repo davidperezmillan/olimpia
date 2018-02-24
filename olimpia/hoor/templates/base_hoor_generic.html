@@ -26,6 +26,7 @@
 						<a href="#" class="icon fa-angle-down">Menus</a>
 						<ul>
 							<li><a href="{% url 'list' %}">Listado de Fichas</a></li>
+							<li><a href="{% url 'add_ficha' %}">Add Ficha</a></li>
 						</ul>
 					</li>
 					{% if user.is_authenticated %}
