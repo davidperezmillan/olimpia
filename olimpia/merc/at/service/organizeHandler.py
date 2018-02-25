@@ -138,6 +138,19 @@ class Organize(object):
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
                 
+        elif re.search(r"(Cap.|cap.)\d{3,4}",fileName):         
+            # Procesamiento de episodios especiales (Pocoyo, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado episodios'))
+            matches = re.search(r"(Cap.|cap.)\d{3,4}",fileName)
+            if matches:
+                formatEpisode = matches.group(1)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
     
         if session and episode:
             fullEpisode = patternResponse.format(session=session,episode=episode)
