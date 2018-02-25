@@ -140,7 +140,7 @@ class Organize(object):
                 
         elif re.search(r"(Cap.|cap.)\d{3,4}",fileName):         
             # Procesamiento de episodios especiales (Pocoyo, etc)
-            self.logger.info("converterEpisodie: {}".format('Se han encontrado episodios'))
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado Cap')
             matches = re.search(r"(Cap.|cap.)\d{3,4}",fileName)
             if matches:
                 formatEpisode = matches.group(1)
