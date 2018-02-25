@@ -5,16 +5,12 @@ from settings import *
 LOGS_PATH=os.path.join(BASE_DIR, '../logs/olimpia')
 
 # SECURITY WARNING: don't run with DEBUG turned on in production!
-DEBUG = False
+DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'olimpia_hoor',
-        'USER': 'olimpia',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, '../data/olimpia/c9.sqlite3'),
     }
 }
 
