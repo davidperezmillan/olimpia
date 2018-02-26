@@ -37,15 +37,4 @@ class Command(BaseCommand):
             
             author = User.objects.get(username=user)
             merc.views.organizeProccess(author,args,options)
-            
-            # torrentservers = TorrentServers.objects.filter(author=author)
-            # receivers = merc.management.commands_utils.utilgetreceivers(author)
-            # try:
-            #     launcher = AirTrapLauncher(torrentservers)
-            #     errors = launcher.organize(options['delete'])
-            # except Exception, e:
-            #     logger.error(e)
-            
-            # merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
-        
             self.stdout.write('Successfully "{}"'.format(user))

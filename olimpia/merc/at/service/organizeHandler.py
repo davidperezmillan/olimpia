@@ -18,7 +18,7 @@ class Organize(object):
         urlData = urlData if urlData.endswith('/') else "{}/".format(urlData)
         urlMirror = urlMirror if urlMirror.endswith('/') else "{}/".format(urlMirror)
         
-        self.logger.info("Vamos a procesar {0} para organizarlo en {1} y borraremos {2}".format(urlData, urlMirror, delete))
+        self.logger.info("Vamos a procesar la carpeta {0} para organizarlo en {1} y borraremos {2}".format(urlData, urlMirror, delete))
         
         if delete:
             self.deleteSymbolicsLinks(urlMirror)
@@ -34,7 +34,7 @@ class Organize(object):
         urlDataSerie = urlDataSerie if urlDataSerie.endswith('/') else "{}/".format(urlDataSerie)
         urlMirrorPath = urlMirrorPath if urlMirrorPath.endswith('/') else "{}/".format(urlMirrorPath)
         
-        self.logger.info("Vamos a procesar {0} para organizarlo en {1}".format(urlDataSerie, urlMirrorPath))
+        self.logger.info("Serie {0} para organizarlo en {1}".format(urlDataSerie, urlMirrorPath))
         
         # create folder structure 
         seriePath = os.path.basename(os.path.normpath(urlDataSerie))

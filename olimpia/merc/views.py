@@ -282,15 +282,15 @@ def telegramSend(request):
 
 
 # public method
-def organizeProccess(author,*args, **options):
+def organizeProccess(author,args, options):
     torrentservers = TorrentServers.objects.filter(author=author)
     receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
         launcher = AirTrapLauncher(torrentservers)
         if options:
-            errors = launcher.organize(options['delete'])
+            launcher.organize(options['delete'])
         else:
-            errors = launcher.organize()
+            launcher.organize()
     except Exception, e:
         logger.error(e)
     
