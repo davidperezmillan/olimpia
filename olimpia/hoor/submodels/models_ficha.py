@@ -55,7 +55,7 @@ class Ficha(models.Model):
     
     
     def __unicode__(self):
-        return "{} de {}".format(self.nombre, self.author)
+        return "{}".format(self.nombre)
 
     class Meta:
         verbose_name_plural = "Fichas"

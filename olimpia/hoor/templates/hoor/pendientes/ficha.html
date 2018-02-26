@@ -1,11 +1,19 @@
 {% extends "base_hoor_generic.html" %} {% load staticfiles %} {% block container %} {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>{% endif %}
 
+
+
+<style type="text/css">
+    details > summary:first-of-type {
+        list-style-type: none;
+    }
+</style>
+
 <section class="box">
     <div class="box alt">
         
             <form method="POST" class="post-form">
-                {% csrf_token %} 
+                {% csrf_token %}
                 <div class="row">
                     <div class="6u 6u(mobilep)">
                         <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}
@@ -14,11 +22,11 @@
                         <label>{{ form.estado.label_tag }} </label> {{ form.estado }}
                     </div>
                     <div class="2u 2u(mobilep)">
-                    <ul class="actions">
-                        <label>Acciones</label>
-                        <button type="submit"  class="button special small">Save</button>
-                    </ul>
-                </div>
+                        <ul class="actions">
+                            <label>Acciones</label>
+                            <button type="submit" class="button special small">Save</button>
+                        </ul>
+                    </div>
                 </div>
             </form>
             <!--<div class="row">-->
@@ -46,33 +54,46 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="row">
-                <div class="8u 8u(mobilep)">
+                <div class="4u 4u(mobilep)">
                     {% if down_series_ficha %}
-                       <label>Calidad:{{down_series_ficha.quality}}</label>
-                        <label>Pendiente de descarga:{{down_series_ficha.ep_start}}</label>
-                    {% else %}
-                        No hay orden de descarga de descarga
+                       <label>Calidad: {{down_series_ficha.quality}}</label>
                     {% endif %} 
                 </div>
-                <div class="4u 4u(mobilep)">
-                   
+                 <div class="6u 6u(mobilep)">
+                    {% if down_series_ficha %}
+                        <label>Pendiente de descarga: {{down_series_ficha.ep_start}}</label>
+                    {% endif %} 
+                </div>
+                <div class="2u 2u(mobilep)">
+                    <ul class="actions">
+                        {% if down_series_ficha %}
+                            <li><a href="{% url 'ver_down' down_series_ficha.id %}" class="button special small truncate_text_oneline">Editar descarga</a></li>
+                        {% else %}
+                            <li><a href="{% url 'add_down_for_ficha' ficha.id %}" class="button special small truncate_text_oneline">Añadir descarga por ficha</a></li>
+                        {% endif %} 
+                   </ul>
                 </div>
             </div>
 
         <h2>Capitulos pendientes </h2>
         
          {% for temporada in slope_series_ficha %}
+         <details>
+             <summary>
              <div class="row">
-                <div class="8u 8u(mobilep)">
+                <div class="6u 6u(mobilep)">
                     <h4> Temporada  {{ temporada.temporada.temporada }} </h4>
                 </div>
-                <div class="4u 4u(mobilep)">
+                <div class="6u 6u(mobilep)">
                     <ul class="actions">
-                    	<li><a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar {{ temporada.temporada.temporada }} </a></li> 
+                    	<li><a href="{% url 'descargado_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar Descargado {{ temporada.temporada.temporada }} </a></li> 
+                		<li><a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar Visto{{ temporada.temporada.temporada }} </a></li> 
                     </ul>
                 </div>
             </div>
+            </summary>
             
             <table style="overflow:auto;">
                 <thead>
@@ -92,7 +113,7 @@
                             <!--<td>{{ capitulo.id }}</td>-->
                             <td>
                                 {% if not capitulo.descargado %}
-                                    <a href="#" class="button alt icon fa-check fit small truncate_text_oneline">Descargado</a>
+                                    <a href="{% url 'descargado' capitulo.id %}" class="button alt icon fa-check fit small truncate_text_oneline">Descargado</a>
                                 {% else %}
                                     <a href="#" class="button fit small">Ok</a>
                                 {% endif %}
@@ -118,7 +139,8 @@
                 <!--        <td>100.00</td>-->
                 <!--    </tr>-->
                 <!--</tfoot>-->
-            </table>    
+            </table> 
+        </details>
         {% endfor %}
         
 
