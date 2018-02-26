@@ -96,14 +96,23 @@ class Organize(object):
                     os.rmdir(directorio)
 
     def buildName(self,fileName, dirName):
+        
+        
+        cons_PATTERN = r"(_\d{3,4}_)"
+        cons_PATTERNX = r"(\d{1,2}x\d\d)"
+        cons_PATTERNVO = r"(\d{3,4})((VO))"
+        cons_PATTERNCALIDADES = r"(\d{3,4})((720p|1024p))"
+        cons_PATTERNCAP = r"(Cap.|cap.)\d{3,4}"
+        
+        
         self.logger.debug("build name to {dirName}:{fileName}".format(dirName=dirName, fileName=fileName))
         patternResponse = "S{session}E{episode}"
         session, episode = None, None
         ext = fileName.split(".")[-1]
-    
-        if re.search(r"(_\d{3,4}_)",fileName):
+        
+        if re.search(cons_PATTERN,fileName):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado guiones'))
-            matches = re.search(r"(_\d{3,4}_)",fileName)
+            matches = re.search(cons_PATTERN,fileName)
             if matches:
                 formatEpisode = matches.group(0)[1:-1]
                 if len(formatEpisode)==3:
@@ -112,9 +121,9 @@ class Organize(object):
                 else:
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
-        elif re.search(r"(\d{1,2}x\d\d)",fileName):
+        elif re.search(cons_PATTERNX,fileName):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado "x"'))
-            matches = re.search(r"(\d{1,2}x\d\d)",fileName)
+            matches = re.search(cons_PATTERNX,fileName)
             if matches:
                 formatEpisode = matches.group(0)
                 if len(formatEpisode)==4:
@@ -123,11 +132,26 @@ class Organize(object):
                 else:
                     session=matches.group(0)[:2].zfill(2)
                     episode=matches.group(0)[-2:].zfill(2)
+        
+        elif re.search(cons_PATTERNVO,fileName):         
+            # Procesamiento de episodios especiales (VO, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado VO'))
+            matches = re.search(cons_PATTERNVO,fileName)
+            if matches:
+                formatEpisode = matches.group(1)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
+        
                     
-        elif re.search(r"(\d{3,4})((720p|1024p))",fileName):         
+        elif re.search(cons_PATTERNCALIDADES,fileName):         
             # Procesamiento de episodios especiales (recien llegados, etc)
             self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades'))
-            matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
+            matches = re.search(cons_PATTERNCALIDADES,fileName)
             if matches:
                 formatEpisode = matches.group(1)
                 self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
@@ -138,10 +162,10 @@ class Organize(object):
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
                 
-        elif re.search(r"(Cap.|cap.)\d{3,4}",fileName):         
+        elif re.search(cons_PATTERNCAP,fileName):         
             # Procesamiento de episodios especiales (Pocoyo, etc)
             self.logger.info("converterEpisodie: {}".format('Se han encontrado Cap'))
-            matches = re.search(r"(Cap.|cap.)\d{3,4}",fileName)
+            matches = re.search(cons_PATTERNCAP,fileName)
             if matches:
                 formatEpisode = matches.group(1)
                 self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
