@@ -18,7 +18,7 @@ class Organize(object):
         urlData = urlData if urlData.endswith('/') else "{}/".format(urlData)
         urlMirror = urlMirror if urlMirror.endswith('/') else "{}/".format(urlMirror)
         
-        self.logger.info("Vamos a procesar {0} para organizarlo en {1}".format(urlData, urlMirror))
+        self.logger.info("Vamos a procesar {0} para organizarlo en {1} y borraremos {2}".format(urlData, urlMirror, delete))
         
         if delete:
             self.deleteSymbolicsLinks(urlMirror)
@@ -29,6 +29,7 @@ class Organize(object):
             self.proccess_serie(serie, urlMirror,delete=False)
         self.logger.info("Organizacion Terminada")
     
+    # Parece privado
     def proccess_serie(self,urlDataSerie, urlMirrorPath, delete=False):
         urlDataSerie = urlDataSerie if urlDataSerie.endswith('/') else "{}/".format(urlDataSerie)
         urlMirrorPath = urlMirrorPath if urlMirrorPath.endswith('/') else "{}/".format(urlMirrorPath)
