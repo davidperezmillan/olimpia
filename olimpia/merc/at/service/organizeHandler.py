@@ -167,7 +167,7 @@ class Organize(object):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado Cap'))
             matches = re.search(cons_PATTERNCAP,fileName)
             if matches:
-                formatEpisode = matches.group(1)
+                formatEpisode = matches.group(2)
                 self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
                 if len(formatEpisode)==3:
                    session=formatEpisode[:1].zfill(2)
