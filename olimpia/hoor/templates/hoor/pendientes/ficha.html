@@ -21,11 +21,12 @@
                     <div class="4u 4u">
                         <label>{{ form.estado.label_tag }} </label> {{ form.estado }}
                     </div>
+                </div> <div class="row">
                     <div class="2u 2u">
-                        <ul class="actions">
+                        
                             <label>Acciones</label>
                             <button type="submit" class="button special small">Save</button>
-                        </ul>
+                        
                     </div>
                 </div>
             </form>
@@ -46,12 +47,12 @@
                     
                 </div>
                 <div class="4u 4u">
-                    <ul class="actions">
-                        <li><a href="{% url 'index' %}" class="button special small">Volver</a></li>
+                    
+                        <a href="{% url 'index' %}" class="button special small">Volver</a>
                         {% if  ficha %}
-                            <li><a href="{% url 'info_ficha' ficha.id %}" class="button alt small">Info Serie</a></li>
+                            <a href="{% url 'info_ficha' ficha.id %}" class="button alt small">Info Serie</a>
                         {% endif %}
-                    </ul>
+                    
                 </div>
             </div>
             
@@ -66,14 +67,15 @@
                         <label>Pendiente de descarga: {{down_series_ficha.ep_start}}</label>
                     {% endif %} 
                 </div>
+            </div> <div class="row">
                 <div class="2u 2u">
-                    <ul class="actions">
+                    
                         {% if down_series_ficha %}
-                            <li><a href="{% url 'ver_down' down_series_ficha.id %}" class="button special small truncate_text_oneline">Editar descarga</a></li>
+                            <a href="{% url 'ver_down' down_series_ficha.id %}" class="button special small truncate_text_oneline">Editar descarga</a>
                         {% else %}
-                            <li><a href="{% url 'add_down_for_ficha' ficha.id %}" class="button special small truncate_text_oneline">Añadir descarga por ficha</a></li>
+                            <a href="{% url 'add_down_for_ficha' ficha.id %}" class="button special small truncate_text_oneline">Añadir descarga por ficha</a>
                         {% endif %} 
-                   </ul>
+                   
                 </div>
             </div>
 
@@ -91,10 +93,10 @@
                     <h4> Temporada  {{ temporada.temporada.temporada }} </h4>
                 </div>
                 <div class="6u 6u">
-                    <ul class="actions">
-                    	<li><a href="{% url 'descargado_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar Descargado {{ temporada.temporada.temporada }} </a></li> 
-                		<li><a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar Visto{{ temporada.temporada.temporada }} </a></li> 
-                    </ul>
+                    
+                    	<a href="{% url 'descargado_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar Descargado {{ temporada.temporada.temporada }} </a> 
+                		<a href="{% url 'visto_all_session' ficha.id temporada.temporada.temporada %}" class="button alt icon fa-check small">Marcar Visto{{ temporada.temporada.temporada }} </a> 
+                    
                 </div>
             </div>
             </summary>
