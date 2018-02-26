@@ -20,6 +20,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         # Positional arguments
         parser.add_argument('author', nargs=1, type=str)
+        parser.add_argument('dirName', nargs='?', default=None, type=str)
         
         # Named (optional) arguments
         parser.add_argument(
@@ -28,12 +29,7 @@ class Command(BaseCommand):
             dest='delete',
             help='Borramos la carpeta origen',
         )
-        parser.add_argument(
-            '--dirName',
-            action='store_true',
-            dest='dirName',
-            help='La carpeta a examinar',
-        )
+       
 
 
     def handle(self, *args, **options):
