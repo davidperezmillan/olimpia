@@ -287,7 +287,10 @@ def organizeProccess(author,*args, **options):
     receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
         launcher = AirTrapLauncher(torrentservers)
-        launcher.organize(delete=options['delete'], dirName=options['dirName'])
+        if options:
+            errors = launcher.organize(options['delete'])
+        else:
+            errors = launcher.organize()
     except Exception, e:
         logger.error(e)
     

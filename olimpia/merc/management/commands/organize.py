@@ -20,7 +20,6 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         # Positional arguments
         parser.add_argument('author', nargs=1, type=str)
-        parser.add_argument('dirName', nargs='?', default=None, type=str)
         
         # Named (optional) arguments
         parser.add_argument(
