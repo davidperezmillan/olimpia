@@ -36,12 +36,15 @@ class ClientTorrents():
 class AirTrapLauncher(object):
  
  
-    def organize(self, delete=False):
+    def organize(self, delete=False, dirName=None):
         errors = []
         organize = Organize()
         for clnt in self.clients:
             try:
-                organize.proccess(clnt.conf.download, "/media/maxtor/mirror", delete)    
+                if dirName:
+                    organize.proccess(dirName, "/media/maxtor/mirror", delete) 
+                else:
+                    organize.proccess(clnt.conf.download, "/media/maxtor/mirror", delete)    
             except Exception as e:
                 self.logger.error("Error al organizar")
                 errors.extend(["Error al organizar"]) 

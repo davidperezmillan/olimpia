@@ -26,7 +26,13 @@ class Command(BaseCommand):
             '--delete',
             action='store_true',
             dest='delete',
-            help='Delete poll instead of closing it',
+            help='Borramos la carpeta origen',
+        )
+        parser.add_argument(
+            '--dirName',
+            action='store_true',
+            dest='dirName',
+            help='La carpeta a examinar',
         )
 
 
