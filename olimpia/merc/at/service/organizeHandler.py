@@ -102,7 +102,7 @@ class Organize(object):
         cons_PATTERNX = r"(\d{1,2}x\d\d)"
         cons_PATTERNVO = r"(\d{3,4})((VO))"
         cons_PATTERNCALIDADES = r"(\d{3,4})((720p|1024p))"
-        cons_PATTERNCAP = r"(Cap.|cap.)\d{3,4}"
+        cons_PATTERNCAP = r"(Cap.|cap.)(\d{3,4})"
         
         
         self.logger.debug("build name to {dirName}:{fileName}".format(dirName=dirName, fileName=fileName))
