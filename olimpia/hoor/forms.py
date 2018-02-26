@@ -9,7 +9,7 @@ class FichaModelForm(forms.ModelForm):
 
     class Meta:
         model = Ficha
-        fields = ('nombre','estado','imagen')
+        fields = ('nombre','estado')
         # widgets = { }
 
 

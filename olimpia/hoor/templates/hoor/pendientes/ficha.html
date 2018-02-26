@@ -3,15 +3,34 @@
 
 <section class="box">
     <div class="box alt">
-        {% if ficha %} 
-            <div class="row">
-                <div class="8u 8u(mobilep)">
-                    <label>Ficha: {{ ficha.nombre }}</label>
+        
+            <form method="POST" class="post-form">
+                {% csrf_token %} 
+                <div class="row">
+                    <div class="6u 6u(mobilep)">
+                        <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}
+                    </div>
+                    <div class="4u 4u(mobilep)">
+                        <label>{{ form.estado.label_tag }} </label> {{ form.estado }}
+                    </div>
+                    <div class="2u 2u(mobilep)">
+                    <ul class="actions">
+                        <label>Acciones</label>
+                        <button type="submit"  class="button special small">Save</button>
+                    </ul>
                 </div>
-                 <div class="4u 4u(mobilep)">
-                    <label>Estado:{{ficha.get_estado_display}}</label>
                 </div>
-            </div>
+            </form>
+            <!--<div class="row">-->
+            <!--    <div class="8u 8u(mobilep)">-->
+            <!--        <label>Ficha: {{ ficha.nombre }}</label>-->
+            <!--    </div>-->
+            <!--     <div class="4u 4u(mobilep)">-->
+            <!--        <label>Estado:{{ficha.get_estado_display}}</label>-->
+            <!--    </div>-->
+            <!--</div>-->
+            
+            
             <div class="row">
                 <div class="8u 8u(mobilep)">
                     
@@ -21,7 +40,9 @@
                 <div class="4u 4u(mobilep)">
                     <ul class="actions">
                         <li><a href="{% url 'index' %}" class="button special small">Volver</a></li>
-                        <li><a href="{% url 'info_ficha' ficha.id %}" class="button alt small">Info Serie</a></li>
+                        {% if  ficha %}
+                            <li><a href="{% url 'info_ficha' ficha.id %}" class="button alt small">Info Serie</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -58,6 +79,7 @@
                     <tr>
                         <td>Capitulo</td>
                         <td>Nombre</td>
+                        <td>Descargado</td>
                         <td>Visto</td>
                     </tr>
                 </thead>
@@ -69,11 +91,23 @@
                             <td>{{ capitulo.nombre }}</td>
                             <!--<td>{{ capitulo.id }}</td>-->
                             <td>
-                                {% if capitulo.descargado %}
-                                    <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit truncate_text_oneline">Visto</a>
+                                {% if not capitulo.descargado %}
+                                    <a href="#" class="button alt icon fa-check fit small truncate_text_oneline">Descargado</a>
+                                {% else %}
+                                    <a href="#" class="button fit small">Ok</a>
+                                {% endif %}
+                            </td>       
+                            <td>
+                                {% if not capitulo.visto %}
+                                    {% if not capitulo.descargado %}
+                                        <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit small truncate_text_oneline">Visto</a>
+                                    {% else %}
+                                        <a href="{% url 'visto' capitulo.id %}" class="button special icon fa-check fit small truncate_text_oneline">Visto</a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="#" class="button fit small">OK</a>
                                 {% endif %}
                             </td>
-                            <!--<td><button id="btn_visto" value="{{ capitulo.id }}" class="button alt icon fa-check fit truncate_text_oneline">Visto</button></td>-->
                         </tr>
                     {% endfor %}
              
@@ -87,11 +121,6 @@
             </table>    
         {% endfor %}
         
-    
-    {% else %}
-        <div class="row no-collapse 50% uniform"><p>No existe la ficha.</p></diV>
-        
-    {% endif %}
 
     </div>
 </section> 

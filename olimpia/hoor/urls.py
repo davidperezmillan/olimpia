@@ -19,11 +19,12 @@ urlpatterns = [
     url(r'^visto_all_session/(?P<ficha_id>[0-9]+)/(?P<session_id>[0-9]+)/$', views.visto_all_session, name='visto_all_session'),
     
     url(r'^ficha/(?P<ficha_id>[0-9]+)/$', views.ver_ficha, name='ver_ficha'),
+    url(r'^add_ficha', views.add_ficha, name='add_ficha'),
+    # url(r'^edit_ficha/(?P<ficha_id>[0-9]+)/$', views.edit_ficha, name='edit_ficha'),
     
     url(r'^info/(?P<ficha_id>[0-9]+)/$', views.info_ficha, name='info_ficha'),
     
     url(r'^upload_file', views.upload_file, name='upload_file'),
     # url(r'^resultado', views.resultado, name='resultado'), # Creo que a esta no podemos ir directamente
     
-    url(r'^add_ficha', views.add_ficha, name='add_ficha'),
 ]
