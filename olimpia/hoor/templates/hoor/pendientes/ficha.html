@@ -73,7 +73,9 @@
                         {% if down_series_ficha %}
                             <a href="{% url 'ver_down' down_series_ficha.id %}" class="button special small truncate_text_oneline">Editar descarga</a>
                         {% else %}
-                            <a href="{% url 'add_down_for_ficha' ficha.id %}" class="button special small truncate_text_oneline">Añadir descarga por ficha</a>
+                            {% if  ficha %}
+                                <a href="{% url 'add_down_for_ficha' ficha.id %}" class="button special small truncate_text_oneline">Añadir descarga por ficha</a>
+                            {% endif %}
                         {% endif %} 
                    
                 </div>
