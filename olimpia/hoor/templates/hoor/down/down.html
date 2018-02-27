@@ -116,13 +116,23 @@
             <!--</div>-->
 
             <div class="row uniform">
-                <div class="12u">
+                <div class="8u">
                     <ul class="actions">
                         <li><input type="submit" value="Grabar"/></li>
                         {% if down %}
                             <li><a href="{% url 'down_delete' down.id %}" class="button ">Borrar</a>
                         {% endif %}
                         <li><input type="reset" value="Reset" class="alt" /></li>
+                    </ul>
+                </div>
+                <div class="4u">
+                     <ul class="actions">
+                        {% if down %}
+                            <li><a href="{% url 'ver_ficha' down.ficha.id %}" class="button alt ">Volver</a>
+                        {% elif ficha %}
+                            <li><a href="{% url 'ver_ficha' ficha.id %}" class="button alt ">Volver</a>
+                        {% endif %}
+                        
                     </ul>
                 </div>
             </div>

@@ -48,7 +48,7 @@ def add_down_for_ficha(request, ficha_id):
         form = DescargaModelForm()
     form.fields["ficha"].initial = ficha
     logger.debug(form)
-    return render(request, 'hoor/down/down.html',{'form': form,})
+    return render(request, 'hoor/down/down.html',{'form': form,'ficha': ficha})
 
 # Deprecated 
 # No se utiliza porque no se deberia añadir ninguna descarga sin ficha
