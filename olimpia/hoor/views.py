@@ -23,6 +23,8 @@ def index(request):
         {'slope_series': get_series_slope(request.user, 1), 
         'slope_series_session': get_session_slope(request.user, 2),})
 
+
+
 @login_required(login_url='/accounts/login/')
 def upload_file(request):
     if request.method == 'POST':

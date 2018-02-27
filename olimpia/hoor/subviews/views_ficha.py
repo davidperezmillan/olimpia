@@ -3,14 +3,13 @@
 import logging
 
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.db.models import Case, Value, When
 
 from hoor.models import Ficha, Capitulo
-
 from hoor.forms import FichaModelForm
-
+import hoor.scrape.handler_scrap
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -78,7 +77,7 @@ def add_ficha(request):
 @login_required(login_url='/accounts/login/')
 def visto(request, capitulo_id):
     visto = get_object_or_404(Capitulo, pk=capitulo_id)
-    visto.visto=True
+    visto.visto= False if visto.visto else True
     visto.save()
     return redirect('ver_ficha',visto.ficha.id)
     
@@ -87,14 +86,14 @@ def visto(request, capitulo_id):
 def visto_all(request, ficha_id):
     # en este metodo vamos a poner todos los capitulos como vistos
     logger.debug("Ficha_id {}".format(ficha_id))
-    Capitulo.objects.filter(ficha=ficha_id).update(visto=True)
+    Capitulo.objects.filter(ficha=ficha_id).update(visto=Case(When(visto=True, then=Value(False)),default=Value(True)))
     return redirect('ver_ficha',ficha_id)
 
 @login_required(login_url='/accounts/login/')
 def visto_all_session(request,ficha_id,session_id):
     # en este metodo vamos a poner todos los capitulos como vistos
     logger.debug("Ficha_id {}, Session_id : {}".format(ficha_id,session_id))
-    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=True)
+    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=Case(When(visto=True, then=Value(False)),default=Value(True)))
     return redirect('ver_ficha',ficha_id)
     
 @login_required(login_url='/accounts/login/')

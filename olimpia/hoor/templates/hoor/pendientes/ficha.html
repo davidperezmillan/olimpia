@@ -121,9 +121,9 @@
                             <!--<td>{{ capitulo.id }}</td>-->
                             <td>
                                 {% if not capitulo.descargado %}
-                                    <a href="{% url 'descargado' capitulo.id %}" class="button alt icon fa-check fit small truncate_text_oneline">Descargado</a>
+                                    <a href="{% url 'descargado' capitulo.id  %}" class="button alt icon fa-check fit small truncate_text_oneline">Descargado</a>
                                 {% else %}
-                                    <a href="#" class="button fit small">Ok</a>
+                                    <a href="{% url 'descargado' capitulo.id  %}" class="button fit small">Ok</a>
                                 {% endif %}
                             </td>       
                             <td>

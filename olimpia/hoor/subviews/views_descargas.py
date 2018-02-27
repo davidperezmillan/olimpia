@@ -4,6 +4,7 @@ import logging
 
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Case, Value, When
 
 from hoor.models import Ficha, Capitulo, Descarga
 
@@ -68,7 +69,7 @@ def add_down(request):
 @login_required(login_url='/accounts/login/')
 def descargado(request, capitulo_id):
     descargado = get_object_or_404(Capitulo, pk=capitulo_id)
-    descargado.descargado=True
+    descargado.descargado = False if descargado.descargado else True
     descargado.save()
     return redirect('ver_ficha',descargado.ficha.id)
 
@@ -76,14 +77,17 @@ def descargado(request, capitulo_id):
 def descargado_all(request, ficha_id):
     # en este metodo vamos a poner todos los capitulos como descargados
     logger.debug("Ficha_id {}".format(ficha_id))
-    Capitulo.objects.filter(ficha=ficha_id).update(descargado=True)
+    Capitulo.objects.filter(ficha=ficha_id).update(descargado=Case(When(descargado=True, then=Value(False)),default=Value(True)))
     return redirect('ver_ficha',ficha_id)
 
 @login_required(login_url='/accounts/login/')
 def descargado_all_session(request,ficha_id,session_id):
     # en este metodo vamos a poner todos los capitulos como descargados
     logger.debug("Ficha_id {}, Session_id : {}".format(ficha_id,session_id))
-    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(descargado=True)
+    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(descargado=Case(When(descargado=True, then=Value(False)),default=Value(True)))
     return redirect('ver_ficha',ficha_id)
+    
+    
+
 
 
