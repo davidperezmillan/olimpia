@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^info/(?P<ficha_id>[0-9]+)/$', views.info_ficha, name='info_ficha'),
     
     url(r'^down/(?P<down_id>[0-9]+)/$', views.ver_down, name='ver_down'),
+    url(r'^down_delete/(?P<down_id>[0-9]+)/$', views.down_delete, name='down_delete'),
     url(r'^add_down_for_ficha/(?P<ficha_id>[0-9]+)/$', views.add_down_for_ficha, name="add_down_for_ficha"),
     url(r'^add_down', views.add_down, name='add_down'),
     

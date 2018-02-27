@@ -31,7 +31,7 @@ def ver_down(request, down_id):
             return redirect('ver_ficha',down.ficha.id)
     else:
         form = DescargaModelForm(instance=down)
-    return render(request, 'hoor/down/down.html',{'form': form,})
+    return render(request, 'hoor/down/down.html',{'form': form,  'down': down})
     
 @login_required(login_url='/accounts/login/')
 def add_down_for_ficha(request, ficha_id):
@@ -64,6 +64,16 @@ def add_down(request):
     else:
         form = DescargaModelForm()
     return render(request, 'hoor/down/down.html',{'form': form,})
+
+
+@login_required(login_url='/accounts/login/')
+def down_delete(request, down_id):
+    down = get_object_or_404(Descarga, pk=down_id)
+    down=Descarga.objects.get(pk=down_id)
+    down.delete()
+    return redirect('ver_ficha',down.ficha.id)
+
+
 
 # DESCARGADO 
 @login_required(login_url='/accounts/login/')
