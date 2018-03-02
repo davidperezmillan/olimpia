@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Case, Value, When
+from django.http import JsonResponse
 
 from hoor.models import Ficha, Capitulo
 from hoor.forms import FichaModelForm
@@ -86,15 +87,62 @@ def visto(request, capitulo_id):
 def visto_all(request, ficha_id):
     # en este metodo vamos a poner todos los capitulos como vistos
     logger.debug("Ficha_id {}".format(ficha_id))
-    Capitulo.objects.filter(ficha=ficha_id).update(visto=Case(When(visto=True, then=Value(False)),default=Value(True)))
+    # Capitulo.objects.filter(ficha=ficha_id).update(visto=Case(When(visto=True, then=Value(False)),default=Value(True)))
+    Capitulo.objects.filter(ficha=ficha_id).update(visto=True)
     return redirect('ver_ficha',ficha_id)
 
 @login_required(login_url='/accounts/login/')
 def visto_all_session(request,ficha_id,session_id):
     # en este metodo vamos a poner todos los capitulos como vistos
     logger.debug("Ficha_id {}, Session_id : {}".format(ficha_id,session_id))
-    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=Case(When(visto=True, then=Value(False)),default=Value(True)))
+    # Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=Case(When(visto=True, then=Value(False)),default=Value(True)))
+    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=True)
     return redirect('ver_ficha',ficha_id)
+    
+    
+
+
+@login_required(login_url='/accounts/login/')
+def toggle_capitulo(request, capitulo_id):
+    logger.debug("Estamos en toggleVisto_capitulo")
+    
+    capitulo = get_object_or_404(Capitulo, pk=capitulo_id)
+    
+    if capitulo.descargado:
+        if capitulo.visto:
+            capitulo.descargado = False
+            capitulo.visto = False
+        else:
+            capitulo.visto = True
+    else:
+        capitulo.descargado = True
+        capitulo.visto = False
+    data = {
+        'visto': capitulo.visto,
+        'descargado': capitulo.descargado
+    }
+    capitulo.save()
+    logger.debug("Devolvemos {}".format(data))
+    return JsonResponse(data)    
+    
+# @login_required(login_url='/accounts/login/')
+# def toggle_session(request, ficha_id,session_id):
+#     descargado = request.GET.get('descargado', None)
+#     visto = request.GET.get('visto', None)
+    
+#     logger.debug("Estamos en toggleVisto_session ficha: {} session: {} descargado: {} visto: {}".format(ficha_id,session_id, descargado, visto))
+#     if descargado:
+#         Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(descargado=descargado)
+#     if visto:
+#         Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(visto=visto)
+#     data = {
+#         'session': session_id,
+#         'descargado': descargado,
+#         'visto': visto,
+#     }
+#     logger.debug("Devolvemos {}".format(data))
+#     return JsonResponse(data)        
+
     
 @login_required(login_url='/accounts/login/')
 def info_ficha(request, ficha_id):

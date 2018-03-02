@@ -3,6 +3,52 @@
 
 
 
+<script type="text/javascript">
+$(document).ready(function() {
+    // Al hacer click sobre cualquier elemento que tenga el atributo data-user.....
+    $('[data-url]').click(function(e) {
+        e.preventDefault()
+        var elem = $(this);
+        $.ajax({
+                url:   elem.attr('data-url'),
+                type:  'get',
+                beforeSend: function () {
+                        $("#resultado").html("Procesando, espere por favor...");
+                },
+                success:  function (response) {
+                        console.log("Success");
+                        var visto = response.visto;
+                        var descargado = response.descargado;
+                        if (descargado===true){
+                            if (visto===true){
+                                 elem.attr('class','button icon fa-eye fit small truncate_text_oneline');
+                                 elem.html('Visto');
+                            }else{
+                                elem.attr('class','button special icon fa-eye-slash fit small truncate_text_oneline');
+                                elem.html('No Visto');
+                            }
+                        }else{
+                            elem.attr('class','button alt icon fa-arrow-circle-down fit small truncate_text_oneline ');
+                            elem.html('No Descargado');
+                        }
+                        console.log("Change success");
+                        
+                        
+                },
+                error: function(error){
+                    alert("Error")
+                    alert(error)
+                }
+        });
+        
+    });
+       
+    
+});
+
+</script>
+
+
 <style type="text/css">
     details > summary:first-of-type {
         list-style-type: none;
@@ -11,6 +57,10 @@
 
 <section class="box">
     <div class="box alt">
+        
+        
+       
+        
         
             <form method="POST" class="post-form">
                 {% csrf_token %}
@@ -84,11 +134,7 @@
         <h2>Capitulos pendientes </h2>
         
          {% for temporada in slope_series_ficha reversed %}
-            {% if forloop.first  %}
-                <details open>
-            {% else %}
-                <details>
-            {% endif %}
+            <details>
              <summary>
              <div class="row">
                 <div class="6u 6u">
@@ -103,14 +149,14 @@
             </div>
             </summary>
             
-            <table style="overflow:auto;">
+            <table style="overflow:auto;" id="book-table">
                 <thead>
                     <tr>
                         <td>Capitulo</td>
                         <td>Nombre</td>
-                        <td>Descargado</td>
-                        <td>Visto</td>
-                    </tr>
+                        <!--<td>Descargado</td>-->
+                        <!--<td>Visto</td>-->
+                        <td>Estado</td>
                 </thead>
                 <tbody>
         
@@ -118,25 +164,21 @@
                         <tr>
                             <td>{{ capitulo.temporada }} x {{ capitulo.capitulo }}</td>
                             <td>{{ capitulo.nombre }}</td>
-                            <!--<td>{{ capitulo.id }}</td>-->
+                            <!--<td>{{ capitulo.descargado }}</td>-->
+                            <!--<td>{{ capitulo.visto }}</td>-->
                             <td>
-                                {% if not capitulo.descargado %}
-                                    <a href="{% url 'descargado' capitulo.id  %}" class="button alt icon fa-check fit small truncate_text_oneline">Descargado</a>
-                                {% else %}
-                                    <a href="{% url 'descargado' capitulo.id  %}" class="button fit small">Ok</a>
-                                {% endif %}
-                            </td>       
-                            <td>
-                                {% if not capitulo.visto %}
-                                    {% if not capitulo.descargado %}
-                                        <a href="{% url 'visto' capitulo.id %}" class="button alt icon fa-check fit small truncate_text_oneline">Visto</a>
+                                
+                                {% if capitulo.descargado %}
+                                    {% if  capitulo.visto %}
+                                        <a href="#" class="button  icon fa-eye fit small truncate_text_oneline" data-url="{% url 'toggle_capitulo' capitulo.id  %}">Visto</a>
                                     {% else %}
-                                        <a href="{% url 'visto' capitulo.id %}" class="button special icon fa-check fit small truncate_text_oneline">Visto</a>
+                                        <a href="#" class="button special icon fa-eye-slash fit small truncate_text_oneline" data-url="{% url 'toggle_capitulo' capitulo.id  %}">No Visto</a>
                                     {% endif %}
                                 {% else %}
-                                    <a href="{% url 'visto' capitulo.id %}" class="button fit small">OK</a>
+                                    <a href="#" class="button alt icon fa-arrow-circle-down fit small truncate_text_oneline" data-url="{% url 'toggle_capitulo' capitulo.id  %}">No Descargado</a>
                                 {% endif %}
                             </td>
+                            
                         </tr>
                     {% endfor %}
              

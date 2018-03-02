@@ -87,14 +87,14 @@ def descargado(request, capitulo_id):
 def descargado_all(request, ficha_id):
     # en este metodo vamos a poner todos los capitulos como descargados
     logger.debug("Ficha_id {}".format(ficha_id))
-    Capitulo.objects.filter(ficha=ficha_id).update(descargado=Case(When(descargado=True, then=Value(False)),default=Value(True)))
+    Capitulo.objects.filter(ficha=ficha_id).update(descargado=True)
     return redirect('ver_ficha',ficha_id)
 
 @login_required(login_url='/accounts/login/')
 def descargado_all_session(request,ficha_id,session_id):
     # en este metodo vamos a poner todos los capitulos como descargados
     logger.debug("Ficha_id {}, Session_id : {}".format(ficha_id,session_id))
-    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(descargado=Case(When(descargado=True, then=Value(False)),default=Value(True)))
+    Capitulo.objects.filter(ficha=ficha_id).filter(temporada=session_id).update(descargado=True)
     return redirect('ver_ficha',ficha_id)
     
     
