@@ -134,7 +134,7 @@
                                         <a href="{% url 'visto' capitulo.id %}" class="button special icon fa-check fit small truncate_text_oneline">Visto</a>
                                     {% endif %}
                                 {% else %}
-                                    <a href="#" class="button fit small">OK</a>
+                                    <a href="{% url 'visto' capitulo.id %}" class="button fit small">OK</a>
                                 {% endif %}
                             </td>
                         </tr>
