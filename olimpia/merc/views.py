@@ -294,7 +294,7 @@ def organizeProccess(author,args, options):
     except Exception, e:
         logger.error(e)
     
-    if (options['nomsg'] is None):
+    if (options['nomsg'] is False):
         merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
     
     return 
