@@ -28,12 +28,18 @@ class Command(BaseCommand):
             dest='delete',
             help='Borramos la carpeta origen',
         )
+        parser.add_argument(
+            '--nomsg',
+            action='store_true',
+            dest='nomsg',
+            help='No enviamos msg-telegram',
+        )
        
 
 
     def handle(self, *args, **options):
         for user in options['author']:
-            logger.debug('Ejecutando comando organize por peticion de {} con options {}'.format(user, options['delete']))
+            logger.debug('Ejecutando comando organize por peticion de {} con options {}'.format(user, options))
             
             author = User.objects.get(username=user)
             merc.views.organizeProccess(author,args,options)
