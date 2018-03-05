@@ -13,7 +13,7 @@ $(document).ready(function() {
                 url:   elem.attr('data-url'),
                 type:  'get',
                 beforeSend: function () {
-                        $("#resultado").html("Procesando, espere por favor...");
+                        elem.html("Procesando, espere por favor...");
                 },
                 success:  function (response) {
                         console.log("Success");
