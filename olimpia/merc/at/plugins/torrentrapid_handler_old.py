@@ -1,8 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
+#!/usr/bin/python
 import logging
+import urllib, urllib2
 import re
+from logging.handlers import RotatingFileHandler
 import bs4
 from bs4 import BeautifulSoup
 
@@ -19,15 +19,8 @@ class EpisodiesBeanClass(object):
 
 
 
-
-
 class TorrentRapidHandlerClass(object):
    
-    proxy = { 
-          "http"  : "http://190.12.102.205:8080", 
-        #   "https" : "http://190.12.102.205:8080"
-        #   "ftp"   : "http://190.12.102.205:8080"
-        }
    
     def _findFilm(self):
         url = "http://torrentrapid.com/buscar"
@@ -37,8 +30,16 @@ class TorrentRapidHandlerClass(object):
         # values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
         values = {'q' : '"'+self.nombreserie+'"'}
         self.logger.info("Buscamos %s", values)        
-        page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
-        
+        data = urllib.urlencode(values)
+        # Send HTTP POST request
+        req = urllib2.Request(url, data)
+        page = urllib2.urlopen(req)
+        '''
+        f = open("PAGE["+nombreserie+"].html", "w")
+        content = page.read()
+        f.write(content)
+        f.close()
+        '''
         source = BeautifulSoup(page, "html.parser")
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
         buscarlista = buscar_list[0]
@@ -102,9 +103,17 @@ class TorrentRapidHandlerClass(object):
             quality="767"
         
         values = {'q' : titulo,"categoryIDR":quality, "ordenar":"Nombre", "inon":"Descendente"}
-        self.logger.info("Buscamos {}, proxy {}".format(values,self.proxy))        
-        page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
-        self.logger.info("Encontrada {} proxy {}".format(page, self.proxy))
+        self.logger.info("Buscamos %s", values)        
+        data = urllib.urlencode(values)
+        # Send HTTP POST request
+        req = urllib2.Request(url, data)
+        page = urllib2.urlopen(req)
+        '''
+        f = open("PAGE["+nombreserie+"].html", "w")
+        content = page.read()
+        f.write(content)
+        f.close()
+        '''
         source = BeautifulSoup(page, "html.parser")
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
         
@@ -129,7 +138,7 @@ class TorrentRapidHandlerClass(object):
     def _firstpage(self):
         url = self.url
         self.logger.debug("Buscando en %s",url)
-        page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy,methods=["urllib"])
+        page = urllib.urlopen(url)
         #urllib.urlretrieve(url,"page["+self.nombreserie+"].html")
         source = BeautifulSoup(page, "html.parser")
         return source
@@ -137,7 +146,7 @@ class TorrentRapidHandlerClass(object):
     def _otherPages(self,position):
         url = self.url+"/pg/"+str(position)
         self.logger.debug("Buscando en %s",url)
-        page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy,methods=["urllib"])
+        page = urllib.urlopen(url)
         self.logger.debug("Position %s :Nombre %s", str(position), self.nombreserie)
         # urllib.urlretrieve(url,"page["+self.nombreserie+position+"].html")
         source = BeautifulSoup(page, "html.parser")
@@ -227,8 +236,8 @@ class TorrentRapidHandlerClass(object):
    
     def _getTorrentFiles(self,item):
         url = item.link
-        page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy,methods=["urllib"])
-        soup = BeautifulSoup(page, "html.parser")
+        req = urllib2.Request(url) 
+        soup = BeautifulSoup(urllib2.urlopen(req), "html.parser")
         redirMatch = re.match(r'.*?window\.location\.\href\s*=\s*\"([^"]+)\"', str(soup), re.M|re.S)
         if(redirMatch and "http" in redirMatch.group(1)):
             url = redirMatch.group(1)
