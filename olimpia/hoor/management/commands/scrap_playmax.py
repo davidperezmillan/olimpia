@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 from django.core.management.base import BaseCommand, CommandError
 
-import hoor.scrape.handler_scrap
+import hoor.business.scrape.handler_scrap
 # Create your views here.
 # from merc.models import Series
 from hoor.models import Ficha
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             return
         
         session = options['session']
-        hoor.scrape.handler_scrap.getInfoOlimpia(series, session)
+        hoor.business.scrape.handler_scrap.getInfoOlimpia(series, session)
         
 
 

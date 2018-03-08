@@ -42,11 +42,22 @@ LOGGING = {
             'backupCount': 5,
             'formatter':'standard',
         },
+        'inc': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_PATH,'hoor_inc.log'),
+            'maxBytes': 1024*1024*2, # 2 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
     },
     'loggers': {
         'hoor': {
             'handlers': ['console','general'],
             'level': 'DEBUG',
         },
+        'inc': {
+            'handlers': ['console','inc'],
+            'level': 'DEBUG',
+        }
     }
 }

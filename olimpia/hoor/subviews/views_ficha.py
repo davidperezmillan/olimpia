@@ -10,7 +10,7 @@ from django.http import JsonResponse
 
 from hoor.models import Ficha, Capitulo
 from hoor.forms import FichaModelForm
-import hoor.scrape.handler_scrap
+import hoor.business.scrape.handler_scrap
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -148,7 +148,7 @@ def toggle_capitulo(request, capitulo_id):
 def info_ficha(request, ficha_id):
     logger.debug("Estamos en info_ficha")
     ficha = get_object_or_404(Ficha, pk=ficha_id)
-    hoor.scrape.handler_scrap.getInfoOlimpia([ficha], None) # No se envia session todos las sessiones
+    hoor.business.scrape.handler_scrap.getInfoOlimpia([ficha], None) # No se envia session todos las sessiones
     return redirect('ver_ficha',ficha.id)
 
 

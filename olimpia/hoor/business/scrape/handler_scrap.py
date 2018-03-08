@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from hoor.scrape.plugins.scrap_playmax_plugin import ScrapPlaymax
+from hoor.business.scrape.plugins.scrap_playmax_plugin import ScrapPlaymax
 # Create your views here.
 from hoor.models import Ficha, Capitulo
 
