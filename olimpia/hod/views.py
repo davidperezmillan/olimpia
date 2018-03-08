@@ -119,7 +119,7 @@ def export(request):
         else:
             continue
       
-    return redirect('hod:index')
+    return redirect('index')
 
 
 
