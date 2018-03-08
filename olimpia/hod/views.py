@@ -103,7 +103,7 @@ def export(request):
     else:
         series = Series.objects.all()
     for serie in series:
-        logger.info("Exportando serie : {}".format(serie))
+        
         ## Actualizamos las fichas que tengamos
         ficha, ficha_create = export_ficha(serie)
         # ficha, ficha_create = export_ficha_by_author(serie, request.user)
