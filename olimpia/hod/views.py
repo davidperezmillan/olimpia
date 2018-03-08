@@ -119,7 +119,7 @@ def export(request):
         else:
             continue
       
-    return redirect('index')
+    return redirect('hod:index')
 
 
 
@@ -141,8 +141,6 @@ def export_ficha(serie):
     estado = 1
     if serie.skipped:
         estado = 0
-    if 0 == int(float(serie.ep_start[-2:])):
-        estado = 2
     
     ficha, created = Fichas.objects.get_or_create(nombre=serie.nombre, author=serie.author, estado=estado) 
     return ficha, created
