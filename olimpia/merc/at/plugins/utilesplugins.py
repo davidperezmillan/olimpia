@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import sys,os
 import urllib, urllib2
 import requests
 import json
@@ -20,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 
+# proxies_list = ["http://190.12.102.205:8080","139.255.101.242:8080","117.58.243.244:808","216.165.113.123:3128",] # No los tengo comprobados
 proxies_list = ["http://190.12.102.205:8080",]
 
 proxies = {
@@ -134,3 +136,10 @@ def converterEpisode(episode): # El formato que recuperamos es por defecto NRS00
     return quality, session, episode
 
     
+    
+    
+def handlerLoggerException(logger,msg=None,level=logging.WARN):
+    exc_type, exc_obj, exc_tb = sys.exc_info()
+    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    #  logging.log(level, msg[, *args[, **kwargs]])
+    logger.log(level,msg, exc_type, fname, exc_tb.tb_lineno)
