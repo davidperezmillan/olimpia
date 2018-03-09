@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import logging
+import urllib, urllib2
+import requests
 import re
+from logging.handlers import RotatingFileHandler
 import bs4
 from bs4 import BeautifulSoup
 
@@ -20,14 +23,6 @@ class EpisodiesBeanClass(object):
 class DivxtotalHandlerClass(object):
    
    
-    proxy = { 
-          "http"  : "http://190.12.102.205:8080", 
-        #   "https" : "http://190.12.102.205:8080"
-        #   "ftp"   : "http://190.12.102.205:8080"
-        }
-        
-   
-   
     # EJECUTOR   
     def execute(self,request, filter=False):
         self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
@@ -42,12 +37,12 @@ class DivxtotalHandlerClass(object):
         
         # Recuperamos la pagina de busqueda
         url = 'http://www.divxtotal2.net/?s="{nombreserie}"'.format(nombreserie=self.nombreserie)
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy)
-        except Exception, e:
-            raise e
+        # page = urllib2.urlopen(url).read()
+        page = requests.get(url)
+        self.logger.debug("page : {}".format(page))
+        
         # # Parse pagina principal
-        source = BeautifulSoup(page, "html.parser")
+        source = BeautifulSoup(page.text, "html.parser")
         buscar_list = source.find_all("table", {"class" : "table"})
 
         links = buscar_list[0].find_all("a") or None
@@ -64,12 +59,15 @@ class DivxtotalHandlerClass(object):
 
     def __getpagtitulo(self, urltitulo):
         enlaces=[] # Respuesta
-        try:
-            pageTitulo, self.proxy = utilesplugins.toggleproxy(urltitulo, proxies=self.proxy)
-        except Exception, e:
-            raise e
-        # self.logger.debug("pagetitle : {}".format(pageTitulo))
-        source = BeautifulSoup(pageTitulo, "html.parser")
+        pageTitulo = requests.get(urltitulo)
+        self.logger.debug("pagetitle : {}".format(pageTitulo))
+        
+        if pageTitulo.status_code == 200:
+            with open('index.html', 'wb') as f:
+                for chunk in pageTitulo.iter_content(1024):
+                    f.write(chunk)
+        
+        source = BeautifulSoup(pageTitulo.text, "html.parser")
         divfichseriecapitulos = source.find("div", {"class" : "fichseriecapitulos"})
         divCapitulos = divfichseriecapitulos.find_all("div",  {'class': re.compile('table*')})
         
