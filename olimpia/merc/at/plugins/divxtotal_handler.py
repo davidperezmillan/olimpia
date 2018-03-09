@@ -34,7 +34,7 @@ class DivxtotalHandlerClass(object):
    
     # EJECUTOR   
     def execute(self,request, filter=False):
-        try:
+        # try:
             self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
     
             epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
@@ -64,9 +64,10 @@ class DivxtotalHandlerClass(object):
             else:
                 self.logger.warn("No encontramos de {}, no descargamos nada".format(self.nombreserie))
                 return False
-        except Exception, e:
-            self.logger.error("Error en el plugin {}: {}".format(__name__, str(e)))
-            raise e
+        # except Exception, e:
+        #     utilesplugins.handlerLoggerException(self.logger,msg="Error en el plugin",level=logging.ERROR)
+        #     utilesplugins.handlerLoggerException(self.logger,level=logging.ERROR)
+        #     raise e
 
 
     def __getpagtitulo(self, urltitulo):

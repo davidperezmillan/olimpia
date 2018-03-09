@@ -45,11 +45,13 @@ import plugins.utilesplugins as utilesplugins
 
 if __name__ == "__main__":
     
-    # proxy = { 
-    #           "http"  : "http://190.12.102.205:8080", 
-    #         #   "https" : "http://190.12.102.205:8080"
-    #         #   "ftp"   : "http://190.12.102.205:8080"
-    #         }
+    proxy = { 
+              "http"  : "http://190.12.102.205:8080", 
+            #   "https" : "http://190.12.102.205:8080"
+            #   "ftp"   : "http://190.12.102.205:8080"
+            }
+    
+    
     
     
     logger.info("************************************** INI DIVTOTAL ****************************") 
