@@ -5,23 +5,27 @@ import logging
 import urllib, urllib2
 import requests
 import json
+import random
+
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+# logger.setLevel(logging.DEBUG)
+# logFormatter = logging.Formatter('%(asctime)s [%(levelname)s] - %(name)s - %(filename)s:%(lineno)d - %(message)s')
+# consoleHandler = logging.StreamHandler()
+# consoleHandler.setFormatter(logFormatter)
+# consoleHandler.setLevel(logging.DEBUG)
+# logger.addHandler(consoleHandler)
 
 
 
-'''
-import random
-import requests
 
-proxies_list = [List of IPs]
+proxies_list = ["http://190.12.102.205:8080",]
 
 proxies = {
     'http': random.choice(proxies_list)
 }
-r = requests.get('http://10.1.7.70:8000', proxies=proxies)
-'''
+
 
 
     
@@ -74,7 +78,7 @@ def __geturlAll(url, values=None, proxies=None):
     
         
 
-def toggleproxy(url, values=None, proxies=None, methods=["requests","urllib"]):
+def toggleproxy(url, values=None, proxies=proxies, methods=["requests","urllib"]):
     flag_proxy = None
     response = None
     
@@ -85,7 +89,7 @@ def toggleproxy(url, values=None, proxies=None, methods=["requests","urllib"]):
         except Exception as e:
             logger.warn("Sin proxy no llegamos: {}".format(e))
             try:
-                logger.info("Lo intentamos CON proxy, todos los metodos")
+                logger.info("Lo intentamos CON proxy, {proxies} todos los metodos".format(proxies=proxies))
                 response = __geturlAll(url, values, proxies)
                 flag_proxy = proxies
             except Exception as e:
@@ -98,7 +102,7 @@ def toggleproxy(url, values=None, proxies=None, methods=["requests","urllib"]):
             logger.warn("Sin proxy no llegamos: {}".format(e))
         
             try:
-                logger.info("Lo intentamos CON proxy, metodo request")
+                logger.info("Lo intentamos CON proxy, {proxies} todos los metodos".format(proxies=proxies))
                 response = __geturlrequest(url, values, proxies)
                 flag_proxy = proxies
             except Exception as e:
@@ -112,7 +116,7 @@ def toggleproxy(url, values=None, proxies=None, methods=["requests","urllib"]):
             logger.warn("Sin proxy no llegamos: {}".format(e))
         
             try:
-                logger.info("Lo intentamos CON proxy, metodo urllib")
+                logger.info("Lo intentamos CON proxy, {proxies} todos los metodos".format(proxies=proxies))
                 response = __geturlurllib(url, values, proxies)
                 flag_proxy = proxies
             except Exception as e:

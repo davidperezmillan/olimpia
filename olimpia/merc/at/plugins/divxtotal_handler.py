@@ -20,46 +20,53 @@ class EpisodiesBeanClass(object):
 class DivxtotalHandlerClass(object):
    
    
-    proxy = { 
-          "http"  : "http://190.12.102.205:8080", 
-        #   "https" : "http://190.12.102.205:8080"
-        #   "ftp"   : "http://190.12.102.205:8080"
-        }
-        
-   
+    # Podemos incluir el proxy pero tenemos una lista que podemos utilzar en el utiles 
+    # o no enviar nada y cogera los de por defecto
+    
+    # proxy = { 
+    #       "http"  : "http://190.12.102.205:8080", 
+    #     #   "https" : "http://190.12.102.205:8080"
+    #     #   "ftp"   : "http://190.12.102.205:8080"
+    #     }
+    
+    
+    proxy = utilesplugins.proxies
    
     # EJECUTOR   
     def execute(self,request, filter=False):
-        self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
-
-        epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
-        ependquality, ependsession, ependepisode = utilesplugins.converterEpisode(request.epend)
-        
-        self.nombreserie=request.title
-        self.quality=epstartquality if epstartquality else ependquality
-        self.episodes=EpisodiesBeanClass(epstart=request.epstart, epend=request.epend)
-        enlaces=[] # Respuesta
-        
-        # Recuperamos la pagina de busqueda
-        url = 'http://www.divxtotal2.net/?s="{nombreserie}"'.format(nombreserie=self.nombreserie)
         try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy)
-        except Exception, e:
-            raise e
-        # # Parse pagina principal
-        source = BeautifulSoup(page, "html.parser")
-        buscar_list = source.find_all("table", {"class" : "table"})
-
-        links = buscar_list[0].find_all("a") or None
-        if links:
-            link = links[0]
-            self.logger.info("enlaces : {}".format(link['href']))
-            return self.__getpagtitulo(link['href'])
+            self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
+    
+            epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
+            ependquality, ependsession, ependepisode = utilesplugins.converterEpisode(request.epend)
             
-        else:
-            self.logger.warn("No encontramos de {}, no descargamos nada".format(self.nombreserie))
-            return False
-
+            self.nombreserie=request.title
+            self.quality=epstartquality if epstartquality else ependquality
+            self.episodes=EpisodiesBeanClass(epstart=request.epstart, epend=request.epend)
+            enlaces=[] # Respuesta
+            
+            # Recuperamos la pagina de busqueda
+            url = 'http://www.divxtotal2.net/?s="{nombreserie}"'.format(nombreserie=self.nombreserie)
+            try:
+                page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy)
+            except Exception, e:
+                raise e
+            # # Parse pagina principal
+            source = BeautifulSoup(page, "html.parser")
+            buscar_list = source.find_all("table", {"class" : "table"})
+    
+            links = buscar_list[0].find_all("a") or None
+            if links:
+                link = links[0]
+                self.logger.info("enlaces : {}".format(link['href']))
+                return self.__getpagtitulo(link['href'])
+                
+            else:
+                self.logger.warn("No encontramos de {}, no descargamos nada".format(self.nombreserie))
+                return False
+        except Exception, e:
+            self.logger.error("Error en el plugin {}: {}".format(__name__, str(e)))
+            raise e
 
 
     def __getpagtitulo(self, urltitulo):
