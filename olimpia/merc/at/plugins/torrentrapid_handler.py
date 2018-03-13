@@ -54,23 +54,29 @@ class TorrentRapidHandlerClass(object):
         for buscar in buscarlista:
             if type(buscar) is  bs4.element.Tag:
                 
-                #  ################ filtramos por calidad ##################
-                
                 titrecup=buscar.find("h2").getText().encode('utf-8')
-                labelInfo = "[--]"
-                if "SCREENER" in titrecup.upper() or "PCDVD" in titrecup.upper() or "LATINO".upper() in titrecup.upper(): # si es mierda!!!! fuera
-                    self.logger.info("[EXCLUIDO] : {0}".format(titrecup))
-                    continue
+                self.logger.info("Encontrado {} == Buscado {} ".format(titrecup, self.nombreserie))
+                ## Vamos a comparar el titulo exactamente
+                if titrecup.upper() == self.nombreserie:
+                    #  ################ filtramos por calidad ##################
+                    
+                    labelInfo = "[--]"
+                    if "SCREENER" in titrecup.upper() or "PCDVD" in titrecup.upper() or "LATINO".upper() in titrecup.upper(): # si es mierda!!!! fuera
+                        self.logger.info("[EXCLUIDO] : {0}".format(titrecup))
+                        continue
+                    
+                    pattern = re.compile(self.quality, re.IGNORECASE)
+                    if self.quality.upper()=="NR" or self.quality.upper()=="UP" or pattern.search(titrecup.upper()):
+                        enlacesFiltrados.append(buscar.find("a") or None)
+                        labelInfo = "[ADD]"
+                   
+                    LabelLogger = "{0} : {1}".format(labelInfo, titrecup)
+                    self.logger.info("{0}".format(LabelLogger))
+                    
+                    #  ################ filtramos por calidad ##################
                 
-                pattern = re.compile(self.quality, re.IGNORECASE)
-                if self.quality.upper()=="NR" or self.quality.upper()=="UP" or pattern.search(titrecup.upper()):
-                    enlacesFiltrados.append(buscar.find("a") or None)
-                    labelInfo = "[ADD]"
-               
-                LabelLogger = "{0} : {1}".format(labelInfo, titrecup)
-                self.logger.info("{0}".format(LabelLogger))
+                    
                 
-                #  ################ filtramos por calidad ##################
         if enlacesFiltrados:
             if (self.quality.upper()=="NR"):
                 enlace = enlacesFiltrados[len(enlacesFiltrados)-1]
@@ -180,7 +186,6 @@ class TorrentRapidHandlerClass(object):
         for info in infos:
             tag = info.a["href"]
             title = info.a["title"]
-            
             episodeLink = self._getEpisodeLink(title)
             self.logger.debug("Episodio sacado del link %s ", episodeLink)
             if self._filterEpisode(episodeLink):
@@ -251,11 +256,12 @@ class TorrentRapidHandlerClass(object):
         if(redirMatch and "http" in redirMatch.group(1)):
             url = redirMatch.group(1)
             item.link = url
-            return item
         else:
             item.link = soup.title.string.encode('ascii', 'ignore').strip().replace('\n','')
-            return item
-            
+        
+        item.torrent, self.proxy = utilesplugins.saveFileurllib(item.link, "{}_{}".format(item.title,item.episode),proxies=self.proxy)
+        self.logger.info("Recogido el {} ".format(item.torrent))
+        return item
   
             
     # EJECUTOR   

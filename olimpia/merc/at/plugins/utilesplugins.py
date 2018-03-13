@@ -22,7 +22,11 @@ logger = logging.getLogger(__name__)
 
 
 # proxies_list = ["http://190.12.102.205:8080","139.255.101.242:8080","117.58.243.244:808","216.165.113.123:3128",] # No los tengo comprobados
-proxies_list = ["http://190.12.102.205:8080",]
+# proxies_list = ["http://190.12.102.205:8080",] # Argentina de siempre
+# proxies_list = ["http://183.88.195.231:8080",]
+proxies_list = ["http://190.2.6.105:3130",]
+
+# proxies_list = ["http://94.16.123.176:8080",""]
 
 proxies = {
     'http': random.choice(proxies_list)
@@ -78,6 +82,46 @@ def __geturlAll(url, values=None, proxies=None):
             logger.warn("No hemos conseguido recuperar la urllib por este metodo:  {}".format(str(e)))
             raise e
     
+
+
+def saveFileurllib(url, name, values=None, proxies=None):
+    
+    try:
+        logger.info("Intentado salvar la url ( {} ) por el metodo de urllib2".format(url))
+        proxy = urllib2.ProxyHandler(proxies)
+        opener = urllib2.build_opener(proxy)
+        urllib2.install_opener(opener)
+        if values:
+            req = urllib2.Request(url,data=urllib.urlencode(values))
+        else:
+            req = urllib2.Request(url)
+        page = urllib2.urlopen(req)
+        if page.getcode() != 200:
+            logger.warn('No recuperada la pagina {}'.format(page.status_code))
+            raise Exception('No recuperada la pagina {}'.format(page.status_code)) # Don't! If you catch, likely to hide bugs.
+            
+        
+        # if this isn't a torrent file (probably from mininova) add a .torrent
+        # extension
+        if name[-7:] != "torrent":
+            name += ".torrent"
+        logger.info("Nombre del archivo {}".format(name))
+        
+        full_path = os.path.realpath(__file__)
+        path, filename = os.path.split(full_path)
+        pathTorrent = os.path.join(path, "datadown")
+        nameTorrent = os.path.join(pathTorrent, name.replace(" ", "_"))
+
+        local_file = open(nameTorrent, 'w')
+        local_file.write(page.read())
+        local_file.close()
+        return nameTorrent, proxies
+    except Exception, e:
+        # No lanzamos el log porque luego lo cogemos
+        logger.error("Error al grabar el archivo  {}".format(str(e)))
+        raise e
+        
+        
         
 
 def toggleproxy(url, values=None, proxies=proxies, methods=["requests","urllib"]):
