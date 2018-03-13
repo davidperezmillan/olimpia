@@ -92,6 +92,7 @@ class DivxtotalHandlerClass(object):
                 episodeLink =self.__converterEpisode(cap.getText()) 
                 if self._filterEpisode(episodeLink):
                     self.logger.info("Encontrada capitulo : {} {}".format(episodeLink, cap['href']))
+                    pageTitulo, self.proxy = utilesplugins.saveFileurllib(urltitulo,"{}_{}".format(self.nombreserie,episodeLink), proxies=self.proxy)
                     response = ResponsePlugin(title=self.nombreserie, link=tag, episode=episodeLink)
                     enlaces.append(response)
                 

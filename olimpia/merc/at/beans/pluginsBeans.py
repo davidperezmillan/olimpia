@@ -32,13 +32,16 @@ class ResponsePlugin(object):
             x.append('title={0}'.format(self.title))
         if self.link:
             x.append('link={0}'.format(self.link))
+        if self.torrent:
+            x.append('torrent={0}'.format(self.torrent))
         if self.episode:
             x.append('episode={0}'.format(self.episode))
         return ' '.join(x)
         
-    def __init__(self, title=None, link=None,episode=None):
+    def __init__(self, title=None, link=None,torrent=None,episode=None):
         self.title = title
         self.link=link
+        self.torrent=torrent
         self.episode=episode
         
         
