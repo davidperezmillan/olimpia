@@ -34,68 +34,70 @@ class TorrentRapidHandlerClass(object):
     
     proxy = utilesplugins.proxies
    
-    def _findFilm(self):
-        url = "http://torrentrapid.com/buscar"
-        # Prepare the data
-        titulo=self.nombreserie
+    
+    # def _findFilm(self):
+    #     url = "http://torrentrapid.com/buscar"
+    #     # Prepare the data
+    #     titulo=self.nombreserie
 
-        # values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
-        values = {'q' : '"'+self.nombreserie+'"'}
-        self.logger.info("Buscamos %s", values)        
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
-        except Exception, e:
-            raise e
-        source = BeautifulSoup(page, "html.parser")
-        buscar_list = source.find_all("ul", {"class" : "buscar-list"})
-        buscarlista = buscar_list[0]
-        enlacesFiltrados = []
+    #     # values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
+    #     values = {'q' : '"'+self.nombreserie+'"'}
+    #     self.logger.info("Buscamos %s", values)        
+    #     try:
+    #         page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
+    #     except Exception, e:
+    #         raise e
+    #     source = BeautifulSoup(page, "html.parser")
+    #     buscar_list = source.find_all("ul", {"class" : "buscar-list"})
+    #     buscarlista = buscar_list[0]
+    #     enlacesFiltrados = []
         
-        for buscar in buscarlista:
-            if type(buscar) is  bs4.element.Tag:
+    #     for buscar in buscarlista:
+    #         if type(buscar) is  bs4.element.Tag:
                 
-                titrecup=buscar.find("h2").getText().encode('utf-8')
-                self.logger.info("Encontrado {} == Buscado {} ".format(titrecup, self.nombreserie))
-                ## Vamos a comparar el titulo exactamente
-                if titrecup.upper() == self.nombreserie:
-                    #  ################ filtramos por calidad ##################
+    #             titrecup=buscar.find("h2").getText().encode('utf-8')
+    #             self.logger.info("Encontrado {} == Buscado {} ".format(titrecup, self.nombreserie))
+    #             ## Vamos a comparar el titulo exactamente
+    #             if titrecup.upper() == self.nombreserie:
+    #                 #  ################ filtramos por calidad ##################
                     
-                    labelInfo = "[--]"
-                    if "SCREENER" in titrecup.upper() or "PCDVD" in titrecup.upper() or "LATINO".upper() in titrecup.upper(): # si es mierda!!!! fuera
-                        self.logger.info("[EXCLUIDO] : {0}".format(titrecup))
-                        continue
+    #                 labelInfo = "[--]"
+    #                 if "SCREENER" in titrecup.upper() or "PCDVD" in titrecup.upper() or "LATINO".upper() in titrecup.upper(): # si es mierda!!!! fuera
+    #                     self.logger.info("[EXCLUIDO] : {0}".format(titrecup))
+    #                     continue
                     
-                    pattern = re.compile(self.quality, re.IGNORECASE)
-                    if self.quality.upper()=="NR" or self.quality.upper()=="UP" or pattern.search(titrecup.upper()):
-                        enlacesFiltrados.append(buscar.find("a") or None)
-                        labelInfo = "[ADD]"
+    #                 pattern = re.compile(self.quality, re.IGNORECASE)
+    #                 if self.quality.upper()=="NR" or self.quality.upper()=="UP" or pattern.search(titrecup.upper()):
+    #                     enlacesFiltrados.append(buscar.find("a") or None)
+    #                     labelInfo = "[ADD]"
                    
-                    LabelLogger = "{0} : {1}".format(labelInfo, titrecup)
-                    self.logger.info("{0}".format(LabelLogger))
+    #                 LabelLogger = "{0} : {1}".format(labelInfo, titrecup)
+    #                 self.logger.info("{0}".format(LabelLogger))
                     
-                    #  ################ filtramos por calidad ##################
+    #                 #  ################ filtramos por calidad ##################
                 
                     
                 
-        if enlacesFiltrados:
-            if (self.quality.upper()=="NR"):
-                enlace = enlacesFiltrados[len(enlacesFiltrados)-1]
-            elif(self.quality.upper()=="UP"):
-                enlace = enlacesFiltrados[0]
-            else:
-                enlace = enlacesFiltrados[len(enlacesFiltrados)-1]
+    #     if enlacesFiltrados:
+    #         if (self.quality.upper()=="NR"):
+    #             enlace = enlacesFiltrados[len(enlacesFiltrados)-1]
+    #         elif(self.quality.upper()=="UP"):
+    #             enlace = enlacesFiltrados[0]
+    #         else:
+    #             enlace = enlacesFiltrados[len(enlacesFiltrados)-1]
                     
-            self.logger.info("{0} Enlace filtrados y procesado: \n\r {1}".format(len(enlacesFiltrados), enlace["href"]))
+    #         self.logger.info("{0} Enlace filtrados y procesado: \n\r {1}".format(len(enlacesFiltrados), enlace["href"]))
           
-            if enlace:
-                self.url=enlace["href"] or None
-                self.logger.debug("Hemos encontrado la url %s", self.url)
-                return True
-            else:
-                self.logger.warn("No encontramos {0}/{1}, no descargamos nada".format(self.nombreserie, self.quality))
-        else:
-            self.logger.warn("No encontramos {0}/{1}, hemos descartado todo".format(self.nombreserie, self.quality))
-        return False   
+    #         if enlace:
+    #             self.url=enlace["href"] or None
+    #             self.nombreserie = enlace['title'] or self.nombreserie
+    #             self.logger.debug("Hemos encontrado la url %s", self.url)
+    #             return True
+    #         else:
+    #             self.logger.warn("No encontramos {0}/{1}, no descargamos nada".format(self.nombreserie, self.quality))
+    #     else:
+    #         self.logger.warn("No encontramos {0}/{1}, hemos descartado todo".format(self.nombreserie, self.quality))
+    #     return False   
 
 
    
@@ -120,28 +122,18 @@ class TorrentRapidHandlerClass(object):
             page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
         except Exception, e:
             raise e
-        self.logger.info("Encontrada {} proxy {}".format(page, self.proxy))
+        
         source = BeautifulSoup(page, "html.parser")
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
         
         
         enlaces = buscar_list[0].find_all("a") or None
-        if enlaces:
-            enlace = enlaces[0]
-            for bl_enlace in enlaces:
-                valor = bl_enlace['title']
-                pattern = ".*{0} - Temporada".format(titulo)
-                self.logger.debug("Comprobamos en '{0}' para {1} ".format(valor, pattern))
-                if re.match(pattern,valor):
-                    self.logger.debug("encontrado")
-                    enlace = bl_enlace
-            self.url=enlace["href"] or None
-            self.logger.debug("Hemos encontrado la url %s", self.url)
-            return True
-        else:
-            self.logger.warn("No encontramos %s/%s, no descargamos nada", titulo, quality)
-            return False
-
+        
+        # OJO CUIDADO
+        # Este metodo devuelve siempre que existan enlaces un enlace, sea exacto o no
+        return self.__getPreciseTitle(enlaces)
+        
+       
     def _firstpage(self):
         url = self.url
         self.logger.debug("Buscando en %s",url)
@@ -263,6 +255,41 @@ class TorrentRapidHandlerClass(object):
         self.logger.info("Recogido el {} ".format(item.torrent))
         return item
   
+  
+    def __getPreciseTitle(self,enlaces):
+        if enlaces:
+            # Pillamos el primer enlace
+            enlace = enlaces[0]
+            # Hemos encontrado enlaces....
+            # ahora vamos aguscar el enlace mas exacto
+            for enl in enlaces:
+                tit_consegido = self.__getTitleLink(enl)
+                self.logger.debug("Titulo Encontrado : {} vs {} == {}  ".format(tit_consegido.upper(), self.nombreserie.upper(), tit_consegido.upper() == self.nombreserie.upper()))
+                if tit_consegido.upper() == self.nombreserie.upper():
+                    self.logger.info("Titulo Exacto Encontrado : {}".format(tit_consegido))
+                    enlace = enl
+                    break;
+            
+            self.url=enlace["href"] or None
+            self.nombreserie = self.__getTitleLink(enlace) or self.nombreserie
+            self.logger.debug("Hemos encontrado la url {}".format(self.url))
+            return True
+        else:
+            self.logger.warn("No encontramos {}/{}, no descargamos nada".format(self.nombreserie, self.quality))
+            return False
+
+
+    def __getTitleLink(self,enl):
+        titulo_enlace = enl['title']
+        if self.quality=="HD" or self.quality=="VO" or self.quality=="AL":
+            pattern = "(\S+)\s(\S+)\s(\S+)(.*)(-.Temporada.\d)"
+            tit_consegido = re.search(pattern,titulo_enlace).group(4).strip()
+        else:
+            pattern = "(\S+)\s(\S+)(.*)(-.Temporada.\d)"
+            tit_consegido = re.search(pattern,titulo_enlace).group(3).strip()
+        
+        return tit_consegido
+
             
     # EJECUTOR   
     def execute(self,request, filter=False):
@@ -309,30 +336,31 @@ class TorrentRapidHandlerClass(object):
                 self.logger.debug("url torrent %s", tagTorrent)
                 enlaces.append(tagTorrent)
 
+        self.logger.info("Devolvemos {}".format(enlaces))
         return enlaces
 
 
 
-    def execute_film(self,request, filter=False):
-        self.logger.info(" ---> Processando con el plugin .... %s", request)
+    # def execute_film(self,request, filter=False):
+    #     self.logger.info(" ---> Processando con el plugin .... %s", request)
 
-        epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
-        ependquality, ependsession, ependepisode = utilesplugins.converterEpisode(request.epend)
+    #     epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
+    #     ependquality, ependsession, ependepisode = utilesplugins.converterEpisode(request.epend)
         
-        self.nombreserie=request.title
-        self.quality=request.quality or ''
-        self.logger.info("Buscamos execute_film {0} {1}".format(self.nombreserie, self.quality))
-        enlaces = []
+    #     self.nombreserie=request.title
+    #     self.quality=request.quality or ''
+    #     self.logger.info("Buscamos execute_film {0} {1}".format(self.nombreserie, self.quality))
+    #     enlaces = []
         
         
-        if self._findFilm():
-            self.logger.info("La url encontrada ---- {0} ".format(self.url))
-            item = ResponsePlugin(title=self.nombreserie, link=self.url, episode="{0}S00E00".format(self.quality))
-            tagTorrent = self._getTorrentFiles(item)
-            self.logger.debug("url torrent %s", tagTorrent)
-            enlaces.append(tagTorrent)
+    #     if self._findFilm():
+    #         self.logger.info("La url encontrada ---- {0} ".format(self.url))
+    #         item = ResponsePlugin(title=self.nombreserie, link=self.url, episode="{0}S00E00".format(self.quality))
+    #         tagTorrent = self._getTorrentFiles(item)
+    #         self.logger.debug("url torrent %s", tagTorrent)
+    #         enlaces.append(tagTorrent)
         
-        return enlaces
+    #     return enlaces
 
 
 

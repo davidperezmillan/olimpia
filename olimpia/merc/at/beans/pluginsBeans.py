@@ -16,6 +16,9 @@ class RequestPlugin(object):
             x.append('quality={0}'.format(self.quality))  
         return ' '.join(x)
 
+    def __unicode__(self):
+        return self.__str__()
+
     def __init__(self,title=None, epstart="NRS00E00", epend=None, quality=''):
         self.title=title
         self.epstart=epstart
@@ -38,6 +41,10 @@ class ResponsePlugin(object):
             x.append('episode={0}'.format(self.episode))
         return ' '.join(x)
         
+    def __unicode__(self):
+        return self.__str__()
+        
+            
     def __init__(self, title=None, link=None,torrent=None,episode=None):
         self.title = title
         self.link=link
