@@ -77,6 +77,7 @@ class Descarga2020HandlerClass(object):
           
             if enlace:
                 self.url=enlace["href"] or None
+                self.nombreserie = enlace['title'] or self.nombreserie
                 self.logger.debug("Hemos encontrado la url %s", self.url)
                 return True
             else:
@@ -117,21 +118,9 @@ class Descarga2020HandlerClass(object):
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
         
         enlaces = buscar_list[0].find_all("a") or None
-        if enlaces:
-            enlace = enlaces[0]
-            for bl_enlace in enlaces:
-                valor = bl_enlace['title']
-                pattern = ".*{0} - Temporada".format(titulo)
-                self.logger.debug("Comprobamos en '{0}' para {1} ".format(valor, pattern))
-                if re.match(pattern,valor):
-                    self.logger.debug("encontrado")
-                    enlace = bl_enlace
-            self.url=enlace["href"] or None
-            self.logger.info("Hemos encontrado la url %s", self.url)
-            return True
-        else:
-            self.logger.warn("No encontramos %s/%s, no descargamos nada", titulo, quality)
-            return False
+        # OJO CUIDADO
+        # Este metodo devuelve siempre que existan enlaces un enlace, sea exacto o no
+        return self.__getPreciseTitle(enlaces)
 
     def _firstpage(self):
         url = self.url
@@ -238,6 +227,43 @@ class Descarga2020HandlerClass(object):
             item.link = soup.title.string.encode('ascii', 'ignore').strip().replace('\n','')
             return item
             
+            
+    def __getPreciseTitle(self,enlaces):
+        if enlaces:
+            # Pillamos el primer enlace
+            enlace = enlaces[0]
+            # Hemos encontrado enlaces....
+            # ahora vamos aguscar el enlace mas exacto
+            for enl in enlaces:
+                tit_consegido = self.__getTitleLink(enl)
+                self.logger.debug("Titulo Encontrado : {} vs {} == {}  ".format(tit_consegido.upper(), self.nombreserie.upper(), tit_consegido.upper() == self.nombreserie.upper()))
+                if tit_consegido.upper() == self.nombreserie.upper():
+                    self.logger.info("Titulo Exacto Encontrado : {}".format(tit_consegido))
+                    enlace = enl
+                    break;
+            
+            self.url=enlace["href"] or None
+            self.nombreserie = self.__getTitleLink(enlace) or self.nombreserie
+            self.logger.debug("Hemos encontrado la url {}".format(self.url))
+            return True
+        else:
+            self.logger.warn("No encontramos {}/{}, no descargamos nada".format(self.nombreserie, self.quality))
+            return False
+
+
+    def __getTitleLink(self,enl):
+        titulo_enlace = enl['title']
+        if self.quality=="HD" or self.quality=="VO" or self.quality=="AL":
+            pattern = "(\S+)\s(\S+)\s(\S+)(.*)(-.Temporada.\d)"
+            tit_consegido = re.search(pattern,titulo_enlace).group(4).strip()
+        else:
+            pattern = "(\S+)\s(\S+)(.*)(-.Temporada.\d)"
+            tit_consegido = re.search(pattern,titulo_enlace).group(3).strip()
+        
+        return tit_consegido
+
+            
+            
     # EJECUTOR   
     def execute(self,request, filter=False):
         self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
@@ -283,6 +309,7 @@ class Descarga2020HandlerClass(object):
                 self.logger.debug("url torrent %s", tagTorrent)
                 enlaces.append(tagTorrent)
 
+        self.logger.info("Devolvemos {}".format(enlaces))
         return enlaces
 
     def execute_film(self,request, filter=False):
