@@ -18,7 +18,7 @@ class Organize(object):
         urlData = urlData if urlData.endswith('/') else "{}/".format(urlData)
         urlMirror = urlMirror if urlMirror.endswith('/') else "{}/".format(urlMirror)
         
-        self.logger.info("Vamos a procesar {0} para organizarlo en {1}".format(urlData, urlMirror))
+        self.logger.info("Vamos a procesar la carpeta {0} para organizarlo en {1} y borraremos {2}".format(urlData, urlMirror, delete))
         
         if delete:
             self.deleteSymbolicsLinks(urlMirror)
@@ -29,11 +29,12 @@ class Organize(object):
             self.proccess_serie(serie, urlMirror,delete=False)
         self.logger.info("Organizacion Terminada")
     
+    # Parece privado
     def proccess_serie(self,urlDataSerie, urlMirrorPath, delete=False):
         urlDataSerie = urlDataSerie if urlDataSerie.endswith('/') else "{}/".format(urlDataSerie)
         urlMirrorPath = urlMirrorPath if urlMirrorPath.endswith('/') else "{}/".format(urlMirrorPath)
         
-        self.logger.info("Vamos a procesar {0} para organizarlo en {1}".format(urlDataSerie, urlMirrorPath))
+        self.logger.info("Serie {0} para organizarlo en {1}".format(urlDataSerie, urlMirrorPath))
         
         # create folder structure 
         seriePath = os.path.basename(os.path.normpath(urlDataSerie))
@@ -96,14 +97,23 @@ class Organize(object):
                     os.rmdir(directorio)
 
     def buildName(self,fileName, dirName):
+        
+        
+        cons_PATTERN = r"(_\d{3,4}_)"
+        cons_PATTERNX = r"(\d{1,2}x\d\d)"
+        cons_PATTERNVO = r"(\d{3,4})((VO))"
+        cons_PATTERNCALIDADES = r"(\d{3,4})((720p|1024p))"
+        cons_PATTERNCAP = r"(Cap.|cap.)(\d{3,4})"
+        
+        
         self.logger.debug("build name to {dirName}:{fileName}".format(dirName=dirName, fileName=fileName))
         patternResponse = "S{session}E{episode}"
         session, episode = None, None
         ext = fileName.split(".")[-1]
-    
-        if re.search(r"(_\d{3,4}_)",fileName):
+        
+        if re.search(cons_PATTERN,fileName):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado guiones'))
-            matches = re.search(r"(_\d{3,4}_)",fileName)
+            matches = re.search(cons_PATTERN,fileName)
             if matches:
                 formatEpisode = matches.group(0)[1:-1]
                 if len(formatEpisode)==3:
@@ -112,9 +122,9 @@ class Organize(object):
                 else:
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
-        elif re.search(r"(\d{1,2}x\d\d)",fileName):
+        elif re.search(cons_PATTERNX,fileName):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado "x"'))
-            matches = re.search(r"(\d{1,2}x\d\d)",fileName)
+            matches = re.search(cons_PATTERNX,fileName)
             if matches:
                 formatEpisode = matches.group(0)
                 if len(formatEpisode)==4:
@@ -123,11 +133,26 @@ class Organize(object):
                 else:
                     session=matches.group(0)[:2].zfill(2)
                     episode=matches.group(0)[-2:].zfill(2)
+        
+        elif re.search(cons_PATTERNVO,fileName):         
+            # Procesamiento de episodios especiales (VO, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado VO'))
+            matches = re.search(cons_PATTERNVO,fileName)
+            if matches:
+                formatEpisode = matches.group(1)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
+        
                     
-        elif re.search(r"(\d{3,4})((720p|1024p))",fileName):         
+        elif re.search(cons_PATTERNCALIDADES,fileName):         
             # Procesamiento de episodios especiales (recien llegados, etc)
             self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades'))
-            matches = re.search(r"(\d{3,4})((720p|1024p))",fileName)
+            matches = re.search(cons_PATTERNCALIDADES,fileName)
             if matches:
                 formatEpisode = matches.group(1)
                 self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
@@ -138,6 +163,19 @@ class Organize(object):
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
                 
+        elif re.search(cons_PATTERNCAP,fileName):         
+            # Procesamiento de episodios especiales (Pocoyo, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado Cap'))
+            matches = re.search(cons_PATTERNCAP,fileName)
+            if matches:
+                formatEpisode = matches.group(2)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
     
         if session and episode:
             fullEpisode = patternResponse.format(session=session,episode=episode)

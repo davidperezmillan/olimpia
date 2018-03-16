@@ -11,8 +11,7 @@ log_Inc = logging.getLogger("inc")
 from hoor.models import Descarga, Ficha, Profile, TorrentServer
 
 # Jano 
-from hoor.business.jano.launcher import JanoLaucher
-from hoor.business.jano.common.downJano import Down,Plugins
+from hoor.business.jano.plugins.impl.torrentrapid_plugin import TorrentRapid
  
 class Command(BaseCommand):
     help = "Vamos a buscar todos las series"
@@ -33,7 +32,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         
         logger.debug('Ejecutando comando try :')
-        preparedowns = []
+        downs = []
         
         #Pruebas 
         # ficha_id = 5
@@ -56,6 +55,7 @@ class Command(BaseCommand):
             logger.debug("Descarga  : {descarga}".format(descarga=descarga))
             
             logger.debug("Datos que necesitamos")
+            logger.debug("Ficha y descarga")
             logger.debug("Nombre (ficha.nombre) {nombre}".format(nombre=ficha.nombre))
             if descarga:
                 logger.debug("Quality (descarga.quality) {quality}".format(quality=descarga.quality))
@@ -73,29 +73,22 @@ class Command(BaseCommand):
                 logger.debug("Profile -- Plugins () {plugins}".format(plugins=profile.plugins.all()))
             
             
+            
+            
             # Create object SearchLaunch
             if descarga:
-                preparedown = Down()
-                preparedown.id_ficha = ficha.id
-                preparedown.nombre = ficha.nombre
-                preparedown.quality = descarga.quality
-                preparedown.ep_start = descarga.ep_start
-                preparedown.ep_end = descarga.ep_end
+                #  TODO
                 if descarga and descarga.plugins.all():
-                    preparedown.plugins = descarga.plugins.all()
+                    plugins = descarga.plugins.all()
                 elif profile.plugins.all():
-                    preparedown.plugins = profile.plugins.all()
+                    plugins = profile.plugins.all()
                 else:
-                    preparedown.plugins = []
-                preparedowns.append(preparedown)
-
-        for down in preparedowns:
-            log_Inc.info("Enviamos a descargar : {down}".format(down=down))   
-            elemento = JanoLaucher().execute(down)
-            logger.info("Encontrado : {}".format(elemento))
-            
-            
-            
-            self.stdout.write('Successfully "{}"'.format(""))
-
+                    plugins = []
+                    
+                log_Inc.info("Enviamos a descargar : {lista}".format(lista=downs))   
+                listado = TorrentRapid().find(ficha.nombre,{'q' : ficha.nombre,"categoryIDR":'1469', "ordenar":"Nombre", "inon":"Ascendente"}, None )
+                for elemento in listado:
+                    logger.info("Encontrado : {} con link {}".format(elemento['name'], elemento['link']))
+                self.stdout.write('Successfully "{}"'.format(""))
+        
         

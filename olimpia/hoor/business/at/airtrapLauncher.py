@@ -36,12 +36,15 @@ class ClientTorrents():
 class AirTrapLauncher(object):
  
  
-    def organize(self, delete=False):
+    def organize(self, delete=False, dirName=None):
         errors = []
         organize = Organize()
         for clnt in self.clients:
             try:
-                organize.proccess(clnt.conf.download, "/media/maxtor/mirror", delete)    
+                if dirName:
+                    organize.proccess(dirName, "/media/maxtor/mirror", delete) 
+                else:
+                    organize.proccess(clnt.conf.download, "/media/maxtor/mirror", delete)    
             except Exception as e:
                 self.logger.error("Error al organizar")
                 errors.extend(["Error al organizar"]) 
@@ -70,17 +73,21 @@ class AirTrapLauncher(object):
                 request = RequestPlugin(title=serie.nombre, epstart=serie.ep_start, epend=serie.ep_end)
 
                 for instance in plugs:
-                    found_serie = instance.execute(request, filter=filter) #  Podemos filtrar para tardar menos, pero tendremos menos registros
-                    found.extend(found_serie) 
+                    try:
+                        found_serie =instance.execute(request, filter=filter) #  Podemos filtrar para tardar menos, pero tendremos menos registros
+                        found.extend(found_serie) 
+                        self.logger.info("********************* {} ".format(found))
+                    except Exception, e:
+                        self.logger.error("El plugin a fallado {}: {}".format(instance, str(e)))
                    
     
-                self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar".format(len(found), serie.nombre))
-                if found_serie:
+                self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar en [[ {} ]]".format(len(found), serie.nombre, clnt))
+                if found:
                     try:
-                        added_serie = self.__launch_transmission(found_serie,clnt.client, clnt.conf)
+                        added_serie = self.__launch_transmission(found,clnt.client, clnt.conf)
                         added.extend(added_serie)
-                        self.logger2.info("{} {}".format(serie,found_serie))
-                        self.__updateSeries(serie, found_serie)
+                        self.logger.info("{} {}".format(serie,found))
+                        self.__updateSeries(serie, found)
                     except Exception as e:
                         self.logger.error("No hay o no esta activado el cliente para torrent")
                         errors.extend(["No hay o no esta activado el cliente para torrent"])           
@@ -105,12 +112,15 @@ class AirTrapLauncher(object):
             serie.ep_start = nextEp
             serie.save()
 
+
     def __launch_transmission(self, urls, cli, conf):
         try:
             return cli.allAddTorrent(urls,conf)
         except Exception as e:
             self.logger.error(e)
             raise e;
+
+
 
     def __getInstancesPluginsActive(self, plugins):
         # Gestionamos los plugins de la configuracion  
@@ -126,6 +136,8 @@ class AirTrapLauncher(object):
                 instances.append(instance)
          
         return instances  
+        
+        
         
     def __getClientTorrents(self, torrentservers):
         clients_trans = []

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 import transmissionrpc
 import logging
 from logging.handlers import RotatingFileHandler
@@ -74,13 +75,22 @@ class TorrentHandlerClass(object):
                             
                         self.logger.debug("Intentando descargar: %s:%s con la opciones: %s", url.title, url.episode, options)
                         
-                        
-                        torrentadd = self.client.add_torrent(url.link, **options)
+                        self.logger.info("[GTorrent] Elegimos Torrent {} o link {}".format(url.torrent, url.link))
+                        if url.link:
+                            self.logger.info("[GTorrent] Desde url {}".format(url.link))
+                            torrentadd = self.client.add_torrent(url.link, **options)
+                        elif url.torrent:
+                            self.logger.info("[GTorrent] Desde fichero {}".format(url.torrent))
+                            torrentadd = self.client.add_torrent(url.torrent, **options)
+                            
+                        else:
+                            self.logger.error('Failed to add torrent "{}"'.format(e))
+                            raise e 
+                            
                         self.logger.info("[GTorrent] %s %s %s %s", str(torrentadd), torrentadd.id, torrentadd.hashString, torrentadd.name)
                         self.logger.debug(filter(lambda aname: not aname.startswith('_'), dir(torrentadd)))
                         # if torrentadd.torrent-duplicate:
                         #     self.self.logger.info("[Torrent] Nos hemos encontado un torrent duplicado: %d:%s",torrentadd.torrent-duplicate.id, torrentadd.torrent-duplicate.name)
-                        
                         
                         # Post Proceso unitario
                         self.__changeTorrent(torrentadd.id)
@@ -88,8 +98,10 @@ class TorrentHandlerClass(object):
     
                 except transmissionrpc.TransmissionError, e:
                     self.logger.error('Failed to add torrent "%s"' % e)
+                    os.remove(url.torrent)
                     raise e
             
+            os.remove(url.torrent)
             # Post Proceso Total
             # sendmsgTelegram(listTorrentResponse)
             return listTorrentResponse

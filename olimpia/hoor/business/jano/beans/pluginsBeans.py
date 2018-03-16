@@ -1,45 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import logging
+import sys, os, time
 
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
-
-
-
-class Common():
-    
-    def __str__(self):
-        return self.__unicode__()
-
-    def __unicode__(self):
-        return self
-
-class Down(Common):
-    
-    id_ficha = ''
-    nombre = ''
-    quality = ''
-    ep_start = ''
-    ep_end = ''
-    plugins =[]
-
-    def __unicode__(self):
-        return "{} - [{}-{}]".format(self.nombre, self.ep_start,self.ep_end)
-
-
-class Plugins(Common):
-    
-    name=''
-    file=''
-    clazz=''
-    active=False
-    
-    def __unicode__(self):
-        return "{} - [{}]".format(self.name, self.active)
-
-
-class RequestPlugin(Common):
+class RequestPlugin(object):
 
     def __str__(self):
         x=[]
@@ -61,7 +24,7 @@ class RequestPlugin(Common):
         
         
         
-class ResponsePlugin(Common):
+class ResponsePlugin(object):
     
     def __str__(self):
         x=[]
@@ -80,3 +43,6 @@ class ResponsePlugin(Common):
         self.link=link
         self.torrent=torrent
         self.episode=episode
+        
+        
+        

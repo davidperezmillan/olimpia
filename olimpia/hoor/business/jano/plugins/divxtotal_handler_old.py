@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import logging
+import urllib, urllib2
+import requests
 import re
+from logging.handlers import RotatingFileHandler
 import bs4
 from bs4 import BeautifulSoup
 
@@ -20,64 +23,51 @@ class EpisodiesBeanClass(object):
 class DivxtotalHandlerClass(object):
    
    
-    # Podemos incluir el proxy pero tenemos una lista que podemos utilzar en el utiles 
-    # o no enviar nada y cogera los de por defecto
-    
-    # proxy = { 
-    #       "http"  : "http://190.12.102.205:8080", 
-    #     #   "https" : "http://190.12.102.205:8080"
-    #     #   "ftp"   : "http://190.12.102.205:8080"
-    #     }
-    
-    
-    proxy = utilesplugins.proxies
-   
     # EJECUTOR   
     def execute(self,request, filter=False):
-        # try:
-            self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
-    
-            epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
-            ependquality, ependsession, ependepisode = utilesplugins.converterEpisode(request.epend)
+        self.logger.info(" ---> Processando con el plugin .... {0} -- {1}".format(request, filter))
+
+        epstartquality, epstartsession, epstartepisode = utilesplugins.converterEpisode(request.epstart)
+        ependquality, ependsession, ependepisode = utilesplugins.converterEpisode(request.epend)
+        
+        self.nombreserie=request.title
+        self.quality=epstartquality if epstartquality else ependquality
+        self.episodes=EpisodiesBeanClass(epstart=request.epstart, epend=request.epend)
+        enlaces=[] # Respuesta
+        
+        # Recuperamos la pagina de busqueda
+        url = 'http://www.divxtotal2.net/?s="{nombreserie}"'.format(nombreserie=self.nombreserie)
+        # page = urllib2.urlopen(url).read()
+        page = requests.get(url)
+        self.logger.debug("page : {}".format(page))
+        
+        # # Parse pagina principal
+        source = BeautifulSoup(page.text, "html.parser")
+        buscar_list = source.find_all("table", {"class" : "table"})
+
+        links = buscar_list[0].find_all("a") or None
+        if links:
+            link = links[0]
+            self.logger.info("enlaces : {}".format(link['href']))
+            return self.__getpagtitulo(link['href'])
             
-            self.nombreserie=request.title
-            self.quality=epstartquality if epstartquality else ependquality
-            self.episodes=EpisodiesBeanClass(epstart=request.epstart, epend=request.epend)
-            enlaces=[] # Respuesta
-            
-            # Recuperamos la pagina de busqueda
-            url = 'http://www.divxtotal2.net/?s="{nombreserie}"'.format(nombreserie=self.nombreserie)
-            try:
-                page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy)
-            except Exception, e:
-                raise e
-            # # Parse pagina principal
-            source = BeautifulSoup(page, "html.parser")
-            buscar_list = source.find_all("table", {"class" : "table"})
-    
-            links = buscar_list[0].find_all("a") or None
-            if links:
-                link = links[0]
-                self.logger.info("enlaces : {}".format(link['href']))
-                return self.__getpagtitulo(link['href'])
-                
-            else:
-                self.logger.warn("No encontramos de {}, no descargamos nada".format(self.nombreserie))
-                return False
-        # except Exception, e:
-        #     utilesplugins.handlerLoggerException(self.logger,msg="Error en el plugin",level=logging.ERROR)
-        #     utilesplugins.handlerLoggerException(self.logger,level=logging.ERROR)
-        #     raise e
+        else:
+            self.logger.warn("No encontramos de {}, no descargamos nada".format(self.nombreserie))
+            return False
+
 
 
     def __getpagtitulo(self, urltitulo):
         enlaces=[] # Respuesta
-        try:
-            pageTitulo, self.proxy = utilesplugins.toggleproxy(urltitulo, proxies=self.proxy)
-        except Exception, e:
-            raise e
-        # self.logger.debug("pagetitle : {}".format(pageTitulo))
-        source = BeautifulSoup(pageTitulo, "html.parser")
+        pageTitulo = requests.get(urltitulo)
+        self.logger.debug("pagetitle : {}".format(pageTitulo))
+        
+        if pageTitulo.status_code == 200:
+            with open('index.html', 'wb') as f:
+                for chunk in pageTitulo.iter_content(1024):
+                    f.write(chunk)
+        
+        source = BeautifulSoup(pageTitulo.text, "html.parser")
         divfichseriecapitulos = source.find("div", {"class" : "fichseriecapitulos"})
         divCapitulos = divfichseriecapitulos.find_all("div",  {'class': re.compile('table*')})
         
@@ -92,7 +82,6 @@ class DivxtotalHandlerClass(object):
                 episodeLink =self.__converterEpisode(cap.getText()) 
                 if self._filterEpisode(episodeLink):
                     self.logger.info("Encontrada capitulo : {} {}".format(episodeLink, cap['href']))
-                    pageTitulo, self.proxy = utilesplugins.saveFileurllib(urltitulo,"{}_{}".format(self.nombreserie,episodeLink), proxies=self.proxy)
                     response = ResponsePlugin(title=self.nombreserie, link=tag, episode=episodeLink)
                     enlaces.append(response)
                 

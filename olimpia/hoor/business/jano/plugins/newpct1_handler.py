@@ -1,8 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
+#!/usr/bin/python
 import logging
+import urllib, urllib2
 import re
+from logging.handlers import RotatingFileHandler
 import bs4
 from bs4 import BeautifulSoup
 
@@ -19,33 +19,27 @@ class EpisodiesBeanClass(object):
 
 
 
-
-
-class TorrentRapidHandlerClass(object):
-
-    # Podemos incluir el proxy pero tenemos una lista que podemos utilzar en el utiles 
-    # o no enviar nada y cogera los de por defecto
-    
-    # proxy = { 
-    #       "http"  : "http://190.12.102.205:8080", 
-    #     #   "https" : "http://190.12.102.205:8080"
-    #     #   "ftp"   : "http://190.12.102.205:8080"
-    #     }
-    
-    proxy = utilesplugins.proxies
+class Newpct1HandlerClass(object):
+   
    
     def _findFilm(self):
-        url = "http://torrentrapid.com/buscar"
+        url = "http://newpct1.com/buscar"
         # Prepare the data
         titulo=self.nombreserie
 
         # values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
         values = {'q' : '"'+self.nombreserie+'"'}
         self.logger.info("Buscamos %s", values)        
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
-        except Exception, e:
-            raise e
+        data = urllib.urlencode(values)
+        # Send HTTP POST request
+        req = urllib2.Request(url, data)
+        page = urllib2.urlopen(req)
+        '''
+        f = open("PAGE["+nombreserie+"].html", "w")
+        content = page.read()
+        f.write(content)
+        f.close()
+        '''
         source = BeautifulSoup(page, "html.parser")
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
         buscarlista = buscar_list[0]
@@ -54,29 +48,23 @@ class TorrentRapidHandlerClass(object):
         for buscar in buscarlista:
             if type(buscar) is  bs4.element.Tag:
                 
+                #  ################ filtramos por calidad ##################
+                
                 titrecup=buscar.find("h2").getText().encode('utf-8')
-                self.logger.info("Encontrado {} == Buscado {} ".format(titrecup, self.nombreserie))
-                ## Vamos a comparar el titulo exactamente
-                if titrecup.upper() == self.nombreserie:
-                    #  ################ filtramos por calidad ##################
-                    
-                    labelInfo = "[--]"
-                    if "SCREENER" in titrecup.upper() or "PCDVD" in titrecup.upper() or "LATINO".upper() in titrecup.upper(): # si es mierda!!!! fuera
-                        self.logger.info("[EXCLUIDO] : {0}".format(titrecup))
-                        continue
-                    
-                    pattern = re.compile(self.quality, re.IGNORECASE)
-                    if self.quality.upper()=="NR" or self.quality.upper()=="UP" or pattern.search(titrecup.upper()):
-                        enlacesFiltrados.append(buscar.find("a") or None)
-                        labelInfo = "[ADD]"
-                   
-                    LabelLogger = "{0} : {1}".format(labelInfo, titrecup)
-                    self.logger.info("{0}".format(LabelLogger))
-                    
-                    #  ################ filtramos por calidad ##################
+                labelInfo = "[--]"
+                if "SCREENER" in titrecup.upper() or "PCDVD" in titrecup.upper() or "LATINO".upper() in titrecup.upper(): # si es mierda!!!! fuera
+                    self.logger.info("[EXCLUIDO] : {0}".format(titrecup))
+                    continue
                 
-                    
+                pattern = re.compile(self.quality, re.IGNORECASE)
+                if self.quality.upper()=="NR" or self.quality.upper()=="UP" or pattern.search(titrecup.upper()):
+                    enlacesFiltrados.append(buscar.find("a") or None)
+                    labelInfo = "[ADD]"
+               
+                LabelLogger = "{0} : {1}".format(labelInfo, titrecup)
+                self.logger.info("{0}".format(LabelLogger))
                 
+                #  ################ filtramos por calidad ##################
         if enlacesFiltrados:
             if (self.quality.upper()=="NR"):
                 enlace = enlacesFiltrados[len(enlacesFiltrados)-1]
@@ -97,33 +85,36 @@ class TorrentRapidHandlerClass(object):
             self.logger.warn("No encontramos {0}/{1}, hemos descartado todo".format(self.nombreserie, self.quality))
         return False   
 
-
-   
     def _findSerie(self):
-        url = "http://torrentrapid.com/buscar"
+        url = "http://newpct1.com/buscar"
         # Prepare the data
-        tit=self.nombreserie
-        titulo = '"{0}"'.format(tit)
+        titulo=self.nombreserie
         if self.quality=="HD":
             quality="1469"
+	    values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
         elif self.quality=="VO":
             quality=""
+	    values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
         elif self.quality=="AL":
             quality=""
-            titulo = '{0}'.format(tit)
+	    values = {'q' : titulo,"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
         else:
             quality="767"
+	    values = {'q' : '"'+titulo+'"',"categoryIDR":quality, "ordenar":"Nombre", "inon":"Ascendente"}
         
-        values = {'q' : titulo,"categoryIDR":quality, "ordenar":"Nombre", "inon":"Descendente"}
-        self.logger.info("Buscamos {}, proxy {}".format(values,self.proxy)) 
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy, values=values,methods=["urllib"])
-        except Exception, e:
-            raise e
-        self.logger.info("Encontrada {} proxy {}".format(page, self.proxy))
+        self.logger.info("Buscamos %s", values)        
+        data = urllib.urlencode(values)
+        # Send HTTP POST request
+        req = urllib2.Request(url, data)
+        page = urllib2.urlopen(req)
+        '''
+        f = open("PAGE["+nombreserie+"].html", "w")
+        content = page.read()
+        f.write(content)
+        f.close()
+        '''
         source = BeautifulSoup(page, "html.parser")
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
-        
         
         enlaces = buscar_list[0].find_all("a") or None
         if enlaces:
@@ -136,7 +127,7 @@ class TorrentRapidHandlerClass(object):
                     self.logger.debug("encontrado")
                     enlace = bl_enlace
             self.url=enlace["href"] or None
-            self.logger.debug("Hemos encontrado la url %s", self.url)
+            self.logger.info("Hemos encontrado la url %s", self.url)
             return True
         else:
             self.logger.warn("No encontramos %s/%s, no descargamos nada", titulo, quality)
@@ -145,20 +136,15 @@ class TorrentRapidHandlerClass(object):
     def _firstpage(self):
         url = self.url
         self.logger.debug("Buscando en %s",url)
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy,methods=["urllib"])
-        except Exception, e:
-            raise e
+        page = urllib.urlopen(url)
+        #urllib.urlretrieve(url,"page["+self.nombreserie+"].html")
         source = BeautifulSoup(page, "html.parser")
         return source
         
     def _otherPages(self,position):
         url = self.url+"/pg/"+str(position)
         self.logger.debug("Buscando en %s",url)
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy,methods=["urllib"])
-        except Exception, e:
-            raise e            
+        page = urllib.urlopen(url)
         self.logger.debug("Position %s :Nombre %s", str(position), self.nombreserie)
         # urllib.urlretrieve(url,"page["+self.nombreserie+position+"].html")
         source = BeautifulSoup(page, "html.parser")
@@ -175,8 +161,6 @@ class TorrentRapidHandlerClass(object):
         return int(lastPage)
 
 
-
-
     #  Gestion de links
     def _getlinks(self,source):
         bProcced = True;
@@ -186,6 +170,7 @@ class TorrentRapidHandlerClass(object):
         for info in infos:
             tag = info.a["href"]
             title = info.a["title"]
+            
             episodeLink = self._getEpisodeLink(title)
             self.logger.debug("Episodio sacado del link %s ", episodeLink)
             if self._filterEpisode(episodeLink):
@@ -196,7 +181,6 @@ class TorrentRapidHandlerClass(object):
         
         return bProcced, valores
             
-    
     def _getEpisodeLink(self, titleLink):
         # Recuperamos el capitulo del link
         sessionCaps = re.findall('(Temporada\s\d{1,}|Capitulo\s\d{1,})', titleLink)
@@ -215,7 +199,6 @@ class TorrentRapidHandlerClass(object):
         episodeLink="{0}S{1}E{02}".format(self.quality,temporada,capitulo)
         # self.logger.debug("Capitulo a recuperado %s", str(sc))
         return episodeLink
-    
     
     def _filterEpisode(self, episodeLink):
         # Estos datos llegaran como...... NRS00E00
@@ -242,27 +225,18 @@ class TorrentRapidHandlerClass(object):
                 self.logger.info("[Rechazado] (%s) cap: %s para %s de  %s ",self.nombreserie, episodeLink, self.episodes.epstart, self.episodes.epend)
                 return False
         
-        
-    
-   
     def _getTorrentFiles(self,item):
         url = item.link
-        try:
-            page, self.proxy = utilesplugins.toggleproxy(url, proxies=self.proxy,methods=["urllib"])
-        except Exception, e:
-            self.logger.warn("No se ha encontrado enlace/archivo torrent, continuamos....")
-        soup = BeautifulSoup(page, "html.parser")
+        req = urllib2.Request(url) 
+        soup = BeautifulSoup(urllib2.urlopen(req), "html.parser")
         redirMatch = re.match(r'.*?window\.location\.\href\s*=\s*\"([^"]+)\"', str(soup), re.M|re.S)
         if(redirMatch and "http" in redirMatch.group(1)):
             url = redirMatch.group(1)
             item.link = url
+            return item
         else:
             item.link = soup.title.string.encode('ascii', 'ignore').strip().replace('\n','')
-        
-        item.torrent, self.proxy = utilesplugins.saveFileurllib(item.link, "{}_{}".format(item.title,item.episode),proxies=self.proxy)
-        self.logger.info("Recogido el {} ".format(item.torrent))
-        return item
-  
+            return item
             
     # EJECUTOR   
     def execute(self,request, filter=False):
@@ -311,8 +285,6 @@ class TorrentRapidHandlerClass(object):
 
         return enlaces
 
-
-
     def execute_film(self,request, filter=False):
         self.logger.info(" ---> Processando con el plugin .... %s", request)
 
@@ -337,7 +309,7 @@ class TorrentRapidHandlerClass(object):
 
 
     ## Constructor
-    def __init__(self, logger= None):
+    def __init__(self, logger=None):
         
         if (logger):
             self.logger = logger

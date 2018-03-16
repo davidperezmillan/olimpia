@@ -21,7 +21,7 @@ class EpisodiesBeanClass(object):
 
 
 
-class TorrentRapidHandlerClass(object):
+class TorrentLocuraHandlerClass(object):
 
     # Podemos incluir el proxy pero tenemos una lista que podemos utilzar en el utiles 
     # o no enviar nada y cogera los de por defecto
@@ -35,7 +35,7 @@ class TorrentRapidHandlerClass(object):
     proxy = utilesplugins.proxies
    
     def _findFilm(self):
-        url = "http://torrentrapid.com/buscar"
+        url = "http://torrentlocura.com/buscar"
         # Prepare the data
         titulo=self.nombreserie
 
@@ -100,7 +100,7 @@ class TorrentRapidHandlerClass(object):
 
    
     def _findSerie(self):
-        url = "http://torrentrapid.com/buscar"
+        url = "http://torrentlocura.com/buscar"
         # Prepare the data
         tit=self.nombreserie
         titulo = '"{0}"'.format(tit)
