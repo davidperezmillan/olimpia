@@ -221,7 +221,7 @@ def organize(request):
     #     context.update({'errors_messages':errors})
     
     author = request.user
-    organizeProccess(author)
+    organizeProccess(author, None, None)
     
     # TODO
     return redirect('list')
@@ -289,12 +289,12 @@ def organizeProccess(author,args, options):
         launcher = AirTrapLauncher(torrentservers)
         if options:
             launcher.organize(options['delete'])
+            if (options['nomsg'] is False):
+                merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
         else:
             launcher.organize()
+            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
     except Exception, e:
         logger.error(e)
-    
-    if (options['nomsg'] is False):
-        merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
     
     return 
