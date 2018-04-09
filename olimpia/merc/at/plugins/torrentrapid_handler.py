@@ -271,7 +271,7 @@ class TorrentRapidHandlerClass(object):
                     break;
             
             self.url=enlace["href"] or None
-            self.nombreserie = self.__getTitleLink(enlace) or self.nombreserie
+            # self.nombreserie = self.__getTitleLink(enlace) or self.nombreserie
             self.logger.debug("Hemos encontrado la url {}".format(self.url))
             return True
         else:

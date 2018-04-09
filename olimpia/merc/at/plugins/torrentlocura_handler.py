@@ -89,7 +89,7 @@ class TorrentLocuraHandlerClass(object):
           
             if enlace:
                 self.url=enlace["href"] or None
-                self.nombreserie = enlace['title'] or self.nombreserie
+                # self.nombreserie = enlace['title'] or self.nombreserie
                 self.logger.debug("Hemos encontrado la url %s", self.url)
                 return True
             else:
