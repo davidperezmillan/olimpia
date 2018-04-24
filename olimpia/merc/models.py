@@ -22,6 +22,7 @@ class Series(models.Model):
     vista = models.CharField(max_length=8, default='NRS00E00',blank=True, null=True)
     paussed = models.NullBooleanField(default=False)  # Field name made lowercase.
     skipped = models.NullBooleanField(default=False)  # Field name made lowercase.
+    ep_audi = models.CharField(max_length=8, default='NRS00E00',blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     
     def __unicode__(self):
         return "{0}{1}{2}{3}".format(self.nombre, self.quality, self.ep_start, self.ep_end)
