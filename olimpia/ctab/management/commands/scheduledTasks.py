@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-
+        logger.info("INICIO")
         # DEV 
         # logger.setLevel(logging.INFO)
 
@@ -50,6 +50,7 @@ class Command(BaseCommand):
         
 
         lista_de_ejecuciones=[]
+        
         # Filtramos
         for task in lista_de_tareas:
             
@@ -64,10 +65,9 @@ class Command(BaseCommand):
         
         
         # Vamos a realizar las tareas que nos toca
-        
-        
+        logger.info("Tareas {tareas},".format(tareas=lista_de_ejecuciones))
         for task_ejecutable in lista_de_ejecuciones:
-            logger.info("Tareas {tarea},".format(tarea=task_ejecutable))
+            logger.info("Tarea --> {tarea},".format(tarea=task_ejecutable))
             command, tOption = task_ejecutable.task.split(" ",1)
             options = shlex.split(tOption)
             logger.debug("{} {}".format(command,options))
@@ -77,10 +77,10 @@ class Command(BaseCommand):
                 task_ejecutable.save()
  
             except Exception, e:
-                 self.stderr.write('Error')
+                 logger.error("ERROR EN LA TAREA {} ".format(task_ejecutable.descrip))
         
         
-        self.stdout.write('Successfully')
+        logger.info('Successfully')
         
         
     def check_task(self, task):
