@@ -160,7 +160,7 @@ class Command(BaseCommand):
                 return type_field, True   
         if re.search(cons_UNICO,data):
             type_field = ("unico")
-            if find == data:
+            if str(find) == data:
                 return type_field, True
         
         return type_field, False
