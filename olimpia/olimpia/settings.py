@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'merc.apps.MercConfig',
     'hod.apps.HodConfig',
+    'ctab.apps.CtabConfig',
 ]
 
 REST_FRAMEWORK = {
