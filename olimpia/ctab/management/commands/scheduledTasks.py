@@ -77,10 +77,10 @@ class Command(BaseCommand):
                 task_ejecutable.save()
  
             except Exception, e:
-                 self.stderr.write('Error')
+                 logger.error("ERROR EN LA TAREA {} ".format(task_ejecutable.descrip))
         
         
-        self.stdout.write('Successfully')
+        logger.info('Successfully')
         
         
     def check_task(self, task):
