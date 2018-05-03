@@ -106,7 +106,7 @@ class AirTrapLauncher(object):
         for request in lrequest:
             nextEp = None
             nextEp = request.episode[:-2] + str(int(request.episode[-2:]) + 1).zfill(2)
-            self.logger.info("[UPDATE SERIES] {} a {} -- {}".format(serie.nombre, nextEp, datetime.now()))
+            self.logger.info("[UPDATE SERIES] Nombre :{} Episodio: {} a {} -- {}".format(serie.nombre,request.episode, nextEp, datetime.now()))
             serie.ultima = datetime.now()
             # Aqui voy a añadir un campo para auditoria de los episodios
             serie.ep_audi = serie.ep_start
