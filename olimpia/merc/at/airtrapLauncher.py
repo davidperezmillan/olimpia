@@ -101,7 +101,7 @@ class AirTrapLauncher(object):
         return found, added, errors
 
     def __updateSeries(self,serie, lrequest):
-        
+        nextEp = None
         #Ordenamos el array
         lrequest.sort(key=lambda x: x.episode[2:], reverse=False)
         
