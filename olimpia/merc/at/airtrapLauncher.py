@@ -42,9 +42,9 @@ class AirTrapLauncher(object):
         for clnt in self.clients:
             try:
                 if dirName:
-                    organize.proccess(dirName, "/media/maxtor/mirror", delete) 
+                    organize.proccess(dirName, "/media/maxtor/series", delete) 
                 else:
-                    organize.proccess(clnt.conf.download, "/media/maxtor/mirror", delete)    
+                    organize.proccess(clnt.conf.download, "/media/maxtor/series", delete)    
             except Exception as e:
                 self.logger.error("Error al organizar")
                 errors.extend(["Error al organizar"]) 
