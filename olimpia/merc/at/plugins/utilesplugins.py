@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import logging
 import sys,os
@@ -167,7 +168,15 @@ def toggleproxy(url, values=None, proxies=proxies, methods=["requests","urllib"]
                 flag_proxy = proxies
             except Exception as e:
                 logger.warn("Con proxy no llegamos: {}".format(e))
-    
+                
+                
+    # Solo para debug
+    if response:
+        logger.info("Response recuperado")
+    else:
+        logger.warn("No hemos recuperado nada")
+        
+        
     return response, flag_proxy
     
     
@@ -187,3 +196,15 @@ def handlerLoggerException(logger,msg=None,level=logging.WARN):
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     #  logging.log(level, msg[, *args[, **kwargs]])
     logger.log(level,msg, exc_type, fname, exc_tb.tb_lineno)
+    
+    
+    
+    
+def pintarFicheroHtml(page, nombrefichero):
+    try:
+        nombrefichero = "./{}.html".format(nombrefichero)
+        f = open(nombrefichero, "w")
+        f.write(page)
+        f.close()
+    except Exception, e:
+        raise e
