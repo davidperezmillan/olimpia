@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hoor.apps.HoorConfig',
+    'ctab.apps.CtabConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
