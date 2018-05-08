@@ -70,10 +70,9 @@ def handle(fichas):
             for instance in instances:
                 logger.debug("Plugin: {} ".format(instance))
                 founds.extend(instance.execute(serie))
-                # OOOOJOOOO     devolver, sin lanzar el torrent, no lo veo
                 
                 
-            
+            founds.sort(key=lambda x: x.data.episode[2:], reverse=False) # Ordenamos los objetos encontrados, para transmission, telegram y BBDD
             for found in founds:
                 # Descargamos los torrent
                 logger.debug("Profile -- Server {server}".format(server=profile.server))
@@ -82,8 +81,11 @@ def handle(fichas):
                 torrentResponse = torrentHandler.allAddTorrent([found.data],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
                 if torrentResponse:
                     logger.info("Capitulos descagados : {} en descarga {} ".format(found.data.episode, descarga)) 
-                    # update
-                    descarga.ep_start = found.data.episode
+                    # Update
+                    # # # Buscamos el siguiente capitulo
+                    nextEp = None
+                    nextEp = found.data.episode[:-2] + str(int(found.data.episode[-2:]) + 1).zfill(2)
+                    descarga.ep_start = nextEp
                     descarga.save()
                     responseFounds.append(found)
             
