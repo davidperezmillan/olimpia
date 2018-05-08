@@ -55,9 +55,10 @@ LOGGING = {
             'handlers': ['console','general'],
             'level': 'DEBUG',
         },
-        'inc': {
-            'handlers': ['console','inc'],
-            'level': 'DEBUG',
+        'hoor.business.jano': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         }
     }
 }

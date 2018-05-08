@@ -25,15 +25,13 @@ def handle(fichas):
     
     for ficha in fichas:
         profile = Profile.objects.get(user=ficha.author) # Recupermos el perfil
-        logger.info("____________________________ Ficha: {} --> {}".format(profile, ficha.nombre))
         try:
             descarga = Descarga.objects.get(ficha=ficha) # Recuperamos las descargas que existan en la ficha
         except Descarga.DoesNotExist:
             descarga = None
         
-        logger.debug("Ficha a descarga : {ficha}".format(ficha=ficha))
-        logger.debug("Profile  : {profile}".format(profile=profile))
-        logger.debug("Descarga  : {descarga} Estado : {estado_descarga}".format(descarga=descarga, estado_descarga=descarga.estado_descarga if descarga else None))
+        logger.info("{}                                         **** Ficha a descarga **** : {ficha}".format(profile, ficha=ficha))
+        logger.info("Descarga  : {descarga} Estado : {estado_descarga}".format(descarga=descarga, estado_descarga=descarga.estado_descarga if descarga else None))
         
         # Si existe descarga lo intentamos
         if descarga and descarga.estado_descarga==True:
@@ -73,20 +71,26 @@ def handle(fichas):
                 logger.debug("Plugin: {} ".format(instance))
                 founds.extend(instance.execute(serie))
                 # OOOOJOOOO     devolver, sin lanzar el torrent, no lo veo
-                responseFounds.extend(founds)
+                
+                
             
-            
-            # Descargamos los torrent
-            logger.debug("Profile -- Server {server}".format(server=profile.server))
-            server = profile.server
-            torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
-            listTorrentResponse = torrentHandler.allAddTorrent([o.data for o in founds],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
-            logger.info("Capitulos descagados : {} ".format(listTorrentResponse)) 
+            for found in founds:
+                # Descargamos los torrent
+                logger.debug("Profile -- Server {server}".format(server=profile.server))
+                server = profile.server
+                torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
+                torrentResponse = torrentHandler.allAddTorrent([found.data],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
+                if torrentResponse:
+                    logger.info("Capitulos descagados : {} en descarga {} ".format(found.data.episode, descarga)) 
+                    # update
+                    descarga.ep_start = found.data.episode
+                    descarga.save()
+                    responseFounds.append(found)
             
             
             
             # Mandar el Mensaje
-            logger.info("Mandar el mensaje : {} ".format(founds))                 
+            logger.info("Mandar el mensaje : {} ".format(responseFounds))                 
                 
         else:
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
