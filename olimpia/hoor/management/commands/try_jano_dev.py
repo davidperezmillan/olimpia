@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.shortcuts import get_object_or_404
 
+# Comunes
+import importlib
 
 import logging
 # Get an instance of a logger
@@ -32,7 +34,27 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         
         logger.debug('Ejecutando comando try :')
-        downs = []
+        
+        fichas = Ficha.objects.filter(id__in=ficha_id)
+        
+        
+        
+        
+        
+        pluginsActivos = self.__getPlugins()
+        
+        instances = []
+        for plugin in pluginsActivos:
+            pActiveFile = "plugins.{0}".format(plugin.file)
+            logger.info( "Plugin active:{0}:{1} ".format(pActiveFile, plugin.clazz))
+            klass = getattr(importlib.import_module(pActiveFile), plugin.clazz)
+            # Instantiate the class (pass arguments to the constructor, if needed)
+            instance = klass()
+            instances.append(instance)
+    
+        
+        requestsPlugins = Tenemos que recuperar las series que tenemos
+        
         
         #Pruebas 
         # ficha_id = 5
