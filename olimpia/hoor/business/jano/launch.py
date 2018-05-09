@@ -22,6 +22,7 @@ def handle(fichas):
     logger.debug('Ejecutado comando try para montar un lanzador de todo:')
     logger.debug("fichas {}".format(fichas))
     responseFounds = []
+    responseTorrent = []
     
     for ficha in fichas:
         profile = Profile.objects.get(user=ficha.author) # Recupermos el perfil
@@ -71,6 +72,9 @@ def handle(fichas):
                 logger.debug("Plugin: {} ".format(instance))
                 founds.extend(instance.execute(serie))
                 
+            
+            # Lo que hemos encontrado
+            responseFounds.extend(founds)
                 
             founds.sort(key=lambda x: x.data.episode[2:], reverse=False) # Ordenamos los objetos encontrados, para transmission, telegram y BBDD
             for found in founds:
@@ -88,7 +92,8 @@ def handle(fichas):
                         nextEp = found.data.episode[:-2] + str(int(found.data.episode[-2:]) + 1).zfill(2)
                         descarga.ep_start = nextEp
                         descarga.save()
-                        responseFounds.append(found)
+                        responseTorrent.append(found)
+                        
             
             
             
@@ -98,4 +103,4 @@ def handle(fichas):
         else:
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
 
-    return responseFounds
+    return responseTorrent, responseFounds

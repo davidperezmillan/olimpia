@@ -38,7 +38,7 @@ class Command(BaseCommand):
             logger.debug("Usuario : {}".format(author))
             
             fichas = Ficha.objects.filter(author=author).filter(estado=1)
-            respuesta = launcher.handle(fichas)
+            torrent, respuesta = launcher.handle(fichas)
             # debemos updatear
             for resp in respuesta:
                 logger.info("Updateariamos {}".format(resp))
