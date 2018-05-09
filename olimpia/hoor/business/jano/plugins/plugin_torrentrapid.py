@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import logging
-import urllib, urllib2
+# import urllib, urllib2
 import sys,re
 import bs4
 from bs4 import BeautifulSoup
@@ -22,8 +22,9 @@ class TorrentRapidHandlerClass(object):
 		"HD" : "1469",
 		"VO": "",
         "AL": "",
-        "NR":"767"
+        "NR":"767",
 	}
+    proxy = None
 
     def execute(self, requestBean):
         # Objeto de respuesta
@@ -42,13 +43,19 @@ class TorrentRapidHandlerClass(object):
         else:
             quality=self.__CALIDADES.get(self.requestBean.quality)
         values = {'q' : titulo,"categoryIDR":quality, "ordenar":"Nombre", "inon":"Descendente"}
-        logger.info("Buscamos {}".format(values))        
-        data = urllib.urlencode(values)
-        # Send HTTP POST request
-        req = urllib2.Request(self.__URL_BUSCAR, data)
-        page = urllib2.urlopen(req)
+        logger.info("Buscamos {}".format(values))  
+        ''' INIT proxys '''
+        # data = urllib.urlencode(values)
+        # # Send HTTP POST request
+        # req = urllib2.Request(self.__URL_BUSCAR, data)
+        # page = urllib2.urlopen(req)
+        ''' END proxys'''
+        page, proxyResponse = utiles.toggleproxy(url, values=values, proxies=self.proxy, methods=["urllib"])
+        
         source = BeautifulSoup(page, "html.parser")
+       
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
+        print buscar_list
         enlaces = buscar_list[0].find_all("a") or None
         
         # ##### recuperamos el titulo preciso
@@ -56,9 +63,10 @@ class TorrentRapidHandlerClass(object):
         
         logger.info("link encontrado {}".format(link))   
         if not link:
-            responseBean.error.error="0001"
-            responseBean.error.desc="No se ha encontrado la serie"
-            return responseBean;
+            response = ResponsePluginBean()
+            response.error.error="0001"
+            response.error.desc="No se ha encontrado la serie"
+            return response;
         
         return self.__findTorrent(link)
         
@@ -76,8 +84,11 @@ class TorrentRapidHandlerClass(object):
     # Lo sacaremos de aqui
     def __firstPage(self, url):
         logger.debug("Buscando en {}".format(url))
-        page = urllib.urlopen(url)
+        ''' INIT proxys '''
+        # page = urllib.urlopen(url)
+        ''' END proxys'''
         #urllib.urlretrieve(url,"page["+self.nombreserie+"].html")
+        page, proxyResponse = utiles.toggleproxy(url, proxies=self.proxy, methods=["urllib"])
         source = BeautifulSoup(page, "html.parser")
         
         # recuperamos la ultima pagina
@@ -96,7 +107,11 @@ class TorrentRapidHandlerClass(object):
     def __otherPages(self,position, url):
         url = url+"/pg/"+str(position)
         logger.debug("Buscando en %s",url)
-        page = urllib.urlopen(url)
+        ''' INIT proxys '''
+        # page = urllib.urlopen(url)
+        ''' END proxys'''
+        #urllib.urlretrieve(url,"page["+self.nombreserie+"].html")
+        page, proxyResponse = utiles.toggleproxy(url, proxies=self.proxy, methods=["urllib"])
         logger.debug("Position {}".format(str(position)))
         # urllib.urlretrieve(url,"page["+self.nombreserie+position+"].html")
         source = BeautifulSoup(page, "html.parser")
@@ -114,8 +129,14 @@ class TorrentRapidHandlerClass(object):
             title = info.a["title"]
             episodeLink, valid = self.__filterEpisode(title)
             if valid:
-                req = urllib2.Request(tag) 
-                soup = BeautifulSoup(urllib2.urlopen(req), "html.parser")
+                ''' INIT proxys '''
+                # req = urllib2.Request(tag) 
+                # soup = BeautifulSoup(urllib2.urlopen(req), "html.parser")
+                ''' END proxys'''
+
+                
+                page, proxyResponse = utiles.toggleproxy(tag, proxies=self.proxy, methods=["urllib"])
+                soup = BeautifulSoup(page, "html.parser")
                 redirMatch = re.match(r'.*?window\.location\.\href\s*=\s*\"([^"]+)\"', str(soup), re.M|re.S)
                 if(redirMatch and "http" in redirMatch.group(1)):
                     tag = redirMatch.group(1)
