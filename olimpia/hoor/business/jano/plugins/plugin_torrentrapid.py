@@ -72,10 +72,11 @@ class TorrentRapidHandlerClass(object):
     def __findTorrent(self, link):
         
         resp, lastPage = self.__firstPage(link)
-        count = 2
-        while count <= lastPage:
-            resp.extend(self.__otherPages(count, link))
-            count = count + 1
+        if lastPage:
+            count = 2
+            while count <= lastPage:
+                resp.extend(self.__otherPages(count, link))
+                count = count + 1
         
         logger.info("Valores encontrado {}".format(resp))
         return resp
@@ -93,13 +94,16 @@ class TorrentRapidHandlerClass(object):
         # recuperamos la ultima pagina
         pagination = source.find_all("ul", {"class": "pagination"})
         if len(pagination)==0:
-            return 0
-        itemlista = pagination[0].find_all("li")
-        sItemLast=itemlista[-1].find("a")["href"]
-        lastPage = sItemLast[sItemLast.rfind('/')+1:]
+            lastPage=0
+        else:
+            itemlista = pagination[0].find_all("li")
+            sItemLast=itemlista[-1].find("a")["href"]
+            lastPage = sItemLast[sItemLast.rfind('/')+1:]
+            
+        logger.info("Posicion String : {}".format(lastPage))
         
         #  recuperamos los enlaces que tenemos en esta pagina
-        valores = self.__getlinks(source,)
+        valores = self.__getlinks(source)
 
         return valores, int(lastPage)
         
