@@ -170,3 +170,14 @@ def converterEpisode(episode): # El formato que recuperamos es por defecto NRS00
     session = episode[3:5] or None
     episode = episode[-2:] or None
     return quality, session, episode
+    
+    
+    
+def pintarFicheroHtml(page, nombrefichero):
+    try:
+        nombrefichero = "./{}.html".format(nombrefichero)
+        f = open(nombrefichero, "w")
+        f.write(page)
+        f.close()
+    except Exception, e:
+        raise e

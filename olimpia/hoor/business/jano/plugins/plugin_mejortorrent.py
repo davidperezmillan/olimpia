@@ -72,7 +72,7 @@ class MejorTorrentHandlerClass(object):
                 if self.quality!="NR":
                     findPattern = r"(?i)\d{{1,}}-{}.*temporada-.{{4,5}}.html".format(self.nombreserie.replace(" ","."))
                 else:
-                    findPattern = r"(?i)\d{{1,}}-{}.*temporada.html".format(self.nombreserie.replace(" ","."))
+                    findPattern = r"(?i)\d{{1,}}-{}.*temporada.{{1,2}}html".format(self.nombreserie.replace(" ","."))
                 self.logger.info("Patron de busqueda {}".format(findPattern))
                 links = source.find_all("a",{"href":re.compile(findPattern)}) or None
                 valores=[]
