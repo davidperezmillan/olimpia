@@ -72,11 +72,11 @@ def handle(fichas):
             serie = RequestPluginBean(title=ficha.nombre,quality=descarga.quality, epstart=descarga.ep_start, epend=descarga.ep_end) # Mappeo
             logger.debug("Nombre de la serie: {} capitulo: {} final: {}".format(serie.title, serie.epstart, serie.epend))
             for instance in instances:
-                # try:
+                try:
                     logger.debug("Plugin: {} ".format(instance))
                     founds.extend(instance.execute(serie))
-                # except Exception, e:
-                    # logger.error("Se ha producido un buscando la serie {} = {}:{}".format(instance, e, ficha.nombre))
+                except Exception, e:
+                    logger.error("Se ha producido un buscando la serie {} = {}:{}".format(instance, e, ficha.nombre))
             
             # Lo que hemos encontrado
             responseFounds.extend(founds)
