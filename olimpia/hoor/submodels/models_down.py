@@ -44,7 +44,7 @@ class Descarga(models.Model):
     quality = models.CharField(max_length=2, choices=choice_quality, blank=False, null=False)  # Field name made lowercase. This field type is a guess.
     ultima = models.DateTimeField(blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
     estado_descarga = models.NullBooleanField(default=False)  # Field name made lowercase.
-    plugins = models.ManyToManyField(Plugin, blank=True)
+    plugins = models.ManyToManyField(Plugin, blank=True, limit_choices_to = {'active': True})
 
     def __unicode__(self):
         return "{0}".format(self.ficha.nombre)

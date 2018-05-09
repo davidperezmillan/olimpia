@@ -64,8 +64,14 @@
             <div class="row uniform ">
                 {% csrf_token %}
 
-                <div class="10u 12u(mobilep)">
+                <div class="8u 12u(mobilep)">
                     <label>{{ form.ficha.label_tag }} </label> {{ form.ficha }}
+                </div>
+                <div class="2u 12u(mobilep)">
+                    <label>{{ form.estado_descarga.label_tag }} </label>
+                    <span class="select-wrapper">
+                        {{ form.estado_descarga }}
+                    </span>
                 </div>
                 <div class="2u 12u(mobilep)">
                     <label>{{ form.quality.label_tag }} </label>

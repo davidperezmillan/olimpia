@@ -17,7 +17,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30, blank=True)
-    plugins = models.ManyToManyField(Plugin, blank=True)
+    plugins = models.ManyToManyField(Plugin, blank=True, limit_choices_to = {'active': True})
     server = models.OneToOneField(TorrentServer, blank=True, null=True)
 
     

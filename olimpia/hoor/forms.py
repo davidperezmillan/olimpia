@@ -28,7 +28,7 @@ class DescargaModelForm(forms.ModelForm):
 
     class Meta:
         model = Descarga
-        fields = ('ficha','ep_start','ep_end', 'quality', 'plugins')
+        fields = ('ficha','ep_start','ep_end', 'quality', 'plugins', 'estado_descarga')
         # widgets = { }
 
 
