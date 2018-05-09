@@ -68,22 +68,26 @@ class MejorTorrentHandlerClass(object):
             
             # Primero tenemos que recuperar todas las temporadas de la serie
             # segun la calidad que deseemos
-            if self.quality!="NR":
-                findPattern = r"(?i)\d{{1,}}-{}.*temporada-.{{4,5}}.html".format(self.nombreserie.replace(" ","."))
-            else:
-                findPattern = r"(?i)\d{{1,}}-{}.*temporada.html".format(self.nombreserie.replace(" ","."))
-            self.logger.info("Patron de busqueda {}".format(findPattern))
-            links = source.find_all("a",{"href":re.compile(findPattern)}) or None
-            valores=[]
-            for link in links:
-                titulo_enlace = link.text
-                pattern = r"(?i)(\d+)(.{1,}temporada)"
-                sessionRecuperada=re.search(pattern,titulo_enlace).group(1).strip()
-                
-                # if sessionRecuperada and int(sessionRecuperada)>=int(epstartsession):
-                if sessionRecuperada:
-                    self.logger.info("Session recuperada: http://www.mejortorrent.com/{}".format(link["href"]))
-                    valores.extend(self.__getSession(link["href"]))
+            try:
+                if self.quality!="NR":
+                    findPattern = r"(?i)\d{{1,}}-{}.*temporada-.{{4,5}}.html".format(self.nombreserie.replace(" ","."))
+                else:
+                    findPattern = r"(?i)\d{{1,}}-{}.*temporada.html".format(self.nombreserie.replace(" ","."))
+                self.logger.info("Patron de busqueda {}".format(findPattern))
+                links = source.find_all("a",{"href":re.compile(findPattern)}) or None
+                valores=[]
+               
+                for link in links:
+                    titulo_enlace = link.text
+                    pattern = r"(?i)(\d+)(.{1,}temporada)"
+                    sessionRecuperada=re.search(pattern,titulo_enlace).group(1).strip()
+                    
+                    # if sessionRecuperada and int(sessionRecuperada)>=int(epstartsession):
+                    if sessionRecuperada:
+                        self.logger.info("Session recuperada: http://www.mejortorrent.com/{}".format(link["href"]))
+                        valores.extend(self.__getSession(link["href"]))
+            except Exception, e:
+                raise Exception("No hay enlaces de esa serie {}".format(self.nombreserie))
             return valores
             
     def __getSession(self, url):

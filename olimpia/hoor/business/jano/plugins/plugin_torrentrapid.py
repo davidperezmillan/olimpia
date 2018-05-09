@@ -55,7 +55,6 @@ class TorrentRapidHandlerClass(object):
         source = BeautifulSoup(page, "html.parser")
        
         buscar_list = source.find_all("ul", {"class" : "buscar-list"})
-        print buscar_list
         enlaces = buscar_list[0].find_all("a") or None
         
         # ##### recuperamos el titulo preciso

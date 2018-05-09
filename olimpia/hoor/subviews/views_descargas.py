@@ -40,7 +40,6 @@ def add_down_for_ficha(request, ficha_id):
     if request.method == 'POST':
         form = DescargaModelForm(request.POST)
         if form.is_valid():
-            print
             down = form.save(commit=False)
             down.save()
             return redirect('ver_ficha',down.ficha.id)

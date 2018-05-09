@@ -56,12 +56,15 @@ def handle(fichas):
             # Recuperamos los plugins activos segun orden (Descarga, perfil)
             instances = []
             for plugin in pluginsActivos:
-                pActiveFile = "hoor.business.jano.plugins.{0}".format(plugin.file)
-                logger.info( "Plugin active:{0}:{1} ".format(pActiveFile, plugin.clazz))
-                klass = getattr(importlib.import_module(pActiveFile), plugin.clazz)
-                # Instantiate the class (pass arguments to the constructor, if needed)
-                instance = klass()
-                instances.append(instance)
+                try:
+                    pActiveFile = "hoor.business.jano.plugins.{0}".format(plugin.file)
+                    logger.info( "Plugin active:{0}:{1} ".format(pActiveFile, plugin.clazz))
+                    klass = getattr(importlib.import_module(pActiveFile), plugin.clazz)
+                    # Instantiate the class (pass arguments to the constructor, if needed)
+                    instance = klass()
+                    instances.append(instance)
+                except Exception, e:
+                    logger.error("Se ha producido un error {}:{}".format(instance, e))
             
             # Buscamos la serie
             founds = []
@@ -69,9 +72,11 @@ def handle(fichas):
             serie = RequestPluginBean(title=ficha.nombre,quality=descarga.quality, epstart=descarga.ep_start, epend=descarga.ep_end) # Mappeo
             logger.debug("Nombre de la serie: {} capitulo: {} final: {}".format(serie.title, serie.epstart, serie.epend))
             for instance in instances:
-                logger.debug("Plugin: {} ".format(instance))
-                founds.extend(instance.execute(serie))
-                
+                try:
+                    logger.debug("Plugin: {} ".format(instance))
+                    founds.extend(instance.execute(serie))
+                except Exception, e:
+                    logger.error("Se ha producido un buscando la serie {} = {}:{}".format(instance, e, ficha.nombre))
             
             # Lo que hemos encontrado
             responseFounds.extend(founds)
