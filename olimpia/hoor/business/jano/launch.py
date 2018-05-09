@@ -64,7 +64,7 @@ def handle(fichas):
                     instance = klass()
                     instances.append(instance)
                 except Exception, e:
-                    logger.error("Se ha producido un error {}:{}".format(instance, e))
+                    logger.error("Se ha producido un error {}:{}".format(instance, e),exc_info=True)
             
             # Buscamos la serie
             founds = []
@@ -76,7 +76,7 @@ def handle(fichas):
                     logger.debug("Plugin: {} ".format(instance))
                     founds.extend(instance.execute(serie))
                 except Exception, e:
-                    logger.error("Se ha producido un buscando la serie {} = {}:{}".format(instance, e, ficha.nombre))
+                    logger.error("Se ha producido un buscando la serie {} = {}:{}".format(instance, e, ficha.nombre),exc_info=True)
             
             # Lo que hemos encontrado
             responseFounds.extend(founds)
@@ -103,10 +103,11 @@ def handle(fichas):
             
             
             # Mandar el Mensaje
-            from pprint import pprint, pformat
-            logger.info("Mandar el mensaje :")              
-            logger.info(pformat(responseTorrent))
-                
+            valuesFounds = ','.join("{}:{}".format(str(v.data.title),str(v.data.episode)) for v in responseFounds)
+            logger.info("Encontrados : {}".format(valuesFounds))
+            # valuesTorrent = ','.join("{}".format(str(v) for v in responseTorrent))
+            logger.info("Torrents : {}".format(responseTorrent))
+
         else:
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
 
