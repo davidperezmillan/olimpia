@@ -111,7 +111,7 @@ def handle(fichas):
             logger.debug("Torrents : {}".format(responseTorrent))
             
             # Creamos el mensaje
-            header = "Hemos lanzado el proceso {}".format(datetime.datetime.now())
+            header = "Hemos lanzado el proceso {} de {}".format(datetime.datetime.now(), ficha.nombre)
             body = "\n\rHemos encontrado {} \n\rHemos grabado {}".format(valuesFounds,len(responseTorrent))
             msg ="{} {}".format(header, body)
             # Mandamos el mensaje
