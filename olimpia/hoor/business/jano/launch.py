@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import sys,os
+import datetime
 
 # Comunnes
 import importlib
@@ -16,6 +17,7 @@ from hoor.models import Descarga, Ficha, Profile, TorrentServer
 
 from hoor.business.jano.beans.pluginsBeans import RequestPluginBean, ResponsePluginBean, PluginBean
 from hoor.business.jano.handler.torrentHandler import TorrentHandlerClass
+from hoor.business.jano.handler.telegramHandler import TelegramNotifier, ReceiverTelegram
 
 
 def handle(fichas):
@@ -103,10 +105,20 @@ def handle(fichas):
             
             
             # Mandar el Mensaje
-            valuesFounds = ','.join("{}:{}".format(str(v.data.title),str(v.data.episode)) for v in responseFounds)
-            logger.info("Encontrados : {}".format(valuesFounds))
+            valuesFounds = ','.join("\n\r{} [{}]".format(str(v.data.title),str(v.data.episode)) for v in responseFounds)
+            logger.debug("Encontrados : {}".format(valuesFounds))
             # valuesTorrent = ','.join("{}".format(str(v) for v in responseTorrent))
-            logger.info("Torrents : {}".format(responseTorrent))
+            logger.debug("Torrents : {}".format(responseTorrent))
+            
+            # Creamos el mensaje
+            header = "Hemos lanzado el proceso {}".format(datetime.datetime.now())
+            body = "\n\rHemos encontrado {} \n\rHemos grabado {}".format(valuesFounds,len(responseTorrent))
+            msg ="{} {}".format(header, body)
+            # Mandamos el mensaje
+            receivers = ReceiverTelegram(fullnames=[("David","Perez Millan")])
+            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+            clazz.notify(msg, receivers=receivers)
+            
 
         else:
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
