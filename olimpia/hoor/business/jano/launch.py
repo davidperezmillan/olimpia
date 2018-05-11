@@ -104,23 +104,26 @@ def handle(fichas):
             
             
             
-            # Mandar el Mensaje
-            valuesFounds = ','.join("\n\r{} [{}]".format(str(v.data.title),str(v.data.episode)) for v in responseFounds)
-            logger.debug("Encontrados : {}".format(valuesFounds))
-            # valuesTorrent = ','.join("{}".format(str(v) for v in responseTorrent))
-            logger.debug("Torrents : {}".format(responseTorrent))
-            
-            # Creamos el mensaje
-            header = "Hemos lanzado el proceso {} de {}".format(datetime.datetime.now(), ficha.nombre)
-            body = "\n\rHemos encontrado {} \n\rHemos grabado {}".format(valuesFounds,len(responseTorrent))
-            msg ="{} {}".format(header, body)
-            # Mandamos el mensaje
-            receivers = ReceiverTelegram(fullnames=[("David","Perez Millan")])
-            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-            clazz.notify(msg, receivers=receivers)
+
             
 
         else:
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
+
+
+    # Mandar el Mensaje
+    valuesFounds = ','.join("\n\r{} [{}]".format(str(v.data.title),str(v.data.episode)) for v in responseFounds)
+    logger.debug("Encontrados : {}".format(valuesFounds))
+    # valuesTorrent = ','.join("{}".format(str(v) for v in responseTorrent))
+    logger.debug("Torrents : {}".format(responseTorrent))
+    
+    # Creamos el mensaje
+    header = "Hemos lanzado el proceso {} de {}".format(datetime.datetime.now(), ficha.nombre)
+    body = "\n\rHemos encontrado {} \n\rHemos grabado {}".format(valuesFounds,len(responseTorrent))
+    msg ="{} {}".format(header, body)
+    # Mandamos el mensaje
+    receivers = ReceiverTelegram(fullnames=[("David","Perez Millan")])
+    clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+    clazz.notify(msg, receivers=receivers)
 
     return responseTorrent, responseFounds
