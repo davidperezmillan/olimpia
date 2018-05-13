@@ -10,7 +10,30 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
-from .models_down import Plugin, TorrentServer
+from .models_down import Plugin
+
+
+
+
+class TorrentServer(models.Model):
+    id = models.AutoField(primary_key=True)  # AutoField?
+    torrent_active = models.NullBooleanField(default=False)  # Field name made lowercase.
+    space_disk = models.IntegerField()
+    host = models.CharField(blank=True, null=True, max_length=200)
+    port = models.IntegerField()
+    user = models.CharField(blank=True, null=True, max_length=200)
+    password = models.CharField(blank=True, null=True, max_length=200)
+    paused = models.NullBooleanField(default=False)  # Field name made lowercase.
+    download = models.CharField(blank=True, null=True, max_length=200)
+    
+    def __unicode__(self):
+        return " {0}@{1}:{2}".format(self.user, self.host, self.port)
+    
+    
+    class Meta:
+        verbose_name_plural = "TorrentServers"
+        managed = True
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -18,7 +41,8 @@ class Profile(models.Model):
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30, blank=True)
     plugins = models.ManyToManyField(Plugin, blank=True, limit_choices_to = {'active': True})
-    server = models.OneToOneField(TorrentServer, blank=True, null=True)
+    # server = models.OneToOneField(TorrentServer, blank=True, null=True)
+    server = models.ForeignKey(TorrentServer, on_delete=models.CASCADE,blank=True, null=True)
 
     
     def __unicode__(self):
