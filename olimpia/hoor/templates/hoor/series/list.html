@@ -5,6 +5,16 @@
 
 <section class="box">
 
+<style type="text/css">
+    details > summary:first-of-type {
+        list-style: square inside url("/static/hoor/images/circle_down.png");
+    }
+    .miniinfo{
+        font-size: small;
+    }
+</style>
+
+
     {% if latest_series_update %}
     <div class="box alt">
 
@@ -64,10 +74,34 @@
                         {% else %}
                             <tr style="background: #cfebfd;">
                         {% endif %}
+                                    {% if ficha.down %}
+                                    <td>
+                                        <details>
+                                            <summary>
+                                                <a href="{% url 'ver_ficha' ficha.id %}">{{ ficha.nombre }}</a>
+                                            </summary>
+                                                <style type="text/css">
+                                                    .miniinfo{
+                                                        font-size: small;
+                                                    }
+                                                </style>
+                                                <div class="miniinfo">
+                                                    <!--<span>{% if ficha.down.estado_descarga %} OK {% endif %}</span>-->
+                                                    <span>Capitulos : {{ ficha.down.ep_start }} - {{ ficha.down.ep_end }}</span>
+                                                    {% if ficha.down.plugins %}
+                                                        <span><br/>Plugins propios: {% for plug in ficha.down.plugins.all %}{{ plug }}<br/>{% endfor %}</span>
+                                                    {% else %}
+                                                        <span>Por Defecto</span>
+                                                    {% endif %}
+                                                </div>
+                                        </details>
+                                    </td>
+                                    {% else %}
                                     <td>
                                         <a href="{% url 'ver_ficha' ficha.id %}">{{ ficha.nombre }}</a>
-                                        {% if ficha.down.estado_descarga %}<i class="fa fa-cloud-download">{% endif %}
                                     </td>
+                                    {% endif %}
+                                    
                                     <td>{{ ficha.get_estado_display }}</td>
                                     <td>{% if ficha.author.get_full_name %} {{ ficha.author.get_full_name }} {% else %}  {{ ficha.author.username }} {% endif %}</td>
                             </tr>
