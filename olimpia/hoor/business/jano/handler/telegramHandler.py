@@ -277,7 +277,7 @@ class TelegramNotifier(object):
         ''' No estamos usando cache en BBDD, ni en ninguna parte '''
         
     def _get_bot_updates(self):
-        logger.debug('Update BBDD')
+        logger.debug('recuperamos los chat que tiene el bot')
         # highly unlikely, but if there are more than 100 msgs waiting for the bot, we should not miss one
         updates = []
         last_upd = 0
@@ -292,7 +292,7 @@ class TelegramNotifier(object):
         fullnames = dict()
         groups = dict()
         for update in updates:
-            logger.debug('Update BBDD {0}'.format(update))
+            logger.debug('Update Recuperado {0}'.format(update))
             if update.message:
                 chat = update.message.chat
             elif update.edited_message:
@@ -302,7 +302,7 @@ class TelegramNotifier(object):
             else:
                 raise Exception('Unknown update type encountered: %s' % update)
             
-            logger.info('Update : {0}'.format(chat))
+            logger.info('Chat Recuperados  : {0}'.format(chat))
             if chat.type == 'private':
                 usernames[chat.username] = chat
                 fullnames[(chat.first_name, chat.last_name)] = chat

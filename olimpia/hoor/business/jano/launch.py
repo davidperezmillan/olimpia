@@ -127,6 +127,19 @@ def handle(fichas):
         
         logger.info("Tenemos receptores del mensaje {}".format(profile.telegramCli.all()))
         for receiver in profile.telegramCli.all():
+            rec = utilgetreceivers(receiver)
+            # Mandamos el mensaje
+            logger.info("Rec: {}".format(rec))
+            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+            grabars = clazz.notify(msg, receivers=rec) 
+            for grabar in grabars:
+                logger.info("Tendremos que grabar: {}".format(grabar))
+                receiver.idtelegram = grabar.id
+                receiver.save()
+            
+            '''
+            # En principio no hace falta distincion 
+            
             if receiver.idtelegram:
                 logger.info("ID: {}".format(receiver.idtelegram))
                 clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
@@ -142,7 +155,7 @@ def handle(fichas):
                     logger.info("Tendremos que grabar: {}".format(grabar))
                     receiver.idtelegram = grabar.id
                     receiver.save()
-                
+            '''    
         
         '''
         if profile.telegramCli.id:
