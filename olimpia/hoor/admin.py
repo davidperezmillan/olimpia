@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 # Register your models here.
-from .models import Ficha, Capitulo, Plugin, Profile, Document, Descarga, TorrentServer
+from .models import Ficha, Capitulo, Plugin, Profile, Document, Descarga, TorrentServer, TelegramChatIds
 
 
 
@@ -110,3 +110,5 @@ admin.site.register(TorrentServer, TorrentServerAdmin)
 
 
 admin.site.register(Document)
+
+admin.site.register(TelegramChatIds)

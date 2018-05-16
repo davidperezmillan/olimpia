@@ -12,7 +12,32 @@ from django.dispatch import receiver
 # Create your models here.
 from .models_down import Plugin
 
+class TelegramChatIds(models.Model):
+    id = models.IntegerField(primary_key=True,blank=True,)  # AutoField?
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='telegramchatids_autor',
+    )
+    idtelegram = models.IntegerField(blank=True, null=True,)
+    username = models.CharField(blank=True, null=True, max_length=200) # This field type is a guess.
+    firstname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
+    surname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
+    group = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
 
+    def __unicode__(self):
+        if self.username:
+            return self.username
+        if self.surname or self.firstname:
+            return "{0} {1}".format(self.firstname,self.surname)
+        if self.group:
+            return self.group
+        return str(self.idtelegram)
+    
+    class Meta:
+        verbose_name_plural = "telegram_chat_ids"
+        managed = True
+        db_table = 'telegram_chat_ids'
 
 
 class TorrentServer(models.Model):
@@ -43,6 +68,8 @@ class Profile(models.Model):
     plugins = models.ManyToManyField(Plugin, limit_choices_to = {'active': True})
     # server = models.OneToOneField(TorrentServer, blank=True, null=True)
     server = models.ForeignKey(TorrentServer, on_delete=models.CASCADE,blank=True, null=True)
+    # telegramCli = models.ManyToManyField(TelegramChatIds, blank=True,limit_choices_to = {'author': user})
+    telegramCli = models.ManyToManyField(TelegramChatIds, blank=True)
 
     
     def __unicode__(self):

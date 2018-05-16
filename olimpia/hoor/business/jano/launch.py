@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 # BBDD
-from hoor.models import Descarga, Ficha, Profile, TorrentServer
+from hoor.models import Descarga, Ficha, Profile, TorrentServer, TelegramChatIds
 
 from hoor.business.jano.beans.pluginsBeans import RequestPluginBean, ResponsePluginBean, PluginBean
 from hoor.business.jano.handler.torrentHandler import TorrentHandlerClass
@@ -111,7 +111,7 @@ def handle(fichas):
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
 
 
-    # Mandar el Mensaje
+    # Construimos la respuesta
     valuesFounds = ','.join("\n\r{} [{}]".format(str(v.data.title),str(v.data.episode)) for v in responseFounds)
     logger.debug("Encontrados : {}".format(valuesFounds))
     # valuesTorrent = ','.join("{}".format(str(v) for v in responseTorrent))
@@ -121,9 +121,57 @@ def handle(fichas):
     header = "Hemos lanzado el proceso {} de {}".format(datetime.datetime.now(), ficha.nombre)
     body = "\n\rHemos encontrado {} \n\rHemos grabado {}".format(valuesFounds,len(responseTorrent))
     msg ="{} {}".format(header, body)
-    # Mandamos el mensaje
-    receivers = ReceiverTelegram(fullnames=[("David","Perez Millan")])
-    clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-    clazz.notify(msg, receivers=receivers)
+    
+    
+    if profile.telegramCli is not None:
+        
+        logger.info("Tenemos receptores del mensaje {}".format(profile.telegramCli.all()))
+        for receiver in profile.telegramCli.all():
+            if receiver.idtelegram:
+                logger.info("ID: {}".format(receiver.idtelegram))
+                clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+                chat_id = TelegramChatIds(id=receiver.idtelegram,)
+                clazz.notifySimple(msg, chat_ids=[chat_id])
+            else:
+                rec = utilgetreceivers(receiver)
+                # Mandamos el mensaje
+                logger.info("Rec: {}".format(rec))
+                clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+                grabars = clazz.notify(msg, receivers=rec) 
+                for grabar in grabars:
+                    logger.info("Tendremos que grabar: {}".format(grabar))
+                    receiver.idtelegram = grabar.id
+                    receiver.save()
+                
+        
+        '''
+        if profile.telegramCli.id:
+            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+            chat_id = TelegramChatIds(id=profile.telegramCli,)
+            clazz.notifySimple(msg, chat_ids=[chat_id])
+        else:
+            receivers = self.utilgetreceivers(profile)
+            # Mandamos el mensaje
+            receivers = ReceiverTelegram(fullnames=[("David","Perez Millan")])
+            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
+            clazz.notify(msg, receivers=receivers)
+        '''
+
 
     return responseTorrent, responseFounds
+    
+    
+    
+def utilgetreceivers(rec):
+    usernames=[]
+    fullnames=[]
+    groups=[]
+    if rec.firstname:
+        fullnames.append((rec.firstname,rec.surname))
+    if rec.username:
+        usernames.append(rec.username)
+    if rec.group:
+        groups.append(rec.group)    
+    logger.info("{fullnames}{groups}{usernames}".format(fullnames=fullnames, groups=groups, usernames=usernames))
+    return ReceiverTelegram(fullnames=fullnames, groups=groups, usernames=usernames)
+    

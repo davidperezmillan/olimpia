@@ -15,6 +15,8 @@ try:
 except ImportError:
     telegram = None
 
+
+# Objecto de entrada
 class ReceiverTelegram(object):
     
     def __str__(self):
@@ -33,6 +35,8 @@ class ReceiverTelegram(object):
         self.fullnames=fullnames
         self.groups=groups
 
+
+# Objeto de salida
 class TelegramChatIds(object):
   
     def __str__(self):
@@ -72,18 +76,24 @@ class TelegramNotifier(object):
     _user = None
 
 
-    def notify(self,message, receivers):
+    def notifySimple(self, message,chat_ids, send=True):
+        logger.info('chat_ids=%s, message=%s',chat_ids, message)
+        self._enforce_telegram_plugin_ver()
+        self._parse_mode = "markdown"
+        logger.info('token=%s, parse_mode=%s, chat_ids=%s', self._token, self._parse_mode, chat_ids)
+        self._init_bot()
+        if send:
+            self._send_msgs(message, chat_ids)
+
+
+    def notify(self,message, receivers,send=True):
         logger.info('config=%s, message=%s',receivers, message)
         chat_ids = self._real_init(receivers)
         if not chat_ids:
             return
-        self._send_msgs(message, chat_ids)
-
-        
-    # def update(self, receivers):
-    #     logger.info('config=%s',receivers)
-    #     chat_ids = self._real_init(receivers)
-    #     self._get_bot_updates()
+        if send:
+            self._send_msgs(message, chat_ids)
+        return chat_ids
         
 
     def _parse_config(self, receivers):
@@ -151,6 +161,7 @@ class TelegramNotifier(object):
         usernames = self._usernames[:]
         fullnames = self._fullnames[:]
         groups = self._groups[:]
+        
         chat_ids, has_new_chat_ids = self._get_chat_ids(usernames, fullnames, groups)
         logger.debug('chat_ids=%s', chat_ids)
 
@@ -167,7 +178,8 @@ class TelegramNotifier(object):
             # Hemos encontrado el chat y lo grabamos    
             if has_new_chat_ids:
                 logger.info('chat id found: %s', chat_ids)
-                self._update_db(chat_ids)
+                # Aqui grabariamos los chat en bbdd
+                # self._update_db(chat_ids)
 
         return chat_ids
     
@@ -193,19 +205,10 @@ class TelegramNotifier(object):
         logger.debug('Try get data Chats')
         chat_ids = list()
         
-        
         ''' No estamos usando cache en BBDD, ni en ninguna parte '''
         cached_usernames = {}
-        # for x in TelegramChatIds.objects.exclude(username=None):
-        #     cached_usernames.update({x.username: x})
-
         cached_fullnames = {}
-        # for x in TelegramChatIds.objects.exclude(firstname=None):
-        #     cached_fullnames.update({(x.firstname, x.surname): x})
-
         cached_groups = {}
-        # for x in TelegramChatIds.objects.exclude(group=None):
-        #     cached_groups.update({x.group: x})
         ''' No estamos usando cache en BBDD, ni en ninguna parte '''
         
         
@@ -232,16 +235,7 @@ class TelegramNotifier(object):
 
         return chat_ids
     
-    #  BBDD UPDATEAR
-    def _update_db(self,chat_ids):
-        logger.debug('No saving updated chat_ids to db')
-        # avoid duplicate chat_ids. (this is possible if configuration specified both username & fullname
-        # # for chat_id in chat_ids:
-        # #   chat_id.save()
-        # chat_ids_d = dict((x.id, x) for x in chat_ids)
-        # session.add_all(iter(chat_ids_d.values()))
-        # session.commit()
-    
+
     
     def _get_new_chat_ids(self, usernames, fullnames, groups):
         logger.debug('Try get new Chats')
@@ -330,4 +324,3 @@ class TelegramNotifier(object):
         
         self._token = token
         self._user = user
-
