@@ -71,7 +71,7 @@ class TorrentRapidHandlerClass(object):
         
     def __findTorrent(self, link):
         bProccedFilter = True
-        resp, lastPage = self.__firstPage(link)
+        resp, lastPage,bProccedFilter = self.__firstPage(link)
         if lastPage:
             count = 2
             while count <= lastPage and bProccedFilter:
@@ -106,7 +106,7 @@ class TorrentRapidHandlerClass(object):
         #  recuperamos los enlaces que tenemos en esta pagina
         valores, bProcced = self.__getlinks(source)
 
-        return valores, int(lastPage)
+        return valores, int(lastPage),bProcced
         
     def __otherPages(self,position, url):
         url = url+"/pg/"+str(position)
@@ -151,7 +151,8 @@ class TorrentRapidHandlerClass(object):
                 response.data=data
                 valores.append(response)
             else:
-                bProcced = False
+                # si esta rechazado no se busca mas..... podemos perder capitulos pero no perdemos rendimiento
+                bProcced = valid
         return valores, bProcced
    
     def __filterEpisode(self,titleLink):
