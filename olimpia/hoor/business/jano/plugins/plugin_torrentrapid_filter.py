@@ -152,7 +152,7 @@ class TorrentRapidHandlerClass(object):
                 valores.append(response)
             else:
                 # si esta rechazado no se busca mas..... podemos perder capitulos pero no perdemos rendimiento
-                bProcced = valid
+                return valores, valid
         return valores, bProcced
    
     def __filterEpisode(self,titleLink):
