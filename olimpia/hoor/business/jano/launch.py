@@ -89,17 +89,20 @@ def handle(fichas):
                 logger.debug("Profile -- Server {server}".format(server=profile.server))
                 server = profile.server
                 if server:
-                    torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
-                    torrentResponse = torrentHandler.allAddTorrent([found.data],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
-                    if torrentResponse:
-                        logger.info("Capitulos descagados : {} en descarga {} ".format(found.data.episode, descarga)) 
-                        # Update
-                        # # # Buscamos el siguiente capitulo
-                        nextEp = None
-                        nextEp = found.data.episode[:-2] + str(int(found.data.episode[-2:]) + 1).zfill(2)
-                        descarga.ep_start = nextEp
-                        descarga.save()
-                        responseTorrent.append(found)
+                    try:
+                        torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
+                        torrentResponse = torrentHandler.allAddTorrent([found.data],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
+                        if torrentResponse:
+                            logger.info("Capitulos descagados : {} en descarga {} ".format(found.data.episode, descarga)) 
+                            # Update
+                            # # # Buscamos el siguiente capitulo
+                            nextEp = None
+                            nextEp = found.data.episode[:-2] + str(int(found.data.episode[-2:]) + 1).zfill(2)
+                            descarga.ep_start = nextEp
+                            descarga.save()
+                            responseTorrent.append(found)
+                    except Exception, e:
+                        logger.error("Se ha producido un error al poner  {}:{}".format(instance, e),exc_info=True)
                         
             
             
