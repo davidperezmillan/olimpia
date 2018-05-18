@@ -13,7 +13,7 @@ from django.dispatch import receiver
 from .models_down import Plugin
 
 class TelegramChatIds(models.Model):
-    # id = models.IntegerField(primary_key=True,blank=True,)  # AutoField?
+    id = models.AutoField(primary_key=True)  # AutoField?
     # author = models.ForeignKey(
     #     settings.AUTH_USER_MODEL,
     #     on_delete=models.CASCADE,
