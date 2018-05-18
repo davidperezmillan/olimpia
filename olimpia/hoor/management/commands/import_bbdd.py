@@ -51,6 +51,14 @@ class Command(BaseCommand):
                     estado=0
                 else:
                     estado=1
+                
+                try:
+                    autorReg = dataUpdate["author_id"]
+                    author = User.objects.get(id=autorReg)
+                    logger.debug("Usuario Registro : {}".format(author))    
+                except Exception, e:
+                    logger.error("Se ha producido un error al recuperar el usuario  {}:{}".format(dataUpdate["author_id"], author),exc_info=True)
+                
                 ficha, fichaCreated = Ficha.objects.get_or_create(nombre=dataUpdate["nombre"], author=author)
                 ficha.estado=estado
                 ficha.save()    
