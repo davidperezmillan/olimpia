@@ -35,7 +35,7 @@ class TelegramChatIds(models.Model):
         return str(self.idtelegram)
     
     class Meta:
-        verbose_name_plural = "telegram_chat_ids"
+        verbose_name_plural = "telegramchatids"
         managed = True
         # db_table = 'telegram_chat_ids'
 
