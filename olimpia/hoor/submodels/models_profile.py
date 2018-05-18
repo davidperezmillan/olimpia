@@ -37,7 +37,6 @@ class TelegramChatIds(models.Model):
     class Meta:
         verbose_name_plural = "telegramchatids"
         managed = True
-        db_table = 'telegram_chat_ids'
 
 
 class TorrentServer(models.Model):
