@@ -117,13 +117,6 @@ def handle(fichas):
                             responseTorrent.append(found)
                     except Exception, e:
                         logger.error("Se ha producido un error al poner  {}:{}".format(instance, e),exc_info=True)
-                        
-            
-            
-            
-
-            
-
         else:
             logger.warn("No hay descarga para esta ficha {}".format(ficha))
 
