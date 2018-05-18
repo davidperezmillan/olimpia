@@ -38,7 +38,8 @@ def handle(fichas):
                 # intentando que ganermos algo de rendimiento
                 profile = profileficha
                 server = profile.server
-                torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
+                if server:
+                    torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
         else:
             logger.debug("Mantenemos el profile: {}".format(profile))
 
@@ -101,9 +102,9 @@ def handle(fichas):
             founds.sort(key=lambda x: x.data.episode[2:], reverse=False) # Ordenamos los objetos encontrados, para transmission, telegram y BBDD
             for found in founds:
                 # Descargamos los torrent
-                logger.debug("Profile -- Server {server}".format(server=profile.server))
-                server = profile.server
                 if server:
+                    logger.debug("Profile -- Server {server}".format(server=profile.server))
+                    server = profile.server
                     try:
                         torrentResponse = torrentHandler.allAddTorrent([found.data],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
                         if torrentResponse:
@@ -128,7 +129,7 @@ def handle(fichas):
     logger.debug("Torrents : {}".format(responseTorrent))
     
     # Creamos el mensaje
-    header = "Hemos lanzado el proceso {} de {}".format(datetime.datetime.now(), ficha.nombre)
+    header = "Hemos lanzado el proceso {} de {}".format(datetime.datetime.now(), profile.user.get_full_name() if profile.user.get_full_name() else profile.user)
     body = "\n\rHemos encontrado {} \n\rHemos grabado {}".format(valuesFounds,len(responseTorrent))
     msg ="{} {}".format(header, body)
     
