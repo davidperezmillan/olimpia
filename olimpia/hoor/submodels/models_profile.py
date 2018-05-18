@@ -13,12 +13,12 @@ from django.dispatch import receiver
 from .models_down import Plugin
 
 class TelegramChatIds(models.Model):
-    id = models.IntegerField(primary_key=True,blank=True,)  # AutoField?
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='telegramchatids_autor',
-    )
+    # id = models.IntegerField(primary_key=True,blank=True,)  # AutoField?
+    # author = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL,
+    #     on_delete=models.CASCADE,
+    #     related_name='telegramchatids_autor',
+    # )
     idtelegram = models.IntegerField(blank=True, null=True,)
     username = models.CharField(blank=True, null=True, max_length=200) # This field type is a guess.
     firstname = models.CharField(blank=True, null=True, max_length=200)  # This field type is a guess.
@@ -37,7 +37,7 @@ class TelegramChatIds(models.Model):
     class Meta:
         verbose_name_plural = "telegram_chat_ids"
         managed = True
-        db_table = 'telegram_chat_ids'
+        # db_table = 'telegram_chat_ids'
 
 
 class TorrentServer(models.Model):
