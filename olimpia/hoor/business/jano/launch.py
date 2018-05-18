@@ -25,9 +25,24 @@ def handle(fichas):
     logger.debug("fichas {}".format(fichas))
     responseFounds = []
     responseTorrent = []
+    profile=None
+    
     
     for ficha in fichas:
-        profile = Profile.objects.get(user=ficha.author) # Recupermos el perfil
+        profileficha = Profile.objects.get(user=ficha.author) # Recupermos el perfil
+        logger.debug("Profile para la ficha: {}".format(profileficha))
+        if profile is None or profileficha!=profile:
+            if profile is None or profile.server != profileficha.server:
+                logger.info("Cambiamos de profile: {} --> {}".format(profile.server if profile else "", profileficha.server))
+                # Vamos a cargar un cliente para todos los torrent
+                # intentando que ganermos algo de rendimiento
+                profile = profileficha
+                server = profile.server
+                torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
+        else:
+            logger.debug("Mantenemos el profile: {}".format(profile))
+
+        
         try:
             descarga = Descarga.objects.get(ficha=ficha) # Recuperamos las descargas que existan en la ficha
         except Descarga.DoesNotExist:
@@ -90,7 +105,6 @@ def handle(fichas):
                 server = profile.server
                 if server:
                     try:
-                        torrentHandler = TorrentHandlerClass(host=server.host,port=server.port,user=server.user,password=server.password, logger=logger)
                         torrentResponse = torrentHandler.allAddTorrent([found.data],download_dir_path=server.download, space_disk=server.space_disk, paused=server.paused)    
                         if torrentResponse:
                             logger.info("Capitulos descagados : {} en descarga {} ".format(found.data.episode, descarga)) 
@@ -140,40 +154,6 @@ def handle(fichas):
                 receiver.idtelegram = grabar.id
                 receiver.save()
             
-            '''
-            # En principio no hace falta distincion 
-            
-            if receiver.idtelegram:
-                logger.info("ID: {}".format(receiver.idtelegram))
-                clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-                chat_id = TelegramChatIds(id=receiver.idtelegram,)
-                clazz.notifySimple(msg, chat_ids=[chat_id])
-            else:
-                rec = utilgetreceivers(receiver)
-                # Mandamos el mensaje
-                logger.info("Rec: {}".format(rec))
-                clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-                grabars = clazz.notify(msg, receivers=rec) 
-                for grabar in grabars:
-                    logger.info("Tendremos que grabar: {}".format(grabar))
-                    receiver.idtelegram = grabar.id
-                    receiver.save()
-            '''    
-        
-        '''
-        if profile.telegramCli.id:
-            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-            chat_id = TelegramChatIds(id=profile.telegramCli,)
-            clazz.notifySimple(msg, chat_ids=[chat_id])
-        else:
-            receivers = self.utilgetreceivers(profile)
-            # Mandamos el mensaje
-            receivers = ReceiverTelegram(fullnames=[("David","Perez Millan")])
-            clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y')
-            clazz.notify(msg, receivers=receivers)
-        '''
-
-
     return responseTorrent, responseFounds
     
     
