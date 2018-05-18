@@ -60,7 +60,7 @@ class Ficha(models.Model):
     class Meta:
         verbose_name_plural = "Fichas"
         managed = True
-        unique_together = (('nombre', 'author','estado',))
+        unique_together = (('nombre',))
 
 class Capitulo(models.Model):
     id = models.AutoField(primary_key=True)  # AutoField?
