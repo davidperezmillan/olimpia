@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import logging
-import imp,sys
+import imp,sys,re
 import importlib
 from datetime import datetime
 
@@ -105,8 +105,20 @@ class AirTrapLauncher(object):
         lrequest.sort(key=lambda x: x.episode[2:], reverse=False)
         for request in lrequest:
             nextEp = None
-            nextEp = request.episode[:-2] + str(int(request.episode[-2:]) + 1).zfill(2)
-            self.logger.info("[UPDATE SERIES] Nombre :{} Episodio: {} a {} -- {}".format(serie.nombre,request.episode, nextEp, datetime.now()))
+            # Aqui recuperamos el capitulo de lo que hemos descargado, pero puede ser un problema y liarnos la secuencia
+            sessionFind = request.episode[:-2]
+            episodeFind = request.episode[-2:]
+            self.logger.info("[UPDATE SERIES] Nombre :{} Episodio: {}X{} -- {}".format(serie.nombre,sessionFind,episodeFind, datetime.now()))
+            # Aqui recuperamos el capitulo de la BBDD y le añadimos uno
+            serieUltimoCapitulo = serie.ep_start
+            regex = r".{2}S(\d{1,})E(\d{1,2})"
+            matches = re.search(regex,serie.ep_start)
+            if matches:
+                sessionData = int(matches.group(1))
+                episodeData = int(matches.group(2))
+            
+            
+            
             serie.ultima = datetime.now()
             # Aqui voy a añadir un campo para auditoria de los episodios
             serie.ep_audi = serie.ep_start
