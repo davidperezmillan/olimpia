@@ -15,7 +15,7 @@ admin.site.site_title = 'Mercenario Administration'
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^$', views.portada, name='portada'),
+    url(r'^$',  views.list, name='list'),
     
     # // series
     url(r'^list$', views.list, name='list'),
