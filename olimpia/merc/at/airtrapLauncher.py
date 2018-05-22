@@ -108,6 +108,7 @@ class AirTrapLauncher(object):
             # Aqui recuperamos el capitulo de lo que hemos descargado, pero puede ser un problema y liarnos la secuencia
             sessionFind = request.episode[:-2]
             episodeFind = request.episode[-2:]
+		
             self.logger.info("[UPDATE SERIES] Nombre :{} Episodio: {}X{} -- {}".format(serie.nombre,sessionFind,episodeFind, datetime.now()))
             # Aqui recuperamos el capitulo de la BBDD y le añadimos uno
             serieUltimoCapitulo = serie.ep_start
@@ -117,8 +118,8 @@ class AirTrapLauncher(object):
                 sessionData = int(matches.group(1))
                 episodeData = int(matches.group(2))
             
-            
-            
+	    nextEp = sessionFind + str(int(episodeFind) + 1).zfill(2)
+                       
             serie.ultima = datetime.now()
             # Aqui voy a añadir un campo para auditoria de los episodios
             serie.ep_audi = serie.ep_start
