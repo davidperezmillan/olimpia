@@ -103,6 +103,7 @@ class Organize(object):
         cons_PATTERNX = r"(\d{1,2}x\d\d)"
         cons_PATTERNVO = r"(\d{3,4})((VO))"
         cons_PATTERNCALIDADES = r"(\d{3,4})((720p|1024p))"
+        cons_PATTERNCALIDADES2 = r"((720p|1024p))_(\d{3,4})"
         cons_PATTERNCAP = r"(Cap.|cap.)(\d{3,4})"
         
         
@@ -155,6 +156,19 @@ class Organize(object):
             matches = re.search(cons_PATTERNCALIDADES,fileName)
             if matches:
                 formatEpisode = matches.group(1)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
+        elif re.search(cons_PATTERNCALIDADES2,fileName):         
+            # Procesamiento de episodios especiales (recien llegados, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades 2'))
+            matches = re.search(cons_PATTERNCALIDADES2,fileName)
+            if matches:
+                formatEpisode = matches.group(3)
                 self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
                 if len(formatEpisode)==3:
                    session=formatEpisode[:1].zfill(2)
