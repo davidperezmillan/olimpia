@@ -112,7 +112,21 @@ class Organize(object):
         session, episode = None, None
         ext = fileName.split(".")[-1]
         
-        if re.search(cons_PATTERN,fileName):
+        if re.search(cons_PATTERNCALIDADES2,fileName):         
+            # Procesamiento de episodios especiales (recien llegados, etc)
+            self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades 2'))
+            matches = re.search(cons_PATTERNCALIDADES2,fileName)
+            if matches:
+                formatEpisode = matches.group(3)
+                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
+                if len(formatEpisode)==3:
+                   session=formatEpisode[:1].zfill(2)
+                   episode=formatEpisode[-2:].zfill(2)
+                else:
+                    session=formatEpisode[:2].zfill(2)
+                    episode=formatEpisode[-2:].zfill(2)
+        
+        elif re.search(cons_PATTERN,fileName):
             self.logger.info("converterEpisodie: {}".format('Se han encontrado guiones'))
             matches = re.search(cons_PATTERN,fileName)
             if matches:
@@ -163,20 +177,7 @@ class Organize(object):
                 else:
                     session=formatEpisode[:2].zfill(2)
                     episode=formatEpisode[-2:].zfill(2)
-        elif re.search(cons_PATTERNCALIDADES2,fileName):         
-            # Procesamiento de episodios especiales (recien llegados, etc)
-            self.logger.info("converterEpisodie: {}".format('Se han encontrado calidades 2'))
-            matches = re.search(cons_PATTERNCALIDADES2,fileName)
-            if matches:
-                formatEpisode = matches.group(3)
-                self.logger.info("formatEpisode: matches : {}".format(formatEpisode))
-                if len(formatEpisode)==3:
-                   session=formatEpisode[:1].zfill(2)
-                   episode=formatEpisode[-2:].zfill(2)
-                else:
-                    session=formatEpisode[:2].zfill(2)
-                    episode=formatEpisode[-2:].zfill(2)
-                
+                    
         elif re.search(cons_PATTERNCAP,fileName):         
             # Procesamiento de episodios especiales (Pocoyo, etc)
             self.logger.info("converterEpisodie: {}".format('Se han encontrado Cap'))
