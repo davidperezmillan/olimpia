@@ -3044,7 +3044,7 @@
 		}
 
 		#banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
-			color: #fff;
+			color: #000;
 		}
 
 		#banner h2 {
@@ -3055,6 +3055,7 @@
 		}
 
 		#banner p {
+			color: #000;
 			font-size: 1.25em;
 			margin-bottom: 1.75em;
 		}
