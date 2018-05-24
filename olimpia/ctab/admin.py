@@ -7,6 +7,16 @@ from django.contrib import messages
 # Register your models here.
 
 
+def toggleTasks(self, request, queryset):
+    for t in queryset:
+        t.activo=not t.activo
+        t.save()
+    # rows_updated = queryset.update(activo=False)
+    # message_bit = "{} elementos".format(rows_updated)
+    # self.message_user(request, "{} tareas marcadas".format(message_bit))
+
+toggleTasks.short_description = "Cambiar estado de las tareas" 
+
 
 def stopTasks(self, request, queryset):
     rows_updated = queryset.update(activo=False)
@@ -29,7 +39,7 @@ class TasksAdmin(admin.ModelAdmin):
     list_display = ('descrip','author', 'task','activo','get_cron_raw')
     list_filter = ['author','activo']
     search_fields = ['descrip','task']
-    actions = [stopTasks,starTasks]
+    actions = [toggleTasks, stopTasks,starTasks, ]
     form = DescripModelForm
     
     def get_cron_raw(self, obj):
