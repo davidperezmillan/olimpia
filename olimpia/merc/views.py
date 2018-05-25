@@ -177,7 +177,7 @@ def launch_extreme(request):
                 logger.info("Ordenamos {} grabar la serie {}:{}".format(to_saved,serie_extreme.nombre, serie_extreme.quality))
                 torrent_found = {}
                 launcher = AirTrapLauncher(torrentservers)
-                torrent_found, torrent_added, errors = launcher.execute([serie_extreme])
+                torrent_found, torrent_added, errors = launcher.execute([serie_extreme], to_saved=to_saved)
                 logger.debug("Torrent_found : {}".format(torrent_found))
                 logger.debug("torrent_added : {}".format(torrent_added))
                 context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, "to_saved":to_saved,'errors_messages':errors, }

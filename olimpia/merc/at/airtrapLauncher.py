@@ -51,7 +51,7 @@ class AirTrapLauncher(object):
         
         return errors
  
-    def execute(self,series_update, filter=False):
+    def execute(self,series_update, to_saved=True, filter=False):
         
         found = [] 
         added = [] 
@@ -87,7 +87,8 @@ class AirTrapLauncher(object):
                         added_serie = self.__launch_transmission(found,clnt.client, clnt.conf)
                         added.extend(added_serie)
                         self.logger.info("{} {}".format(serie,found))
-                        self.__updateSeries(serie, found)
+                        if to_saved:
+                            self.__updateSeries(serie, found)
                     except Exception as e:
                         self.logger.error("No hay o no esta activado el cliente para torrent")
                         errors.extend(["No hay o no esta activado el cliente para torrent"])           
