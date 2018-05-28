@@ -76,19 +76,19 @@ class AirTrapLauncher(object):
                     try:
                         found_serie =instance.execute(request, filter=filter) #  Podemos filtrar para tardar menos, pero tendremos menos registros
                         found.extend(found_serie) 
-                        self.logger.info("********************* {} ".format(found))
+                        self.logger.info("********************* {} ".format(found_serie))
                     except Exception, e:
                         self.logger.error("El plugin a fallado {}: {}".format(instance, str(e)))
                    
     
-                self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar en [[ {} ]]".format(len(found), serie.nombre, clnt))
-                if found:
+                self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar en [[ {} ]]".format(len(found_serie), serie.nombre, clnt))
+                if found_serie:
                     try:
-                        added_serie = self.__launch_transmission(found,clnt.client, clnt.conf)
+                        added_serie = self.__launch_transmission(found_serie,clnt.client, clnt.conf)
                         added.extend(added_serie)
-                        self.logger.info("{} {}".format(serie,found))
+                        self.logger.info("[SERIES -- ]{} {}".format(serie,found_serie))
                         if to_saved:
-                            self.__updateSeries(serie, found)
+                            self.__updateSeries(serie, found_serie)
                     except Exception as e:
                         self.logger.error("No hay o no esta activado el cliente para torrent")
                         errors.extend(["No hay o no esta activado el cliente para torrent"])           
