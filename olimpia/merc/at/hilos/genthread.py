@@ -27,7 +27,7 @@ class GenTorrentThread(threading.Thread):
         logger.debug('Vamos a lanzar una busqueda para {} en los servidores {} habilitados para el user {}: opcion de filtrado:{}'.format(len(series_update), torrentservers, user, filter_find))
 
         launcher = AirTrapLauncher(torrentservers)
-        torrent_found, torrent_added, errors = launcher.execute(series_update, filter_find)
+        torrent_found, torrent_added, errors = launcher.execute(series_update, filter=filter_find)
         logger.debug("Torrent_found : {}".format(torrent_found))
         logger.debug("torrent_added : {}".format(torrent_added))
         context = {'torrent_found': torrent_found, 'torrent_added': torrent_added, 'errors_messages':errors}
