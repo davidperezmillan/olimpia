@@ -36,7 +36,7 @@ starTasks.short_description = "Activar las tareas"
 
 class TasksAdmin(admin.ModelAdmin):
     # ...
-    list_display = ('descrip','author', 'task','activo','get_cron_raw')
+    list_display = ('descrip','activo','author', 'task','get_cron_raw')
     list_filter = ['author','activo']
     search_fields = ['descrip','task']
     actions = [toggleTasks, stopTasks,starTasks, ]
