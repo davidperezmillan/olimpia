@@ -10,6 +10,7 @@ from django.db import IntegrityError
 from .models import Series, TorrentServers, Plugins, TelegramChatIds,TransmissionReceivers
 from .forms import SeriesForm, TorrentServersForm, SeriesFindForm, TelegramSendForm
 from merc.at.airtrapLauncher import AirTrapLauncher
+import merc.at.properties.msgproperties as msgproperties
 
 import merc.at.hilos.utiles
 import merc.management.commands_utils
@@ -291,10 +292,10 @@ def organizeProccess(author,args, options):
         if options:
             launcher.organize(options['delete'])
             if (options['nomsg'] is False):
-                merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
+                merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
         else:
             launcher.organize()
-            merc.at.hilos.utiles.sendTelegram("Hemos organizado la libreria", user=author, receivers=receivers)
+            merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
     except Exception, e:
         logger.error(e)
     
