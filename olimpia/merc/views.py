@@ -46,7 +46,7 @@ def control(request):
             serie.author = request.user
             serie.save()
             receivers = merc.management.commands_utils.utilgetreceivers(request.user)
-            merc.at.hilos.utiles.sendTelegram(mensaje="Se ha anadido una nueva serie {0} [{1}]".format(serie.nombre, serie.quality),user=request.user, receivers=receivers)
+            merc.at.hilos.utiles.sendTelegram(mensaje=msgproperties.MSG_TELEGRAM["new"].format(serie.nombre, serie.quality),user=request.user, receivers=receivers)
             return redirect('list')
     else:
         form = SeriesForm()

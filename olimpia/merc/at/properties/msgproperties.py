@@ -6,4 +6,5 @@ MSG_TELEGRAM = {"header":"El usuario: {1} \n\r",
     "item": "{0}{1}.  \n\r",
     "nothing":"Circulen, aqui no hay nada que ver....",
     "organize":"Ya tenemos las librerias organizas con el nuevo contenido",
+    "new":"Se ha anadido una nueva serie {0} [{1}]",
     }
