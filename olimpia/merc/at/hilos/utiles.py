@@ -1,4 +1,5 @@
 import logging
+import msgproperties
 from merc.at.hilos.genthread import GenTransmissionThread, GenTorrentThread
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -6,15 +7,17 @@ logger = logging.getLogger(__name__)
 
 def sendTelegramListAdded(lrequest,serie=None, user=None,receivers=None):
     logger.debug(lrequest)
+    msg_telegram = msgproperties.MSG_TELEGRAM
+    
     if lrequest:
-        sRequest = "'El Mercenario' ha puesto en cola {0} torrent para su descargas [{1}]:   \n\r".format(len(lrequest), user if user else "")
-        sFinal = "\n\rEspero que lo disfruteis, Gracias por utilizar 'La Trampa del Aire - El Mercenario'"
+        sRequest = msg_telegram["header"].format(len(lrequest), user if user else "")
+        sFinal = msg_telegram["footer"]
         sitems = ""
         for item in lrequest:
-            sitems = "{0} -- {1}.  \n\r".format(sitems,item.name.encode('utf-8').strip()) 
+            sitems = msg_telegram["item"].format(sitems,item.name.encode('utf-8').strip()) 
         sRequest = "{0}{1}{2}".format(sRequest,sitems, sFinal)
     else:
-        sRequest = "Que pena 'El Mercenario' no ha encontrado nada de {} que enviar [{}].....".format(serie if serie else "'varios titulos'", user if user else "")
+        sRequest = msg_telegram["nothing"].format(serie if serie else "'varios titulos'", user if user else "")
     sendTelegram(sRequest, user, receivers)
 
 
