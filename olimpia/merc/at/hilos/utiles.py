@@ -1,5 +1,5 @@
 import logging
-import msgproperties
+import merc.at.properties.msgproperties as msgproperties
 from merc.at.hilos.genthread import GenTransmissionThread, GenTorrentThread
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
