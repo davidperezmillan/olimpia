@@ -199,7 +199,15 @@ class Command(BaseCommand):
                     pass
        
        
-            merc.at.hilos.utiles.sendTelegram("Hemos encontrado {} ".format(len(listaTorrent)), author, receivers=receivers)
+       
+            # Construimos y enviamos el mensaje
+            msgHeader = "Hemos encontrado {}  \n\r".format(len(listaTorrent))
+            sitems = ""
+            sFinal = ""
+            for item in listaTorrent:
+                sitems = "{0}{1}.  \n\r".format(sitems,item['title'].encode('utf-8').strip()) 
+            msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
+            merc.at.hilos.utiles.sendTelegram(msg, author, receivers=receivers)
         
 
             
