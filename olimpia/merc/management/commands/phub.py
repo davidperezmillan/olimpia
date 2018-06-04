@@ -14,7 +14,10 @@ from datetime import datetime
 
 # django & merc
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth.models import User
+
 import merc.at.plugins.utilesplugins as utilesplugins
+import merc.at.hilos.utiles
 
 import logging
 logger = logging.getLogger(__name__)
@@ -49,7 +52,7 @@ class Command(BaseCommand):
  
     def add_arguments(self, parser):
         # Positional arguments
-        # parser.add_argument('author', nargs=1, type=str)
+        parser.add_argument('author', nargs=1, type=str)
         
         
         
@@ -78,115 +81,125 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        
-        
-        if options['incluidos']:
-            self.incluidos = options['incluidos'] 
-            if options['cord']:
-                for cordenadas in options['cord']:
-                    self.incluidos.append(cordenadas)
-        else:
-            if options['cord']:
-                self.incluidos = options['cord']
-            
-        
-        
-        # if options['cord']:
-        #     self.incluidos = options['cord']
-        #     if options['incluidos']:
-        #         self.incluidos = self.incluidos,options['incluidos']
-        # else:
-        #     if options['incluidos']:
-        #         self.incluidos = options['incluidos']
-                
-                
-        #  ESTOS ESTAN CLAROS
-        if options['excluidos']:
-            self.excluidos=options['excluidos']
-        
+        for user in options['author']:
+            logger.info('Ejecutando busqueda especial {}'.format(user))
+            author = User.objects.get(username=user)
+            logger.debug("Usuario : {}".format(author))
+            receivers = merc.management.commands_utils.utilgetreceivers(author)
 
+        
+        
+        
+            if options['incluidos']:
+                self.incluidos = options['incluidos'] 
+                if options['cord']:
+                    for cordenadas in options['cord']:
+                        self.incluidos.append(cordenadas)
+            else:
+                if options['cord']:
+                    self.incluidos = options['cord']
+                
             
             
-        logger.info("Vamos a incluir: {incluidos}".format(incluidos=self.incluidos))
-        logger.info("Vamos a excluir: {excluidos}".format(excluidos=self.excluidos))
-        
-        
-        # Vamos a buscar lo que buscamos
-        # Recuperamos la pagina de busqueda
-        url = "{}/{}".format(self.urlPattern, self.urlListadoPattern)
-        try:
-            page, proxy = utilesplugins.toggleproxy(url)
-            # pintarFicheroHtml(page.encode('utf-8').strip(),"catalogue")
-        except Exception, e:
-            raise e
-        # Parse pagina principal
-        source = BeautifulSoup(page, "html.parser")
-        # buscar_list = source.find_all("table", {"class" : "lista"})
-        buscar_list = source.find_all("table", {"class" : "lista"})
-        
+            # if options['cord']:
+            #     self.incluidos = options['cord']
+            #     if options['incluidos']:
+            #         self.incluidos = self.incluidos,options['incluidos']
+            # else:
+            #     if options['incluidos']:
+            #         self.incluidos = options['incluidos']
+                    
+                    
+            #  ESTOS ESTAN CLAROS
+            if options['excluidos']:
+                self.excluidos=options['excluidos']
+            
     
-        listaTorrent = []
-        
-        count = 3
-        while count < len(buscar_list):
-            reg = buscar_list[count]
-            if not self.isBeforeDay(reg) :
-                count=count+1
-                break    
+                
+                
+            logger.info("Vamos a incluir: {incluidos}".format(incluidos=self.incluidos))
+            logger.info("Vamos a excluir: {excluidos}".format(excluidos=self.excluidos))
             
-            '''
-            filter, title = insideFilter(reg)
-            if not filter:
-                count=count+1
-                continue
-            '''    
             
-            sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
-            url = "{}/{}".format(self.urlPattern, sUrlShow)
+            # Vamos a buscar lo que buscamos
+            # Recuperamos la pagina de busqueda
+            url = "{}/{}".format(self.urlPattern, self.urlListadoPattern)
             try:
                 page, proxy = utilesplugins.toggleproxy(url)
-                # pintarFicheroHtml(page.encode('utf-8').strip(),"show")
+                # pintarFicheroHtml(page.encode('utf-8').strip(),"catalogue")
             except Exception, e:
                 raise e
             # Parse pagina principal
             source = BeautifulSoup(page, "html.parser")
-            urlTorrent = source.find_all("a", href=re.compile("^download.php"))[0]["href"]
-            # print source.find_all("a", id=lambda value: value and value.startswith("download.php"))
+            # buscar_list = source.find_all("table", {"class" : "lista"})
+            buscar_list = source.find_all("table", {"class" : "lista"})
             
-            url = "{}/{}".format(self.urlPattern,urlTorrent)
+        
+            listaTorrent = []
             
-            filter, title, category = self.insideFilter(reg)
-            if filter:
-                file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
-                r = requests.get(url, stream=True)
-                with open(file_name, 'wb') as f:
-                    for chunk in r.iter_content():
-                        f.write(chunk)
-                listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})
-            else:
-                # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
-                pass
+            count = 3
+            while count < len(buscar_list):
+                reg = buscar_list[count]
+                if not self.isBeforeDay(reg) :
+                    count=count+1
+                    break    
                 
+                '''
+                filter, title = insideFilter(reg)
+                if not filter:
+                    count=count+1
+                    continue
+                '''    
+                
+                sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
+                url = "{}/{}".format(self.urlPattern, sUrlShow)
+                try:
+                    page, proxy = utilesplugins.toggleproxy(url)
+                    # pintarFicheroHtml(page.encode('utf-8').strip(),"show")
+                except Exception, e:
+                    raise e
+                # Parse pagina principal
+                source = BeautifulSoup(page, "html.parser")
+                urlTorrent = source.find_all("a", href=re.compile("^download.php"))[0]["href"]
+                # print source.find_all("a", id=lambda value: value and value.startswith("download.php"))
+                
+                url = "{}/{}".format(self.urlPattern,urlTorrent)
+                
+                filter, title, category = self.insideFilter(reg)
+                if filter:
+                    file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
+                    r = requests.get(url, stream=True)
+                    with open(file_name, 'wb') as f:
+                        for chunk in r.iter_content():
+                            f.write(chunk)
+                    listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})
+                else:
+                    # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
+                    pass
+                    
+                
+                
+                count=count+1
+            ''' probando el cliente '''
+            # client = getClientTorrent()
+            # addTorrent(client, "http://torrentrapid.com/descargar-torrent/106685_-1523920896-the-brave----temporada-1--hdtv-720p-ac3-5-1/")
+            ''' funciona correctamente '''
+        
+            logger.info("Encontrados : {}".format(listaTorrent))
+            
+            if not options['test']:
+                self.loopAddTorrent(listaTorrent)
             
             
-            count=count+1
-        ''' probando el cliente '''
-        # client = getClientTorrent()
-        # addTorrent(client, "http://torrentrapid.com/descargar-torrent/106685_-1523920896-the-brave----temporada-1--hdtv-720p-ac3-5-1/")
-        ''' funciona correctamente '''
-    
-        logger.info("Encontrados : {}".format(listaTorrent))
-        
-        if not options['test']:
-            self.loopAddTorrent(listaTorrent)
-        
-        
-        for i in range(len(buscar_list)):
-            try: 
-                os.remove('{}/torrent{}.torrent'.format(self.PATH_TORRENT, i)) 
-            except:
-                # logger.warn("No existe")
-                pass
+            for i in range(len(buscar_list)):
+                try: 
+                    os.remove('{}/torrent{}.torrent'.format(self.PATH_TORRENT, i)) 
+                except:
+                    # logger.warn("No existe")
+                    pass
+       
+       
+            merc.at.hilos.utiles.sendTelegram("Hemos encontrado {} ".format(len(listaTorrent)), author, receivers=receivers)
         
 
             
