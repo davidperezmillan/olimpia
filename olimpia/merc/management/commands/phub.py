@@ -141,7 +141,7 @@ class Command(BaseCommand):
             count = 3
             while count < len(buscar_list):
                 reg = buscar_list[count]
-                dateWar, isdate = self.isBeforeDay(reg)
+                isdate,dateWar = self.isBeforeDay(reg)
                 if isdate:
 
                     sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
