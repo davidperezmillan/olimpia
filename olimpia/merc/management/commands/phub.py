@@ -63,6 +63,12 @@ class Command(BaseCommand):
             dest='test',
             help='No enviamos nada a transmission',
         )
+        parser.add_argument(
+            '--largo',
+            action='store_true',
+            dest='largo',
+            help='formato largo',
+        )
         
         parser.add_argument('-i','--incluidos', help='tag incluidos', nargs='+', dest="incluidos")
         parser.add_argument('-e','--excluidos', help='tag excluidos', nargs='+', dest="excluidos")
@@ -136,6 +142,7 @@ class Command(BaseCommand):
             
         
             listaTorrent = []
+            listaNoTorrent  = []
             
             count = 3
             while count < len(buscar_list):
@@ -144,13 +151,7 @@ class Command(BaseCommand):
                     count=count+1
                     break    
                 
-                '''
-                filter, title = insideFilter(reg)
-                if not filter:
-                    count=count+1
-                    continue
-                '''    
-                
+
                 sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
                 url = "{}/{}".format(self.urlPattern, sUrlShow)
                 try:
@@ -175,6 +176,7 @@ class Command(BaseCommand):
                     listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})
                 else:
                     # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
+                    listaNoTorrent.append({"title":title,"file_name":None,"url":url.strip(),"category":category})
                     pass
                     
                 
@@ -203,11 +205,17 @@ class Command(BaseCommand):
             # Construimos y enviamos el mensaje
             if not options['test']:
                 msgHeader = "Hemos encontrado {}  \n\r".format(len(listaTorrent))
-                sitems = ""
-                sFinal = ""
+                sItems = ""
                 for item in listaTorrent:
-                    sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["category"]) 
-                msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
+                    sItems = "{0}{1}.\t {2}  \n\r".format(sItems,item['title'].encode('utf-8').strip(), item["category"]) 
+                sNoItems = ""
+                msgNoHeader = "Lo que te has perdido \n\r"
+                for noItem in listaNoTorrent:
+                    sNoItems = "{0}{1}.\t {2}  \n\r".format(sNoItems,noItem['title'].encode('utf-8').strip(), item["category"])
+                if not options['largo']:
+                    msg = "{0}{1}{2}{3}".format(msgHeader,sItems, msgNoHeader, sNoItems)
+                else:
+                    msg = "{0}{1}{2}{3}".format(msgHeader,sItems, "", "")
                 merc.at.hilos.utiles.sendTelegram(msg, author, receivers=receivers)
             
 
