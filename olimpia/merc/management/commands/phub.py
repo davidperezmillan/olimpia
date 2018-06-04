@@ -307,7 +307,7 @@ class Command(BaseCommand):
     
     def addTorrent(self,client, url):
         options = {}
-        options['paused']=True
+        options['paused']=False
         options["download_dir"] = "{0}".format("/media/maxtor/ides/autodown")
         #  urllib.quote and urllib.unquote 
         logger.info("Add torrent url: {}".format(url))
