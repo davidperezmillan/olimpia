@@ -8,5 +8,6 @@ olimpia/merc/at/properties/msgproperties.py
 
 olimpia/merc/at/plugins/datadown/
 olimpia/olimpia/settings_mysql.py
+olimpia/olimpia/settings_c9.py
 olimpia/olimpia/static/
 
