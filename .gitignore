@@ -3,3 +3,5 @@
 **/data/
 **/logs/
 
+olimpia/manage.py
+olimpia/merc/at/properties/msgproperties.py
