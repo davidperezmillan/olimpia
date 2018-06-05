@@ -71,7 +71,7 @@ class Command(BaseCommand):
         
         parser.add_argument('-c', '--cord', help="Coordinate", dest="cord", type=coords, nargs="+")
         
-        
+        parser.add_argument('-s', '--sections', help="Categorias elegidas", dest="sections", type=int, nargs="+")
         
         # parser.add_argument(
         #     '--nomsg',
@@ -117,10 +117,14 @@ class Command(BaseCommand):
                 self.excluidos=options['excluidos']
             
     
+            if options['sections']:
+                sections = ';'.join(map(str, options['sections'])) 
+                self.urlListadoPattern = "?page=catalogue&main=68&category={}".format(sections)  # join
                 
                 
             logger.info("Vamos a incluir: {incluidos}".format(incluidos=self.incluidos))
             logger.info("Vamos a excluir: {excluidos}".format(excluidos=self.excluidos))
+            logger.info("Vamos a buscar en : {sections}".format(sections=self.urlListadoPattern))
             
             
             # Vamos a buscar lo que buscamos

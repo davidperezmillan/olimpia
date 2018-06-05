@@ -80,19 +80,22 @@ LOGGING = {
         'merc': {
             'handlers': ['console','general'],
             'level': 'DEBUG',
-        },
-        'hod': {
-            'handlers': ['console',],
-            'level': 'DEBUG',
+            'propagate': False,
         },
         'merc.at': {
             'handlers': ['airtrap_files'],
             'level': 'INFO',
-            
+            'propagate': False,
         },
         'merc.management.commands': {
-            'handlers': ['cron_files'],
+            'handlers': ['console'],
             'level': 'INFO',
+            'propagate': False,
+        },
+        'hod': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+            'propagate': False,
         },
         'hod.management.commands': {
             'handlers': ['console'],
