@@ -5,3 +5,8 @@
 
 olimpia/manage.py
 olimpia/merc/at/properties/msgproperties.py
+
+olimpia/merc/at/plugins/datadown/
+olimpia/olimpia/settings_mysql.py
+olimpia/olimpia/static/
+
