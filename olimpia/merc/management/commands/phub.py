@@ -197,7 +197,7 @@ class Command(BaseCommand):
             # addTorrent(client, "http://torrentrapid.com/descargar-torrent/106685_-1523920896-the-brave----temporada-1--hdtv-720p-ac3-5-1/")
             ''' funciona correctamente '''
         
-            logger.info("Encontrados : {}".format(listaTorrent))
+            
             
             if not options['test'] and listaTorrent:
                 self.loopAddTorrent(listaTorrent)
@@ -213,6 +213,10 @@ class Command(BaseCommand):
        
             for noItem in listaNoTorrent:
                 logger.info("{} - {}".format(noItem['title'],noItem['category']))
+            logger.info("Encontrados : {}".format(len(listaTorrent)))
+            for item in listaTorrent:
+                logger.info("{} - {}".format(item['title'],item['category']))
+               
        
             # Construimos y enviamos el mensaje
             if not options['test']:
