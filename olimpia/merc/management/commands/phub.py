@@ -16,6 +16,8 @@ from datetime import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 
+from merc.modelsCustom import P_History 
+
 import merc.at.plugins.utilesplugins as utilesplugins
 import merc.at.hilos.utiles
 
@@ -159,13 +161,28 @@ class Command(BaseCommand):
                     url = "{}/{}".format(self.urlPattern,urlTorrent)
                     
                     filter, title, category = self.insideFilter(reg)
+                    
                     if filter:
-                        file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
-                        r = requests.get(url, stream=True)
-                        with open(file_name, 'wb') as f:
-                            for chunk in r.iter_content():
-                                f.write(chunk)
-                        listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})
+                        # Vamos a saber si esta en la bbdd
+                        registry, created = P_History.objects.get_or_create(title=title, down=True)
+                        if created:
+                            logger.info('Se ha creado el registro {}'.format(registry)) 
+                            registry.down=True
+                            registry.title=title
+                            registry.fecha=datetime.now()
+                            registry.save()
+                            
+                            # preparamos para enviar
+                            file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
+                            r = requests.get(url, stream=True)
+                            with open(file_name, 'wb') as f:
+                                for chunk in r.iter_content():
+                                    f.write(chunk)
+                            listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})
+                            
+                        else:
+                            logger.info('Ya existia el registro')
+                        
                     else:
                         # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
                         listaNoTorrent.append({"title":title,"file_name":None,"url":url.strip(),"category":category})
@@ -182,7 +199,7 @@ class Command(BaseCommand):
         
             logger.info("Encontrados : {}".format(listaTorrent))
             
-            if not options['test']:
+            if not options['test'] and listaTorrent:
                 self.loopAddTorrent(listaTorrent)
             
             
