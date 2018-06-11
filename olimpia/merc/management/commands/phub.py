@@ -15,6 +15,7 @@ from datetime import datetime
 # django & merc
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from merc.modelsCustom import P_History 
 
@@ -171,13 +172,11 @@ class Command(BaseCommand):
                         # Vamos a saber si esta en la bbdd
                         registry, created = P_History.objects.get_or_create(title=title, down=True)
                         if created:
-                            logger.info('Se ha creado el registro {}'.format(registry)) 
                             registry.down=True
                             registry.title=title
-                            import dateutil.parser
-                            yourdate = dateutil.parser.parse(datetime.now())
-                            registry.fecha=yourdate
+                            registry.fecha=timezone.now()
                             registry.save()
+                            logger.info('Se ha creado el registro {}'.format(registry))
                             
                             # preparamos para enviar
                             file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
