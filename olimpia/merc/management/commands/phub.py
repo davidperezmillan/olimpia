@@ -145,11 +145,12 @@ class Command(BaseCommand):
             listaNoTorrent  = []
             
             count = 3
+            wanted = 0
             while count < len(buscar_list):
                 reg = buscar_list[count]
                 isdate,dateWar = self.isBeforeDay(reg)
                 if isdate:
-
+                    wanted=wanted+1
                     sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
                     url = "{}/{}".format(self.urlPattern, sUrlShow)
                     try:
@@ -173,7 +174,9 @@ class Command(BaseCommand):
                             logger.info('Se ha creado el registro {}'.format(registry)) 
                             registry.down=True
                             registry.title=title
-                            registry.fecha=datetime.now()
+                            import dateutil.parser
+                            yourdate = dateutil.parser.parse(datetime.now())
+                            registry.fecha=yourdate
                             registry.save()
                             
                             # preparamos para enviar
@@ -217,14 +220,14 @@ class Command(BaseCommand):
        
             for noItem in listaNoTorrent:
                 logger.info("{} - {}".format(noItem['title'],noItem['category']))
-            logger.info("Encontrados : {}".format(len(listaTorrent)))
+            logger.info("Encontrados : {} de {}".format(len(listaTorrent), wanted))
             for item in listaTorrent:
                 logger.info("{} - {}".format(item['title'],item['category']))
                
        
             # Construimos y enviamos el mensaje
             if not options['test']:
-                msgHeader = "Hemos encontrado {}  \n\r".format(len(listaTorrent))
+                msgHeader = "Hemos encontrado {} de {} \n\r".format(len(listaTorrent), wanted)
                 sitems = ""
                 sFinal = ""
                 for item in listaTorrent:
