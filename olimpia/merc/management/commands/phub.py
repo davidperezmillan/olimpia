@@ -172,11 +172,8 @@ class Command(BaseCommand):
                         # Vamos a saber si esta en la bbdd
                         registry, created = P_History.objects.get_or_create(title=title, down=True)
                         if created:
-                            registry.down=True
-                            registry.title=title
-                            registry.fecha=timezone.now()
-                            registry.save()
-                            logger.info('Se ha creado el registro {}'.format(registry))
+                            
+                            # self.createRegData(torrent)
                             
                             # preparamos para enviar
                             file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
@@ -235,7 +232,15 @@ class Command(BaseCommand):
                 merc.at.hilos.utiles.sendTelegram(msg, author, receivers=receivers)
             
 
-            
+    def createRegData(self, reg):
+        registry = P_History()
+        registry.down=True
+        registry.title=reg['title']
+        registry.fecha=timezone.now()
+        registry.save()
+        logger.info('Se ha creado el registro {}'.format(registry))
+        
+
     def isBeforeDay(self,reg):
         # Parseamos y comprobamos la fecha
         tdFecha = reg.find_all("td",{"class":"lista"})
@@ -316,7 +321,9 @@ class Command(BaseCommand):
         logger.info("ENVIAMOS A TRANSMISSION")
         client = self.getClientTorrent()
         for torrent in listaTorrent:
-            self.addTorrent(client,torrent["file_name"])
+            torrentAdded = self.addTorrent(client,torrent["file_name"])
+            if torrentAdded:
+                self.createRegData(torrent)
             pass
         pass
     
