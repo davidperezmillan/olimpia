@@ -170,9 +170,12 @@ class Command(BaseCommand):
                     
                     if filter:
                         # Vamos a saber si esta en la bbdd
-                        registry, created = P_History.objects.get_or_create(title=title, down=True)
+                        created = P_History.objects.filter(title=title, down=True).exists()
                         if created:
-                            
+                            logger.info('Ya existia el registro')
+                        else:
+                            # Grabamos
+                            ## AQUI NO
                             # self.createRegData(torrent)
                             
                             # preparamos para enviar
@@ -181,10 +184,7 @@ class Command(BaseCommand):
                             with open(file_name, 'wb') as f:
                                 for chunk in r.iter_content():
                                     f.write(chunk)
-                            listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})
-                            
-                        else:
-                            logger.info('Ya existia el registro')
+                            listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})                            
                         
                     else:
                         # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
