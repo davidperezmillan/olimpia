@@ -1,10 +1,25 @@
 from django.contrib import admin
 
+from django.conf.urls import include, url
+from django.utils.html import format_html
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponseRedirect
+
 from .models import Tasks, DescripModelForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+        
+from datetime import datetime
+import re, shlex
 
-# Register your models here.
+# Importacion para llamar a comandos
+from django.core.management import call_command
+# 
+
+import logging
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
 
 
 def toggleTasks(self, request, queryset):
@@ -36,7 +51,7 @@ starTasks.short_description = "Activar las tareas"
 
 class TasksAdmin(admin.ModelAdmin):
     # ...
-    list_display = ('descrip','activo','author', 'task','get_cron_raw')
+    list_display = ('descrip','activo','author', 'task','get_cron_raw','act_button')
     list_filter = ['author','activo']
     search_fields = ['descrip','task']
     actions = [toggleTasks, stopTasks,starTasks, ]
@@ -45,7 +60,55 @@ class TasksAdmin(admin.ModelAdmin):
     def get_cron_raw(self, obj):
         return "{minuto} {hora} {diames} {mes} {diasemana} ".format(minuto=obj.minuto, hora=obj.hora, diames=obj.diames, mes=obj.mes, diasemana=obj.diasemana)
     
+    def get_urls(self):
+        urls = super(TasksAdmin, self).get_urls()
+        custom_urls = [
+            url(r'^launch/(?P<task_id>[0-9]+)/$', self.process_launch, name='lanzar'),
+            # url(
+            #     r'^(?P<account_id>.+)/act_button/$',
+            #     self.act_button,
+            #     name='lanzar',
+            # ),
+        ]
+        return custom_urls + urls
+    
+        
+#   	def get_urls(self):
+# 	    urls = super(TasksAdmin, self).get_urls()
+# 	    my_urls = patterns(
+# 	        '',
+# 	        (r'^act_button/$', self.act_button)
+# 	    )
+#     	return my_urls + urls
+	
+    def act_button(self, obj):
+        return format_html(
+            '<a class="button" href="{}">Lanzar</a>&nbsp;',
+            reverse('admin:lanzar', args=[obj.id]),
+        )
+
+
+    def process_launch(self, request, task_id, *args, **kwargs):
+        logger.info("Lanzamos el proceso {}".format(task_id))
+        task_ejecutable = Tasks.objects.get(id=task_id)
+        command, tOption = task_ejecutable.task.split(" ",1)
+        options = shlex.split(tOption)
+        logger.debug("{} {}".format(command,options))
+        try:
+            call_command(command,*options)
+            task_ejecutable.ultima = datetime.now()
+            task_ejecutable.save()
+        
+        except Exception, e:
+             logger.error("ERROR EN LA TAREA {} ".format(task_ejecutable.descrip))
+        
+        
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
     get_cron_raw.short_description = "Cron Raw"
+
+    act_button.short_description = "Actions"
+    act_button.allow_tags = True
 
 
 # admin.site.register(Tasks)
