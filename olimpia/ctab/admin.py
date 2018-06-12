@@ -51,7 +51,7 @@ starTasks.short_description = "Activar las tareas"
 
 class TasksAdmin(admin.ModelAdmin):
     # ...
-    list_display = ('descrip','activo','author', 'task','get_cron_raw','act_button')
+    list_display = ('act_button','descrip','activo','author', 'task','get_cron_raw')
     list_filter = ['author','activo']
     search_fields = ['descrip','task']
     actions = [toggleTasks, stopTasks,starTasks, ]
@@ -108,7 +108,7 @@ class TasksAdmin(admin.ModelAdmin):
     get_cron_raw.short_description = "Cron Raw"
 
     act_button.short_description = "ACT"
-    act_button.allow_tags = True
+    # act_button.allow_tags = True
 
 
 # admin.site.register(Tasks)
