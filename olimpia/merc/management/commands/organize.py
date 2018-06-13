@@ -42,5 +42,6 @@ class Command(BaseCommand):
             logger.info('Ejecutando comando organize por peticion de {} con options {}'.format(user, options))
             
             author = User.objects.get(username=user)
-            merc.views.organizeProccess(author,args,options)
+            torrentservers = TorrentServers.objects.filter(author=user)
+            merc.at.hilos.utiles.organizeProccess(author,args,options,torrentservers)
             self.stdout.write('Successfully "{}"'.format(user))

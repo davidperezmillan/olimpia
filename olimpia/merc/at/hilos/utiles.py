@@ -33,15 +33,26 @@ def sendTelegram(mensaje='Interaccion', user=None, receivers=None):
     gtransmissionh.start()  
       
 
-
-
-      
-    
 def findAndDestroy(series_update, torrentservers, filter_find=False, user=None, receivers=None):
     
     gtorrenth = GenTorrentThread( kwargs={'series_update':series_update, 'torrentservers':torrentservers, 'user':user,'filter_find':filter_find, 'receivers':receivers})
     gtorrenth.start()
 
-
-
+def organizeProccess(author,args, options, torrentservers):
+    # torrentservers = TorrentServers.objects.filter(author=author)
+    import merc.management.commands_utils
+    receivers = merc.management.commands_utils.utilgetreceivers(author)
+    try:
+        if options:
+            airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':options['delete']})
+            airtraporganize_thread.start()
+            if (options['nomsg'] is False):
+                merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
+        else:
+            launcher.organize()
+            merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
+    except Exception, e:
+        logger.error(e)
+    
+    return 
 

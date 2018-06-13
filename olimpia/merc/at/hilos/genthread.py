@@ -51,3 +51,17 @@ class GenTransmissionThread(threading.Thread):
         clazz = TelegramNotifier(token = '135486382:AAFb4fhTGDfy42FzO77HAoxPD6F0PLBGx2Y', user=user)
         clazz.notify(self.args, config)
         return   
+    
+    
+    
+class AirTrapOrganizeThread(threading.Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs=None, verbose=None):
+        threading.Thread.__init__(self, group=group, target=target, name=name, verbose=verbose)
+        self.args = args
+        self.kwargs = kwargs
+        return
+    
+    def run(self):
+        delete = self.kwargs['delete']
+        launcher = AirTrapLauncher(torrentservers)
+        launcher.organize(delete)

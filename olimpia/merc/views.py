@@ -223,7 +223,8 @@ def organize(request):
     #     context.update({'errors_messages':errors})
     
     author = request.user
-    organizeProccess(author, None, None)
+    torrentservers = TorrentServers.objects.filter(author=request.user)
+    merc.at.hilos.utiles.organizeProccess(author, None, None, torrentservers)
     
     # TODO
     return redirect('list')
@@ -283,20 +284,3 @@ def telegramSend(request):
 
 
 
-# public method
-def organizeProccess(author,args, options):
-    torrentservers = TorrentServers.objects.filter(author=author)
-    receivers = merc.management.commands_utils.utilgetreceivers(author)
-    try:
-        launcher = AirTrapLauncher(torrentservers)
-        if options:
-            launcher.organize(options['delete'])
-            if (options['nomsg'] is False):
-                merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
-        else:
-            launcher.organize()
-            merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
-    except Exception, e:
-        logger.error(e)
-    
-    return 
