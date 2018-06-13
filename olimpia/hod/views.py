@@ -11,7 +11,7 @@ from merc.models import Series
 from .models import Fichas, Capitulos
 
 
-import hod.scrape.handler_scrap
+import hod.threads.genthread
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -44,7 +44,8 @@ def ver_ficha(request, ficha_id):
 def info_ficha(request, ficha_id):
     logger.debug("Estamos en info_ficha")
     ficha = get_object_or_404(Fichas, pk=ficha_id)
-    hod.scrape.handler_scrap.getInfoOlimpia([ficha], None) # No se envia session todos las sessiones
+    scrap_thread = hod.threads.genthread.ScrapThread(kwargs={'fichas':[ficha], "session_id":None}) # No se envia session todos las sessiones
+    scrap_thread.run()
     return redirect('hod:ver_ficha',ficha.id)
 
 
@@ -52,7 +53,8 @@ def info_ficha(request, ficha_id):
 def info_ficha_session(request, ficha_id, session_id):
     logger.debug("Estamos en info_ficha")
     ficha = get_object_or_404(Fichas, pk=ficha_id)
-    hod.scrape.handler_scrap.getInfoOlimpia([ficha], session_id) # No se envia session todos las sessiones
+    scrap_thread = hod.threads.genthread.ScrapThread(kwargs={'fichas':[ficha], "session_id":sesion_id}) # No se envia session todos las sessiones
+    scrap_thread.run()
     return redirect('hod:ver_ficha',ficha.id)
 
 
