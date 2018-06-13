@@ -5,16 +5,10 @@ from django.utils.html import format_html
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 
-from .models import Tasks, DescripModelForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-        
-from datetime import datetime
-import re, shlex
 
-# Importacion para llamar a comandos
-from django.core.management import call_command
-# 
+from ctab.threads.genthreads import TasksThread 
 
 import logging
 # Get an instance of a logger
@@ -89,18 +83,22 @@ class TasksAdmin(admin.ModelAdmin):
 
 
     def process_launch(self, request, task_id, *args, **kwargs):
-        logger.info("Lanzamos el proceso {}".format(task_id))
-        task_ejecutable = Tasks.objects.get(id=task_id)
-        command, tOption = task_ejecutable.task.split(" ",1)
-        options = shlex.split(tOption)
-        logger.debug("{} {}".format(command,options))
-        try:
-            call_command(command,*options)
-            task_ejecutable.ultima = datetime.now()
-            task_ejecutable.save()
         
-        except Exception, e:
-             logger.error("ERROR EN LA TAREA {} ".format(task_ejecutable.descrip))
+        tasks_thread = TasksThread(kwargs={'task_id':task_id})
+        tasks_thread.start()
+        
+        # logger.info("Lanzamos el proceso {}".format(task_id))
+        # task_ejecutable = Tasks.objects.get(id=task_id)
+        # command, tOption = task_ejecutable.task.split(" ",1)
+        # options = shlex.split(tOption)
+        # logger.debug("{} {}".format(command,options))
+        # try:
+        #     call_command(command,*options)
+        #     task_ejecutable.ultima = datetime.now()
+        #     task_ejecutable.save()
+        
+        # except Exception, e:
+        #      logger.error("ERROR EN LA TAREA {} ".format(task_ejecutable.descrip))
         
         
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
