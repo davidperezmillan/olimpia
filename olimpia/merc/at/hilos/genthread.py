@@ -62,6 +62,7 @@ class AirTrapOrganizeThread(threading.Thread):
         return
     
     def run(self):
+        torrentservers = self.kwargs['torrentservers']
         delete = self.kwargs['delete']
         launcher = AirTrapLauncher(torrentservers)
         launcher.organize(delete)

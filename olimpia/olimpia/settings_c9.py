@@ -50,27 +50,27 @@ LOGGING = {
         },
     },
     'handlers': {
-        'airtrap_files': {
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGS_PATH,'c9_at.log'),
-            'maxBytes': 1024*1024*2, # 2 MB
-            'backupCount': 5,
-            'formatter':'standard',
-        },
-        'cron_files': {
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename':os.path.join(LOGS_PATH,'c9_olimpiacronjobs.log'),
-            'maxBytes': 1024*1024*2, # 2 MB
-            'backupCount': 5,
-            'formatter':'standard',
-        },
+        # 'airtrap_files': {
+        #     'class':'logging.handlers.RotatingFileHandler',
+        #     'filename': os.path.join(LOGS_PATH,'c9_at.log'),
+        #     'maxBytes': 1024*1024*2, # 2 MB
+        #     'backupCount': 5,
+        #     'formatter':'standard',
+        # },
+        # 'cron_files': {
+        #     'class':'logging.handlers.RotatingFileHandler',
+        #     'filename':os.path.join(LOGS_PATH,'c9_olimpiacronjobs.log'),
+        #     'maxBytes': 1024*1024*2, # 2 MB
+        #     'backupCount': 5,
+        #     'formatter':'standard',
+        # },
         'console': {
             'class': 'logging.StreamHandler',
             'formatter':'standard',
         },
         'general': {
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGS_PATH,'c9_merc.log'),
+            'filename': os.path.join(LOGS_PATH,'c9_olimpia.log'),
             'maxBytes': 1024*1024*2, # 2 MB
             'backupCount': 5,
             'formatter':'standard',
@@ -80,27 +80,26 @@ LOGGING = {
         'merc': {
             'handlers': ['console','general'],
             'level': 'DEBUG',
-            'propagate': False,
         },
-        'merc.at': {
-            'handlers': ['airtrap_files'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'merc.management.commands': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
+        # 'merc.at': {
+        #     'handlers': ['airtrap_files'],
+        #     'level': 'INFO',
+        #     'propagate': False,
+        # },
+        # 'merc.management.commands': {
+        #     'handlers': ['console'],
+        #     'level': 'INFO',
+        #     'propagate': False,
+        # },
         'hod': {
-            'handlers': ['console',],
+            'handlers': ['console','general'],
             'level': 'DEBUG',
-            'propagate': False,
+            
         },
-        'hod.management.commands': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
+        # 'hod.management.commands': {
+        #     'handlers': ['console'],
+        #     'level': 'INFO',
+        #     'propagate': False,
+        # },
     }
 }
