@@ -6,6 +6,7 @@ import re, shlex
 
 # Importacion para llamar a comandos
 from django.core.management import call_command
+from django.utils import timezone
 
 import logging
 # Get an instance of a logger
@@ -31,7 +32,7 @@ class TasksThread(threading.Thread):
         logger.debug("{} {}".format(command,options))
         try:
             call_command(command,*options)
-            task_ejecutable.ultima = datetime.now()
+            task_ejecutable.ultima = timezone.now()
             task_ejecutable.save()
         
         except Exception, e:
