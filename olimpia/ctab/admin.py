@@ -5,10 +5,12 @@ from django.utils.html import format_html
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 
+from .models import Tasks, DescripModelForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-from ctab.threads.genthreads import TasksThread 
+
+from ctab.threads.genthread import TasksThread
 
 import logging
 # Get an instance of a logger
