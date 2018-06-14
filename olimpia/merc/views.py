@@ -283,23 +283,24 @@ def telegramSend(request):
 
 @login_required(login_url='/accounts/login/')
 def listPTorrent(request):
+    latest_excluidos_update = []
     
     # Vamos a coger el ultimo archivo de la carpeta en cuestion
     fname = __get_latest_file('../data/olimpia/report','*_WTCHD_EXCLUIDOS.dat')
-    print fname
-    fullPathName = os.path.join('../data/olimpia/report',fname)
-    with open(fullPathName) as f:
-        content = f.readlines()
-        # you may also want to remove whitespace characters like `\n` at the end of each line
-    linesRaw = [x.strip() for x in content]
-
-    # mappeamos el objeto 
-    latest_excluidos_update = []
-    for line in linesRaw:
-        if line:
-            sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
-            lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
-            latest_excluidos_update.append(lDict)
+    if fname:
+        fullPathName = os.path.join('../data/olimpia/report',fname)
+        with open(fullPathName) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+        linesRaw = [x.strip() for x in content]
+    
+        # mappeamos el objeto 
+        
+        for line in linesRaw:
+            if line:
+                sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
+                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
+                latest_excluidos_update.append(lDict)
     
     context = {'latest_excluidos_update': latest_excluidos_update}
     return render(request, 'merc/torrent/special.html', context)    
