@@ -288,6 +288,7 @@ def listPTorrent(request):
     # Vamos a coger el ultimo archivo de la carpeta en cuestion
     fname = __get_latest_file('../data/olimpia/report','*_WTCHD_EXCLUIDOS.dat')
     if fname:
+        logger.info("Archivo origen {}".format(fname))
         fullPathName = os.path.join('../data/olimpia/report',fname)
         with open(fullPathName) as f:
             content = f.readlines()
@@ -295,7 +296,7 @@ def listPTorrent(request):
         linesRaw = [x.strip() for x in content]
     
         # mappeamos el objeto 
-        
+        logger.info("lineas a mapear {}".format(len(linesRaw)))    
         for line in linesRaw:
             if line:
                 sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
