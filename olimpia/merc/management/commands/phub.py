@@ -55,6 +55,8 @@ class Command(BaseCommand):
     excluidos =  ["BISEXUAL", "LESBIAN", "INTERRACIAL", "SOLO", "JAV"]   
     incluidos = [["THREESOME", "BIG TITS"],]
     
+    logger_INC = None
+    logger_EXC = None
     
     help = "Para buscar, lo que buscar debes hacer:" 
  
@@ -90,7 +92,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         
-        self.logger_INC, self.logger_EXC = self.getHandlerInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
+        
+        
         
         for user in options['author']:
             logger.info('Ejecutando busqueda especial {}'.format(user))
@@ -278,6 +281,8 @@ class Command(BaseCommand):
         
     
         if not category:
+            if not self.logger_EXC:
+                self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
             self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
             return False, title, category
         
@@ -308,12 +313,14 @@ class Command(BaseCommand):
         
         if respuesta:
             logger.info("[ACEPTADO] -> Title: {} --> Category: {}".format(title, category))
-            if self.logger_INC:
-                self.logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category])) 
+            if not self.logger_INC:
+                self.logger_INC = self.getHandlerIncluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
+            self.logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category])) 
         else:
             logger.warn("[RECHAZADO] -> Title: {} --> Category: {}".format(title, category))
-            if self.logger_EXC:
-                self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
+            if not self.logger_EXC:
+                self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
+            self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
             pass
             
         return respuesta, title, category
@@ -367,43 +374,30 @@ class Command(BaseCommand):
         
         
     ### Helper  ### 
-    def getHandlerInfo(self, dirname,filename):
+    def getHandlerExcluidosInfo(self, dirname,filename):
+        logger.info("DENTRO {}".format("getHandlerExcluidosInfo"))
         from logging.handlers import TimedRotatingFileHandler
+        from logging import FileHandler
         lFormatter = logging.Formatter('%(asctime)s - %(message)s')
         
         logger_EXC = logging.getLogger('loggerEXC')
         logger_EXC.setLevel(logging.INFO)
         lFormatter_EXC = lFormatter
-        # handler_EXC = TimedRotatingFileHandler("{}/LST/LST_EXCLUIDOS.dat".format(self.PATH_LOG), when="midnight", interval=1)
-        # handler_EXC.setFormatter(lFormatter_EXC)
-        # handler_EXC.setLevel(logging.INFO)
-        # # add a suffix which you want
-        # handler_EXC.suffix = "%Y%m%d"
-        # #need to change the extMatch variable to match the suffix for it
-        # handler_EXC.extMatch = re.compile(r"^\d{8}$") 
-        # # finally add handler to logger    
-        # logger_EXC.addHandler(handler_EXC)
+        handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        logger_EXC.addHandler(handlerE)
+
+        return logger_EXC    
         
-        
+    def getHandlerIncluidosInfo(self,dirname, filename):
+        logger.info("DENTRO {}".format("getHandlerIncluidosInfo"))
+        from logging.handlers import TimedRotatingFileHandler
+        from logging import FileHandler
+        lFormatter = logging.Formatter('%(asctime)s - %(message)s')
         
         logger_INC = logging.getLogger('loggerINC')
         logger_INC.setLevel(logging.INFO)
         lFormatter_INC = lFormatter
-        # handler_INC = TimedRotatingFileHandler("{}/LST/LST_INCLUIDOS.dat".format(self.PATH_LOG), when="midnight", interval=1)
-        # handler_INC.setFormatter(lFormatter_INC)
-        # handler_INC.setLevel(logging.INFO)
-        # # add a suffix which you want
-        # handler_INC.suffix = "%Y%m%d"
-        # #need to change the extMatch variable to match the suffix for it
-        # handler_INC.extMatch = re.compile(r"^\d{8}$") 
-        # # finally add handler to logger    
-        # logger_INC.addHandler(handler_INC)
-        
-        
-        from logging import FileHandler
         handlerI = FileHandler("{}/{:%H%M_%Y%m%d}_{}_INCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
         logger_INC.addHandler(handlerI)
-        handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
-        logger_EXC.addHandler(handlerE)
-        
-        return logger_INC, logger_EXC    
+
+        return logger_INC

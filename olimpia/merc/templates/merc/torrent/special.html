@@ -3,9 +3,39 @@
 {% if error_message %}
     <p><strong>{{ error_message }}</strong></p>
 {% endif %} 
+
+{% if latest_incluidos_update %}
+<h2>Incluidos recientemente</h2>
+<div class="table-wrapper" id="latest_incluidos_update">
+    <table>
+        <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>Categorias</td>
+                <td>Revision</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for torrent in latest_incluidos_update %} 
+                <tr>
+                    <td><a href="{{ torrent.link }}">{{ torrent.title }}</a></td>
+                    <td>{{ torrent.cat }}</td>
+                    <td>{{ torrent.fch }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <!--<tfoot>-->
+        <!--    <tr>-->
+        <!--        <td colspan="2"></td>-->
+        <!--        <td>100.00</td>-->
+        <!--    </tr>-->
+        <!--</tfoot>-->
+    </table>
+</div>
+{% endif %}
+
 {% if latest_excluidos_update %}
-
-
+<h2>Excluidos</h2>
 <div class="table-wrapper" id="latest_excluidos_update">
     <table>
         <thead>

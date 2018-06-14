@@ -285,8 +285,29 @@ def telegramSend(request):
 @login_required(login_url='/accounts/login/')
 def listPTorrent(request):
     latest_excluidos_update = []
-    
+    latest_incluidos_update = []
     path = os.path.join(settings.BASE_DIR,'../data/olimpia/report')
+    
+    
+    # Vamos a coger el ultimo archivo de la carpeta en cuestion
+    fname = __get_latest_file(path,'*_WTCHD_INCLUIDOS.dat')
+    if fname:
+        logger.info("Archivo origen {}".format(fname))
+        fullPathName = os.path.join(path,fname)
+        with open(fullPathName) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+        linesRaw = [x.strip() for x in content]
+    
+        # mappeamos el objeto 
+        logger.info("lineas a mapear {}".format(len(linesRaw)))    
+        for line in linesRaw:
+            if line:
+                sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
+                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
+                latest_incluidos_update.append(lDict)
+    
+    
     
     # Vamos a coger el ultimo archivo de la carpeta en cuestion
     fname = __get_latest_file(path,'*_WTCHD_EXCLUIDOS.dat')
@@ -306,7 +327,7 @@ def listPTorrent(request):
                 lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
                 latest_excluidos_update.append(lDict)
     
-    context = {'latest_excluidos_update': latest_excluidos_update}
+    context = {'latest_excluidos_update': latest_excluidos_update,'latest_incluidos_update':latest_incluidos_update}
     return render(request, 'merc/torrent/special.html', context)    
     
     
