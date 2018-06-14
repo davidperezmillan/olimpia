@@ -281,6 +281,41 @@ def telegramSend(request):
         form = TelegramSendForm()
     return render(request, 'merc/telegram/detail.html',{'form': form})
 
+@login_required(login_url='/accounts/login/')
+def listPTorrent(request):
+    
+    # Vamos a coger el ultimo archivo de la carpeta en cuestion
+    fname = __get_latest_file('../data/olimpia/report','*_WTCHD_EXCLUIDOS.dat')
+    print fname
+    fullPathName = os.path.join('../data/olimpia/report',fname)
+    with open(fullPathName) as f:
+        content = f.readlines()
+        # you may also want to remove whitespace characters like `\n` at the end of each line
+    linesRaw = [x.strip() for x in content]
 
-
-
+    # mappeamos el objeto 
+    latest_excluidos_update = []
+    for line in linesRaw:
+        if line:
+            sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
+            lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
+            latest_excluidos_update.append(lDict)
+    
+    context = {'latest_excluidos_update': latest_excluidos_update}
+    return render(request, 'merc/torrent/special.html', context)    
+    
+    
+    
+import os.path
+import glob
+    
+def __get_latest_file(path, *paths):
+    """Returns the name of the latest (most recent) file 
+    of the joined path(s)"""
+    fullpath = os.path.join(path, *paths)
+    list_of_files = glob.glob(fullpath)  # You may use iglob in Python3
+    if not list_of_files:                # I prefer using the negation
+        return None                      # because it behaves like a shortcut
+    latest_file = max(list_of_files, key=os.path.getctime)
+    _, filename = os.path.split(latest_file)
+    return filename

@@ -38,6 +38,9 @@ urlpatterns = [
     url(r'^organize', views.organize, name='organize'),
     url(r'^tlaunch', views.telegramSend, name='telegramSend'),
     
+    url(r'^listptorrent', views.listPTorrent, name='listPTorrent'),
+    
+    
     
     url(r'^rest/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

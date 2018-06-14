@@ -49,7 +49,7 @@ class Command(BaseCommand):
     
     
     # ### criteria
-    PATH_LOG=settings.LOGS_PATH
+    PATH_LOG=os.path.join(settings.BASE_DIR,'../data/olimpia')
     PATH_TORRENT=os.path.dirname(os.path.abspath(__file__))
     
     excluidos =  ["BISEXUAL", "LESBIAN", "INTERRACIAL", "SOLO", "JAV"]   
@@ -278,6 +278,7 @@ class Command(BaseCommand):
         
     
         if not category:
+            self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
             return False, title, category
         
         for inc in self.incluidos:
@@ -308,11 +309,11 @@ class Command(BaseCommand):
         if respuesta:
             logger.info("[ACEPTADO] -> Title: {} --> Category: {}".format(title, category))
             if self.logger_INC:
-                self.logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),category)) 
+                self.logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category])) 
         else:
             logger.warn("[RECHAZADO] -> Title: {} --> Category: {}".format(title, category))
             if self.logger_EXC:
-                self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),category))
+                self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
             pass
             
         return respuesta, title, category
