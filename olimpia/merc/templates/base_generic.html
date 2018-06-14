@@ -26,7 +26,7 @@
 						<a href="#" class="icon fa-angle-down">Menus</a>
 						<ul>
 							<li><a href="{% url 'portada' %}">Inicio</a></li>
-							<li><a href="{% url 'launch_extreme' %}">Buscar y Añadir</a></li>
+							<!--<li><a href="{% url 'launch_extreme' %}">Buscar y Añadir</a></li> -->
 							{% if perms.merc.add_series %}
 							<li><a href="{% url 'launch_all' %}" onclick="return confirm('Esto puede tardar un rato?')">Lanzar todo</a></li>
 							{% endif %}

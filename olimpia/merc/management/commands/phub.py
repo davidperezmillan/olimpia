@@ -16,6 +16,7 @@ from datetime import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.conf import settings
 
 from merc.modelsCustom import P_History 
 
@@ -24,6 +25,10 @@ import merc.at.hilos.utiles
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+
+
 
 
 def coords(s):
@@ -44,7 +49,7 @@ class Command(BaseCommand):
     
     
     # ### criteria
-    PATH_LOG=os.path.dirname(os.path.abspath(__file__))
+    PATH_LOG=settings.LOGS_PATH
     PATH_TORRENT=os.path.dirname(os.path.abspath(__file__))
     
     excluidos =  ["BISEXUAL", "LESBIAN", "INTERRACIAL", "SOLO", "JAV"]   
@@ -84,6 +89,9 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
+        
+        self.logger_INC, self.logger_EXC = self.getHandlerInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
+        
         for user in options['author']:
             logger.info('Ejecutando busqueda especial {}'.format(user))
             author = User.objects.get(username=user)
@@ -299,10 +307,12 @@ class Command(BaseCommand):
         
         if respuesta:
             logger.info("[ACEPTADO] -> Title: {} --> Category: {}".format(title, category))
-            # logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),category))
+            if self.logger_INC:
+                self.logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),category)) 
         else:
             logger.warn("[RECHAZADO] -> Title: {} --> Category: {}".format(title, category))
-            # logger_EXC.info("[RECHAZADO] -> Title: {} --> Category: {} :: {}".format(title, category, sUrlShow))
+            if self.logger_EXC:
+                self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),category))
             pass
             
         return respuesta, title, category
@@ -353,3 +363,46 @@ class Command(BaseCommand):
         logger.info("Add torrent url: {}".format(url))
         torrentadd = client.add_torrent(url, **options)
         return torrentadd    
+        
+        
+    ### Helper  ### 
+    def getHandlerInfo(self, dirname,filename):
+        from logging.handlers import TimedRotatingFileHandler
+        lFormatter = logging.Formatter('%(asctime)s - %(message)s')
+        
+        logger_EXC = logging.getLogger('loggerEXC')
+        logger_EXC.setLevel(logging.INFO)
+        lFormatter_EXC = lFormatter
+        # handler_EXC = TimedRotatingFileHandler("{}/LST/LST_EXCLUIDOS.dat".format(self.PATH_LOG), when="midnight", interval=1)
+        # handler_EXC.setFormatter(lFormatter_EXC)
+        # handler_EXC.setLevel(logging.INFO)
+        # # add a suffix which you want
+        # handler_EXC.suffix = "%Y%m%d"
+        # #need to change the extMatch variable to match the suffix for it
+        # handler_EXC.extMatch = re.compile(r"^\d{8}$") 
+        # # finally add handler to logger    
+        # logger_EXC.addHandler(handler_EXC)
+        
+        
+        
+        logger_INC = logging.getLogger('loggerINC')
+        logger_INC.setLevel(logging.INFO)
+        lFormatter_INC = lFormatter
+        # handler_INC = TimedRotatingFileHandler("{}/LST/LST_INCLUIDOS.dat".format(self.PATH_LOG), when="midnight", interval=1)
+        # handler_INC.setFormatter(lFormatter_INC)
+        # handler_INC.setLevel(logging.INFO)
+        # # add a suffix which you want
+        # handler_INC.suffix = "%Y%m%d"
+        # #need to change the extMatch variable to match the suffix for it
+        # handler_INC.extMatch = re.compile(r"^\d{8}$") 
+        # # finally add handler to logger    
+        # logger_INC.addHandler(handler_INC)
+        
+        
+        from logging import FileHandler
+        handlerI = FileHandler("{}/{:%H%M_%Y%m%d}_{}_INCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        logger_INC.addHandler(handlerI)
+        handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        logger_EXC.addHandler(handlerE)
+        
+        return logger_INC, logger_EXC    
