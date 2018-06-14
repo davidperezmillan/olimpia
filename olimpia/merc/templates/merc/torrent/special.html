@@ -18,7 +18,11 @@
         <tbody>
             {% for torrent in latest_incluidos_update %} 
                 <tr>
-                    <td><a href="{{ torrent.link }}">{{ torrent.title }}</a></td>
+                    {% if request.user.is_superuser %}
+                        <td><a href=" {{ torrent.link }}"> {{ torrent.title }}</a></td>
+                    {% else %}
+                        <td>{{ torrent.title }}</td>
+                    {% endif %}
                     <td>{{ torrent.cat }}</td>
                     <td>{{ torrent.fch }}</td>
                 </tr>
@@ -48,7 +52,11 @@
         <tbody>
             {% for torrent in latest_excluidos_update %} 
                 <tr>
-                    <td><a href="{{ torrent.link }}">{{ torrent.title }}</a></td>
+                    {% if request.user.is_superuser %}
+                        <td><a href=" {{ torrent.link }}"> {{ torrent.title }}</a></td>
+                    {% else %}
+                        <td>{{ torrent.title }}</td>
+                    {% endif %}
                     <td>{{ torrent.cat }}</td>
                     <td>{{ torrent.fch }}</td>
                 </tr>
