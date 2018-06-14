@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.conf import settings
 
 # Create your views here.
 from .models import Series, TorrentServers, Plugins, TelegramChatIds,TransmissionReceivers
@@ -285,11 +286,13 @@ def telegramSend(request):
 def listPTorrent(request):
     latest_excluidos_update = []
     
+    path = os.path.join(settings.BASE_DIR,'../data/olimpia/report')
+    
     # Vamos a coger el ultimo archivo de la carpeta en cuestion
-    fname = __get_latest_file('../data/olimpia/report','*_WTCHD_EXCLUIDOS.dat')
+    fname = __get_latest_file(path,'*_WTCHD_EXCLUIDOS.dat')
     if fname:
         logger.info("Archivo origen {}".format(fname))
-        fullPathName = os.path.join('../data/olimpia/report',fname)
+        fullPathName = os.path.join(path,fname)
         with open(fullPathName) as f:
             content = f.readlines()
             # you may also want to remove whitespace characters like `\n` at the end of each line
