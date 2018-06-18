@@ -45,37 +45,36 @@ function search(input,table) {
     <div class="6u 6u(mobilep)">
         <input type="text" id="searchInput" onkeyup="search(this, 'serverList')" placeholder="Search for server.."/>
     </div>
-    <thead>
-        <tr>
-            <td>Host</td>
-            <td>Port</td>
-            <td>User</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for torrentserver in latest_torrentservers_update %}
-        <tr>
-            {% if torrentserver.torrent_active %}
-                <td><a href="{% url 'control_edittorrentserver' torrentserver.id %}">{{ torrentserver.host }}</a></td>
-            {% else %}
-                <td>
-                    <a href="{% url 'control_edittorrentserver' torrentserver.id %}" style="color: grey;">{{ torrentserver.host }}</a>
-                    <br>
-                    {% if perms.merc.change_torrentservers %}
-                        <a href="{% url 'control_edittorrentserver' torrentserver.id %}" class="button special icon fa-search small"/>
-                    {% endif %} 
-                </td>
-            {% endif %}
-            <td>{{ torrentserver.port }}</td>
-            <td>{{ torrentserver.user }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <table class="table-wrapper" id="serverList">
+        <thead>
+            <tr>
+                <td>Host</td>
+                <td>Port</td>
+                <td>User</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for torrentserver in latest_torrentservers_update %}
+            <tr>
+                {% if torrentserver.torrent_active %}
+                    <td><a href="{% url 'control_edittorrentserver' torrentserver.id %}">{{ torrentserver.host }}</a></td>
+                {% else %}
+                    <td>
+                        <a href="{% url 'control_edittorrentserver' torrentserver.id %}" style="color: grey;">{{ torrentserver.host }}</a>
+                        <br>
+                        {% if perms.merc.change_torrentservers %}
+                            <a href="{% url 'control_edittorrentserver' torrentserver.id %}" class="button special icon fa-search small"/>
+                        {% endif %} 
+                    </td>
+                {% endif %}
+                <td>{{ torrentserver.port }}</td>
+                <td>{{ torrentserver.user }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% else %}
 <p>No torrentservers are available.</p>
 {% endif %} 
-
-
-<!-- </div> -->
+</div> 
 {% endblock %}
