@@ -303,7 +303,7 @@ def listPTorrent(request):
         logger.info("lineas a mapear {}".format(len(linesRaw)))    
         for line in linesRaw:
             if line:
-                sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
+                sCat = line.split('::')[3].replace( "[", "").replace( "]", "").replace(" ","")
                 lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
                 latest_incluidos_update.append(lDict)
     

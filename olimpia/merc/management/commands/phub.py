@@ -145,10 +145,14 @@ class Command(BaseCommand):
             try:
                 page, proxy = utilesplugins.toggleproxy(url)
                 # pintarFicheroHtml(page.encode('utf-8').strip(),"catalogue")
+                
+                 # Parse pagina principal
+                source = BeautifulSoup(page, "html.parser")
+                
             except Exception, e:
+                merc.at.hilos.utiles.sendTelegram("Error al encontrar la pagina principal", author, receivers=receivers)
                 raise e
-            # Parse pagina principal
-            source = BeautifulSoup(page, "html.parser")
+           
             # buscar_list = source.find_all("table", {"class" : "lista"})
             buscar_list = source.find_all("table", {"class" : "lista"})
             
@@ -168,10 +172,13 @@ class Command(BaseCommand):
                     try:
                         page, proxy = utilesplugins.toggleproxy(url)
                         # pintarFicheroHtml(page.encode('utf-8').strip(),"show")
+                        # Parse pagina link
+                        source = BeautifulSoup(page, "html.parser")
                     except Exception, e:
+                        merc.at.hilos.utiles.sendTelegram("Error al encontrar la pagina secundaria", author, receivers=receivers)
                         raise e
-                    # Parse pagina principal
-                    source = BeautifulSoup(page, "html.parser")
+                    
+                    
                     urlTorrent = source.find_all("a", href=re.compile("^download.php"))[0]["href"]
                     # print source.find_all("a", id=lambda value: value and value.startswith("download.php"))
                     
