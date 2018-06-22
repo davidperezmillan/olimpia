@@ -21,8 +21,19 @@ logger = logging.getLogger(__name__)
 
 
 def portada(request):
-    # return redirect('hod:portada')
-    return redirect('list')
+    
+    if request.user.is_superuser:
+        latest_series_update = Series.objects.order_by('-ultima')
+        slopes_series = Series.objects.filter(skipped=True).order_by('-ultima')
+        paussed_series = Series.objects.filter(paussed=True).order_by('-ultima')
+    else:
+        latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
+        slopes_series = Series.objects.filter(author=request.user).filter(skipped=True).order_by('-ultima')
+        paussed_series = Series.objects.filter(author=request.user).filter(paussed=True).order_by('-ultima')
+    
+    context = {'slopes_series': slopes_series, 'paussed_series': paussed_series,'latest_series_update': latest_series_update}
+    return render(request, 'merc/series/index.html', context)
+    # return redirect('list')
     
 
 
