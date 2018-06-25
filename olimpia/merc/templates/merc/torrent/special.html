@@ -11,6 +11,7 @@
         <thead>
             <tr>
                 <td>Nombre</td>
+                <td>Link</td>
                 <td>Categorias</td>
                 <td>Revision</td>
             </tr>
@@ -22,6 +23,11 @@
                         <td><a href=" {{ torrent.link }}"> {{ torrent.title }}</a></td>
                     {% else %}
                         <td>{{ torrent.title }}</td>
+                    {% endif %}
+                    {% if torrent.trr %}
+                        <td><a href=" {{ torrent.trr }}">DOWN</a></td>
+                    {% else %}
+                        <td></td>
                     {% endif %}
                     <td>{{ torrent.cat }}</td>
                     <td>{{ torrent.fch }}</td>
@@ -58,7 +64,11 @@
                     {% else %}
                         <td>{{ torrent.title }}</td>
                     {% endif %}
-                     <td><a href=" {{ torrent.trr }}">DOWN</a></td>
+                    {% if torrent.trr %}
+                        <td><a href=" {{ torrent.trr }}">DOWN</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                     <td>{{ torrent.cat }}</td>
                     <td>{{ torrent.fch }}</td>
                 </tr>
