@@ -337,8 +337,8 @@ def listPTorrent(request):
         logger.info("lineas a mapear {}".format(len(linesRaw)))    
         for line in linesRaw:
             if line:
-                sCat = line.split('::')[3].replace( "[", "").replace( "]", "").replace(", ",",")
-                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
+                sCat = line.split('::')[4].replace( "[", "").replace( "]", "").replace(", ",",")
+                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname, "trr":line.split('::')[3]}
                 latest_incluidos_update.append(lDict)
     
     
@@ -357,8 +357,8 @@ def listPTorrent(request):
         logger.info("lineas a mapear {}".format(len(linesRaw)))    
         for line in linesRaw:
             if line:
-                sCat = line.split('::')[3].replace( "[", "").replace( "]", "").replace(", ",",")
-                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
+                sCat = line.split('::')[4].replace( "[", "").replace( "]", "").replace(", ",",")
+                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname,"trr":line.split('::')[3]}
                 latest_excluidos_update.append(lDict)
     
     context = {'latest_excluidos_update': latest_excluidos_update,'latest_incluidos_update':latest_incluidos_update}
