@@ -40,16 +40,21 @@ def portada(request):
     else:
         latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
     
+    	
+    follow_series = []
     paussed_series = []
     slopes_series = []
     for serie in latest_series_update:
+        
+        if not serie.skipped and not serie.paussed:
+            follow_series.append(serie)
         if serie.skipped:
             slopes_series.append(serie)
         elif serie.paussed:
             paussed_series.append(serie)
 
     
-    context = {'slopes_series': slopes_series, 'paussed_series': paussed_series,'latest_series_update': latest_series_update}
+    context = {'follow_series':follow_series,'slopes_series': slopes_series, 'paussed_series': paussed_series,'latest_series_update': latest_series_update}
     return render(request, 'merc/series/index.html', context)
     # return redirect('list')
     
