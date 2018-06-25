@@ -63,8 +63,8 @@
 	<div class="row uniform ">
 		<div class="2u 12u(mobilep) tab">
 		    <button class="tablinks" onclick="openCity(event, 'all')" id="defaultOpen">Todas</button>
+            <button class="tablinks" onclick="openCity(event, 'paussed')">Pausadas</button>
             <button class="tablinks" onclick="openCity(event, 'slope')" >Pendientes</button>
-            <button class="tablinks" onclick="openCity(event, 'omitted')">Omitidas</button>
         </div>
 <div class="10u 12u(mobilep) tabcontent" id="slope" >
    <!--  <span onclick="this.parentElement.style.display='none'" class="close">x</span> -->
@@ -118,12 +118,12 @@
     {% endif %} 
 </div>
 
-<div class="10u 12u(mobilep) tabcontent" id="omitted" >
+<div class="10u 12u(mobilep) tabcontent" id="paussed" >
    <!--  <span onclick="this.parentElement.style.display='none'" class="close">x</span> -->
     {% if paussed_series %}
-    <div class="table-wrapper" id="omittedList">
+    <div class="table-wrapper" id="paussedList">
         <div class="6u 6u(mobilep)">
-            <input type="text" id="searchInput" onkeyup="search(this, 'omittedList')" placeholder="Search for series.."/>
+            <input type="text" id="searchInput" onkeyup="search(this, 'paussedList')" placeholder="Search for series.."/>
         </div>
         <table>
             <thead>
