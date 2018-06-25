@@ -20,8 +20,11 @@ import merc.management.commands_utils
 logger = logging.getLogger(__name__)
 
 
+# ## Control, formulario Series
+@login_required(login_url='/accounts/login/')
 def portada(request):
     
+    '''
     if request.user.is_superuser:
         latest_series_update = Series.objects.order_by('-ultima')
         slopes_series = Series.objects.filter(skipped=True).order_by('-ultima')
@@ -30,6 +33,20 @@ def portada(request):
         latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
         slopes_series = Series.objects.filter(author=request.user).filter(skipped=True).order_by('-ultima')
         paussed_series = Series.objects.filter(author=request.user).filter(paussed=True).order_by('-ultima')
+    '''
+    
+    if request.user.is_superuser:
+        latest_series_update = Series.objects.order_by('-ultima')
+    else:
+        latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
+    
+    paussed_series = []
+    slopes_series = []
+    for serie in latest_series_update:
+        if serie.paussed:
+            paussed_series.append(serie)
+        if serie.skipped:
+            slopes_series.append(serie)
     
     context = {'slopes_series': slopes_series, 'paussed_series': paussed_series,'latest_series_update': latest_series_update}
     return render(request, 'merc/series/index.html', context)
@@ -314,7 +331,7 @@ def listPTorrent(request):
         logger.info("lineas a mapear {}".format(len(linesRaw)))    
         for line in linesRaw:
             if line:
-                sCat = line.split('::')[3].replace( "[", "").replace( "]", "").replace(" ","")
+                sCat = line.split('::')[3].replace( "[", "").replace( "]", "").replace(", ",",")
                 lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
                 latest_incluidos_update.append(lDict)
     
@@ -334,7 +351,7 @@ def listPTorrent(request):
         logger.info("lineas a mapear {}".format(len(linesRaw)))    
         for line in linesRaw:
             if line:
-                sCat = line.split('::')[3].replace( "[", "").replace( "]", "")
+                sCat = line.split('::')[3].replace( "[", "").replace( "]", "").replace(", ",",")
                 lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname}
                 latest_excluidos_update.append(lDict)
     
