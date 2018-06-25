@@ -55,6 +55,8 @@ def portada(request):
 
     
     context = {'follow_series':follow_series,'slopes_series': slopes_series, 'paussed_series': paussed_series,'latest_series_update': latest_series_update}
+    context2 = {'s_follow':len(follow_series),'s_slopes': len(slopes_series), 's_paussed': len(paussed_series),'s_latest': len(latest_series_update)}
+    context.update(context2)
     return render(request, 'merc/series/index.html', context)
     # return redirect('list')
     

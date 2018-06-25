@@ -62,10 +62,12 @@
 <section class="box">
 	<div class="row uniform ">
 		<div class="2u 12u(mobilep) tab">
-		    <button class="tablinks" onclick="openCity(event, 'all')" >Todas</button>
-		    <button class="tablinks" onclick="openCity(event, 'follow')" id="defaultOpen">Siguiendo</button>
-            <button class="tablinks" onclick="openCity(event, 'paussed')">Pausadas</button>
-            <button class="tablinks" onclick="openCity(event, 'slope')" >Pendientes</button>
+		    
+		    
+		    <button class="tablinks" onclick="openCity(event, 'all')" >Todas <span style="vertical-align:super; font-size:60%;">{{ s_latest }}</span></button>
+		    <button class="tablinks" onclick="openCity(event, 'follow')" id="defaultOpen">Siguiendo<span style="vertical-align:super; font-size:60%;">{{ s_follow }}</span></button>
+            <button class="tablinks" onclick="openCity(event, 'paussed')">Pausadas<span style="vertical-align:super; font-size:60%;">{{ s_paussed }}</span></button>
+            <button class="tablinks" onclick="openCity(event, 'slope')" >Pendientes<span style="vertical-align:super; font-size:60%;">{{ s_slopes }}</span></button>
         </div>
         
 <div class="10u 12u(mobilep) tabcontent" id="follow" >
