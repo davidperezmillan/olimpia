@@ -184,7 +184,7 @@ class Command(BaseCommand):
                     
                     url = "{}/{}".format(self.urlPattern,urlTorrent)
                     
-                    filter, title, category = self.insideFilter(reg)
+                    filter, title, category = self.insideFilter(reg, source)
                     
                     if filter:
                         # Vamos a saber si esta en la bbdd
@@ -275,12 +275,13 @@ class Command(BaseCommand):
         return isdate,dateWar
         
     
-    def insideFilter(self,reg):
+    def insideFilter(self,reg, source):
         
         respuesta = False;
         category = []
         title = reg.find_all("td",{"class":"header"})[0].find_all("a")[0].text
         sUrlShow = "{}/{}".format(self.urlPattern, reg.find_all("td",{"class":"header"})[0].find("a")['href'])
+        urlTorrent = "{}/{}".format(self.urlPattern,source.find_all("a", href=re.compile("^download.php"))[0]["href"])
         iElements = reg.find_all("td",{"class":"header"})[0].find_all("i")
         for iElement in iElements:
             aElement = iElement.find("a").text
@@ -290,7 +291,7 @@ class Command(BaseCommand):
         if not category:
             if not self.logger_EXC:
                 self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
-            self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
+            self.logger_EXC.info("::{}::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),urlTorrent,[str(cat) for cat in category]))
             return False, title, category
         
         for inc in self.incluidos:
@@ -322,12 +323,12 @@ class Command(BaseCommand):
             logger.info("[ACEPTADO] -> Title: {} --> Category: {}".format(title, category))
             if not self.logger_INC:
                 self.logger_INC = self.getHandlerIncluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
-            self.logger_INC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category])) 
+            self.logger_INC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent,[str(cat) for cat in category])) 
         else:
             logger.warn("[RECHAZADO] -> Title: {} --> Category: {}".format(title, category))
             if not self.logger_EXC:
                 self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
-            self.logger_EXC.info("::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),[str(cat) for cat in category]))
+            self.logger_EXC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent,[str(cat) for cat in category]))
             pass
             
         return respuesta, title, category
