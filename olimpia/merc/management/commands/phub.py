@@ -52,7 +52,7 @@ class Command(BaseCommand):
     PATH_LOG=os.path.join(settings.BASE_DIR,'../data/olimpia')
     PATH_TORRENT=os.path.dirname(os.path.abspath(__file__))
     
-    excluidos =  ["BISEXUAL", "LESBIAN", "INTERRACIAL", "SOLO", "JAV"]   
+    excluidos =  ["BISEXUAL", "LESBIAN", "INTERRACIAL", "SOLO", "JAV", "ASIAN"]   
     incluidos = [["THREESOME", "BIG TITS"],]
     
     logger_INC = None
