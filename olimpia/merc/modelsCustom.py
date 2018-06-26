@@ -18,7 +18,7 @@ class P_History(models.Model):
 
     class Meta:
         verbose_name_plural = "P_History"
-        # managed = True
+        managed = True
         unique_together = (('title','down'))
 
 
