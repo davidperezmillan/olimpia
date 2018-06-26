@@ -4,6 +4,7 @@ import re
 
 # unregister your models here.
 from .models import Series, TelegramChatIds,TorrentServers, Plugins, TransmissionReceivers
+from .modelsCustom import P_History
 from django.contrib.auth.models import User
 
 from django.contrib.admin.helpers import ActionForm
@@ -100,3 +101,8 @@ class TransmissionReceiversAdmin(admin.ModelAdmin):
     # search_fields = ['user']
 
 admin.site.register(TransmissionReceivers, TransmissionReceiversAdmin)
+
+
+
+
+admin.site.register(P_History)
