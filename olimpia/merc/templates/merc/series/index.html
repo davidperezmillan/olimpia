@@ -35,18 +35,36 @@
     
      /*Change background color of buttons on hover */
     .tab button:hover {
-        background-color: #FCDCD0;
+        text-decoration-line: underline;
     }
     
      /*Create an active/current "tab button" class */
     .tab button.active {
-        background-color: #E89980;
+        color: #E89980;
     }
     .close{
         color: red;
         float: right;
         text-transform: uppercase;
     }
+    
+    .numero{
+        vertical-align:super;
+        font-size:60%; 
+        color:#FFF;
+        padding: 1px 10px;
+        margin: 5px;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        height:5px;
+        width:10px;
+        background-color:#b90f0f66;
+        text-decoration: none;
+        
+    } 
+    
+
     
     /* Style the tab content */
     /*.tabcontent {*/
@@ -64,10 +82,10 @@
 		<div class="2u 12u(mobilep) tab">
 		    
 		    
-		    <button class="tablinks" onclick="openCity(event, 'all')" >Todas <span style="vertical-align:super; font-size:60%;">{{ s_latest }}</span></button>
-		    <button class="tablinks" onclick="openCity(event, 'follow')" id="defaultOpen">Siguiendo<span style="vertical-align:super; font-size:60%;">{{ s_follow }}</span></button>
-            <button class="tablinks" onclick="openCity(event, 'paussed')">Pausadas<span style="vertical-align:super; font-size:60%;">{{ s_paussed }}</span></button>
-            <button class="tablinks" onclick="openCity(event, 'slope')" >Pendientes<span style="vertical-align:super; font-size:60%;">{{ s_slopes }}</span></button>
+		    <button class="tablinks" onclick="openCity(event, 'all')" >Todas<span class="numero">{{ s_latest }}</span></button>
+		    <button class="tablinks" onclick="openCity(event, 'follow')" id="defaultOpen">Siguiendo<span class="numero">{{ s_follow }}</span></button>
+            <button class="tablinks" onclick="openCity(event, 'paussed')">Pausadas<span class="numero">{{ s_paussed }}</span></button>
+            <button class="tablinks" onclick="openCity(event, 'slope')" >Pendientes<span class="numero">{{ s_slopes }}</span></button>
         </div>
         
 <div class="10u 12u(mobilep) tabcontent" id="follow" >
