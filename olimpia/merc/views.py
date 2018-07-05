@@ -83,8 +83,8 @@ def control(request):
             if not serie.author:
                 serie.author = request.user
             serie.save()
-            receivers = merc.management.commands_utils.utilgetreceivers(request.user)
-            merc.at.hilos.utiles.sendTelegram(mensaje=msgproperties.MSG_TELEGRAM["new"].format(serie.nombre, serie.quality),user=request.user, receivers=receivers)
+            receivers = merc.management.commands_utils.utilgetreceivers(serie.author)
+            merc.at.hilos.utiles.sendTelegram(mensaje=msgproperties.MSG_TELEGRAM["new"].format(serie.nombre, serie.quality),user=serie.author, receivers=serie.author)
             return redirect('list')
     else:
         form = SeriesForm()
