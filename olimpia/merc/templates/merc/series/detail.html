@@ -61,10 +61,16 @@
 
 
     <form method="POST" action>
-
+        {% csrf_token %}
+        {% if request.user.is_superuser %}
+            <div class="row uniform ">
+                <div class="12u 12u(mobilep)">
+                    <label>{{ form.author.label_tag }} </label> <div class="select-wrapper">{{ form.author }}</div>
+                </div>
+            </div>
+        {% endif %}
+        
         <div class="row uniform ">
-            {% csrf_token %}
-
             <div class="10u 12u(mobilep)">
                 <label>{{ form.nombre.label_tag }} </label> {{ form.nombre }}
             </div>

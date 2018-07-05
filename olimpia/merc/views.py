@@ -75,12 +75,13 @@ def list(request):
 
 @login_required(login_url='/accounts/login/')
 def control(request):
-    
     form = SeriesForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
+            logger.info("Serie para el usuario {}".format(form))
             serie = form.save(commit=False)
-            serie.author = request.user
+            if not serie.author:
+                serie.author = request.user
             serie.save()
             receivers = merc.management.commands_utils.utilgetreceivers(request.user)
             merc.at.hilos.utiles.sendTelegram(mensaje=msgproperties.MSG_TELEGRAM["new"].format(serie.nombre, serie.quality),user=request.user, receivers=receivers)

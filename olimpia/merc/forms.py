@@ -15,10 +15,9 @@ class SeriesForm(forms.ModelForm):
     quality = forms.CharField(max_length=2, min_length=2,  initial="NR",widget=forms.Select(attrs={},choices=CHOICES_QUALITY))
     
     
-    
     class Meta:
         model = Series
-        fields = ('nombre', 'quality','ep_start','ep_end','paussed', 'skipped', )
+        fields = ('author', 'nombre', 'quality','ep_start','ep_end','paussed', 'skipped', )
         widgets = {
             'nombre': forms.TextInput(attrs={}),
             'paussed': forms.Select(attrs={},choices=CHOICES),
