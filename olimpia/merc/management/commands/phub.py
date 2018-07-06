@@ -28,9 +28,6 @@ logger = logging.getLogger(__name__)
 
 
 
-
-
-
 def coords(s):
     try:
         valores = map(str, s.split(','))
@@ -81,6 +78,8 @@ class Command(BaseCommand):
             help='No guardamos links torrent',
         )
         
+        parser.add_argument('-p','--pages', help='Paginas incluidas en la busqueda', dest="pages", type=int, default=1, choices=range(1,6))
+        
         
         parser.add_argument('-i','--incluidos', help='tag incluidos', nargs='+', dest="incluidos")
         parser.add_argument('-e','--excluidos', help='tag excluidos', nargs='+', dest="excluidos")
@@ -109,9 +108,7 @@ class Command(BaseCommand):
             logger.debug("Usuario : {}".format(author))
             receivers = merc.management.commands_utils.utilgetreceivers(author)
 
-        
-        
-        
+
             if options['incluidos']:
                 self.incluidos = options['incluidos'] 
                 if options['cord']:
@@ -147,94 +144,24 @@ class Command(BaseCommand):
             logger.info("Vamos a buscar en : {sections}".format(sections=self.urlListadoPattern))
             
             
-            # Vamos a buscar lo que buscamos
-            # Recuperamos la pagina de busqueda
-            url = "{}/{}".format(self.urlPattern, self.urlListadoPattern)
-            try:
-                page, proxy = utilesplugins.toggleproxy(url)
-                # pintarFicheroHtml(page.encode('utf-8').strip(),"catalogue")
-                
-                 # Parse pagina principal
-                source = BeautifulSoup(page, "html.parser")
-                
-            except Exception, e:
-                merc.at.hilos.utiles.sendTelegram("Error al encontrar la pagina principal", author, receivers=receivers)
-                raise e
-           
-            # buscar_list = source.find_all("table", {"class" : "lista"})
-            buscar_list = source.find_all("table", {"class" : "lista"})
-            
-        
-            listaTorrent = []
-            listaNoTorrent  = []
-            
-            count = 3
             wanted = 0
-            while count < len(buscar_list):
-                reg = buscar_list[count]
-                isdate,dateWar = self.isBeforeDay(reg)
-                if isdate:
-                    wanted=wanted+1
-                    sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
-                    url = "{}/{}".format(self.urlPattern, sUrlShow)
-                    try:
-                        page, proxy = utilesplugins.toggleproxy(url)
-                        # pintarFicheroHtml(page.encode('utf-8').strip(),"show")
-                        # Parse pagina link
-                        source = BeautifulSoup(page, "html.parser")
-                    except Exception, e:
-                        merc.at.hilos.utiles.sendTelegram("Error al encontrar la pagina secundaria", author, receivers=receivers)
-                        raise e
-                    
-                    
-                    urlTorrent = source.find_all("a", href=re.compile("^download.php"))[0]["href"]
-                    # print source.find_all("a", id=lambda value: value and value.startswith("download.php"))
-                    
-                    url = "{}/{}".format(self.urlPattern,urlTorrent)
-                    if options['lite']:
-                        filter, title, category = self.insideFilter(reg)
-                    else:
-                        filter, title, category = self.insideFilter(reg, url)
-                    
-                    if filter:
-                        # Vamos a saber si esta en la bbdd
-                        created = P_History.objects.filter(title=title, down=True).exists()
-                        if created:
-                            logger.info('Ya existia el registro')
-                        else:
-                            # Grabamos
-                            ## AQUI NO
-                            # self.createRegData(torrent)
-                            
-                            # preparamos para enviar
-                            file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
-                            r = requests.get(url, stream=True)
-                            with open(file_name, 'wb') as f:
-                                for chunk in r.iter_content():
-                                    f.write(chunk)
-                            listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})                            
-                        
-                    else:
-                        # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
-                        listaNoTorrent.append({"title":title,"file_name":None,"url":url.strip(),"category":category})
-                        pass
+            for page in range(0,options["pages"]):
+                # Vamos a buscar lo que buscamos
+                # Recuperamos la pagina de busqueda
+                url = "{}/{}&pages={}".format(self.urlPattern, self.urlListadoPattern, page)
+                logger.info("[[ **** Pagina {} :: {} **** ]]".format(page,url))
+                try:
+                    listaTorrent, listaNoTorrent, wanted = self.findOnePage(url, options, wanted)
+                except Exception, e:
+                    merc.at.hilos.utiles.sendTelegram("Error, compruba el log", author, receivers=receivers)
+                    raise e    
 
-                    
-                
-                
-                count=count+1
-            ''' probando el cliente '''
-            # client = getClientTorrent()
-            # addTorrent(client, "http://torrentrapid.com/descargar-torrent/106685_-1523920896-the-brave----temporada-1--hdtv-720p-ac3-5-1/")
-            ''' funciona correctamente '''
-        
-            
             
             if not options['test'] and listaTorrent:
                 self.loopAddTorrent(listaTorrent)
             
             
-            for i in range(len(buscar_list)):
+            for i in range(len(listaTorrent)+len(listaNoTorrent)):
                 try: 
                     os.remove('{}/torrent{}.torrent'.format(self.PATH_TORRENT, i)) 
                 except:
@@ -258,6 +185,81 @@ class Command(BaseCommand):
                     sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["category"]) 
                 msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
                 merc.at.hilos.utiles.sendTelegram(msg, author, receivers=receivers)
+    
+    
+    def findOnePage(self, url, options, wanted=0):
+        logger = None
+        # Vamos a buscar lo que buscamos
+        try:
+            page, proxy = utilesplugins.toggleproxy(url)
+            # pintarFicheroHtml(page.encode('utf-8').strip(),"catalogue")
+            
+             # Parse pagina principal
+            source = BeautifulSoup(page, "html.parser")
+            
+        except Exception, e:
+            # merc.at.hilos.utiles.sendTelegram("Error al encontrar la pagina principal", author, receivers=receivers)
+            raise e
+       
+        # buscar_list = source.find_all("table", {"class" : "lista"})
+        buscar_list = source.find_all("table", {"class" : "lista"})
+        
+    
+        listaTorrent = []
+        listaNoTorrent  = []
+        
+        count = 3
+        while count < len(buscar_list):
+            reg = buscar_list[count]
+            isdate,dateWar = self.isBeforeDay(reg)
+            if isdate:
+                wanted=wanted+1
+                sUrlShow=reg.find_all("td",{"class":"header"})[0].find("a")['href']
+                url = "{}/{}".format(self.urlPattern, sUrlShow)
+                try:
+                    page, proxy = utilesplugins.toggleproxy(url)
+                    # pintarFicheroHtml(page.encode('utf-8').strip(),"show")
+                    # Parse pagina link
+                    source = BeautifulSoup(page, "html.parser")
+                except Exception, e:
+                    # merc.at.hilos.utiles.sendTelegram("Error al encontrar la pagina secundaria", author, receivers=receivers)
+                    raise e
+                
+                
+                urlTorrent = source.find_all("a", href=re.compile("^download.php"))[0]["href"]
+                # print source.find_all("a", id=lambda value: value and value.startswith("download.php"))
+                
+                url = "{}/{}".format(self.urlPattern,urlTorrent)
+                if options['lite']:
+                    filter, title, category = self.insideFilter(reg)
+                else:
+                    filter, title, category = self.insideFilter(reg, url)
+                
+                if filter:
+                    # Vamos a saber si esta en la bbdd
+                    created = P_History.objects.filter(title=title, down=True).exists()
+                    if created:
+                        logger.info('Ya existia el registro')
+                    else:
+                        # Grabamos
+                        ## AQUI NO
+                        # self.createRegData(torrent)
+                        
+                        # preparamos para enviar
+                        file_name = '{}/torrent{}.torrent'.format(self.PATH_TORRENT, count)
+                        r = requests.get(url, stream=True)
+                        with open(file_name, 'wb') as f:
+                            for chunk in r.iter_content():
+                                f.write(chunk)
+                        listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})                            
+                    
+                else:
+                    # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
+                    listaNoTorrent.append({"title":title,"file_name":None,"url":url.strip(),"category":category})
+                    pass
+            count=count+1
+    
+        return  listaTorrent,listaNoTorrent, wanted
             
 
     def createRegData(self, reg):
