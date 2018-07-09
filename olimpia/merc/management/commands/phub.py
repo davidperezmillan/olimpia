@@ -118,8 +118,6 @@ class Command(BaseCommand):
                 if options['cord']:
                     self.incluidos = options['cord']
                 
-            
-            
             # if options['cord']:
             #     self.incluidos = options['cord']
             #     if options['incluidos']:
