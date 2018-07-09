@@ -80,7 +80,7 @@ class Command(BaseCommand):
         listaNoTorrent  = []
     
         
-        for npage in range(1,self.pages):
+        for npage in range(1,(self.pages+1)):
             ## Manejador
             url_principal = "{}{}".format(self.path_url_principal,npage)
             try:
@@ -175,6 +175,7 @@ class Command(BaseCommand):
             logger.debug("Usuario : {}".format(author))
             self.receivers = merc.management.commands_utils.utilgetreceivers(author)
 
+        logger.info("Numero de paginas a buscar: {pages}".format(pages=self.pages))
         logger.info("Vamos a incluir: {incluidos}".format(incluidos=self.incluidos))
         logger.info("Vamos a excluir: {excluidos}".format(excluidos=self.excluidos))
         if self.test:
@@ -191,7 +192,7 @@ class Command(BaseCommand):
                 
         for excluido in self.excluidos:
             if excluido.upper() in tags:
-                resupesta = False
+                return False
 
         return respuesta
     
