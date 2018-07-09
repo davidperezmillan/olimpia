@@ -99,7 +99,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         
-        
+        self.logger_INC = self.getHandlerIncluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
+        self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
         
         
         for user in options['author']:
@@ -298,8 +299,6 @@ class Command(BaseCommand):
         
     
         if not category:
-            if not self.logger_EXC:
-                self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
             self.logger_EXC.info("::{}::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
             return False, title, category
         
@@ -330,13 +329,9 @@ class Command(BaseCommand):
         
         if respuesta:
             logger.info("[ACEPTADO] -> Title: {} --> Category: {}".format(title, category))
-            if not self.logger_INC:
-                self.logger_INC = self.getHandlerIncluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
             self.logger_INC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category])) 
         else:
             logger.warn("[RECHAZADO] -> Title: {} --> Category: {}".format(title, category))
-            if not self.logger_EXC:
-                self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
             self.logger_EXC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
             pass
             
