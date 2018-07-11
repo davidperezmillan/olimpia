@@ -217,7 +217,7 @@ class Command(BaseCommand):
         registry.down=True
         registry.title=reg['title']
         registry.url=reg['url_torrent']
-        registry.plugin=P_History.PLUGIN_CHOICES[1]
+        registry.plugin=2
         registry.fecha=timezone.now()
         registry.save()
         logger.info('Se ha creado el registro {}'.format(registry))

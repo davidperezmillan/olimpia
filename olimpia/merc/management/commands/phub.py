@@ -265,7 +265,7 @@ class Command(BaseCommand):
         registry = P_History()
         registry.down=True
         registry.title=reg['title']
-        registry.plugin=P_History.PLUGIN_CHOICES[0]
+        registry.plugin=1
         registry.fecha=timezone.now()
         registry.save()
         logger.info('Se ha creado el registro {}'.format(registry))
