@@ -154,6 +154,18 @@ class Command(BaseCommand):
             self.loopAddTorrent(listaTorrent)          
 
 
+
+        # Construimos y enviamos el mensaje
+        if not options['test']:
+            msgHeader = "Hemos encontrado en yp {} de {} \n\r".format(len(listaTorrent), len(listaNoTorrent))
+            sitems = ""
+            sFinal = ""
+            for item in listaTorrent:
+                sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["category"]) 
+            msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
+            merc.at.hilos.utiles.sendTelegram(msg, user=self.author, receivers=self.receivers)
+    
+
    
 
     
@@ -171,9 +183,9 @@ class Command(BaseCommand):
         
         for user in options['author']:
             logger.info('Ejecutando busqueda especial {}'.format(user))
-            author = User.objects.get(username=user)
-            logger.debug("Usuario : {}".format(author))
-            self.receivers = merc.management.commands_utils.utilgetreceivers(author)
+            self.author = User.objects.get(username=user)
+            logger.debug("Usuario : {}".format(self.author))
+            self.receivers = merc.management.commands_utils.utilgetreceivers(self.author)
 
         logger.info("Numero de paginas a buscar: {pages}".format(pages=self.pages))
         logger.info("Vamos a incluir: {incluidos}".format(incluidos=self.incluidos))
