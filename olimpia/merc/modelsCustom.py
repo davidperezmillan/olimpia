@@ -9,10 +9,10 @@ from django.conf import settings
 
 class P_History(models.Model):
     
-    PLUGIN_CHOICES = (('phub','phub'),('ypclub','ypclub'),('other','other'))
+    PLUGIN_CHOICES = ('phub','ypclub','other')
     
     id = models.AutoField(primary_key=True)  # AutoField?
-    plugin = models.CharField(max_length=10, choices=PLUGIN_CHOICES, default='other')
+    plugin = models.CharField(max_length=10, default='other')
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200, blank=True, null=True)
     down = models.NullBooleanField(default=False)  # Field name made lowercase.
