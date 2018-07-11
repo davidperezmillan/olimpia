@@ -211,6 +211,16 @@ class Command(BaseCommand):
         return respuesta
     
     
+    def createRegData(self, reg):
+        from merc.modelsCustom import P_History
+        registry = P_History()
+        registry.down=True
+        registry.title=reg['title']
+        registry.plugin=P_History.PLUGIN_CHOICES[1]
+        registry.fecha=timezone.now()
+        registry.save()
+        logger.info('Se ha creado el registro {}'.format(registry))
+    
     
     
     ### Helper  ### 
@@ -267,7 +277,7 @@ class Command(BaseCommand):
             torrentAdded = self.addTorrent(client,item_torrent['torrent'])
             if torrentAdded:
                 logger.info("Add torrent: {} :: {}".format(item_torrent['title'], item_torrent['tags']))
-                # self.createRegData(torrent)
+                self.createRegData(item_torrent) 
             pass
         pass
     
