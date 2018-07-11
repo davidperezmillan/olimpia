@@ -88,6 +88,7 @@ class Command(BaseCommand):
                 page, proxy = utilesplugins.toggleproxy(url_principal)
                 source = BeautifulSoup(page, "html.parser")
             except Exception, e:
+                logging.fatal(e, exc_info=True)
                 raise e
             torrents_list = source.find_all("div", {"class" : "torrents_list"})
             ## Recuperamos los elementos
@@ -114,6 +115,7 @@ class Command(BaseCommand):
                     page, proxy = utilesplugins.toggleproxy(url_torrent)
                     source = BeautifulSoup(page, "html.parser")
                 except Exception, e:
+                    logging.fatal(e, exc_info=True)
                     raise e
                 torrent_div = source.find_all("div", {"class" : "torrent_div"})[0]
                 torrent_info_div = torrent_div.find_all("div", {"class" : "torrent_info_div"})[0]
@@ -239,6 +241,23 @@ class Command(BaseCommand):
         logger_INC.addHandler(handlerI)
 
         return logger_INC    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
     # TRANSMISSION
     def loopAddTorrent(self,listaTorrent):
@@ -251,8 +270,6 @@ class Command(BaseCommand):
                 # self.createRegData(torrent)
             pass
         pass
-    
-    
     
     def getClientTorrent(self,loggerLevel=logging.WARN):
         # Logger config
