@@ -163,7 +163,7 @@ class Command(BaseCommand):
             sitems = ""
             sFinal = ""
             for item in listaTorrent:
-                sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["category"]) 
+                sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["tags"]) 
             msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
             merc.at.hilos.utiles.sendTelegram(msg, user=self.author, receivers=self.receivers)
     
