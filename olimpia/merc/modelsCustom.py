@@ -14,7 +14,7 @@ class P_History(models.Model):
     id = models.AutoField(primary_key=True)  # AutoField?
     plugin = models.CharField(max_length=10, choices=PLUGIN_CHOICES, default='other')
     title = models.CharField(max_length=200)
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=200, blank=True, null=True)
     down = models.NullBooleanField(default=False)  # Field name made lowercase.
     fecha = models.DateTimeField(blank=True, null=True, auto_now_add=True)  # Field name made lowercase.
 
