@@ -97,7 +97,8 @@ def control_edit(request, serie_id):
         form = SeriesForm(request.POST, instance=serie)
         if form.is_valid():
             serie = form.save(commit=False)
-            # serie.author = request.user
+            if not serie.author:
+                serie.author = request.user
             serie.save()
             return redirect('list')
     else:
