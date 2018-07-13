@@ -36,7 +36,7 @@ class TasksThread(threading.Thread):
             task_ejecutable.save()
         
         except Exception, e:
-            logger.error("ERROR EN LA TAREA {} ".format(task_ejecutable.descrip))
+            logger.error("ERROR EN LA TAREA {} : {}".format(task_ejecutable.descrip, e.message))
         
         
         # torrentservers = self.kwargs['torrentservers']
