@@ -24,7 +24,8 @@ import merc.at.plugins.utilesplugins as utilesplugins
 import merc.at.hilos.utiles
 
 import logging
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
+logger = logging.getLogger("busquedas_especiales")
 
 
 
