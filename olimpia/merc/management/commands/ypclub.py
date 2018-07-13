@@ -24,7 +24,8 @@ import merc.at.plugins.utilesplugins as utilesplugins
 import merc.at.hilos.utiles
 
 import logging
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
+logger = logging.getLogger("busquedas_especiales")
 
 
 
@@ -133,7 +134,12 @@ class Command(BaseCommand):
                 item_torrent['magnet']=md_btn
                 
                 if self.insideFilter(item_torrent['tags']):
-                    listaTorrent.append(item_torrent)
+                    # Comprobamos que no esta en la BBDD
+                    created = P_History.objects.filter(title=item_torrent['title'],plugin=2, down=True).exists()
+                    if created:
+                        logger.info('Ya existia el registro')
+                    else:
+                        listaTorrent.append(item_torrent)
                 
             
             
