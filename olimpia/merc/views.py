@@ -324,86 +324,15 @@ def telegramSend(request):
 def listPTorrent(request):
     latest_excluidos_update = []
     latest_incluidos_update = []
-    path = os.path.join(settings.BASE_DIR,'../data/olimpia/report')
     
+    __getFileWrapper(latest_incluidos_update,'*_WTCHD_INCLUIDOS.dat', 'phub')
+    __getFileWrapper(latest_incluidos_update,'*_WTCHD_CLUB_INCLUIDOS.dat','ypclub')
     
-    # Vamos a coger el ultimo archivo de la carpeta en cuestion
-    fname = __get_latest_file(path,'*_WTCHD_INCLUIDOS.dat')
-    if fname:
-        logger.info("Archivo origen {}".format(fname))
-        fullPathName = os.path.join(path,fname)
-        with open(fullPathName) as f:
-            content = f.readlines()
-            # you may also want to remove whitespace characters like `\n` at the end of each line
-        linesRaw = [x.strip() for x in content]
+    __getFileWrapper(latest_excluidos_update,'*_WTCHD_EXCLUIDOS.dat', 'phub')
+    __getFileWrapper(latest_excluidos_update,'*_WTCHD_CLUB_EXCLUIDOS.dat','ypclub')
     
-        # mappeamos el objeto 
-        logger.info("lineas a mapear {}".format(len(linesRaw)))    
-        for line in linesRaw:
-            if line:
-                sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
-                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname, "trr":line.split('::')[3]}
-                latest_incluidos_update.append(lDict)
-    
-    
-    # Vamos a coger el ultimo archivo de la carpeta en cuestion
-    fname = __get_latest_file(path,'*_WTCHD_CLUB_INCLUIDOS.dat')
-    if fname:
-        logger.info("Archivo origen {}".format(fname))
-        fullPathName = os.path.join(path,fname)
-        with open(fullPathName) as f:
-            content = f.readlines()
-            # you may also want to remove whitespace characters like `\n` at the end of each line
-        linesRaw = [x.strip() for x in content]
-    
-        # mappeamos el objeto 
-        logger.info("lineas a mapear {}".format(len(linesRaw)))    
-        for line in linesRaw:
-            if line:
-                sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
-                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname, "trr":line.split('::')[3]}
-                latest_incluidos_update.append(lDict)
-    
-    
-    
-    
-    # Vamos a coger el ultimo archivo de la carpeta en cuestion
-    fname = __get_latest_file(path,'*_WTCHD_EXCLUIDOS.dat')
-    if fname:
-        logger.info("Archivo origen {}".format(fname))
-        fullPathName = os.path.join(path,fname)
-        with open(fullPathName) as f:
-            content = f.readlines()
-            # you may also want to remove whitespace characters like `\n` at the end of each line
-        linesRaw = [x.strip() for x in content]
-    
-        # mappeamos el objeto 
-        logger.info("lineas a mapear {}".format(len(linesRaw)))    
-        for line in linesRaw:
-            if line:
-                sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
-                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname,"trr":line.split('::')[3]}
-                latest_excluidos_update.append(lDict)
-    
-    
-    # Vamos a coger el ultimo archivo de la carpeta en cuestion
-    fname = __get_latest_file(path,'*_WTCHD_CLUB_EXCLUIDOS.dat')
-    if fname:
-        logger.info("Archivo origen {}".format(fname))
-        fullPathName = os.path.join(path,fname)
-        with open(fullPathName) as f:
-            content = f.readlines()
-            # you may also want to remove whitespace characters like `\n` at the end of each line
-        linesRaw = [x.strip() for x in content]
-    
-        # mappeamos el objeto 
-        logger.info("lineas a mapear {}".format(len(linesRaw)))    
-        for line in linesRaw:
-            if line:
-                sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
-                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname,"trr":line.split('::')[3]}
-                latest_excluidos_update.append(lDict)
-    
+    latest_incluidos_update.sort(key=lambda x: x['title'].upper())
+    latest_excluidos_update.sort(key=lambda x: x['title'].upper())
     
     context = {'latest_excluidos_update': latest_excluidos_update,'latest_incluidos_update':latest_incluidos_update}
     return render(request, 'merc/torrent/special.html', context)    
@@ -423,3 +352,31 @@ def __get_latest_file(path, *paths):
     latest_file = max(list_of_files, key=os.path.getctime)
     _, filename = os.path.split(latest_file)
     return filename
+    
+    
+    
+    
+def __getFileWrapper(latest_update,pattern, origen=""):
+    path = os.path.join(settings.BASE_DIR,'../data/olimpia/report')
+     # Vamos a coger el ultimo archivo de la carpeta en cuestion
+    fname = __get_latest_file(path,pattern)
+    if fname:
+        logger.info("Archivo origen {}".format(fname))
+        fullPathName = os.path.join(path,fname)
+        with open(fullPathName) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+        linesRaw = [x.strip() for x in content]
+    
+        # mappeamos el objeto 
+        logger.info("lineas a mapear {}".format(len(linesRaw)))    
+        for line in linesRaw:
+            if line:
+                # line.split('::')[-1] ### Siempre tiene que estar porque es la ultima
+                linea = line.split('::')
+                titulo = linea[1] if len(linea) >= 2 else ""
+                link = linea[2] if len(linea) >= 2 else ""
+                trr =  linea[3] if len(linea) >= 3 else ""
+                sCat = linea[-1].replace( "[", "").replace( "]", "").replace(", ",",")
+                lDict = {"origen":origen,"title":titulo,"link":link,"cat":sCat,"fch":fname, "trr":trr}
+                latest_update.append(lDict)
