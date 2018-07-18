@@ -375,8 +375,8 @@ def __getFileWrapper(latest_update,pattern, origen=""):
                 # line.split('::')[-1] ### Siempre tiene que estar porque es la ultima
                 linea = line.split('::')
                 titulo = linea[1] if len(linea) >= 2 else ""
-                link = linea[2] if len(linea) >= 2 else ""
-                trr =  linea[3] if len(linea) >= 3 else ""
+                link = linea[2] if len(linea) >= 3 else ""
+                trr =  linea[3] if len(linea) >= 4 else ""
                 sCat = linea[-1].replace( "[", "").replace( "]", "").replace(", ",",")
                 lDict = {"origen":origen,"title":titulo,"link":link,"cat":sCat,"fch":fname, "trr":trr}
                 latest_update.append(lDict)
