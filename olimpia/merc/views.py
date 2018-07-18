@@ -346,6 +346,26 @@ def listPTorrent(request):
                 latest_incluidos_update.append(lDict)
     
     
+    # Vamos a coger el ultimo archivo de la carpeta en cuestion
+    fname = __get_latest_file(path,'*_WTCHD_CLUB_INCLUIDOS.dat')
+    if fname:
+        logger.info("Archivo origen {}".format(fname))
+        fullPathName = os.path.join(path,fname)
+        with open(fullPathName) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+        linesRaw = [x.strip() for x in content]
+    
+        # mappeamos el objeto 
+        logger.info("lineas a mapear {}".format(len(linesRaw)))    
+        for line in linesRaw:
+            if line:
+                sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
+                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname, "trr":line.split('::')[3]}
+                latest_incluidos_update.append(lDict)
+    
+    
+    
     
     # Vamos a coger el ultimo archivo de la carpeta en cuestion
     fname = __get_latest_file(path,'*_WTCHD_EXCLUIDOS.dat')
@@ -364,6 +384,26 @@ def listPTorrent(request):
                 sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
                 lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname,"trr":line.split('::')[3]}
                 latest_excluidos_update.append(lDict)
+    
+    
+    # Vamos a coger el ultimo archivo de la carpeta en cuestion
+    fname = __get_latest_file(path,'*_WTCHD_CLUB_EXCLUIDOS.dat')
+    if fname:
+        logger.info("Archivo origen {}".format(fname))
+        fullPathName = os.path.join(path,fname)
+        with open(fullPathName) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+        linesRaw = [x.strip() for x in content]
+    
+        # mappeamos el objeto 
+        logger.info("lineas a mapear {}".format(len(linesRaw)))    
+        for line in linesRaw:
+            if line:
+                sCat = line.split('::')[-1].replace( "[", "").replace( "]", "").replace(", ",",")
+                lDict = {"title":line.split('::')[1],"link":line.split('::')[2],"cat":sCat,"fch":fname,"trr":line.split('::')[3]}
+                latest_excluidos_update.append(lDict)
+    
     
     context = {'latest_excluidos_update': latest_excluidos_update,'latest_incluidos_update':latest_incluidos_update}
     return render(request, 'merc/torrent/special.html', context)    
