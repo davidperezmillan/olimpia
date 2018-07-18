@@ -21,12 +21,17 @@
                 <tr>
                     {% if request.user.is_superuser %}
                         <td>
-                            {% if torrent.trr %}
-                                <a href="{{ torrent.trr }}"><img src="{% static 'merc/images/tr-ico.png' %}" alt=""/></a>
+                             {% if torrent.trr %}
+                                <a href="{{ torrent.trr }}">
+                                {% with 'merc/images/'|add:torrent.origen|add:'.png' as img_origen %}
+                                    <img src="{% static img_origen %}" alt=""/>  
+                                {% endwith %}
+                                </a>
+                            {% else %}
+                                {% with 'merc/images/'|add:torrent.origen|add:'.png' as img_origen %}
+                                    <img src="{% static img_origen %}" alt=""/>  
+                                {% endwith %}
                             {% endif %}
-                            {% with 'merc/images/'|add:torrent.origen|add:'.png' as img_origen %}
-                                <img src="{% static img_origen %}" alt=""/>  
-                            {% endwith %}
                             <a href=" {{ torrent.link }}"> {{ torrent.title }}</a></td>
                     {% else %}
                         <td>{{ torrent.title }}</td>
