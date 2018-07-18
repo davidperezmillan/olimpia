@@ -311,7 +311,7 @@ class Command(BaseCommand):
     def addTorrent(self,client, url):
         options = {}
         options['paused']=False
-        options["download_dir"] = "/media/maxtor/ides/autodown/{}/{:%Y%m%d}".format(os.path.splitext(os.path.basename(__file__))[0],datetime.now())
+        options["download_dir"] = "/media/maxtor/ides/autodown/{}/{:%Y%m%d}".format(os.path.basename(__file__),datetime.now())
         #  urllib.quote and urllib.unquote 
         logger.info("Request torrent url: {}".format(url))
         torrentadd = client.add_torrent(url, **options)
