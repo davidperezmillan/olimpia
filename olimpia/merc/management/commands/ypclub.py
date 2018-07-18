@@ -115,13 +115,12 @@ class Command(BaseCommand):
                 try:
                     page, proxy = utilesplugins.toggleproxy(url_torrent)
                     source = BeautifulSoup(page, "html.parser")
+                    torrent_div = source.find_all("div", {"class" : "torrent_div"})[0]
+                    torrent_info_div = torrent_div.find_all("div", {"class" : "torrent_info_div"})[0]
+                    torrent_download_div = torrent_div.find_all("div", {"class" : "torrent_download_div"})[0]
                 except Exception, e:
-                    logger.fatal(e, exc_info=True)
-                    raise e
-                torrent_div = source.find_all("div", {"class" : "torrent_div"})[0]
-                torrent_info_div = torrent_div.find_all("div", {"class" : "torrent_info_div"})[0]
-                torrent_download_div = torrent_div.find_all("div", {"class" : "torrent_download_div"})[0]
-                
+		    logger.fatal(e, ext_info=True)
+		    raise e
                 try:
                     ##Recupermoas el video
                     torrent_links = torrent_info_div.find_all("div", {"class" : "torrent_links"})[0]
