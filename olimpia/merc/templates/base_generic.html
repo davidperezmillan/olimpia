@@ -22,6 +22,7 @@
 			<nav id="nav">
 				<ul>
 					<li><a href="{% url 'portada' %}">Inicio</a></li>
+					{% if user.is_authenticated %}
 					<li>
 						<a href="#" class="icon fa-angle-down">Menus</a>
 						<ul>
@@ -57,7 +58,25 @@
 							</li>
 						</ul>
 					</li>
-					{% if user.is_authenticated %}
+					
+					{% if request.user.is_superuser %}
+						<li>
+							<a href="#" class="icon fa-angle-down">SuperUser</a>	
+							<ul>
+								<li><a href="{% url 'hod:export' %}" onclick="return confirm('Exportar los vistos puede tardar un rato?')">Exportar Vistos</a></li>
+								<li><a href="{% url 'listPTorrent' %}">Listar Torrent especiales</a></li>
+								<li><a href="{% url 'organize' %}">Organizar</a></li>
+								<li><a href="{% url 'telegramSend' %}">MSG</a></li>
+								<li><a href="{% url 'admin:index' %}">Admin</a></li>
+								<li><a href="admin/ctab/tasks">Tareas</a></li>
+								<li><a href="{% url 'admin:auth_user_change' request.user.id %}">{% if user.get_full_name %}{{user.get_full_name}} {% else %} {{user.get_username}}	{% endif %}	 </a></li>
+							</ul>
+						</li>
+					
+					{% endif %}
+					
+					
+					
 						<li>
 							<a href="#" class="icon fa-angle-down">
 								{% if user.get_full_name %} 
@@ -67,15 +86,6 @@
 								{% endif %}	
 							</a>
 							<ul>
-								{% if request.user.is_superuser %}
-									<li><a href="{% url 'hod:export' %}" onclick="return confirm('Exportar los vistos puede tardar un rato?')">Exportar Vistos</a></li>
-									<li><a href="{% url 'listPTorrent' %}">Listar Torrent especiales</a></li>
-									<li><a href="{% url 'organize' %}">Organizar</a></li>
-									<li><a href="{% url 'telegramSend' %}">MSG</a></li>
-									<li><a href="{% url 'admin:index' %}">Admin</a></li>
-									<li><a href="admin/ctab/tasks">Tareas</a></li>
-									<li><a href="{% url 'admin:auth_user_change' request.user.id %}">{% if user.get_full_name %}{{user.get_full_name}} {% else %} {{user.get_username}}	{% endif %}	 </a></li>
-								{% endif %}
 								<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
 							</ul>
 						</li>
