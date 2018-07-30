@@ -26,14 +26,20 @@ class Organize(object):
         series = glob.glob(os.path.join(urlData,'*')) 
         series = filter(lambda f: os.path.isdir(f), series)
         for serie in series:
-            self.proccess_serie(serie, urlMirror,delete=False)
+            self.prepare_proccess_serie(serie, urlMirror,delete=False)
         self.logger.info("Organizacion Terminada")
     
-    # Parece privado
-    def proccess_serie(self,urlDataSerie, urlMirrorPath, delete=False):
+    
+    def prepare_proccess_serie(self,urlDataSerie, urlMirrorPath, delete=False):
         urlDataSerie = urlDataSerie if urlDataSerie.endswith('/') else "{}/".format(urlDataSerie)
         urlMirrorPath = urlMirrorPath if urlMirrorPath.endswith('/') else "{}/".format(urlMirrorPath)
         
+        self.__proccess_serie(urlDataSerie, urlMirrorPath, delete)
+        
+        
+    
+    
+    def __proccess_serie(self,urlDataSerie, urlMirrorPath, delete=False):
         self.logger.info("Serie {0} para organizarlo en {1}".format(urlDataSerie, urlMirrorPath))
         
         # create folder structure 
