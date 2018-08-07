@@ -301,7 +301,7 @@ class Command(BaseCommand):
         
     
         if not category:
-            self.logger_EXC.info("::{}::{}::{}::{}::".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
+            self.logger_EXC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
             return False, title, category
         
         for inc in self.incluidos:
@@ -397,7 +397,8 @@ class Command(BaseCommand):
         logger_EXC = logging.getLogger('loggerEXC')
         logger_EXC.setLevel(logging.INFO)
         lFormatter_EXC = lFormatter
-        handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        # handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        handlerE = FileHandler("{}/{}_EXCLUIDOS.dat".format(dirname,filename), mode='w',)
         logger_EXC.addHandler(handlerE)
 
         return logger_EXC    
@@ -411,7 +412,8 @@ class Command(BaseCommand):
         logger_INC = logging.getLogger('loggerINC')
         logger_INC.setLevel(logging.INFO)
         lFormatter_INC = lFormatter
-        handlerI = FileHandler("{}/{:%H%M_%Y%m%d}_{}_INCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        # handlerI = FileHandler("{}/{:%H%M_%Y%m%d}_{}_INCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
+        handlerI = FileHandler("{}/{}_INCLUIDOS.dat".format(dirname,filename), mode='w',)
         logger_INC.addHandler(handlerI)
 
         return logger_INC

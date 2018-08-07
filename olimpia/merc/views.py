@@ -325,11 +325,11 @@ def listPTorrent(request):
     latest_excluidos_update = []
     latest_incluidos_update = []
     
-    __getFileWrapper(latest_incluidos_update,'*_WTCHD_INCLUIDOS.dat', 'phub')
-    __getFileWrapper(latest_incluidos_update,'*_WTCHD_CLUB_INCLUIDOS.dat','ypclub')
+    __getFileWrapper(latest_incluidos_update,'WTCHD_INCLUIDOS.dat', 'phub')
+    __getFileWrapper(latest_incluidos_update,'WTCHD_CLUB_INCLUIDOS.dat','ypclub')
     
-    __getFileWrapper(latest_excluidos_update,'*_WTCHD_EXCLUIDOS.dat', 'phub')
-    __getFileWrapper(latest_excluidos_update,'*_WTCHD_CLUB_EXCLUIDOS.dat','ypclub')
+    __getFileWrapper(latest_excluidos_update,'WTCHD_EXCLUIDOS.dat', 'phub')
+    __getFileWrapper(latest_excluidos_update,'WTCHD_CLUB_EXCLUIDOS.dat','ypclub')
     
     latest_incluidos_update.sort(key=lambda x: x['title'].upper())
     latest_excluidos_update.sort(key=lambda x: x['title'].upper())
@@ -377,6 +377,8 @@ def __getFileWrapper(latest_update,pattern, origen=""):
                 titulo = linea[1] if len(linea) >= 2 else ""
                 link = linea[2] if len(linea) >= 3 else ""
                 trr =  linea[3] if len(linea) >= 4 else ""
+                # logger.info("Categoria : {} ".format(linea[-1]))
                 sCat = linea[-1].replace( "[", "").replace( "]", "").replace(", ",",")
                 lDict = {"origen":origen,"title":titulo,"link":link,"cat":sCat,"fch":fname, "trr":trr}
+                logger.info("Elemento : {}".format(lDict))
                 latest_update.append(lDict)
