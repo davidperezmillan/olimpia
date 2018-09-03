@@ -40,6 +40,7 @@ def findAndDestroy(series_update, torrentservers, filter_find=False, user=None, 
 
 def organizeProccess(author,args, options, torrentservers):
     # torrentservers = TorrentServers.objects.filter(author=author)
+    logger.info('Ejecutando comando organize por peticion de {} con options {}'.format(author, options))
     import merc.management.commands_utils
     receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
