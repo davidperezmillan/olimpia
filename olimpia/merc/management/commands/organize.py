@@ -29,6 +29,12 @@ class Command(BaseCommand):
             help='Borramos la carpeta origen',
         )
         parser.add_argument(
+            '--restart',
+            action='store_true',
+            dest='restart',
+            help='Pedimos el reinicio de los servicios',
+        )
+        parser.add_argument(
             '--nomsg',
             action='store_true',
             dest='nomsg',
