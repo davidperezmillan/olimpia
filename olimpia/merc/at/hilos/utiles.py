@@ -44,12 +44,12 @@ def organizeProccess(author,args, options, torrentservers):
     receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
         if options:
-            airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':options['delete'],'torrentservers':torrentservers})
+            airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':options['delete'],'torrentservers':torrentservers, 'restart':options['restart']})
             airtraporganize_thread.start()
             if (options['nomsg'] is False):
                 merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
         else:
-            airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':False,'torrentservers':torrentservers})
+            airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':False,'torrentservers':torrentservers, 'restart':False})
             airtraporganize_thread.start()
             merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"], user=author, receivers=receivers)
     except Exception, e:

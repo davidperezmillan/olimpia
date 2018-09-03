@@ -14,6 +14,16 @@ from logging.handlers import RotatingFileHandler
 class Organize(object):
     
     
+    def restart_service(self):
+        sudo_password = 'clon9897'
+        cmd1 = subprocess.Popen(['echo',sudo_password], stdout=subprocess.PIPE)
+        cmd2 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'stop'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
+        cmd3 = subprocess.Popen(['sudo','-S'] + ['sudo', 'minidlnad', '-R', 'stop'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
+        cmd4 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'start'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
+    
+        output = cmd4.stdout.read().decode()
+        return output
+    
     def proccess(self, urlData, urlMirror, delete=False):
         urlData = urlData if urlData.endswith('/') else "{}/".format(urlData)
         urlMirror = urlMirror if urlMirror.endswith('/') else "{}/".format(urlMirror)
@@ -31,8 +41,12 @@ class Organize(object):
     
     
     def prepare_proccess_serie(self,urlDataSerie, urlMirrorPath, delete=False):
+        # añadimos la barra al final de la ruta
         urlDataSerie = urlDataSerie if urlDataSerie.endswith('/') else "{}/".format(urlDataSerie)
         urlMirrorPath = urlMirrorPath if urlMirrorPath.endswith('/') else "{}/".format(urlMirrorPath)
+        
+        self.logger.debug("urlDataSerie : {} ".format(urlDataSerie))
+        self.logger.debug("urlMirrorPath : {} ".format(urlMirrorPath))
         
         self.__proccess_serie(urlDataSerie, urlMirrorPath, delete)
         

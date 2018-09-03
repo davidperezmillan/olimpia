@@ -36,7 +36,7 @@ class ClientTorrents():
 class AirTrapLauncher(object):
  
  
-    def organize(self, delete=False, dirName=None):
+    def organize(self, delete=False, dirName=None, restart=False ):
         errors = []
         organize = Organize()
         for clnt in self.clients:
@@ -48,6 +48,9 @@ class AirTrapLauncher(object):
             except Exception as e:
                 self.logger.error("Error al organizar")
                 errors.extend(["Error al organizar"]) 
+            
+            if restart:    
+                organize.restart_service()
         
         return errors
  
