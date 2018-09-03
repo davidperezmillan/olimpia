@@ -37,6 +37,7 @@ class AirTrapLauncher(object):
  
  
     def organize(self, delete=False, dirName=None, restart=False ):
+        self.logger.info('organize con {}'.format([delete,restart]))
         errors = []
         organize = Organize()
         for clnt in self.clients:
