@@ -3,6 +3,7 @@
 import sys, os, re, glob
 import fnmatch
 import logging
+import subprocess
 from logging.handlers import RotatingFileHandler
 
 
@@ -15,6 +16,7 @@ class Organize(object):
     
     
     def restart_service(self):
+        self.logger.info("Reinicio de los servicios")
         sudo_password = 'clon9897'
         cmd1 = subprocess.Popen(['echo',sudo_password], stdout=subprocess.PIPE)
         cmd2 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'stop'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
@@ -22,6 +24,7 @@ class Organize(object):
         cmd4 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'start'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
     
         output = cmd4.stdout.read().decode()
+        self.logger.info("Fin de reinicio de los servicios")
         return output
     
     def proccess(self, urlData, urlMirror, delete=False):
