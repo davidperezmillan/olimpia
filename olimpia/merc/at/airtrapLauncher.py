@@ -13,7 +13,8 @@ from merc.at.beans.pluginsBeans import ResponsePlugin
 from merc.at.service.torrentHandler import TorrentHandlerClass
 from merc.at.service.organizeHandler import Organize
 
-
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 class ClientTorrents():
@@ -37,7 +38,7 @@ class AirTrapLauncher(object):
  
  
     def organize(self, delete=False, dirName=None, restart=False ):
-        self.logger.info('organize con {}'.format([delete,restart]))
+        logger.info('organize con {}'.format([delete,restart]))
         errors = []
         organize = Organize()
         for clnt in self.clients:
@@ -47,7 +48,7 @@ class AirTrapLauncher(object):
                 else:
                     organize.proccess(clnt.conf.download, "/media/maxtor/series", delete)    
             except Exception as e:
-                self.logger.error("Error al organizar")
+                logger.error("Error al organizar")
                 errors.extend(["Error al organizar"]) 
             
             if restart:    
@@ -62,13 +63,13 @@ class AirTrapLauncher(object):
         errors = []
         
         for clnt in self.clients:
-            self.logger.info('conf_clnt: {0}'.format(clnt.conf))
+            logger.info('conf_clnt: {0}'.format(clnt.conf))
             plugs = clnt.plugins 
             
             if plugs:
-                self.logger.info('plugins: {0}'.format(len(plugs)))
+                logger.info('plugins: {0}'.format(len(plugs)))
             else:
-                self.logger.error('No tenemos plugins')
+                logger.error('No tenemos plugins')
                 errors.extend(["No tenemos plugins"])
             
             for serie in series_update:
@@ -80,26 +81,26 @@ class AirTrapLauncher(object):
                     try:
                         found_serie =instance.execute(request, filter=filter) #  Podemos filtrar para tardar menos, pero tendremos menos registros
                         found.extend(found_serie) 
-                        self.logger.info("********************* {} ".format(found_serie))
+                        logger.info("********************* {} ".format(found_serie))
                     except Exception, e:
-                        self.logger.error("El plugin a fallado {}: {}".format(instance, str(e)))
+                        logger.error("El plugin a fallado {}: {}".format(instance, str(e)))
                    
     
-                self.logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar en [[ {} ]]".format(len(found_serie), serie.nombre, clnt))
+                logger.info("Hemos encontrado [[ {} ]] para [[ {} ]] elementos para descargar en [[ {} ]]".format(len(found_serie), serie.nombre, clnt))
                 if found_serie:
                     try:
                         added_serie = self.__launch_transmission(found_serie,clnt.client, clnt.conf)
                         added.extend(added_serie)
-                        self.logger.info("[SERIES -- ]{} {}".format(serie,found_serie))
+                        logger.info("[SERIES -- ]{} {}".format(serie,found_serie))
                         if to_saved:
                             self.__updateSeries(serie, found_serie)
                     except Exception as e:
-                        self.logger.error("No hay o no esta activado el cliente para torrent")
+                        logger.error("No hay o no esta activado el cliente para torrent")
                         errors.extend(["No hay o no esta activado el cliente para torrent"])           
                     # try:
                     #   pass
                     # except Exception as e:
-                    #     self.logger.exception("message")("No se ha updateado la serie")
+                    #     logger.exception("message")("No se ha updateado la serie")
                     #     errors.extend(["No se ha updateado la serie {}".format(serie.nombre)])   
                 
         
@@ -114,7 +115,7 @@ class AirTrapLauncher(object):
             sessionFind = request.episode[:-2]
             episodeFind = request.episode[-2:]
 		
-            self.logger.info("[UPDATE SERIES] Nombre :{} Episodio: {}X{} -- {}".format(serie.nombre,sessionFind,episodeFind, datetime.now()))
+            logger.info("[UPDATE SERIES] Nombre :{} Episodio: {}X{} -- {}".format(serie.nombre,sessionFind,episodeFind, datetime.now()))
             # Aqui recuperamos el capitulo de la BBDD y le añadimos uno
             serieUltimoCapitulo = serie.ep_start
             regex = r".{2}S(\d{1,})E(\d{1,2})"
@@ -136,7 +137,7 @@ class AirTrapLauncher(object):
         try:
             return cli.allAddTorrent(urls,conf)
         except Exception as e:
-            self.logger.error(e)
+            logger.error(e)
             raise e;
 
 
@@ -147,7 +148,7 @@ class AirTrapLauncher(object):
         for plugin in plugins:
             if plugin.active:
                 pActiveFile = "merc.at.plugins.{0}".format(plugin.file)
-                self.logger.debug( "Plugin active:{0}:{1} ".format(pActiveFile, plugin.clazz))
+                logger.debug( "Plugin active:{0}:{1} ".format(pActiveFile, plugin.clazz))
             
                 klass = getattr(importlib.import_module(pActiveFile), plugin.clazz)
                 # Instantiate the class (pass arguments to the constructor, if needed)
@@ -169,8 +170,8 @@ class AirTrapLauncher(object):
                 # add to list
                 clients_trans.append(ClientTorrents(conf=conf, client=cln, plugins=plg_active))
             except Exception, e:
-                self.logger.warn(e)
-        self.logger.debug(clients_trans) 
+                logger.warn(e)
+        logger.debug(clients_trans) 
         return clients_trans
       
       
@@ -179,14 +180,10 @@ class AirTrapLauncher(object):
     def __init__(self, torrentservers, logger=None):
         
         if (logger):
-            self.logger = logger
-        else:
-           self.logger = logging.getLogger(__name__)
+            logger = logger
            
-        self.logger2 = logging.getLogger('daily')
-        
         self.clients = self.__getClientTorrents(torrentservers)
-        self.logger.debug("Clientes torrent seleccionados : {0}".format(self.clients));
+        logger.debug("Clientes torrent seleccionados : {0}".format(self.clients));
 
 
 
