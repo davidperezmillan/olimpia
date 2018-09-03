@@ -41,7 +41,8 @@ def findAndDestroy(series_update, torrentservers, filter_find=False, user=None, 
 def organizeProccess(author,args, options, torrentservers):
     # torrentservers = TorrentServers.objects.filter(author=author)
     logger.info('procceso de  {} con options {}'.format(author, options))
-    msg_reinicio = ''
+    msg_telegram = msgproperties.MSG_TELEGRAM
+    msg_reinicio = 'Sin reinicio'
     import merc.management.commands_utils
     receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
@@ -50,11 +51,11 @@ def organizeProccess(author,args, options, torrentservers):
             airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':options['delete'],'torrentservers':torrentservers, 'restart':options['restart']})
             airtraporganize_thread.start()
             if (options['nomsg'] is False):
-                merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"].format(msg_reinicio), user=author, receivers=receivers)
+                merc.at.hilos.utiles.sendTelegram(msg_telegram["organize"].format(msg_reinicio), user=author, receivers=receivers)
         else:
             airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':False,'torrentservers':torrentservers, 'restart':False})
             airtraporganize_thread.start()
-            merc.at.hilos.utiles.sendTelegram(msgproperties.MSG_TELEGRAM["organize"].format(msg_reinicio), user=author, receivers=receivers)
+            merc.at.hilos.utiles.sendTelegram(msg_telegram["organize"].format(msg_reinicio), user=author, receivers=receivers)
     except Exception, e:
         logger.error(e)
     
