@@ -42,12 +42,13 @@ def organizeProccess(author,args, options, torrentservers):
     # torrentservers = TorrentServers.objects.filter(author=author)
     logger.info('procceso de  {} con options {}'.format(author, options))
     msg_telegram = msgproperties.MSG_TELEGRAM
-    msg_reinicio = 'Sin reinicio'
+    msg_reinicio = ''
     import merc.management.commands_utils
     receivers = merc.management.commands_utils.utilgetreceivers(author)
     try:
         if options:
-            msg_reinicio=options["restart"] if options['restart'] else ''
+            if options['restart'] and options['restart'] is True:
+                msg_reinicio=msg_telegram['restart']
             airtraporganize_thread = merc.at.hilos.genthread.AirTrapOrganizeThread(kwargs={'delete':options['delete'],'torrentservers':torrentservers, 'restart':options['restart']})
             airtraporganize_thread.start()
             if (options['nomsg'] is False):
