@@ -176,15 +176,9 @@ class AirTrapLauncher(object):
       
       
     ## Constructor
-    def __init__(self, torrentservers, logger=None):
+    def __init__(self, torrentservers, logger=logging.getLogger(__name__)):
         
-        if (logger):
-            self.logger = logger
-        else:
-           self.logger = logging.getLogger(__name__)
-           
-        self.logger2 = logging.getLogger('daily')
-        
+        self.logger = logger
         self.clients = self.__getClientTorrents(torrentservers)
         self.logger.debug("Clientes torrent seleccionados : {0}".format(self.clients));
 
