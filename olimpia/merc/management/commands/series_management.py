@@ -66,6 +66,7 @@ class Command(BaseCommand):
                 if created:
                     logger.info("Agregamos {}".format(nombreSerie))
                     serie.skipped = True
+                    serie.author=author
                     serie.save()
                 else:
                     logger.info("La serie ya esta creada {}".format(nombreSerie))
