@@ -88,7 +88,7 @@ class SeriesAdmin(admin.ModelAdmin):
         return False if obj.skipped else True
     
     get_skipped.boolean = True
-    get_skipped.short_description = "Pausado"
+    get_skipped.short_description = "Skipped"
 
 admin.site.register(Series, SeriesAdmin)
 
