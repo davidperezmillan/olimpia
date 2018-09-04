@@ -23,6 +23,10 @@ from merc.modelsCustom import P_History
 import merc.at.plugins.utilesplugins as utilesplugins
 import merc.at.hilos.utiles
 
+
+# merc.at.properties.cmdproperties
+import merc.at.properties.cmdproperties as cmdproperties
+
 import logging
 # logger = logging.getLogger(__name__)
 logger = logging.getLogger("busquedas_especiales")
@@ -380,8 +384,7 @@ class Command(BaseCommand):
     def addTorrent(self,client, url):
         options = {}
         options['paused']=False
-        # options["download_dir"] = "/media/maxtor/ides/autodown/{}/{:%Y%m%d}".format(os.path.splitext(os.path.basename(__file__))[0],datetime.now())
- 	options["download_dir"] = "/media/maxtor/ides/autodown/{:%Y%m%d}/{}".format(datetime.now(),os.path.splitext(os.path.basename(__file__))[0])
+     	options["download_dir"] = cmdproperties.CMD_PATH_DOWNLOAD_TORRENT.format(datetime.now(),os.path.splitext(os.path.basename(__file__))[0])
         #  urllib.quote and urllib.unquote 
         logger.info("Add torrent url: {}".format(url))
         torrentadd = client.add_torrent(url, **options)
