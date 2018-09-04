@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 from merc.models import Series
 
-
+import re
 import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -51,7 +51,10 @@ class Command(BaseCommand):
             for nombreSerie in options['adds']:
                 
                 # limpieza
-                
+                # empty
+                if not nombreSerie:
+                    logger.warn("Se omite, linea vacia")
+                    continue
                 
                 # calidad
                 quality = "NR"
