@@ -60,7 +60,7 @@ class Command(BaseCommand):
                     nombreSerie = nombreSerie.replace("_VO", "").strip()
                 
                 
-                serie, created = Series.objects.get_or_create(nombre=nombreSerie, author=author, quality=quality) 
+                serie, created = Series.objects.get_or_create(nombre=nombreSerie, author=author) 
                 if created:
                     logger.info("Add {}".format(nombreSerie))
                     serie.skipped = True
