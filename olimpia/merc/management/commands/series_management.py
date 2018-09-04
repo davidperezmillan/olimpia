@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
  
 class Command(BaseCommand):
-    help = "Gestionar las series, \n\r por ahora solo add"
+    help = "Gestionar las series, \n\r por ahora solo agregar"
  
     def add_arguments(self, parser):
         # Positional arguments
@@ -20,12 +20,12 @@ class Command(BaseCommand):
         parser.add_argument('-f','--file', help='File Series adds', dest="file")
         
         # # Named (optional) arguments
-        # parser.add_argument(
-        #     '--delete',
-        #     action='store_true',
-        #     dest='delete',
-        #     help='Borramos la carpeta origen',
-        # )
+        parser.add_argument(
+            '--nouser',
+            action='store_true',
+            dest='nouser',
+            help='No agregamos si otro usuario tiene la serie',
+        )
         # parser.add_argument(
         #     '--restart',
         #     action='store_true',
@@ -59,16 +59,18 @@ class Command(BaseCommand):
                     quality = "VO"
                     nombreSerie = nombreSerie.replace("_VO", "").strip()
                 
-                
-                serie, created = Series.objects.get_or_create(nombre=nombreSerie, author=author) 
+                if options['nouser']:
+                    serie, created = Series.objects.get_or_create(nombre=nombreSerie) 
+                else:
+                    serie, created = Series.objects.get_or_create(nombre=nombreSerie, author=author) 
                 if created:
-                    logger.info("Add {}".format(nombreSerie))
+                    logger.info("Agregamos {}".format(nombreSerie))
                     serie.skipped = True
                     serie.save()
                 else:
                     logger.info("La serie ya esta creada {}".format(nombreSerie))
             
-            self.stdout.write('Successfully "{}"'.format(str(author)))
+            self.stdout.write('Finalizado "{}"'.format(str(author)))
         
         
     def get_series_files(self, file):
