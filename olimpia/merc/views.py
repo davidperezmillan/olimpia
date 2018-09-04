@@ -66,12 +66,51 @@ def portada(request):
 # ## Control, formulario Series
 @login_required(login_url='/accounts/login/')
 def list(request):
+    
+      
+    '''
+    if request.user.is_superuser:
+        latest_series_update = Series.objects.order_by('-ultima')
+        slopes_series = Series.objects.filter(skipped=True).order_by('-ultima')
+        paussed_series = Series.objects.filter(paussed=True).order_by('-ultima')
+    else:
+        latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
+        slopes_series = Series.objects.filter(author=request.user).filter(skipped=True).order_by('-ultima')
+        paussed_series = Series.objects.filter(author=request.user).filter(paussed=True).order_by('-ultima')
+    '''
+    
     if request.user.is_superuser:
         latest_series_update = Series.objects.order_by('-ultima')
     else:
         latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
-    context = {'latest_series_update': latest_series_update}
-    return render(request, 'merc/series/list.html', context)
+    
+    	
+    follow_series = []
+    paussed_series = []
+    slopes_series = []
+    for serie in latest_series_update:
+        
+        if not serie.skipped and not serie.paussed:
+            follow_series.append(serie)
+        if serie.skipped:
+            slopes_series.append(serie)
+        elif serie.paussed:
+            paussed_series.append(serie)
+
+    
+    context = {'follow_series':follow_series,'slopes_series': slopes_series, 'paussed_series': paussed_series,'latest_series_update': latest_series_update}
+    context2 = {'s_follow':len(follow_series),'s_slopes': len(slopes_series), 's_paussed': len(paussed_series),'s_latest': len(latest_series_update)}
+    context.update(context2)
+    return render(request, 'merc/series/index.html', context)
+    # return redirect('list')
+    
+    # Antiguo
+    # if request.user.is_superuser:
+    #     latest_series_update = Series.objects.order_by('-ultima')
+    # else:
+    #     latest_series_update = Series.objects.filter(author=request.user).order_by('-ultima')
+    # context = {'latest_series_update': latest_series_update}
+    # return render(request, 'merc/series/list.html', context)
 
 @login_required(login_url='/accounts/login/')
 def control(request):
