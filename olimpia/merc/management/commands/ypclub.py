@@ -43,8 +43,8 @@ class Command(BaseCommand):
     path_url_torrent = 'https://myporn.club/torrent/'
     
     PATH_LOG=os.path.join(settings.BASE_DIR,'../data/olimpia')
-    logger_INC = None
-    logger_EXC = None
+    fileINC = "{}/WTCHD_CLUB_INCLUIDOS.dat".format(os.path.join(PATH_LOG, 'report'))
+    fileEXC = "{}/WTCHD_CLUB_EXCLUIDOS.dat".format(os.path.join(PATH_LOG, 'report'))
     
     
     def add_arguments(self, parser):
@@ -156,13 +156,13 @@ class Command(BaseCommand):
                 registro = "::{}::{}::{}::[]".format(trrt['title'], trrt['url_torrent'], trrt['tags'])
             else:
                 registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], trrt['tags'])
-            self.logger_INC.info(registro)
+            self.append_in_files(self.fileINC,registro)
         for trrt in listaNoTorrent:
             if self.lite:
                 registro = "::{}::{}::{}::[]".format(trrt['title'], trrt['url_torrent'], trrt['tags'])
             else:
                 registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], trrt['tags'])
-            self.logger_EXC.info(registro)        
+            self.append_in_files(self.fileEXC,registro)     
 
         if not self.test and listaTorrent:
             self.loopAddTorrent(listaTorrent)          
@@ -175,7 +175,7 @@ class Command(BaseCommand):
             sitems = ""
             sFinal = ""
             for item in listaTorrent:
-                sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["tags"]) 
+                sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["tags"].encode('utf-8').strip()) 
             msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
             merc.at.hilos.utiles.sendTelegram(msg, user=self.author, receivers=self.receivers)
     
@@ -192,8 +192,8 @@ class Command(BaseCommand):
         self.lite = options["lite"] or False
         self.pages = options["pages"] or 1
         
-        self.logger_INC = self.getHandlerIncluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD_CLUB")
-        self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD_CLUB")
+        self.create_files(self.fileINC)
+        self.create_files(self.fileEXC)
         
         for user in options['author']:
             logger.info('Ejecutando busqueda especial {}'.format(user))
@@ -236,38 +236,16 @@ class Command(BaseCommand):
     
     
     
-    ### Helper  ### 
-    def getHandlerExcluidosInfo(self, dirname,filename):
-        logger.info("DENTRO {}".format("getHandlerExcluidosInfo"))
-        from logging.handlers import TimedRotatingFileHandler
-        from logging import FileHandler
-        lFormatter = logging.Formatter('%(asctime)s - %(message)s')
-        
-        logger_EXC = logging.getLogger('loggerEXC')
-        logger_EXC.setLevel(logging.INFO)
-        lFormatter_EXC = lFormatter
-        # handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
-        handlerE = FileHandler("{}/{}_EXCLUIDOS.dat".format(dirname,filename), mode='w',)
-        logger_EXC.addHandler(handlerE)
-
-        return logger_EXC    
-        
-    def getHandlerIncluidosInfo(self,dirname, filename):
-        logger.info("DENTRO {}".format("getHandlerIncluidosInfo"))
-        from logging.handlers import TimedRotatingFileHandler
-        from logging import FileHandler
-        lFormatter = logging.Formatter('%(asctime)s - %(message)s')
-        
-        logger_INC = logging.getLogger('loggerINC')
-        logger_INC.setLevel(logging.INFO)
-        lFormatter_INC = lFormatter
-        # handlerI = FileHandler("{}/{:%H%M_%Y%m%d}_{}_INCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
-        handlerI = FileHandler("{}/{}_INCLUIDOS.dat".format(dirname,filename), mode='w',)
-        logger_INC.addHandler(handlerI)
-
-        return logger_INC    
-
-
+    #### Helper  ### 
+    def create_files(self,namefile):
+        f = open (namefile,'w')
+        f.close()
+    
+    def append_in_files(self, namefile, text="", line_break=True):
+        f=open(namefile,"a")
+        record = '{0}\n'.format(text) if line_break else '{}'.format(text)
+        f.write(record.encode('utf-8'))
+        f.close()
 
 
 

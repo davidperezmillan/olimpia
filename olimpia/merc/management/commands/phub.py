@@ -57,8 +57,8 @@ class Command(BaseCommand):
     excluidos =  ["BISEXUAL", "LESBIAN", "INTERRACIAL", "SOLO", "JAV", "ASIAN"]   
     incluidos = [["THREESOME", "BIG TITS"],]
     
-    logger_INC = None
-    logger_EXC = None
+    fileINC = "{}/WTCHD_CLUB_INCLUIDOS.dat".format(os.path.join(PATH_LOG, 'report'))
+    fileEXC = "{}/WTCHD_CLUB_EXCLUIDOS.dat".format(os.path.join(PATH_LOG, 'report'))
     
     help = "Para buscar, lo que buscar debes hacer:" 
  
@@ -104,8 +104,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         
-        self.logger_INC = self.getHandlerIncluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
-        self.logger_EXC = self.getHandlerExcluidosInfo(os.path.join(self.PATH_LOG, 'report'),"WTCHD")
         
         
         for user in options['author']:
@@ -258,7 +256,6 @@ class Command(BaseCommand):
                         listaTorrent.append({"title":title,"file_name":file_name,"url":url.strip(),"category":category})                            
                     
                 else:
-                    # logger_EXC.info("::{}::{}::{}::".format(title.strip(), url.strip(), category))
                     listaNoTorrent.append({"title":title,"file_name":None,"url":url.strip(),"category":category})
                     pass
             count=count+1
@@ -305,7 +302,7 @@ class Command(BaseCommand):
         
     
         if not category:
-            self.logger_EXC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
+            self.append_in_files(self.fileEXC,"::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
             return False, title, category
         
         for inc in self.incluidos:
@@ -335,10 +332,10 @@ class Command(BaseCommand):
         
         if respuesta:
             logger.info("[ACEPTADO] -> Title: {} --> Category: {}".format(title, category))
-            self.logger_INC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category])) 
+            self.append_in_files(self.fileINC,"::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category])) 
         else:
             logger.warn("[RECHAZADO] -> Title: {} --> Category: {}".format(title, category))
-            self.logger_EXC.info("::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
+            self.append_in_files(self.fileEXC,"::{}::{}::{}::{}".format(title.strip(),sUrlShow.strip(),urlTorrent if urlTorrent else '',[str(cat) for cat in category]))
             pass
             
         return respuesta, title, category
@@ -392,32 +389,12 @@ class Command(BaseCommand):
         
         
     ### Helper  ### 
-    def getHandlerExcluidosInfo(self, dirname,filename):
-        logger.info("DENTRO {}".format("getHandlerExcluidosInfo"))
-        from logging.handlers import TimedRotatingFileHandler
-        from logging import FileHandler
-        lFormatter = logging.Formatter('%(asctime)s - %(message)s')
-        
-        logger_EXC = logging.getLogger('loggerEXC')
-        logger_EXC.setLevel(logging.INFO)
-        lFormatter_EXC = lFormatter
-        # handlerE = FileHandler("{}/{:%H%M_%Y%m%d}_{}_EXCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
-        handlerE = FileHandler("{}/{}_EXCLUIDOS.dat".format(dirname,filename), mode='w',)
-        logger_EXC.addHandler(handlerE)
-
-        return logger_EXC    
-        
-    def getHandlerIncluidosInfo(self,dirname, filename):
-        logger.info("DENTRO {}".format("getHandlerIncluidosInfo"))
-        from logging.handlers import TimedRotatingFileHandler
-        from logging import FileHandler
-        lFormatter = logging.Formatter('%(asctime)s - %(message)s')
-        
-        logger_INC = logging.getLogger('loggerINC')
-        logger_INC.setLevel(logging.INFO)
-        lFormatter_INC = lFormatter
-        # handlerI = FileHandler("{}/{:%H%M_%Y%m%d}_{}_INCLUIDOS.dat".format(dirname,datetime.now(), filename), mode='w',)
-        handlerI = FileHandler("{}/{}_INCLUIDOS.dat".format(dirname,filename), mode='w',)
-        logger_INC.addHandler(handlerI)
-
-        return logger_INC
+    def create_files(self,namefile):
+        f = open (namefile,'w')
+        f.close()
+    
+    def append_in_files(self, namefile, text="", line_break=True):
+        f=open(namefile,"a")
+        record = '{0}\n'.format(text) if line_break else '{}'.format(text)
+        f.write(record.encode('utf-8'))
+        f.close()
