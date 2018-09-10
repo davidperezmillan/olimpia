@@ -248,9 +248,13 @@ class TorrentLocuraHandlerClass(object):
             item.link = url
         else:
             item.link = soup.title.string.encode('ascii', 'ignore').strip().replace('\n','')
+        try:
+            item.torrent, self.proxy = utilesplugins.saveFileurllib(item.link, "{}_{}".format(item.title,item.episode),proxies=self.proxy)
+            self.logger.info("Recogido el {} ".format(item.torrent))
+        except Exception, e:
+            self.logger.warn("Por alguna razon no hemos recuperado el torrent (fichero)", exc_info=True)
+            
         
-        item.torrent, self.proxy = utilesplugins.saveFileurllib(item.link, "{}_{}".format(item.title,item.episode),proxies=self.proxy)
-        self.logger.info("Recogido el {} ".format(item.torrent))
         return item
   
     def __getPreciseTitle(self,enlaces):
