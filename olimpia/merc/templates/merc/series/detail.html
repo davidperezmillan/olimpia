@@ -64,9 +64,15 @@
         {% csrf_token %}
         {% if request.user.is_superuser %}
             <div class="row uniform ">
-                <div class="12u 12u(mobilep)">
+                <div class="10u 12u(mobilep)">
                     <label>{{ form.author.label_tag }} </label> <div class="select-wrapper">{{ form.author }}</div>
                 </div>
+                {% if serie %} 
+                <div class="2u 12u(mobilep)">
+                    <label>&nbsp </label>
+                    <input type="button" onclick="window.location='{% url 'launch_unique' serie.id %}'" value="Lanzar" class="special"  />
+                </div>
+                {% endif %}
             </div>
         {% endif %}
         
