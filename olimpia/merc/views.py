@@ -397,6 +397,7 @@ def __get_latest_file(path, *paths):
     
 def __getFileWrapper(latest_update,pattern, origen=""):
     path = os.path.join(settings.BASE_DIR,'../data/olimpia/report')
+
      # Vamos a coger el ultimo archivo de la carpeta en cuestion
     fname = __get_latest_file(path,pattern)
     if fname:
@@ -417,7 +418,8 @@ def __getFileWrapper(latest_update,pattern, origen=""):
                 link = linea[2] if len(linea) >= 3 else ""
                 trr =  linea[3] if len(linea) >= 4 else ""
                 # logger.info("Categoria : {} ".format(linea[-1]))
-                sCat = linea[-1].replace( "[", "").replace( "]", "").replace(", ",",")
+                sCat = linea[-1].replace( "[", "").replace( "]", "").replace(", ",", ")
+                sCat = sCat.replace("u'","'")
                 lDict = {"origen":origen,"title":titulo,"link":link,"cat":sCat,"fch":fname, "trr":trr}
                 logger.info("Elemento : {}".format(lDict))
                 latest_update.append(lDict)
