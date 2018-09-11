@@ -171,13 +171,25 @@ class Command(BaseCommand):
 
         # Construimos y enviamos el mensaje
         if not options['test']:
-            msgHeader = "Hemos encontrado en yp {} de {} \n\r".format(len(listaTorrent), len(listaNoTorrent))
-            sitems = ""
-            sFinal = ""
-            for item in listaTorrent:
-                sitems = "{0}{1}.\t {2}  \n\r".format(sitems,item['title'].encode('utf-8').strip(), item["tags"]) 
-            msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
-            merc.at.hilos.utiles.sendTelegram(msg, user=self.author, receivers=self.receivers)
+	    logger.info("Creamos el mensaje")
+	    try:
+            	msgHeader = "Hemos encontrado en yp {} de {} \n\r".format(len(listaTorrent), len(listaNoTorrent))
+	        sitems = ""
+        	sFinal = ""
+		for item in listaTorrent:
+			try:
+				elemento = item['title'].encode('utf-8').strip()
+				lTags = [x.encode('utf-8') for x in item["tags"]]
+        			sitems = "{0}{1}.\t {2}  \n\r".format(sitems,elemento.encode('utf-8'), lTags) 
+			except Exception:
+				logger.warn("titulo ilegible")
+				sitems = "{0}{1}.\t {2}  \n\r".format(sitems,"Titulo ilegible", lTags) 
+	        msg = "{0}{1}{2}".format(msgHeader,sitems, sFinal)
+		logger.info("Mensaje a enviar: {}".format(msg))
+		merc.at.hilos.utiles.sendTelegram(msg, user=self.author, receivers=self.receivers)
+	    except Exception, e:
+		logger.warn(e)
+		logger.error("caught exception, traceback =", exc_info=True)
     
 
    
