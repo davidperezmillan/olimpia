@@ -152,16 +152,18 @@ class Command(BaseCommand):
         logger.info("Listado de admitidos: {} items ".format(len(listaTorrent)))
         logger.info("Listado de excluidos: {} items ".format(len(listaNoTorrent)))
         for trrt in listaTorrent:
+            lTags = [x.encode('utf-8') for x in trrt["tags"]]
             if self.lite:
-                registro = "::{}::{}::{}::[]".format(trrt['title'], trrt['url_torrent'], trrt['tags'])
+                registro = "::{}::{}::{}::[]".format(trrt['title'], trrt['url_torrent'], lTags)
             else:
-                registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], trrt['tags'])
+                registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], lTags)
             self.append_in_files(self.fileINC,registro)
         for trrt in listaNoTorrent:
+            lTags = [x.encode('utf-8') for x in trrt["tags"]]
             if self.lite:
-                registro = "::{}::{}::{}::[]".format(trrt['title'], trrt['url_torrent'], trrt['tags'])
+                registro = "::{}::{}::{}::[]".format(trrt['title'], trrt['url_torrent'], lTags)
             else:
-                registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], trrt['tags'])
+                registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], lTags)
             self.append_in_files(self.fileEXC,registro)     
 
         if not self.test and listaTorrent:
