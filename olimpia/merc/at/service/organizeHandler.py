@@ -19,11 +19,11 @@ class Organize(object):
         self.logger.info("Reinicio de los servicios")
         sudo_password = 'clon9897'
         cmd1 = subprocess.Popen(['echo',sudo_password], stdout=subprocess.PIPE)
-        cmd2 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'stop'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
+        # cmd2 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'stop'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
         cmd3 = subprocess.Popen(['sudo','-S'] + ['sudo', 'minidlnad', '-R', 'stop'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
-        cmd4 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'start'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
+        # cmd4 = subprocess.Popen(['sudo','-S'] + ['sudo', 'service', 'minidlna', 'start'], stdin=cmd1.stdout, stdout=subprocess.PIPE)
     
-        output = cmd4.stdout.read().decode()
+        output = cmd3.stdout.read().decode()
         self.logger.info("Fin de reinicio de los servicios")
         return output
     
