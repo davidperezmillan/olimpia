@@ -114,7 +114,12 @@ class Command(BaseCommand):
                 item_torrent = {'title':title, 'tags':tags, 'alphaid': alphaid,'url_torrent':url_torrent, 'page': npage}
                 listaNoTorrent.append(item_torrent)
     
-    
+                sLife = torrent_element_info.find_all(text=re.compile("\[size]"))[0].findNext("span",{"class":"teiv"}).text
+                fLife = float(sLife.split()[0])
+                item_torrent['life']=sLife
+                
+                # if sLife < self.options['life']:
+                    
                 ## 
                 try:
                     page, proxy = utilesplugins.toggleproxy(url_torrent)
@@ -123,8 +128,8 @@ class Command(BaseCommand):
                     torrent_info_div = torrent_div.find_all("div", {"class" : "torrent_info_div"})[0]
                     torrent_download_div = torrent_div.find_all("div", {"class" : "torrent_download_div"})[0]
                 except Exception, e:
-		    logger.fatal(e, ext_info=True)
-		    raise e
+        		    logger.fatal(e, ext_info=True)
+        		    raise e
                 try:
                     ##Recupermoas el video
                     torrent_links = torrent_info_div.find_all("div", {"class" : "torrent_links"})[0]
