@@ -71,6 +71,8 @@ class Command(BaseCommand):
         parser.add_argument('-i','--incluidos', help='tag incluidos', nargs='+', dest="incluidos")
         parser.add_argument('-e','--excluidos', help='tag excluidos', nargs='+', dest="excluidos")
         
+        parser.add_argument('-t','--tamano', help='Vida comparada', dest="tam", type=float, default=0,)
+        
         pass
 
 
@@ -118,8 +120,6 @@ class Command(BaseCommand):
                 fLife = float(sLife.split()[0])
                 item_torrent['life']=sLife
                 
-                # if sLife < self.options['life']:
-                    
                 ## 
                 try:
                     page, proxy = utilesplugins.toggleproxy(url_torrent)
@@ -133,8 +133,8 @@ class Command(BaseCommand):
                 try:
                     ##Recupermoas el video
                     torrent_links = torrent_info_div.find_all("div", {"class" : "torrent_links"})[0]
-                    video = torrent_links["data-content"].split(",")[1]
-                    item_torrent['video']=video
+                    video = torrent_links["data-content"].split(",")[1].replace("\\\"", "")
+                    item_torrent['video']="https:{}".format(video)
                 except Exception, e:
                     logger.warn("No se ha encontrado el video")
                     pass
@@ -144,16 +144,21 @@ class Command(BaseCommand):
                 item_torrent['torrent']=td_btn
                 item_torrent['magnet']=md_btn
                 
-                if self.insideFilter(item_torrent['tags']):
-                    # Comprobamos que no esta en la BBDD
-                    created = P_History.objects.filter(title=item_torrent['title'],plugin=2, down=True).exists()
-                    if created:
-                        logger.info('Ya existia el registro')
-                    else:
-                        listaTorrent.append(item_torrent)
-                
+                ## Filtramos por duracion
+                if fLife > options['tam']:
+                    logger.info("vida correcta {}".format(sLife))
+                    if self.insideFilter(item_torrent['tags']):
+                        # Comprobamos que no esta en la BBDD
+                        created = P_History.objects.filter(title=item_torrent['title'],plugin=2, down=True).exists()
+                        if created:
+                            logger.info('Ya existia el registro')
+                        else:
+                            listaTorrent.append(item_torrent)
+                else:
+                    # logger.warn("Demasiado corto: {}".format(sLife))
+                    pass    
             
-            
+        ### Creamos los registros para los ficheros de la web    
         logger.info("Listado de admitidos: {} items ".format(len(listaTorrent)))
         logger.info("Listado de excluidos: {} items ".format(len(listaNoTorrent)))
         for trrt in listaTorrent:
@@ -171,8 +176,19 @@ class Command(BaseCommand):
                 registro = "::{}::{}::{}::{}".format(trrt['title'], trrt['url_torrent'],trrt['torrent'], lTags)
             self.append_in_files(self.fileEXC,registro)     
 
-        if not self.test and listaTorrent:
-            self.loopAddTorrent(listaTorrent)          
+
+        if listaTorrent: # si hay torrent para descargar
+            if not self.test: # si no estamos en test
+               self.loopAddTorrent(listaTorrent) 
+            for torrent in listaTorrent:
+                filepreview = "{}.mp3".format(torrent["alphaid"])
+                filepathpreview = cmdproperties.CMD_PATH_DOWNLOAD_PREVIEW.format(filepreview)
+                urllib.urlretrieve(torrent['video'], filepathpreview)
+
+        
+        # Descargamos     
+        # if not self.test and listaTorrent:
+        #     self.loopAddTorrent(listaTorrent)          
 
 
 
