@@ -23,6 +23,8 @@
 				<ul>
 					<li><a href="{% url 'portada' %}">Inicio</a></li>
 					{% if user.is_authenticated %}
+					<!--<li><a href="{% url 'control' %}"><span class="icon fa-plus-circle small">.</span></a></li>-->
+					<li class="nav-item"> <a class="nav-link" href="{% url 'control' %}"><i class="fa fa-plus-circle"></i><span class="sr-only">Añadir Serie</span></a></li>
 					<li>
 						<a href="#" class="icon fa-angle-down">Menus</a>
 						<ul>
